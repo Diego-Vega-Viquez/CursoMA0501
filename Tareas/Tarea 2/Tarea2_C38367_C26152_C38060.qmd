@@ -67,6 +67,48 @@ d) $\quad p = 90$
 
 ## Solución
 
+Vea que si $P^*$ aproxima a $P$ con 3 dígitos significativos eso significa que 
+
+\begin{align*}
+\frac{|P - P^*|}{|P|} &< 0.5 \times 10^{-t+1} \\[1ex]
+|P - P^*| &< 0.5 \times 10^{-t+1}\,|P| \\[1ex]
+P - 0.5 \times 10^{-t+1}\,|P| &< P^* < P + 0.5 \times 10^{-t+1}\,|P|
+\end{align*}
+
+Por lo que se puede concluir que el intervalo en el cual $p*$ debe estar es
+
+$$
+](1 - 0.5 \times 10^{-t+1})\,|P|, (1 + 0.5 \times 10^{-t+1})\,|P|[
+$$
+```{r}
+#| code-fold: true
+# Definir el valor de t
+t <- 3
+
+# Función que devuelve los extremos del intervalo como fila de una tabla
+intervalo <- function(P, t) {
+  margen <- 0.5 * 10^(-t + 1)
+  inferior <- P * (1 - margen)
+  superior <- P * (1 + margen)
+  data.frame(
+    P = P,
+    t = t,
+    Limite_Inferior = round(inferior, 4),
+    Limite_Superior = round(superior, 4)
+  )
+}
+
+# Crear tabla con los resultados para varios valores de P
+tabla_intervalos <- rbind(
+  intervalo(150, t),
+  intervalo(900, t),
+  intervalo(1500, t),
+  intervalo(90, t)
+)
+
+# Mostrar la tabla (Quarto renderiza automáticamente como tabla bonita)
+kableExtra::kable(tabla_intervalos)
+```
 
 
 # Ejercicio 2
