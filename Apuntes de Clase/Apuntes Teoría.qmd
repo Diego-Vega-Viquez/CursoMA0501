@@ -234,23 +234,14 @@ $$
 
 **1.**
 
-$$
+\begin{align*}
 \left| \frac{x - fl(x)}{x} \right|
-= \left| \frac{0.d_1 d_2 \cdots \times 10^n - 0.d_1 d_2 \cdots d_k \times 10^n}{0.d_1 d_2 \cdots \times 10^n} \right|
-$$
-
-$$
-= \left| \frac{0.d_{k+1} d_{k+2} \cdots \times 10^{n-k}}{0.d_1 d_2 \cdots \times 10^n} \right|
-$$
-
-$$
-= \left| \frac{0.d_{k+1} d_{k+2} \cdots}{0.d_1 d_2 \cdots} \right| \times 10^{-k}
-\;\;\le\;\; \frac{1}{0.1} \times 10^{-k}
-$$
-
-$$
-= 10^{-k+1}.
-$$
+&= \left| \frac{0.d_1 d_2 \cdots \times 10^n - 0.d_1 d_2 \cdots d_k \times 10^n}{0.d_1 d_2 \cdots \times 10^n} \right| \\[1ex]
+&= \left| \frac{0.d_{k+1} d_{k+2} \cdots \times 10^{n-k}}{0.d_1 d_2 \cdots \times 10^n} \right| \\[1ex]
+&= \left| \frac{0.d_{k+1} d_{k+2} \cdots}{0.d_1 d_2 \cdots} \right| \times 10^{-k} \\[1ex]
+&\le \frac{1}{0.1} \times 10^{-k} \\[1ex]
+&= 10^{-k+1}.
+\end{align*}
 
 ---
 

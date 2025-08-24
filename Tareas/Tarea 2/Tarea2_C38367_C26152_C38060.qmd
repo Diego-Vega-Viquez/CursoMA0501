@@ -153,7 +153,7 @@ $$
 ::: {.callout-note}
 ## Instrucción
 
-Suponga que $\text{fl}(x)$ es una aproximación de $x$ con redondeo a $k$ dígitos.  
+Suponga que ${fl}(x)$ es una aproximación de $x$ con redondeo a $k$ dígitos.  
 Demuestre que:
 
 $$
@@ -163,6 +163,10 @@ $$
 :::
 
 ## Solución
+
+Ya que ${fl}(x)$ es una aproximación de $x$ con redondeo a $k$ dígitos eso significa que podemos escribir ${fl}(x)$ de la siguiente forma
+
+$${fl}(x) = 0.d_1 d_2 \cdots d_k \times 10^{n}$$
 
 
 # Ejercicio 5
