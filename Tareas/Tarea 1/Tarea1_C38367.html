@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.56">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Diego Alberto Vega Víquez">
+
+<title>MA0501 – Tarea 1</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Tarea1_C38367_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Tarea1_C38367_files/libs/quarto-html/quarto.js"></script>
+<script src="Tarea1_C38367_files/libs/quarto-html/popper.min.js"></script>
+<script src="Tarea1_C38367_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Tarea1_C38367_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Tarea1_C38367_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Tarea1_C38367_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Tarea1_C38367_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Tarea1_C38367_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Tarea1_C38367_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#ejercicio-1" id="toc-ejercicio-1" class="nav-link active" data-scroll-target="#ejercicio-1">Ejercicio 1</a></li>
+  <li><a href="#ejercicio-2" id="toc-ejercicio-2" class="nav-link" data-scroll-target="#ejercicio-2">Ejercicio 2</a></li>
+  <li><a href="#ejercicio-3" id="toc-ejercicio-3" class="nav-link" data-scroll-target="#ejercicio-3">Ejercicio 3</a></li>
+  <li><a href="#ejercicio-4" id="toc-ejercicio-4" class="nav-link" data-scroll-target="#ejercicio-4">Ejercicio 4</a></li>
+  <li><a href="#ejercicio-5" id="toc-ejercicio-5" class="nav-link" data-scroll-target="#ejercicio-5">Ejercicio 5</a></li>
+  <li><a href="#ejercicio-6" id="toc-ejercicio-6" class="nav-link" data-scroll-target="#ejercicio-6">Ejercicio 6</a></li>
+  <li><a href="#ejercicio-7" id="toc-ejercicio-7" class="nav-link" data-scroll-target="#ejercicio-7">Ejercicio 7</a></li>
+  <li><a href="#ejercicio-8" id="toc-ejercicio-8" class="nav-link" data-scroll-target="#ejercicio-8">Ejercicio 8</a></li>
+  <li><a href="#ejercicio-9" id="toc-ejercicio-9" class="nav-link" data-scroll-target="#ejercicio-9">Ejercicio 9</a></li>
+  <li><a href="#ejercicio-10" id="toc-ejercicio-10" class="nav-link" data-scroll-target="#ejercicio-10">Ejercicio 10</a></li>
+  <li><a href="#ejercicio-11" id="toc-ejercicio-11" class="nav-link" data-scroll-target="#ejercicio-11">Ejercicio 11</a></li>
+  <li><a href="#ejercicio-12" id="toc-ejercicio-12" class="nav-link" data-scroll-target="#ejercicio-12">Ejercicio 12</a></li>
+  <li><a href="#ejercicio-13" id="toc-ejercicio-13" class="nav-link" data-scroll-target="#ejercicio-13">Ejercicio 13</a></li>
+  <li><a href="#ejercicio-14" id="toc-ejercicio-14" class="nav-link" data-scroll-target="#ejercicio-14">Ejercicio 14</a></li>
+  <li><a href="#ejercicio-15" id="toc-ejercicio-15" class="nav-link" data-scroll-target="#ejercicio-15">Ejercicio 15</a></li>
+  <li><a href="#ejercicio-16" id="toc-ejercicio-16" class="nav-link" data-scroll-target="#ejercicio-16">Ejercicio 16</a></li>
+  <li><a href="#ejercicio-17" id="toc-ejercicio-17" class="nav-link" data-scroll-target="#ejercicio-17">Ejercicio 17</a></li>
+  <li><a href="#ejercicio-18" id="toc-ejercicio-18" class="nav-link" data-scroll-target="#ejercicio-18">Ejercicio 18</a></li>
+  <li><a href="#ejercicio-19" id="toc-ejercicio-19" class="nav-link" data-scroll-target="#ejercicio-19">Ejercicio 19</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Otros formatos</h2><ul><li><a href="Tarea1_C38367.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">MA0501 – Tarea 1</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Autor/a</div>
+    <div class="quarto-title-meta-contents">
+             <p>Diego Alberto Vega Víquez <a href="mailto:diegovv13@gmail.com" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Fecha de publicación</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">16 de agosto de 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="ejercicio-1" class="level1">
+<h1>Ejercicio 1</h1>
+<p>Dado:</p>
+<p><span class="math display">
+x = (3, -5, 31, -1, -9, 10, 0, 18) \qquad y = (1, 1, -3, 1, -99, -10, 10, -7)
+</span></p>
+<p>Realice:</p>
+<p>1. Introduzca <code>x</code> y <code>y</code> como vectores en R.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="sc">-</span><span class="dv">5</span>, <span class="dv">31</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">18</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">3</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">99</span>, <span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="sc">-</span><span class="dv">7</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>2. Calcule media, varianza, raíz cuadrada y desviación estándar de <code>y</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-2"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1">1</button><span id="annotated-cell-2-1" class="code-annotation-target"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(y)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="2">2</button><span id="annotated-cell-2-2" class="code-annotation-target"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(y)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="3">3</button><span id="annotated-cell-2-3" class="code-annotation-target"><a href="#annotated-cell-2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(y)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="4">4</button><span id="annotated-cell-2-4" class="code-annotation-target"><a href="#annotated-cell-2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(y)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="1" data-code-annotation="1">Media de y</span>
+</dd>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="2" data-code-annotation="2">Varianza de y</span>
+</dd>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="3" data-code-annotation="3">Raíz Cuadrada de y</span>
+</dd>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="4" data-code-annotation="4">Desviación Estandar de y</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -13.25
+[1] 1236.786
+[1] 1.000000 1.000000      NaN 1.000000      NaN      NaN 3.162278      NaN
+[1] 35.16796</code></pre>
+</div>
+</div>
+<p>3. Calcule media, varianza, raíz cuadrada y desviación estándar de <code>x</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-3"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="5">5</button><span id="annotated-cell-3-1" class="code-annotation-target"><a href="#annotated-cell-3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="6">6</button><span id="annotated-cell-3-2" class="code-annotation-target"><a href="#annotated-cell-3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(x)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="7">7</button><span id="annotated-cell-3-3" class="code-annotation-target"><a href="#annotated-cell-3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(x)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="8">8</button><span id="annotated-cell-3-4" class="code-annotation-target"><a href="#annotated-cell-3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(x)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-3" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="1" data-code-annotation="5">Media de x</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="6">6</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="2" data-code-annotation="6">Varianza de x</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="7">7</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="3" data-code-annotation="7">Raíz Cuadrada de x</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="8">8</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="4" data-code-annotation="8">Desviación Estandar de x</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.875
+[1] 174.9821
+[1] 1.732051      NaN 5.567764      NaN      NaN 3.162278 0.000000 4.242641
+[1] 13.22808</code></pre>
+</div>
+</div>
+<p>4. Calcule la correlación entre <code>x</code> y <code>y</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(x,y)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3659679</code></pre>
+</div>
+</div>
+<p>5. Comando en R para extraer entradas 2 a 7 de <code>x</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>x[<span class="dv">2</span><span class="sc">:</span><span class="dv">7</span>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -5 31 -1 -9 10  0</code></pre>
+</div>
+</div>
+<p>6. Comando en R para extraer entradas de <code>y</code> excepto la 2 y la 7.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>y[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">7</span>)]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]   1  -3   1 -99 -10  -7</code></pre>
+</div>
+</div>
+<p>7. Comando en R para extraer entradas de <code>y</code> menores a -3 o mayores a 10.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>y[(y <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">3</span>)<span class="sc">|</span>(y<span class="sc">&gt;</span><span class="dv">10</span>)]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -99 -10  -7</code></pre>
+</div>
+</div>
+<p>8. Comando en R para extraer entradas de <code>x</code> mayores a 0 y pares.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>x[(x<span class="sc">&gt;</span><span class="dv">0</span>)<span class="sc">&amp;</span>(x<span class="sc">%%</span><span class="dv">2</span><span class="sc">==</span><span class="dv">0</span>)]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10 18</code></pre>
+</div>
+</div>
+</section>
+<section id="ejercicio-2" class="level1">
+<h1>Ejercicio 2</h1>
+<p>Introduzca en R la matriz <span class="math inline">4 \times 3</span>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">12</span>), <span class="at">nrow=</span><span class="dv">4</span>, <span class="st">"byrow"</span><span class="ot">=</span><span class="st">"true"</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>A</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,]    1    2    3
+[2,]    4    5    6
+[3,]    7    8    9
+[4,]   10   11   12</code></pre>
+</div>
+</div>
+<p>Luego, obtenga algunos elementos de la matriz de la siguiente manera: <code>A[1,1:3]</code>, <code>A[1:4,2]</code>, <code>A[3,3]</code>, <code>A[11]</code>, <code>A[20]</code>, <code>A[5,4]</code>, <code>A[1,1,1]</code> y explique qué pasa en cada caso.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">1</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 3</code></pre>
+</div>
+</div>
+<p>El código anterior lo que hace es que retorna la primera fila de la matriz</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,<span class="dv">2</span>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  2  5  8 11</code></pre>
+</div>
+</div>
+<p>El código anterior retorna la 2da columna de la matriz</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">3</span>,<span class="dv">3</span>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9</code></pre>
+</div>
+</div>
+<p>El código anterior retorna la el valor que se encuentra en la entrada 3,3 de la matriz</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">11</span>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9</code></pre>
+</div>
+</div>
+<p>Aquí lo que pasa es que las matrices se almacenan por columnas: primero todos los elementos de la columna 1, luego los de la 2, y así sucesivamente. A[11] toma el 11.º elemento de ese vector interno, que corresponde a la fila 3, columna 3. Este valor depende de si la matriz se llenó por filas o por columnas.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">20</span>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA</code></pre>
+</div>
+</div>
+<p>En este caso da vacío pues vea que la matriz tiene <span class="math inline">3\times4=12</span> elementos por lo que no tiene sentido consultar la entrada del elemento 20 del vector equivalente a la matriz.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">5</span>,<span class="dv">4</span>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Este código da error debido a que se está solicitanto el valor de la entrada que se encuentra en la 5ta fila y en la 4ta columna, pero la matriz tiene solo 3 columnas y 4 filas.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Este código también da error, para explicar esto basta con recordar que que una matriz es una lista de listas, teniendo esto en cuenta se puede entender como un elemento en 2 dimensiones (filas, columnas), pero la consulta que se le está haciendo se pide una ‘tercera dimension’, para que esto fucione se tendría que trabajar con una lista de listas que tiene listas como contenido, graficamente se debería entender como un cubo en tres simensiones con ancho, largo y profundidad.</p>
+</section>
+<section id="ejercicio-3" class="level1">
+<h1>Ejercicio 3</h1>
+<p>Investigue para qué sirven los comandos de R <code>as.matrix(...)</code> y <code>as.data.frame(...)</code>. Explique y dé un ejemplo de cada uno.</p>
+<p><code>as.matrix(...)</code> es una función de R que tiene como objetivo convertir su argumento en una matriz, lo que dice su documentación es que “intenta” convertir su argumento en una matriz como la del ejemplo anterior.</p>
+<p><code>as.data.frame(...)</code> es una función que convierte su argumento en un objeto del tipo Data Frame, intuitivamente este objeto se puede entender como una tabla o base de dacos con columnas y filas, como una hoja de excel.</p>
+</section>
+<section id="ejercicio-4" class="level1">
+<h1>Ejercicio 4</h1>
+<p>Introduzca usando código R (no archivos) en un DataFrame la siguiente tabla de datos:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Peso</th>
+<th>Edad</th>
+<th>Nivel Educativo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>76</td>
+<td>25</td>
+<td>Lic</td>
+</tr>
+<tr class="even">
+<td>67</td>
+<td>23</td>
+<td>Bach</td>
+</tr>
+<tr class="odd">
+<td>55</td>
+<td>19</td>
+<td>Bach</td>
+</tr>
+<tr class="even">
+<td>57</td>
+<td>18</td>
+<td>Bach</td>
+</tr>
+<tr class="odd">
+<td>87</td>
+<td>57</td>
+<td>Dr</td>
+</tr>
+<tr class="even">
+<td>48</td>
+<td>13</td>
+<td>MSc</td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>peso <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">76</span>,<span class="dv">67</span>,<span class="dv">55</span>,<span class="dv">57</span>,<span class="dv">87</span>,<span class="dv">48</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>edad <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">25</span>,<span class="dv">23</span>,<span class="dv">19</span>,<span class="dv">18</span>,<span class="dv">57</span>,<span class="dv">13</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>nivel <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'Lic'</span>,<span class="st">'Bach'</span>,<span class="st">'Bach'</span>,<span class="st">'Bach'</span>,<span class="st">'Dr'</span>,<span class="st">'MSc'</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>matriz <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">'Peso'</span> <span class="ot">=</span> peso,</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>               <span class="st">'Edad'</span> <span class="ot">=</span> edad,</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>               <span class="st">`</span><span class="at">Nivel Educativo</span><span class="st">`</span> <span class="ot">=</span> nivel)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(matriz)</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Peso Edad Nivel.Educativo
+1   76   25             Lic
+2   67   23            Bach
+3   55   19            Bach
+4   57   18            Bach
+5   87   57              Dr
+6   48   13             MSc</code></pre>
+</div>
+</div>
+</section>
+<section id="ejercicio-5" class="level1">
+<h1>Ejercicio 5</h1>
+<p>En muchas ocasiones nos interesa hacer referencia a determinadas partes o componentes de un vector.<br>
+Defina el vector:</p>
+<p><span class="math display">
+x = (2, -5, 4, 6, -2, 8)
+</span></p>
+<p>Luego, a partir de este vector defina instrucciones en R para generar los siguientes vectores:</p>
+<ul>
+<li><span class="math inline">y = (2, 4, 6, 8)</span>, así definido <span class="math inline">y</span> es el vector formado por las componentes positivas de <span class="math inline">x</span>.</li>
+<li><span class="math inline">z = (-5, -2)</span>, así definido <span class="math inline">z</span> es el vector formado por las componentes negativas de <span class="math inline">x</span>.</li>
+<li><span class="math inline">v = (-5, 4, 6, -2, 8)</span>, así definido <span class="math inline">v</span> es el vector <span class="math inline">x</span> eliminada la primera componente.</li>
+<li><span class="math inline">w = (2, 4, -2)</span>, así definido <span class="math inline">w</span> es el vector <span class="math inline">x</span> tomando las componentes con índice impares, es decir, <span class="math inline">x[1] = 2</span>, <span class="math inline">x[3] = 4</span> y <span class="math inline">x[5] = -2</span>.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-18"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-18" data-target-annotation="1">1</button><span id="annotated-cell-18-1" class="code-annotation-target"><a href="#annotated-cell-18-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="sc">-</span><span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="sc">-</span><span class="dv">2</span>, <span class="dv">8</span>)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-18" data-target-annotation="2">2</button><span id="annotated-cell-18-2" class="code-annotation-target"><a href="#annotated-cell-18-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x[x <span class="sc">&gt;</span> <span class="dv">0</span>]</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-18" data-target-annotation="3">3</button><span id="annotated-cell-18-3" class="code-annotation-target"><a href="#annotated-cell-18-3" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> x[x <span class="sc">&lt;</span> <span class="dv">0</span>]</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-18" data-target-annotation="4">4</button><span id="annotated-cell-18-4" class="code-annotation-target"><a href="#annotated-cell-18-4" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> x[<span class="sc">-</span><span class="dv">1</span>]</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-18" data-target-annotation="5">5</button><span id="annotated-cell-18-5" class="code-annotation-target"><a href="#annotated-cell-18-5" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> x[(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x)) <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">1</span>]</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-18" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-18" data-code-lines="1" data-code-annotation="1">Vector x con valores positivos y negativos.</span>
+</dd>
+<dt data-target-cell="annotated-cell-18" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-18" data-code-lines="2" data-code-annotation="2">y: elementos positivos de x.</span>
+</dd>
+<dt data-target-cell="annotated-cell-18" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-18" data-code-lines="3" data-code-annotation="3">z: elementos negativos de x.</span>
+</dd>
+<dt data-target-cell="annotated-cell-18" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-18" data-code-lines="4" data-code-annotation="4">v: todos los elementos de x excepto el primero.</span>
+</dd>
+<dt data-target-cell="annotated-cell-18" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-18" data-code-lines="5" data-code-annotation="5">w: elementos en posiciones impares de x.</span>
+</dd>
+</dl>
+</div>
+</div>
+</section>
+<section id="ejercicio-6" class="level1">
+<h1>Ejercicio 6</h1>
+<p>Cargue la tabla de datos que está en el archivo <code>SAheartv.csv</code> y realice:</p>
+<ol type="1">
+<li>Calcule la dimensión de la tabla de datos.</li>
+<li>Despliegue las primeras 3 columnas de la tabla.</li>
+<li>Ejecute <code>summary()</code> y <code>str()</code> de los datos.</li>
+<li>Usando <code>cor()</code> de R calcule la correlación entre las variables <code>tobacco</code> y <code>alcohol</code>.</li>
+<li>Calcule la suma de las columnas con variables cuantitativas (numéricas).</li>
+<li>Calcule para todas las variables cuantitativas presentes en <code>SAheart.csv</code>: mínimo, máximo, media, mediana y para la variable <code>chd</code> determine la cantidad de <strong>Sí</strong> y <strong>No</strong>.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-19"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-19-1"><a href="#annotated-cell-19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="annotated-cell-19-2"><a href="#annotated-cell-19-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(</span>
+<span id="annotated-cell-19-3"><a href="#annotated-cell-19-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"~/Library/CloudStorage/OneDrive-UniversidaddeCostaRica/EMat/MA-0501/Recursos/Datos/Para la presentación/SAheart.csv"</span>,</span>
+<span id="annotated-cell-19-4"><a href="#annotated-cell-19-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">delim =</span> <span class="st">";"</span>, <span class="at">escape_double =</span> <span class="cn">FALSE</span>, <span class="at">trim_ws =</span> <span class="cn">TRUE</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-19" data-target-annotation="1">1</button><span id="annotated-cell-19-5" class="code-annotation-target"><a href="#annotated-cell-19-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="annotated-cell-19-6"><a href="#annotated-cell-19-6" aria-hidden="true" tabindex="-1"></a></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-19" data-target-annotation="2">2</button><span id="annotated-cell-19-7" class="code-annotation-target"><a href="#annotated-cell-19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(df)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-19" data-target-annotation="3">3</button><span id="annotated-cell-19-8" class="code-annotation-target"><a href="#annotated-cell-19-8" aria-hidden="true" tabindex="-1"></a>df[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-19" data-target-annotation="4">4</button><span id="annotated-cell-19-9" class="code-annotation-target"><a href="#annotated-cell-19-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df) ; <span class="fu">str</span>(df)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-19" data-target-annotation="5">5</button><span id="annotated-cell-19-10" class="code-annotation-target"><a href="#annotated-cell-19-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(df<span class="sc">$</span>tobacco, df<span class="sc">$</span>alcohol)</span>
+<span id="annotated-cell-19-11"><a href="#annotated-cell-19-11" aria-hidden="true" tabindex="-1"></a></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-19" data-target-annotation="6">6</button><span id="annotated-cell-19-12" class="code-annotation-target"><a href="#annotated-cell-19-12" aria-hidden="true" tabindex="-1"></a>cuantitativas <span class="ot">&lt;-</span> df[<span class="fu">sapply</span>(df, is.numeric)]</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-19" data-target-annotation="7">7</button><span id="annotated-cell-19-13" class="code-annotation-target"><a href="#annotated-cell-19-13" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(cuantitativas)</span>
+<span id="annotated-cell-19-14"><a href="#annotated-cell-19-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-19-15"><a href="#annotated-cell-19-15" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="annotated-cell-19-16"><a href="#annotated-cell-19-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">Minimo  =</span> <span class="fu">sapply</span>(cuantitativas, min),</span>
+<span id="annotated-cell-19-17"><a href="#annotated-cell-19-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">Maximo  =</span> <span class="fu">sapply</span>(cuantitativas, max),</span>
+<span id="annotated-cell-19-18"><a href="#annotated-cell-19-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">Media   =</span> <span class="fu">sapply</span>(cuantitativas, mean),</span>
+<span id="annotated-cell-19-19"><a href="#annotated-cell-19-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">Mediana =</span> <span class="fu">sapply</span>(cuantitativas, median)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-19" data-target-annotation="8">8</button><span id="annotated-cell-19-20" class="code-annotation-target"><a href="#annotated-cell-19-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="annotated-cell-19-21"><a href="#annotated-cell-19-21" aria-hidden="true" tabindex="-1"></a></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-19" data-target-annotation="9">9</button><span id="annotated-cell-19-22" class="code-annotation-target"><a href="#annotated-cell-19-22" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">as.factor</span>(df<span class="sc">$</span>chd))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-19" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-19" data-code-lines="5" data-code-annotation="1">Cargar la base de datos</span>
+</dd>
+<dt data-target-cell="annotated-cell-19" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-19" data-code-lines="7" data-code-annotation="2">Dimensión de la tabla</span>
+</dd>
+<dt data-target-cell="annotated-cell-19" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-19" data-code-lines="8" data-code-annotation="3">Despliegue de las primeras 3 columnas de la tabla</span>
+</dd>
+<dt data-target-cell="annotated-cell-19" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-19" data-code-lines="9" data-code-annotation="4">Resumen (summary()) y estructura (str()) de los datos</span>
+</dd>
+<dt data-target-cell="annotated-cell-19" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-19" data-code-lines="10" data-code-annotation="5">Calcular correlación entre tobacco y alcohol</span>
+</dd>
+<dt data-target-cell="annotated-cell-19" data-target-annotation="6">6</dt>
+<dd>
+<span data-code-cell="annotated-cell-19" data-code-lines="12" data-code-annotation="6">Filtrar variables cuantitativas</span>
+</dd>
+<dt data-target-cell="annotated-cell-19" data-target-annotation="7">7</dt>
+<dd>
+<span data-code-cell="annotated-cell-19" data-code-lines="13" data-code-annotation="7">Calcular la suma de las columnas numéricas</span>
+</dd>
+<dt data-target-cell="annotated-cell-19" data-target-annotation="8">8</dt>
+<dd>
+<span data-code-cell="annotated-cell-19" data-code-lines="20" data-code-annotation="8">Calcular mínimo, máximo, media y mediana para variables cuantitativas</span>
+</dd>
+<dt data-target-cell="annotated-cell-19" data-target-annotation="9">9</dt>
+<dd>
+<span data-code-cell="annotated-cell-19" data-code-lines="22" data-code-annotation="9">Contar cantidad de Sí y No en la variable chd</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 462  10
+# A tibble: 462 × 3
+     sbp tobacco   ldl
+   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+ 1   160   12     5.73
+ 2   144    0.01  4.41
+ 3   118    0.08  3.48
+ 4   170    7.5   6.41
+ 5   134   13.6   3.5 
+ 6   132    6.2   6.47
+ 7   142    4.05  3.38
+ 8   114    4.08  4.59
+ 9   114    0     3.83
+10   132    0     5.8 
+# ℹ 452 more rows
+      sbp           tobacco             ldl           adiposity    
+ Min.   :101.0   Min.   : 0.0000   Min.   : 0.980   Min.   : 6.74  
+ 1st Qu.:124.0   1st Qu.: 0.0525   1st Qu.: 3.283   1st Qu.:19.77  
+ Median :134.0   Median : 2.0000   Median : 4.340   Median :26.11  
+ Mean   :138.3   Mean   : 3.6356   Mean   : 4.740   Mean   :25.41  
+ 3rd Qu.:148.0   3rd Qu.: 5.5000   3rd Qu.: 5.790   3rd Qu.:31.23  
+ Max.   :218.0   Max.   :31.2000   Max.   :15.330   Max.   :42.49  
+   famhist              typea         obesity         alcohol      
+ Length:462         Min.   :13.0   Min.   :14.70   Min.   :  0.00  
+ Class :character   1st Qu.:47.0   1st Qu.:22.98   1st Qu.:  0.51  
+ Mode  :character   Median :53.0   Median :25.80   Median :  7.51  
+                    Mean   :53.1   Mean   :26.04   Mean   : 17.04  
+                    3rd Qu.:60.0   3rd Qu.:28.50   3rd Qu.: 23.89  
+                    Max.   :78.0   Max.   :46.58   Max.   :147.19  
+      age            chd           
+ Min.   :15.00   Length:462        
+ 1st Qu.:31.00   Class :character  
+ Median :45.00   Mode  :character  
+ Mean   :42.82                     
+ 3rd Qu.:55.00                     
+ Max.   :64.00                     
+spc_tbl_ [462 × 10] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ sbp      : num [1:462] 160 144 118 170 134 132 142 114 114 132 ...
+ $ tobacco  : num [1:462] 12 0.01 0.08 7.5 13.6 6.2 4.05 4.08 0 0 ...
+ $ ldl      : num [1:462] 5.73 4.41 3.48 6.41 3.5 6.47 3.38 4.59 3.83 5.8 ...
+ $ adiposity: num [1:462] 23.1 28.6 32.3 38 27.8 ...
+ $ famhist  : chr [1:462] "Present" "Absent" "Present" "Present" ...
+ $ typea    : num [1:462] 49 55 52 51 60 62 59 62 49 69 ...
+ $ obesity  : num [1:462] 25.3 28.9 29.1 32 26 ...
+ $ alcohol  : num [1:462] 97.2 2.06 3.81 24.26 57.34 ...
+ $ age      : num [1:462] 52 63 46 58 49 45 38 58 29 53 ...
+ $ chd      : chr [1:462] "Si" "Si" "No" "Si" ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   sbp = col_double(),
+  ..   tobacco = col_double(),
+  ..   ldl = col_double(),
+  ..   adiposity = col_double(),
+  ..   famhist = col_character(),
+  ..   typea = col_double(),
+  ..   obesity = col_double(),
+  ..   alcohol = col_double(),
+  ..   age = col_double(),
+  ..   chd = col_character()
+  .. )
+ - attr(*, "problems")=&lt;externalptr&gt; 
+[1] 0.2008134
+      sbp   tobacco       ldl adiposity     typea   obesity   alcohol       age 
+ 63907.00   1679.67   2190.03  11737.91  24534.00  12032.38   7874.51  19781.00 
+          Minimo Maximo      Media Mediana
+sbp       101.00 218.00 138.326840 134.000
+tobacco     0.00  31.20   3.635649   2.000
+ldl         0.98  15.33   4.740325   4.340
+adiposity   6.74  42.49  25.406732  26.115
+typea      13.00  78.00  53.103896  53.000
+obesity    14.70  46.58  26.044113  25.805
+alcohol     0.00 147.19  17.044394   7.510
+age        15.00  64.00  42.816017  45.000
+
+ No  Si 
+302 160 </code></pre>
+</div>
+</div>
+</section>
+<section id="ejercicio-7" class="level1">
+<h1>Ejercicio 7</h1>
+<p>Programe en R una función que genere 200 números al azar entre 1 y 500 y calcule cuántos están entre 50 y 450, ambos inclusive.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-20"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-20-1"><a href="#annotated-cell-20-1" aria-hidden="true" tabindex="-1"></a>num.aleatorios <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-20" data-target-annotation="1">1</button><span id="annotated-cell-20-2" class="code-annotation-target"><a href="#annotated-cell-20-2" aria-hidden="true" tabindex="-1"></a>  numeros <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">200</span>, <span class="at">min =</span> <span class="dv">1</span>, <span class="at">max =</span> <span class="dv">500</span>)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-20" data-target-annotation="2">2</button><span id="annotated-cell-20-3" class="code-annotation-target"><a href="#annotated-cell-20-3" aria-hidden="true" tabindex="-1"></a>  bool <span class="ot">&lt;-</span> numeros<span class="sc">&lt;=</span><span class="dv">450</span> <span class="sc">&amp;</span> numeros<span class="sc">&gt;=</span><span class="dv">50</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-20" data-target-annotation="3">3</button><span id="annotated-cell-20-4" class="code-annotation-target"><a href="#annotated-cell-20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">sum</span>(bool))</span>
+<span id="annotated-cell-20-5"><a href="#annotated-cell-20-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="annotated-cell-20-6"><a href="#annotated-cell-20-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Prueba</span></span>
+<span id="annotated-cell-20-7"><a href="#annotated-cell-20-7" aria-hidden="true" tabindex="-1"></a><span class="fu">num.aleatorios</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-20" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-20" data-code-lines="2" data-code-annotation="1">Genera 200 números aleatorios entre 1 y 500 (decimales)</span>
+</dd>
+<dt data-target-cell="annotated-cell-20" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-20" data-code-lines="3" data-code-annotation="2">Verifica si están entre 50 y 450 inclusive</span>
+</dd>
+<dt data-target-cell="annotated-cell-20" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-20" data-code-lines="4" data-code-annotation="3">Cuenta cuántos cumplen la condición</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 164</code></pre>
+</div>
+</div>
+</section>
+<section id="ejercicio-8" class="level1">
+<h1>Ejercicio 8</h1>
+<p>Desarrolle una función que calcule el costo de una llamada telefónica que ha durado <span class="math inline">t</span> minutos, sabiendo que:</p>
+<ul>
+<li>Si <span class="math inline">t &lt; 1</span>: costo = 0.4 USD.</li>
+<li>Si <span class="math inline">t \ge 1</span>: costo = <span class="math inline">0.4 + (t - 1)/4</span> USD.</li>
+</ul>
+<p>La función debe recibir el valor de <span class="math inline">t</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>costo.llamada <span class="ot">&lt;-</span> <span class="cf">function</span>(t) {</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (t <span class="sc">&lt;</span> <span class="dv">1</span>) {</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    costo <span class="ot">&lt;&lt;-</span> <span class="fl">0.4</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    costo <span class="ot">&lt;&lt;-</span> <span class="fl">0.4</span> <span class="sc">+</span> (t <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">/</span><span class="dv">4</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(costo)</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="fu">costo.llamada</span>(<span class="dv">2</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.65</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">costo.llamada</span>(.<span class="dv">2</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4</code></pre>
+</div>
+</div>
+</section>
+<section id="ejercicio-9" class="level1">
+<h1>Ejercicio 9</h1>
+<p>Desarrolle una función que reciba una matriz cuadrada <span class="math inline">A</span> de tamaño <span class="math inline">n \times n</span> y calcule su traza, es decir, la suma de los elementos de la diagonal.</p>
+<p>Ejemplo:</p>
+<p><span class="math display">
+\begin{pmatrix}
+9 &amp; 3 &amp; 4 \\
+1 &amp; 3 &amp; -1 \\
+4 &amp; 12 &amp; -2
+\end{pmatrix}
+</span> Traza = 10.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>traza <span class="ot">&lt;-</span> <span class="cf">function</span>(matriz) {</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  suma <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">diag</span>(matriz))</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(suma)</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Prueba</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">9</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">12</span>,<span class="sc">-</span><span class="dv">2</span>), <span class="at">nrow=</span><span class="dv">3</span>, <span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="fu">traza</span>(A)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10</code></pre>
+</div>
+</div>
+</section>
+<section id="ejercicio-10" class="level1">
+<h1>Ejercicio 10</h1>
+<p>Escriba una función que genere los <span class="math inline">n</span> primeros términos de la serie de Fibonacci.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-24"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-24-1"><a href="#annotated-cell-24-1" aria-hidden="true" tabindex="-1"></a>n.fibonacci <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="annotated-cell-24-2"><a href="#annotated-cell-24-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="1">1</button><span id="annotated-cell-24-3" class="code-annotation-target"><a href="#annotated-cell-24-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">==</span> <span class="dv">1</span>) <span class="fu">return</span>(<span class="dv">0</span>)</span>
+<span id="annotated-cell-24-4"><a href="#annotated-cell-24-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">==</span> <span class="dv">2</span>) <span class="fu">return</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="annotated-cell-24-5"><a href="#annotated-cell-24-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="annotated-cell-24-6"><a href="#annotated-cell-24-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n<span class="sc">&gt;=</span><span class="dv">3</span>) {</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="2">2</button><span id="annotated-cell-24-7" class="code-annotation-target"><a href="#annotated-cell-24-7" aria-hidden="true" tabindex="-1"></a>    serie <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="annotated-cell-24-8"><a href="#annotated-cell-24-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> (<span class="fu">length</span>(serie) <span class="sc">&lt;</span> n) {</span>
+<span id="annotated-cell-24-9"><a href="#annotated-cell-24-9" aria-hidden="true" tabindex="-1"></a>      serie <span class="ot">&lt;-</span> <span class="fu">c</span>(serie, serie[<span class="fu">length</span>(serie)] <span class="sc">+</span> serie[<span class="fu">length</span>(serie) <span class="sc">-</span> <span class="dv">1</span>])</span>
+<span id="annotated-cell-24-10"><a href="#annotated-cell-24-10" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="annotated-cell-24-11"><a href="#annotated-cell-24-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(serie)</span>
+<span id="annotated-cell-24-12"><a href="#annotated-cell-24-12" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="annotated-cell-24-13"><a href="#annotated-cell-24-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="annotated-cell-24-14"><a href="#annotated-cell-24-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Prueba</span></span>
+<span id="annotated-cell-24-15"><a href="#annotated-cell-24-15" aria-hidden="true" tabindex="-1"></a><span class="fu">n.fibonacci</span>(<span class="dv">13</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-24" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-24" data-code-lines="3" data-code-annotation="1">Casos base</span>
+</dd>
+<dt data-target-cell="annotated-cell-24" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-24" data-code-lines="7" data-code-annotation="2">Generación para n &gt;= 3</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]   0   1   1   2   3   5   8  13  21  34  55  89 144</code></pre>
+</div>
+</div>
+</section>
+<section id="ejercicio-11" class="level1">
+<h1>Ejercicio 11</h1>
+<p>Escriba una función que retorne el mayor número entero cuyo cuadrado no exceda de <span class="math inline">x</span>, donde <span class="math inline">x</span> es un número real que se recibe como parámetro, utilizando <code>while</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>entero.cuadrado <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (x <span class="sc">&lt;=</span> <span class="dv">0</span>) {</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="cn">NA</span>)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    n <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> ((n<span class="sc">+</span><span class="dv">1</span>)<span class="sc">^</span><span class="dv">2</span> <span class="sc">&lt;=</span> x) {</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>      n <span class="ot">&lt;-</span> n<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(n)</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Prueba</span></span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a><span class="fu">entero.cuadrado</span>(<span class="dv">27</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+</div>
+</section>
+<section id="ejercicio-12" class="level1">
+<h1>Ejercicio 12</h1>
+<p>Cree un Data Frame con diez alumnos con su edad, año de nacimiento y número de teléfono.<br>
+Deberá aparecer el nombre de la columna (<code>edad</code>, <code>año de nacimiento</code>, <code>teléfono</code>) y el nombre de la fila, que será el nombre del alumno.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>edad <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">sample</span>(<span class="dv">17</span><span class="sc">:</span><span class="dv">25</span>, <span class="dv">10</span>, <span class="cn">TRUE</span>))</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>nums <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">60000000</span><span class="sc">:</span><span class="dv">89999999</span>, <span class="dv">10</span>)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>telefonos <span class="ot">&lt;-</span> <span class="fu">paste0</span>(</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"+506 "</span>,</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">substr</span>(nums, <span class="dv">1</span>, <span class="dv">4</span>), <span class="st">" "</span>,</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">substr</span>(nums, <span class="dv">5</span>, <span class="dv">8</span>)</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>alumnos <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">list</span>(<span class="at">Edad =</span> edad,</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>                   Año<span class="at">.Nacimiento =</span> <span class="dv">2025</span><span class="sc">-</span>edad,</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>                   Teléfono <span class="ot">=</span> telefonos), <span class="at">row.names =</span> <span class="fu">c</span>(<span class="st">"Ana María"</span>,<span class="st">"Carlos"</span>,<span class="st">"Sofía"</span>,<span class="st">"Javier"</span>,<span class="st">"Mariana"</span>,<span class="st">"Luis"</span>,<span class="st">"Fernanda"</span>,<span class="st">"Pablo"</span>,<span class="st">"Camila"</span>,<span class="st">"Andrés"</span>))</span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>alumnos</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Edad Año.Nacimiento       Teléfono
+Ana María   21           2004 +506 6846 5803
+Carlos      19           2006 +506 6423 9128
+Sofía       24           2001 +506 7845 1355
+Javier      17           2008 +506 7714 3658
+Mariana     18           2007 +506 6574 4820
+Luis        19           2006 +506 7736 9314
+Fernanda    24           2001 +506 8759 8433
+Pablo       24           2001 +506 7776 3187
+Camila      23           2002 +506 8198 0927
+Andrés      21           2004 +506 8115 4421</code></pre>
+</div>
+</div>
+</section>
+<section id="ejercicio-13" class="level1">
+<h1>Ejercicio 13</h1>
+<p>Desarrolle una función en <strong>R</strong> que reciba un <strong>DataFrame</strong> y retorne la cantidad de entradas que son divisibles entre 3.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-27"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-27-1"><a href="#annotated-cell-27-1" aria-hidden="true" tabindex="-1"></a>divisibles<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="cf">function</span>(df) {</span>
+<span id="annotated-cell-27-2"><a href="#annotated-cell-27-2" aria-hidden="true" tabindex="-1"></a></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-27" data-target-annotation="1">1</button><span id="annotated-cell-27-3" class="code-annotation-target"><a href="#annotated-cell-27-3" aria-hidden="true" tabindex="-1"></a>  datos <span class="ot">&lt;-</span> <span class="fu">unlist</span>(df)</span>
+<span id="annotated-cell-27-4"><a href="#annotated-cell-27-4" aria-hidden="true" tabindex="-1"></a>  datos <span class="ot">&lt;-</span> datos[<span class="sc">!</span><span class="fu">is.na</span>(<span class="fu">as.numeric</span>(datos))]</span>
+<span id="annotated-cell-27-5"><a href="#annotated-cell-27-5" aria-hidden="true" tabindex="-1"></a>  datos <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(datos)</span>
+<span id="annotated-cell-27-6"><a href="#annotated-cell-27-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-27" data-target-annotation="2">2</button><span id="annotated-cell-27-7" class="code-annotation-target"><a href="#annotated-cell-27-7" aria-hidden="true" tabindex="-1"></a>  suma <span class="ot">&lt;-</span> <span class="fu">sum</span>(datos <span class="sc">%%</span> <span class="dv">3</span> <span class="sc">==</span> <span class="dv">0</span>)</span>
+<span id="annotated-cell-27-8"><a href="#annotated-cell-27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(suma)</span>
+<span id="annotated-cell-27-9"><a href="#annotated-cell-27-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="annotated-cell-27-10"><a href="#annotated-cell-27-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Prueba</span></span>
+<span id="annotated-cell-27-11"><a href="#annotated-cell-27-11" aria-hidden="true" tabindex="-1"></a><span class="fu">divisibles.3</span>(<span class="fu">data.frame</span>(</span>
+<span id="annotated-cell-27-12"><a href="#annotated-cell-27-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">a =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">9</span>),</span>
+<span id="annotated-cell-27-13"><a href="#annotated-cell-27-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">b =</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">12</span>)</span>
+<span id="annotated-cell-27-14"><a href="#annotated-cell-27-14" aria-hidden="true" tabindex="-1"></a>))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-27" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-27" data-code-lines="3" data-code-annotation="1">Convertir a vector numérico y descartar NAs</span>
+</dd>
+<dt data-target-cell="annotated-cell-27" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-27" data-code-lines="7" data-code-annotation="2">Contar cuántos son divisibles entre 3</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+</div>
+</section>
+<section id="ejercicio-14" class="level1">
+<h1>Ejercicio 14</h1>
+<p>Desarrolle una función en <strong>R</strong> que reciba un <strong>DataFrame</strong> y dos números de columna y que retorne en una lista:</p>
+<ul>
+<li>El nombre de las variables correspondientes a las columnas.</li>
+<li>La covarianza entre dichas variables.</li>
+<li>La correlación entre dichas variables.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>nombre.cov.corr <span class="ot">&lt;-</span> <span class="cf">function</span>(df, x, y) {</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (x <span class="sc">&lt;=</span> <span class="fu">ncol</span>(df) <span class="sc">&amp;</span> y <span class="sc">&lt;=</span> <span class="fu">ncol</span>(df)) {</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    col1 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df[[x]])</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    col2 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df[[y]])</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">list</span>(</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">`</span><span class="at">Nombre de variables</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">colnames</span>(df)[x], <span class="fu">colnames</span>(df)[y]),</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">'Covarianza'</span> <span class="ot">=</span> <span class="fu">cov</span>(col1, col2),</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>      <span class="st">'Correlación'</span> <span class="ot">=</span> <span class="fu">cor</span>(col1, col2))</span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Prueba</span></span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a><span class="fu">nombre.cov.corr</span>(alumnos, <span class="dv">1</span>, <span class="dv">2</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$`Nombre de variables`
+[1] "Edad"           "Año.Nacimiento"
+
+$Covarianza
+[1] -7.111111
+
+$Correlación
+[1] -1</code></pre>
+</div>
+</div>
+</section>
+<section id="ejercicio-15" class="level1">
+<h1>Ejercicio 15</h1>
+<p>Programe la siguiente función recursiva:</p>
+<p><span class="math display">
+U(n) =
+\begin{cases}
+5 &amp; \text{si } n = 0 \\
+-5 &amp; \text{si } n = 1 \\
+2 &amp; \text{si } n = 2 \\
+4U_{n-1} - 15U_{n-2} + U_{n-3} &amp; \text{si } n \ge 3
+\end{cases}
+</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>U <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="dv">5</span>)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (n <span class="sc">==</span> <span class="dv">1</span>) {</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="sc">-</span><span class="dv">5</span>)</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (n <span class="sc">==</span> <span class="dv">2</span>) {</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="dv">2</span>)</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (n <span class="sc">&gt;=</span> <span class="dv">3</span>) {</span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="dv">4</span> <span class="sc">*</span> <span class="fu">U</span>(n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">-</span> <span class="dv">15</span> <span class="sc">*</span> <span class="fu">U</span>(n <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">+</span> <span class="fu">U</span>(n <span class="sc">-</span> <span class="dv">3</span>))</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Prueba</span></span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a><span class="fu">U</span>(<span class="dv">5</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -50</code></pre>
+</div>
+</div>
+</section>
+<section id="ejercicio-16" class="level1">
+<h1>Ejercicio 16</h1>
+<p>El <strong>Algoritmo de Luhn</strong> es una fórmula de suma de verificación utilizada para validar una diversidad de números de identificación.<br>
+Por ejemplo, para validar si un número es o no un número de tarjeta de crédito válido.</p>
+<p>Este algoritmo es muy simple: nos dice que, dado un número que contenga solamente dígitos <span class="math inline">[0-9]</span>, una tarjeta de crédito es válida si y solo si, obteniendo la reversa de este número, la suma especial de sus dígitos debe ser un múltiplo de 10, es decir, que la suma módulo 10 debe ser igual a cero.</p>
+<p>La suma especial se realiza de la siguiente forma:</p>
+<ol type="1">
+<li>Invertir el número.</li>
+<li>Si la posición es impar, sumar el dígito tal cual.</li>
+<li>Si la posición es par, multiplicar el dígito por 2 y sumar los dígitos del resultado (o restar 9 si es mayor o igual a 10).</li>
+<li>Verificar que la suma total sea un múltiplo de 10.</li>
+</ol>
+<section id="ejemplo-1" class="level2">
+<h2 class="anchored" data-anchor-id="ejemplo-1">Ejemplo 1</h2>
+<p>Número: <em>49927398716</em></p>
+<ol type="a">
+<li>Multiplicamos por 2 los dígitos que ocupan las posiciones pares empezando por el final (reversando el número):</li>
+</ol>
+<p><span class="math display">
+  (1 \times 2) = 2,\quad (8 \times 2) = 16,\quad (3 \times 2) = 6,\quad (2 \times 2) = 4,\quad (9 \times 2) = 18
+  </span></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>4</th>
+<th>9</th>
+<th>9</th>
+<th>2</th>
+<th>7</th>
+<th>3</th>
+<th>9</th>
+<th>8</th>
+<th>7</th>
+<th>1</th>
+<th>6</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>4</td>
+<td>18</td>
+<td>9</td>
+<td>4</td>
+<td>7</td>
+<td>6</td>
+<td>9</td>
+<td>16</td>
+<td>7</td>
+<td>2</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<ol start="2" type="a">
+<li>Sumamos los dígitos que ocupaban las posiciones impares con los dígitos de los productos obtenidos:</li>
+</ol>
+<p><span class="math display">
+  6 + (2) + 7 + (1 + 6) + 9 + (6) + 7 + (4) + 9 + (1 + 8) + 4 = 70
+  </span></p>
+<p>O equivalentemente, sumando y restando 9 en los productos mayores o iguales a 10:</p>
+<p><span class="math display">
+  6 + (2) + 7 + (16 - 9) + 9 + (6) + 7 + (4) + 9 + (18 - 9) + 4 = 70
+  </span></p>
+<ol start="3" type="a">
+<li>Si el resto de dividir 70 entre 10 es igual a 0, el número es válido: <span class="math display">
+  70 \bmod 10 = 0
+  </span></li>
+</ol>
+</section>
+<section id="ejemplo-2" class="level2">
+<h2 class="anchored" data-anchor-id="ejemplo-2">Ejemplo 2</h2>
+<p>Número de tarjeta: <span class="math inline">4539319503436467</span></p>
+<ol type="a">
+<li>Primero se toman todos los números en las posiciones pares empezando desde la derecha, es decir, reversando el número:</li>
+</ol>
+<p><span class="math display">
+  4\_3\_3\_3\_9\_0\_4\_6\_6\_
+  </span></p>
+<ol start="2" type="a">
+<li>Luego se deben cambiar por el doble de ese número; si el número obtenido es mayor a 9, entonces se le resta 9 (o se suman los dígitos):</li>
+</ol>
+<p><span class="math display">
+  8\_6\_6\_9\_0\_8\_3\_3\_
+  </span></p>
+<ol start="3" type="a">
+<li>Finalmente se suman todos los dígitos: <span class="math display"> 8 + 5 + 6 + 9 + 6 + 1 + 9 + 5 + 0 + 3 + 8 + 3 + 3 + 4 + 3 + 7 = 80 </span> Como el número obtenido es divisible entre 10, entonces es un número de tarjeta válido.</li>
+</ol>
+<p>Programe en <strong>R</strong> las funciones necesarias para implementar el <strong>Algoritmo de Luhn</strong>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-30"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-30-1"><a href="#annotated-cell-30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Intercala elementos de dos vectores alternando posiciones</span></span>
+<span id="annotated-cell-30-2"><a href="#annotated-cell-30-2" aria-hidden="true" tabindex="-1"></a>intercalar <span class="ot">&lt;-</span> <span class="cf">function</span>(primero, segundo) {</span>
+<span id="annotated-cell-30-3"><a href="#annotated-cell-30-3" aria-hidden="true" tabindex="-1"></a>  total <span class="ot">&lt;-</span> <span class="fu">length</span>(primero) <span class="sc">+</span> <span class="fu">length</span>(segundo)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-30" data-target-annotation="1">1</button><span id="annotated-cell-30-4" class="code-annotation-target"><a href="#annotated-cell-30-4" aria-hidden="true" tabindex="-1"></a>  mezcla <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"list"</span>, total)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-30" data-target-annotation="2">2</button><span id="annotated-cell-30-5" class="code-annotation-target"><a href="#annotated-cell-30-5" aria-hidden="true" tabindex="-1"></a>  mezcla[<span class="fu">seq</span>(<span class="dv">1</span>, total, <span class="dv">2</span>)] <span class="ot">&lt;-</span> <span class="fu">as.list</span>(primero)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-30" data-target-annotation="3">3</button><span id="annotated-cell-30-6" class="code-annotation-target"><a href="#annotated-cell-30-6" aria-hidden="true" tabindex="-1"></a>  mezcla[<span class="fu">seq</span>(<span class="dv">2</span>, total, <span class="dv">2</span>)] <span class="ot">&lt;-</span> <span class="fu">as.list</span>(segundo)</span>
+<span id="annotated-cell-30-7"><a href="#annotated-cell-30-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unlist</span>(mezcla, <span class="at">use.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="annotated-cell-30-8"><a href="#annotated-cell-30-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="annotated-cell-30-9"><a href="#annotated-cell-30-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-30-10"><a href="#annotated-cell-30-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Si el valor (resultado de doblar un dígito) es &gt;= 10, restar 9 (suma de dígitos).</span></span>
+<span id="annotated-cell-30-11"><a href="#annotated-cell-30-11" aria-hidden="true" tabindex="-1"></a>ajustar_mayor_9 <span class="ot">&lt;-</span> <span class="cf">function</span>(valor) {</span>
+<span id="annotated-cell-30-12"><a href="#annotated-cell-30-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (valor <span class="sc">&gt;=</span> <span class="dv">0</span> <span class="sc">&amp;</span> valor <span class="sc">&lt;=</span> <span class="dv">18</span>) {</span>
+<span id="annotated-cell-30-13"><a href="#annotated-cell-30-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (valor <span class="sc">&gt;=</span> <span class="dv">10</span>) <span class="fu">return</span>(valor <span class="sc">-</span> <span class="dv">9</span>)</span>
+<span id="annotated-cell-30-14"><a href="#annotated-cell-30-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="fu">return</span>(valor)</span>
+<span id="annotated-cell-30-15"><a href="#annotated-cell-30-15" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="annotated-cell-30-16"><a href="#annotated-cell-30-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="annotated-cell-30-17"><a href="#annotated-cell-30-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-30-18"><a href="#annotated-cell-30-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Devuelve TRUE si 'numero' pasa la validación, FALSE en caso contrario.</span></span>
+<span id="annotated-cell-30-19"><a href="#annotated-cell-30-19" aria-hidden="true" tabindex="-1"></a>Algoritmo.Luhn <span class="ot">&lt;-</span> <span class="cf">function</span>(numero) {</span>
+<span id="annotated-cell-30-20"><a href="#annotated-cell-30-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-30" data-target-annotation="4">4</button><span id="annotated-cell-30-21" class="code-annotation-target"><a href="#annotated-cell-30-21" aria-hidden="true" tabindex="-1"></a>  digitos <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">strsplit</span>(<span class="fu">as.character</span>(numero), <span class="st">""</span>)[[<span class="dv">1</span>]])</span>
+<span id="annotated-cell-30-22"><a href="#annotated-cell-30-22" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(digitos)</span>
+<span id="annotated-cell-30-23"><a href="#annotated-cell-30-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-30" data-target-annotation="5">5</button><span id="annotated-cell-30-24" class="code-annotation-target"><a href="#annotated-cell-30-24" aria-hidden="true" tabindex="-1"></a>  digitos_inv <span class="ot">&lt;-</span> digitos[n<span class="sc">:</span><span class="dv">1</span>]</span>
+<span id="annotated-cell-30-25"><a href="#annotated-cell-30-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="annotated-cell-30-26"><a href="#annotated-cell-30-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Separar posiciones impares y pares (desde la derecha, ya invertido) </span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-30" data-target-annotation="6">6</button><span id="annotated-cell-30-27" class="code-annotation-target"><a href="#annotated-cell-30-27" aria-hidden="true" tabindex="-1"></a>  digitos_impares <span class="ot">&lt;-</span> digitos_inv[(<span class="dv">1</span><span class="sc">:</span>n) <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">1</span>]</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-30" data-target-annotation="7">7</button><span id="annotated-cell-30-28" class="code-annotation-target"><a href="#annotated-cell-30-28" aria-hidden="true" tabindex="-1"></a>  digitos_pares_doblados <span class="ot">&lt;-</span> digitos_inv[(<span class="dv">1</span><span class="sc">:</span>n) <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>] <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="annotated-cell-30-29"><a href="#annotated-cell-30-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-30" data-target-annotation="8">8</button><span id="annotated-cell-30-30" class="code-annotation-target"><a href="#annotated-cell-30-30" aria-hidden="true" tabindex="-1"></a>  intercalados <span class="ot">&lt;-</span> <span class="fu">intercalar</span>(digitos_impares, digitos_pares_doblados)</span>
+<span id="annotated-cell-30-31"><a href="#annotated-cell-30-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-30" data-target-annotation="9">9</button><span id="annotated-cell-30-32" class="code-annotation-target"><a href="#annotated-cell-30-32" aria-hidden="true" tabindex="-1"></a>  ajustados <span class="ot">&lt;-</span> <span class="fu">sapply</span>(intercalados, ajustar_mayor_9)</span>
+<span id="annotated-cell-30-33"><a href="#annotated-cell-30-33" aria-hidden="true" tabindex="-1"></a>  suma_total <span class="ot">&lt;-</span> <span class="fu">sum</span>(ajustados)</span>
+<span id="annotated-cell-30-34"><a href="#annotated-cell-30-34" aria-hidden="true" tabindex="-1"></a>  </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-30" data-target-annotation="10">10</button><span id="annotated-cell-30-35" class="code-annotation-target"><a href="#annotated-cell-30-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(suma_total <span class="sc">%%</span> <span class="dv">10</span> <span class="sc">==</span> <span class="dv">0</span>)</span>
+<span id="annotated-cell-30-36"><a href="#annotated-cell-30-36" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="annotated-cell-30-37"><a href="#annotated-cell-30-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-30-38"><a href="#annotated-cell-30-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Prueba </span></span>
+<span id="annotated-cell-30-39"><a href="#annotated-cell-30-39" aria-hidden="true" tabindex="-1"></a><span class="fu">Algoritmo.Luhn</span>(<span class="dv">49927398716</span>)</span>
+<span id="annotated-cell-30-40"><a href="#annotated-cell-30-40" aria-hidden="true" tabindex="-1"></a><span class="fu">Algoritmo.Luhn</span>(<span class="dv">4539319503436467</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-30" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-30" data-code-lines="4" data-code-annotation="1">Preasignación (lista para permitir longitudes distintas)</span>
+</dd>
+<dt data-target-cell="annotated-cell-30" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-30" data-code-lines="5" data-code-annotation="2">Posiciones impares</span>
+</dd>
+<dt data-target-cell="annotated-cell-30" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-30" data-code-lines="6" data-code-annotation="3">Posiciones pares</span>
+</dd>
+<dt data-target-cell="annotated-cell-30" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-30" data-code-lines="21" data-code-annotation="4">Convertir número a vector de dígitos</span>
+</dd>
+<dt data-target-cell="annotated-cell-30" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-30" data-code-lines="24" data-code-annotation="5">Invertir para procesar desde el dígito de la derecha</span>
+</dd>
+<dt data-target-cell="annotated-cell-30" data-target-annotation="6">6</dt>
+<dd>
+<span data-code-cell="annotated-cell-30" data-code-lines="27" data-code-annotation="6">se quedan igual</span>
+</dd>
+<dt data-target-cell="annotated-cell-30" data-target-annotation="7">7</dt>
+<dd>
+<span data-code-cell="annotated-cell-30" data-code-lines="28" data-code-annotation="7">se doblan</span>
+</dd>
+<dt data-target-cell="annotated-cell-30" data-target-annotation="8">8</dt>
+<dd>
+<span data-code-cell="annotated-cell-30" data-code-lines="30" data-code-annotation="8">Intercalar: impares, luego pares doblados (manteniendo el orden original de tu código)</span>
+</dd>
+<dt data-target-cell="annotated-cell-30" data-target-annotation="9">9</dt>
+<dd>
+<span data-code-cell="annotated-cell-30" data-code-lines="32" data-code-annotation="9">Ajustar los valores &gt;= 10 restando 9 y sumar</span>
+</dd>
+<dt data-target-cell="annotated-cell-30" data-target-annotation="10">10</dt>
+<dd>
+<span data-code-cell="annotated-cell-30" data-code-lines="35" data-code-annotation="10">Válido si la suma es múltiplo de 10</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE
+[1] TRUE</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="ejercicio-17" class="level1">
+<h1>Ejercicio 17</h1>
+<p>La <strong>Factorización Prima</strong> es el proceso de descomponer un número en sus factores primos.<br>
+El algoritmo consiste en dividir entre números primos hasta que el cociente sea 1.</p>
+<p>Por ejemplo, para obtener los factores primos de 36 se hace:</p>
+<p><span class="math display">
+36 \div 2 = 18; \quad 18 \div 2 = 9; \quad 9 \div 3 = 3; \quad 3 \div 3 = 1
+</span></p>
+<p>Entonces los factores primos son: <span class="math inline">2, 2, 3, 3</span> y la factorización prima de <span class="math inline">36 = 2 \times 2 \times 3 \times 3</span>.</p>
+<p>Programe en <strong>R</strong> una función recursiva que reciba un valor y retorne una lista con los factores primos de dicho valor.</p>
+<p>Los factores primos de un número entero son los números primos divisores exactos de ese número entero.<br>
+El proceso de búsqueda de esos divisores se denomina factorización de enteros, o factorización en números primos.</p>
+<p>Por ejemplo, para 60 el proceso es el siguiente:</p>
+<ul>
+<li><span class="math inline">60 / 2 = 30</span><br>
+</li>
+<li><span class="math inline">30 / 2 = 15</span><br>
+</li>
+<li><span class="math inline">15 / 3 = 5</span><br>
+</li>
+<li><span class="math inline">5 / 5 = 1</span></li>
+</ul>
+<p>Por tanto, el resultado es: <strong>(2 2 3 5)</strong>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-31"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-31-1"><a href="#annotated-cell-31-1" aria-hidden="true" tabindex="-1"></a>primos_menores_a <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-31" data-target-annotation="1">1</button><span id="annotated-cell-31-2" class="code-annotation-target"><a href="#annotated-cell-31-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">&lt;=</span> <span class="dv">2</span>) <span class="fu">return</span>(<span class="fu">integer</span>(<span class="dv">0</span>))</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-31" data-target-annotation="2">2</button><span id="annotated-cell-31-3" class="code-annotation-target"><a href="#annotated-cell-31-3" aria-hidden="true" tabindex="-1"></a>  primos <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">TRUE</span>, n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="annotated-cell-31-4"><a href="#annotated-cell-31-4" aria-hidden="true" tabindex="-1"></a>  limite <span class="ot">&lt;-</span> <span class="fu">entero.cuadrado</span>(n)</span>
+<span id="annotated-cell-31-5"><a href="#annotated-cell-31-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="annotated-cell-31-6"><a href="#annotated-cell-31-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (p <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>limite) {</span>
+<span id="annotated-cell-31-7"><a href="#annotated-cell-31-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (primos[p <span class="sc">-</span> <span class="dv">1</span>]) {</span>
+<span id="annotated-cell-31-8"><a href="#annotated-cell-31-8" aria-hidden="true" tabindex="-1"></a>      primos[<span class="fu">seq</span>(p <span class="sc">*</span> p, n <span class="sc">-</span> <span class="dv">1</span>, <span class="at">by =</span> p) <span class="sc">-</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="annotated-cell-31-9"><a href="#annotated-cell-31-9" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="annotated-cell-31-10"><a href="#annotated-cell-31-10" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="annotated-cell-31-11"><a href="#annotated-cell-31-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-31" data-target-annotation="3">3</button><span id="annotated-cell-31-12" class="code-annotation-target"><a href="#annotated-cell-31-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">which</span>(primos) <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="annotated-cell-31-13"><a href="#annotated-cell-31-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="annotated-cell-31-14"><a href="#annotated-cell-31-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-31-15"><a href="#annotated-cell-31-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Recursiva auxiliar</span></span>
+<span id="annotated-cell-31-16"><a href="#annotated-cell-31-16" aria-hidden="true" tabindex="-1"></a>.factoriza_rec <span class="ot">&lt;-</span> <span class="cf">function</span>(n, primos, <span class="at">i =</span> <span class="dv">1</span>L, <span class="at">acc =</span> <span class="fu">integer</span>(<span class="dv">0</span>)) {</span>
+<span id="annotated-cell-31-17"><a href="#annotated-cell-31-17" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">==</span> <span class="dv">1</span>) {</span>
+<span id="annotated-cell-31-18"><a href="#annotated-cell-31-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(acc)</span>
+<span id="annotated-cell-31-19"><a href="#annotated-cell-31-19" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="annotated-cell-31-20"><a href="#annotated-cell-31-20" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (i <span class="sc">&gt;</span> <span class="fu">length</span>(primos) <span class="sc">||</span> primos[i]<span class="sc">^</span><span class="dv">2</span> <span class="sc">&gt;</span> n) {</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-31" data-target-annotation="4">4</button><span id="annotated-cell-31-21" class="code-annotation-target"><a href="#annotated-cell-31-21" aria-hidden="true" tabindex="-1"></a>   <span class="fu">return</span>(<span class="fu">c</span>(acc, n))</span>
+<span id="annotated-cell-31-22"><a href="#annotated-cell-31-22" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="annotated-cell-31-23"><a href="#annotated-cell-31-23" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> primos[i]</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-31" data-target-annotation="5">5</button><span id="annotated-cell-31-24" class="code-annotation-target"><a href="#annotated-cell-31-24" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">%%</span> p <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="annotated-cell-31-25"><a href="#annotated-cell-31-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">.factoriza_rec</span>(n <span class="sc">/</span> p, primos, i, <span class="fu">c</span>(acc, p)))                   </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-31" data-target-annotation="6">6</button><span id="annotated-cell-31-26" class="code-annotation-target"><a href="#annotated-cell-31-26" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="annotated-cell-31-27"><a href="#annotated-cell-31-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">.factoriza_rec</span>(n, primos, i <span class="sc">+</span> <span class="dv">1</span>L, acc))</span>
+<span id="annotated-cell-31-28"><a href="#annotated-cell-31-28" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="annotated-cell-31-29"><a href="#annotated-cell-31-29" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="annotated-cell-31-30"><a href="#annotated-cell-31-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-31-31"><a href="#annotated-cell-31-31" aria-hidden="true" tabindex="-1"></a>factorizacion.prima <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="annotated-cell-31-32"><a href="#annotated-cell-31-32" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">&lt;</span> <span class="dv">2</span>) <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">factores =</span> <span class="fu">integer</span>(<span class="dv">0</span>)))</span>
+<span id="annotated-cell-31-33"><a href="#annotated-cell-31-33" aria-hidden="true" tabindex="-1"></a>  ps <span class="ot">&lt;-</span> <span class="fu">primos_menores_a</span>(n)</span>
+<span id="annotated-cell-31-34"><a href="#annotated-cell-31-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">factores =</span> <span class="fu">.factoriza_rec</span>(n, ps))</span>
+<span id="annotated-cell-31-35"><a href="#annotated-cell-31-35" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="annotated-cell-31-36"><a href="#annotated-cell-31-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-31-37"><a href="#annotated-cell-31-37" aria-hidden="true" tabindex="-1"></a><span class="fu">factorizacion.prima</span>(<span class="dv">76</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-31" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-31" data-code-lines="2" data-code-annotation="1">No hay primos menores que 2</span>
+</dd>
+<dt data-target-cell="annotated-cell-31" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-31" data-code-lines="3" data-code-annotation="2">índice 1 representa el número 2</span>
+</dd>
+<dt data-target-cell="annotated-cell-31" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-31" data-code-lines="12" data-code-annotation="3">Ajuste porque el índice 1 corresponde al 2</span>
+</dd>
+<dt data-target-cell="annotated-cell-31" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-31" data-code-lines="21" data-code-annotation="4">Si ya no hay más primos o p^2 &gt; n, lo que queda es primo</span>
+</dd>
+<dt data-target-cell="annotated-cell-31" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-31" data-code-lines="24" data-code-annotation="5">Misma i para capturar potencias de p</span>
+</dd>
+<dt data-target-cell="annotated-cell-31" data-target-annotation="6">6</dt>
+<dd>
+<span data-code-cell="annotated-cell-31" data-code-lines="26" data-code-annotation="6">Pasar al siguiente primo</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$factores
+[1]  2  2 19</code></pre>
+</div>
+</div>
+</section>
+<section id="ejercicio-18" class="level1">
+<h1>Ejercicio 18</h1>
+<p>La <strong>Conjetura de Goldbach</strong> dice que todo número par mayor a 2 se puede expresar como la suma de 2 números primos.<br>
+Por tanto, desarrolle un sistema que reciba un número (por teclado) y retorne una lista con los 2 números primos que componen la suma.<br>
+Se puede asumir que el número ingresado siempre es mayor a 2 y es par.</p>
+<p>Debe programar en <strong>R</strong> lo siguiente:</p>
+<ol type="a">
+<li><p><code>es_primo</code>: determina si un valor es primo. Debe programarla con recursión.</p></li>
+<li><p><code>valores</code>: obtiene en una lista los 2 números que conforman la suma. Debe programarla con recursión.</p></li>
+<li><p><code>resultado</code>: para un valor dado despliega la lista con los números primos.</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-32"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-32-1"><a href="#annotated-cell-32-1" aria-hidden="true" tabindex="-1"></a>es_primo <span class="ot">&lt;-</span> <span class="cf">function</span>(n, <span class="at">d =</span> <span class="dv">2</span>) {</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-32" data-target-annotation="1">1</button><span id="annotated-cell-32-2" class="code-annotation-target"><a href="#annotated-cell-32-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">&lt;</span> <span class="dv">2</span>) <span class="fu">return</span>(<span class="cn">FALSE</span>)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-32" data-target-annotation="2">2</button><span id="annotated-cell-32-3" class="code-annotation-target"><a href="#annotated-cell-32-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (d <span class="sc">*</span> d <span class="sc">&gt;</span> n) <span class="fu">return</span>(<span class="cn">TRUE</span>)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-32" data-target-annotation="3">3</button><span id="annotated-cell-32-4" class="code-annotation-target"><a href="#annotated-cell-32-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">%%</span> d <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="cn">FALSE</span>)</span>
+<span id="annotated-cell-32-5"><a href="#annotated-cell-32-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-32" data-target-annotation="4">4</button><span id="annotated-cell-32-6" class="code-annotation-target"><a href="#annotated-cell-32-6" aria-hidden="true" tabindex="-1"></a>  siguiente <span class="ot">&lt;-</span> <span class="cf">if</span> (d <span class="sc">==</span> <span class="dv">2</span>) <span class="dv">3</span> <span class="cf">else</span> d <span class="sc">+</span> <span class="dv">2</span></span>
+<span id="annotated-cell-32-7"><a href="#annotated-cell-32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">es_primo</span>(n, siguiente)</span>
+<span id="annotated-cell-32-8"><a href="#annotated-cell-32-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="annotated-cell-32-9"><a href="#annotated-cell-32-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-32-10"><a href="#annotated-cell-32-10" aria-hidden="true" tabindex="-1"></a>valores <span class="ot">&lt;-</span> <span class="cf">function</span>(n, <span class="at">a =</span> <span class="dv">2</span>) {</span>
+<span id="annotated-cell-32-11"><a href="#annotated-cell-32-11" aria-hidden="true" tabindex="-1"></a>  b <span class="ot">&lt;-</span> n <span class="sc">-</span> a</span>
+<span id="annotated-cell-32-12"><a href="#annotated-cell-32-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">es_primo</span>(a) <span class="sc">&amp;&amp;</span> <span class="fu">es_primo</span>(b)) {</span>
+<span id="annotated-cell-32-13"><a href="#annotated-cell-32-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">a =</span> a, <span class="at">b =</span> b))</span>
+<span id="annotated-cell-32-14"><a href="#annotated-cell-32-14" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="annotated-cell-32-15"><a href="#annotated-cell-32-15" aria-hidden="true" tabindex="-1"></a>  siguiente <span class="ot">&lt;-</span> <span class="cf">if</span> (a <span class="sc">==</span> <span class="dv">2</span>) <span class="dv">3</span> <span class="cf">else</span> a <span class="sc">+</span> <span class="dv">2</span></span>
+<span id="annotated-cell-32-16"><a href="#annotated-cell-32-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">valores</span>(n, siguiente)</span>
+<span id="annotated-cell-32-17"><a href="#annotated-cell-32-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="annotated-cell-32-18"><a href="#annotated-cell-32-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-32-19"><a href="#annotated-cell-32-19" aria-hidden="true" tabindex="-1"></a>resultado <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">x =</span> <span class="cn">NULL</span>) {</span>
+<span id="annotated-cell-32-20"><a href="#annotated-cell-32-20" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.null</span>(x)) {</span>
+<span id="annotated-cell-32-21"><a href="#annotated-cell-32-21" aria-hidden="true" tabindex="-1"></a>    entrada <span class="ot">&lt;-</span> <span class="fu">readline</span>(<span class="st">"Ingrese un número par (&gt;2): "</span>)</span>
+<span id="annotated-cell-32-22"><a href="#annotated-cell-32-22" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(entrada)</span>
+<span id="annotated-cell-32-23"><a href="#annotated-cell-32-23" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="annotated-cell-32-24"><a href="#annotated-cell-32-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">valores</span>(x))</span>
+<span id="annotated-cell-32-25"><a href="#annotated-cell-32-25" aria-hidden="true" tabindex="-1"></a>}</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-32" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-32" data-code-lines="2" data-code-annotation="1">0 y 1 no son primos</span>
+</dd>
+<dt data-target-cell="annotated-cell-32" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-32" data-code-lines="3" data-code-annotation="2">no hay divisores hasta √n</span>
+</dd>
+<dt data-target-cell="annotated-cell-32" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-32" data-code-lines="4" data-code-annotation="3">divisor encontrado</span>
+</dd>
+<dt data-target-cell="annotated-cell-32" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-32" data-code-lines="6" data-code-annotation="4">si d == 2, saltar a 3; luego avanzar de 2 en 2 (solo impares)</span>
+</dd>
+</dl>
+</div>
+</div>
+</section>
+<section id="ejercicio-19" class="level1">
+<h1>Ejercicio 19</h1>
+<p>Desarrolle una función en <strong>R</strong> que reciba un Data Frame y dos números de columna y que retorne en una lista:</p>
+<ul>
+<li>El nombre de las variables correspondientes a las columnas.</li>
+<li>La covarianza entre esas dos variables.</li>
+<li>La correlación entre esas dos variables.</li>
+</ul>
+<p>Pruebe la función usando el archivo <code>EjemploEstudiantes.csv</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>nombre.cov.corr <span class="ot">&lt;-</span> <span class="cf">function</span>(df, x, y) {</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (x <span class="sc">&lt;=</span> <span class="fu">ncol</span>(df) <span class="sc">&amp;</span> y <span class="sc">&lt;=</span> <span class="fu">ncol</span>(df)) {</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>    col1 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df[[x]])</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>    col2 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df[[y]])</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">list</span>(</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">`</span><span class="at">Nombre de variables</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">colnames</span>(df)[x], <span class="fu">colnames</span>(df)[y]),</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">'Covarianza'</span> <span class="ot">=</span> <span class="fu">cov</span>(col1, col2),</span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>      <span class="st">'Correlación'</span> <span class="ot">=</span> <span class="fu">cor</span>(col1, col2))</span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Prueba</span></span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"~/Library/CloudStorage/OneDrive-UniversidaddeCostaRica/EMat/MA-0501/Recursos/Datos/Para la presentación/EjemploEstudiantes.csv"</span>, </span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">delim =</span> <span class="st">";"</span>, <span class="at">escape_double =</span> <span class="cn">FALSE</span>, <span class="at">trim_ws =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a><span class="fu">nombre.cov.corr</span>(df,<span class="dv">3</span>,<span class="dv">5</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$`Nombre de variables`
+[1] "Ciencias" "Historia"
+
+$Covarianza
+[1] -857.6889
+
+$Correlación
+[1] -0.7290368</code></pre>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
+      for (let i=0; i<annoteTargets.length; i++) {
+        const annoteTarget = annoteTargets[i];
+        const targetCell = annoteTarget.getAttribute("data-target-cell");
+        const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
+        const contentFn = () => {
+          const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          if (content) {
+            const tipContent = content.cloneNode(true);
+            tipContent.classList.add("code-annotation-tip-content");
+            return tipContent.outerHTML;
+          }
+        }
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          onShow: (instance) => {
+            selectCodeLines(instance.reference);
+            instance.reference.classList.add('code-annotation-active');
+            window.tippy.hideAll();
+          },
+          onHide: (instance) => {
+            unselectCodeLines();
+            instance.reference.classList.remove('code-annotation-active');
+          },
+          maxWidth: 300,
+          delay: [50, 0],
+          duration: [200, 0],
+          offset: [5, 10],
+          arrow: true,
+          appendTo: function(el) {
+            return el.parentElement.parentElement.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto',
+          placement: 'right',
+          popperOptions: {
+            modifiers: [
+            {
+              name: 'flip',
+              options: {
+                flipVariations: false, // true by default
+                allowedAutoPlacements: ['right'],
+                fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
+              },
+            },
+            {
+              name: 'preventOverflow',
+              options: {
+                mainAxis: false,
+                altAxis: false
+              }
+            }
+            ]        
+          }      
+        };
+        window.tippy(annoteTarget, config); 
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

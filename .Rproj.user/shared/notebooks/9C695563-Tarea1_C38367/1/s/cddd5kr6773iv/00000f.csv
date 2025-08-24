@@ -1,0 +1,14 @@
+"0","costo.llamada <- function(t) {"
+"0","  if (t < 1) {"
+"0","    costo <<- 0.4"
+"0","  } else {"
+"0","    costo <<- 0.4 + (t - 1)/4"
+"0","  }"
+"0","  return(costo)"
+"0","}"
+"0","costo.llamada(2)"
+"1","[1] 0.65
+"
+"0","costo.llamada(.2)"
+"1","[1] 0.4
+"

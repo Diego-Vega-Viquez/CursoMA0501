@@ -1,0 +1,3189 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.56">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Diego Alberto Vega Víquez">
+
+<title>Apuntes Teoría MA0501</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Apuntes Teoría_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Apuntes Teoría_files/libs/quarto-html/quarto.js"></script>
+<script src="Apuntes Teoría_files/libs/quarto-html/popper.min.js"></script>
+<script src="Apuntes Teoría_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Apuntes Teoría_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Apuntes Teoría_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Apuntes Teoría_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Apuntes Teoría_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Apuntes Teoría_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Apuntes Teoría_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#fundamentos-de-la-programación-en-lenguaje-r" id="toc-fundamentos-de-la-programación-en-lenguaje-r" class="nav-link active" data-scroll-target="#fundamentos-de-la-programación-en-lenguaje-r">Fundamentos de la Programación en Lenguaje R</a>
+  <ul class="collapse">
+  <li><a href="#funciones" id="toc-funciones" class="nav-link" data-scroll-target="#funciones">Funciones</a>
+  <ul class="collapse">
+  <li><a href="#usando-for-if-y-while" id="toc-usando-for-if-y-while" class="nav-link" data-scroll-target="#usando-for-if-y-while">Usando For, If y While</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#algoritmos-aproximaciones-y-error" id="toc-algoritmos-aproximaciones-y-error" class="nav-link" data-scroll-target="#algoritmos-aproximaciones-y-error">Algoritmos, aproximaciones y error</a>
+  <ul class="collapse">
+  <li><a href="#aproximaciones-y-error" id="toc-aproximaciones-y-error" class="nav-link" data-scroll-target="#aproximaciones-y-error">Aproximaciones y Error</a>
+  <ul class="collapse">
+  <li><a href="#aritmética-punto-flotante" id="toc-aritmética-punto-flotante" class="nav-link" data-scroll-target="#aritmética-punto-flotante">Aritmética punto flotante</a></li>
+  <li><a href="#problemas-con-la-aritmética-punto-flotante" id="toc-problemas-con-la-aritmética-punto-flotante" class="nav-link" data-scroll-target="#problemas-con-la-aritmética-punto-flotante">Problemas con la aritmética punto flotante</a></li>
+  <li><a href="#algoritmos-y-convergencia" id="toc-algoritmos-y-convergencia" class="nav-link" data-scroll-target="#algoritmos-y-convergencia">Algoritmos y convergencia</a></li>
+  <li><a href="#origen-del-error" id="toc-origen-del-error" class="nav-link" data-scroll-target="#origen-del-error">Origen del Error</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#elementos-de-análisis-funcional" id="toc-elementos-de-análisis-funcional" class="nav-link" data-scroll-target="#elementos-de-análisis-funcional">Elementos de análisis funcional</a>
+  <ul class="collapse">
+  <li><a href="#elementos-de-análisis-funcional-para-análisis-numérico" id="toc-elementos-de-análisis-funcional-para-análisis-numérico" class="nav-link" data-scroll-target="#elementos-de-análisis-funcional-para-análisis-numérico">Elementos de Análisis Funcional para Análisis Numérico</a>
+  <ul class="collapse">
+  <li><a href="#espacios-normados" id="toc-espacios-normados" class="nav-link" data-scroll-target="#espacios-normados">Espacios Normados</a></li>
+  <li><a href="#productos-escalares" id="toc-productos-escalares" class="nav-link" data-scroll-target="#productos-escalares">Productos escalares</a></li>
+  <li><a href="#completitud" id="toc-completitud" class="nav-link" data-scroll-target="#completitud">Completitud</a></li>
+  <li><a href="#el-teorema-de-punto-fijo-de-banach" id="toc-el-teorema-de-punto-fijo-de-banach" class="nav-link" data-scroll-target="#el-teorema-de-punto-fijo-de-banach">El teorema de punto fijo de Banach</a></li>
+  <li><a href="#el-teorema-de-la-mejor-aproximación" id="toc-el-teorema-de-la-mejor-aproximación" class="nav-link" data-scroll-target="#el-teorema-de-la-mejor-aproximación">El teorema de la mejor aproximación</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Otros formatos</h2><ul><li><a href="Apuntes-Teoría.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Apuntes Teoría MA0501</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Autor/a</div>
+    <div class="quarto-title-meta-contents">
+             <p>Diego Alberto Vega Víquez <a href="mailto:diegovv13@gmail.com" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Fecha de publicación</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">21 de agosto de 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div style="page-break-after: always;"></div>
+<section id="fundamentos-de-la-programación-en-lenguaje-r" class="level1">
+<h1>Fundamentos de la Programación en Lenguaje R</h1>
+<section id="funciones" class="level2">
+<h2 class="anchored" data-anchor-id="funciones">Funciones</h2>
+<p>A continuación un ejemplo de una función en <strong>R</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1">1</button><span id="annotated-cell-1-1" class="code-annotation-target"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a>area.triangulo <span class="ot">&lt;-</span> <span class="cf">function</span>(base,altura) {</span>
+<span id="annotated-cell-1-2"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a>  area <span class="ot">&lt;-</span> (base<span class="sc">*</span>altura)<span class="sc">/</span><span class="dv">2</span></span>
+<span id="annotated-cell-1-3"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(area)</span>
+<span id="annotated-cell-1-4"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="annotated-cell-1-5"><a href="#annotated-cell-1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-1-6"><a href="#annotated-cell-1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">area.triangulo</span>(<span class="dv">2</span>,<span class="dv">5</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="1" data-code-annotation="1">Comunmente usamos el punto para separar las palabras en el nombre de las variables</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+</div>
+<section id="usando-for-if-y-while" class="level3">
+<h3 class="anchored" data-anchor-id="usando-for-if-y-while">Usando For, If y While</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>encuentra.cero.f <span class="ot">&lt;-</span> <span class="cf">function</span>(v) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  s <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(v)) {</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>((v[i]<span class="sc">==</span><span class="dv">0</span>) <span class="sc">&amp;&amp;</span> (s <span class="sc">==</span> <span class="sc">-</span><span class="dv">1</span>)) {</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>      s<span class="ot">&lt;-</span>i</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (s <span class="sc">!=</span> <span class="sc">-</span><span class="dv">1</span>) {</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(s)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> {</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">"¡El vector no tiene ningún cero!"</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>vec<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="sc">-</span><span class="dv">7</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">9</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="fu">encuentra.cero.f</span>(vec)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "¡El vector no tiene ningún cero!"</code></pre>
+</div>
+</div>
+<p>La siguiente función calcula la suma del valor absoluto de las entradas de un vector, es de decir, la norma 1 del vector dada por</p>
+<p><span class="math display">|v[1]|+|v[2]|+\ldots+|v[n]|</span></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>norma1 <span class="ot">&lt;-</span> <span class="cf">function</span>(v) {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>   suma <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>   i <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>   <span class="cf">while</span> (i <span class="sc">&lt;=</span> <span class="fu">length</span>(v)) {</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>      suma <span class="ot">&lt;-</span> suma <span class="sc">+</span> <span class="fu">abs</span>(v[i])</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>      i <span class="ot">&lt;-</span> i <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>   }</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>   <span class="fu">return</span>(suma)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>vec0<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="sc">-</span><span class="dv">7</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">norma1</span>(vec0)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 14</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="algoritmos-aproximaciones-y-error" class="level1">
+<h1>Algoritmos, aproximaciones y error</h1>
+<section id="aproximaciones-y-error" class="level2">
+<h2 class="anchored" data-anchor-id="aproximaciones-y-error">Aproximaciones y Error</h2>
+<section id="aritmética-punto-flotante" class="level3">
+<h3 class="anchored" data-anchor-id="aritmética-punto-flotante">Aritmética punto flotante</h3>
+<section id="punto-flotante" class="level4">
+<h4 class="anchored" data-anchor-id="punto-flotante">Punto flotante</h4>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definición: Forma Punto Flotante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un número real <span class="math inline">x</span> está en <strong>forma punto flotante</strong> si se escribe de la forma</p>
+<p><span class="math display">
+0.d_1 d_2 \cdots d_k \times 10^{n},
+</span></p>
+<p>donde <span class="math inline">0 \le d_i \le 9</span>, <span class="math inline">d_1 \ne 0</span>, <span class="math inline">i = 1,2,\ldots,k</span>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Ejemplo
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math display">
+\pi = 0.31415 \times 10^{1}.
+</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Observación
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>En análisis numérico todas las respuestas deben darse en <strong>notación de punto flotante</strong>.</li>
+<li>Si <span class="math inline">x \in \mathbb{R}</span>, entonces se escribe como<br>
+<span class="math display">x = 0.d_1 d_2 d_3 \cdots \times 10^{n},</span> pero el computador solo puede <strong>almacenar una cantidad finita de dígitos</strong> por limitaciones de memoria.</li>
+</ul>
+<p>Por lo tanto, quedan <strong>dos posibilidades</strong>:</p>
+<ol type="1">
+<li><strong>Cortar</strong>
+<ul>
+<li><span class="math display">x \approx {fl}(x) = 0.d_1 d_2 \cdots d_k \times 10^{n},</span> es decir, <strong>cortar a partir del dígito <span class="math inline">k+1</span></strong>.</li>
+</ul></li>
+<li><strong>Redondear y cortar</strong>
+<ul>
+<li>Si <span class="math inline">d_{k+1} \ge 5</span> entonces <strong>sume 1 a <span class="math inline">d_k</span></strong> y corte.</li>
+<li>Si no, <strong>solamente corte</strong>.</li>
+</ul></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Ejemplo
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math display">
+\pi = 3.14159265\cdots, \quad \text{con } k = 5 \text{ tenemos:}
+</span></p>
+<p><span class="math display">
+fl(\pi) = 0.31415 \times 10^{1} \quad (\textbf{Cortando})
+</span></p>
+<p><span class="math display">
+fl(\pi) = 0.31416 \times 10^{1} \quad (\textbf{Redondeando})
+</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definición: Error de Redondeo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El error que resulta de reemplazar <span class="math inline">x</span> por <span class="math inline">fl(x)</span> se denomina <strong>Error de Redondeo.</strong></p>
+</div>
+</div>
+</section>
+<section id="cómo-medir-controlar-la-propagación-del-error" class="level4">
+<h4 class="anchored" data-anchor-id="cómo-medir-controlar-la-propagación-del-error">¿Cómo medir, controlar, la propagación del error?</h4>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definición: Error absoluto &amp; Error relativo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si <span class="math inline">P^*</span> es una aproximación de <span class="math inline">P</span> se llama:</p>
+<p><span class="math display">
+\text{Error absoluto} \;=\; |P - P^*|
+</span></p>
+<p><span class="math display">
+\text{Error relativo} \;=\; \frac{|P - P^*|}{|P|}, \quad \text{para } P \neq 0
+</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Teorema
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">x \in \mathbb{R}</span>, <span class="math inline">x \neq 0</span>, entonces:</p>
+<ol type="1">
+<li>Si <span class="math inline">fl(x)</span> se obtiene usando <span class="math inline">k</span>-dígitos de <span class="math inline">x</span> <strong>cortando</strong>, entonces:</li>
+</ol>
+<p><span class="math display">
+\left| \frac{x - fl(x)}{x} \right| \leq 10^{-k+1}.
+</span></p>
+<ol start="2" type="1">
+<li>Si <span class="math inline">fl(x)</span> se obtiene usando <span class="math inline">k</span>-dígitos de <span class="math inline">x</span> <strong>redondeado</strong>, entonces:</li>
+</ol>
+<p><span class="math display">
+\left| \frac{x - fl(x)}{x} \right| \leq 0.5 \times 10^{-k+1} \;=\; 5 \times 10^{-k}.
+</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Ejemplo
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Si <span class="math inline">P = 0.3000 \times 10^{1}</span> y <span class="math inline">P^* = 0.3100 \times 10^{1}</span> entonces:</p>
+<p><span class="math display">
+|P - P^*| = 0.1 \times 10^{0},
+\qquad \frac{|P - P^*|}{|P|} = 0.33 \times 10^{-1}
+</span></p>
+<p>Pero si <span class="math inline">P = 0.3000 \times 10^{4}</span> y <span class="math inline">P^* = 0.3100 \times 10^{4}</span> entonces:</p>
+<p><span class="math display">
+|P - P^*| = 0.1 \times 10^{3},
+\qquad \frac{|P - P^*|}{|P|} = 0.33 \times 10^{-1}
+</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>1.</strong></p>
+<p><span class="math display">
+\left| \frac{x - fl(x)}{x} \right|
+= \left| \frac{0.d_1 d_2 \cdots \times 10^n - 0.d_1 d_2 \cdots d_k \times 10^n}{0.d_1 d_2 \cdots \times 10^n} \right|
+</span></p>
+<p><span class="math display">
+= \left| \frac{0.d_{k+1} d_{k+2} \cdots \times 10^{n-k}}{0.d_1 d_2 \cdots \times 10^n} \right|
+</span></p>
+<p><span class="math display">
+= \left| \frac{0.d_{k+1} d_{k+2} \cdots}{0.d_1 d_2 \cdots} \right| \times 10^{-k}
+\;\;\le\;\; \frac{1}{0.1} \times 10^{-k}
+</span></p>
+<p><span class="math display">
+= 10^{-k+1}.
+</span></p>
+<hr>
+<p><strong>2. Ejercicio:</strong> por casos</p>
+<ul>
+<li><span class="math inline">d_{k+1} &lt; 5</span>,<br>
+</li>
+<li><span class="math inline">d_{k+1} \ge 5</span>.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definición: Dígitos significativos
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Se dice que un número <span class="math inline">P^*</span> aproxima a <span class="math inline">P</span> con <span class="math inline">t</span> <strong>dígitos significativos</strong> si <span class="math inline">t \in \mathbb{N}</span> es el número más grande tal que:</p>
+<p><span class="math display">
+\frac{|P - P^*|}{|P|} &lt; 5 \times 10^{-t} \;=\; 0.5 \times 10^{-t+1}.
+</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Ejemplo
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math display">
+x \;=\; \pi \;=\; 0.\underbrace{3141}_{\text{4 dígitos}}59265 \cdots \times 10^{1}.
+</span></p>
+<p><span class="math display">
+x^* \;=\; \frac{22}{7} \;=\; 0.\underbrace{3142}_{\text{dígitos distintos}}8517 \times 10^{1}.
+</span></p>
+<p><span class="math display">
+\frac{|x - x^*|}{|x|} = 0.402 \times 10^{-3} &lt; 0.5 \times 10^{-4+1}.
+</span></p>
+<p>Por lo que <span class="math inline">x^*</span> aproxima <span class="math inline">x</span> con <strong>4 dígitos significativos</strong>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Ejemplo
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>¿Qué valores puede tomar <span class="math inline">x^*</span> para aproximar 1000 con <strong>4 dígitos significativos</strong>?</p>
+<p><span class="math display">
+x = 1000 = 0.1000 \times 10^{4}, \quad \text{luego tenemos que:}
+</span></p>
+<p><span class="math display">
+\left| \frac{x^* - 1000}{1000} \right|
+&lt; 5 \times 10^{-4}
+\;\;\;\;\;\;\;\; \Rightarrow \;\;\;\;\;\;\;\;
+-5 \times 10^{-4}
+&lt; \frac{x^* - 1000}{1000}
+&lt; 5 \times 10^{-4},
+</span></p>
+<p><span class="math display">
+\Rightarrow \;\; 999.5 &lt; x^* &lt; 1000.5.
+</span></p>
+<p>Note que <span class="math display">x^* = 0.9996 \times 10^{3}</span> aproxima a <span class="math inline">x</span> con <strong>4 dígitos significativos</strong>,</p>
+<p>pero <span class="math display">y = 0.1001 \times 10^{4}</span> <strong>no</strong> aproxima a <span class="math inline">x</span> con 4 dígitos significativos.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="problemas-con-la-aritmética-punto-flotante" class="level3">
+<h3 class="anchored" data-anchor-id="problemas-con-la-aritmética-punto-flotante">Problemas con la aritmética punto flotante</h3>
+<ul>
+<li><p><strong>División:</strong><br>
+Si <span class="math inline">x \cong x + \varepsilon</span> y se divide entre <span class="math inline">\delta</span> muy pequeño se tiene:</p>
+<p><span class="math display">
+\frac{x}{\delta} \cong \frac{x + \varepsilon}{\delta} = \frac{x}{\delta} + \underbrace{\frac{\varepsilon}{\delta}}_{(*)}
+</span> <span class="math inline">(*)</span>: Nuevo error enorme</p></li>
+<li><p><strong>Resta de dos números casi iguales:</strong></p></li>
+</ul>
+<p><span class="math display">\begin{align*}
+  fl(x) \; &amp;= \; 0.d_1 d_2 \cdots d_p \alpha_{p+1} \alpha_{p+2} \cdots \alpha_k \times 10^n\\
+  fl(y) \; &amp;= \; 0.d_1 d_2 \cdots d_p \beta_{p+1} \beta_{p+2} \cdots \beta_k \times 10^n\\
+  x - y \; &amp;\cong \; fl(x) - fl(y) \;=\; 0.\underbrace{\gamma_{p+1}\gamma_{p+2}\cdots\gamma_k}_{(**)} \times 10^{n-p}
+\end{align*}</span></p>
+<p><span class="math inline">(**)</span>: Podría ser basura.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notación
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\begin{align*}
+\Delta_x \;&amp;=\; |x - x^*|.\\
+\delta_x \;&amp;=\; \frac{|x - x^*|}{|x|} \;=\; \frac{\Delta_x}{|x|}.
+\end{align*}</span></p>
+</div>
+</div>
+<hr>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Teorema
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si <span class="math inline">x = x_1 + x_2 + \cdots + x_n</span> y <span class="math inline">x^* = x_1^* + x_2^* + \cdots + x_n^*</span> con <span class="math inline">x_i \geq 0</span> entonces:</p>
+<p><span class="math display">\begin{align*}
+\Delta_x \;&amp;\leq\; \sum_{i=1}^n \Delta_{x_i}. \\
+\delta_x \;&amp;\leq\; \max\{\delta_{x_1}, \delta_{x_2}, \ldots, \delta_{x_n}\}.
+\end{align*}</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math display">\begin{align*}
+\Delta_x &amp;= |x - x^*|
+= \left| \sum_{i=1}^n x_i - \sum_{i=1}^n x_i^* \right|
+\leq \sum_{i=1}^n |x_i - x_i^*|
+= \sum_{i=1}^n \Delta_{x_i}.
+\end{align*}</span></p>
+<p><span class="math display">\begin{align*}
+\text{Sabemos que } \quad
+\delta_x &amp;= \frac{\Delta_x}{|x|}
+\leq \frac{\Delta_{x_1} + \Delta_{x_2} + \cdots + \Delta_{x_n}}
+{|x_1 + x_2 + \cdots + x_n|},\\[1ex]
+\delta_{x_i} &amp;= \frac{\Delta_{x_i}}{|x_i|}
+\;\Rightarrow\; \Delta_{x_i} = \delta_{x_i}\,|x_i|,\\[2ex]
+\Rightarrow \quad
+\delta_x &amp;\leq \frac{|x_1|\delta_{x_1} + |x_2|\delta_{x_2} + \cdots + |x_n|\delta_{x_n}}
+{|x_1 + x_2 + \cdots + x_n|}\\[2ex]
+&amp;\leq
+\frac{\max\{\delta_{x_1}, \delta_{x_2}, \ldots, \delta_{x_n}\}\, (|x_1| + |x_2| + \cdots + |x_n|)}
+{|x_1 + x_2 + \cdots + x_n|}\\[2ex]
+&amp;\leq \max\{\delta_{x_1}, \delta_{x_2}, \ldots, \delta_{x_n}\},
+\qquad \text{pues } x_i \ge 0 \ \forall i .
+\end{align*}</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Observación
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Se debe evitar la pérdida de dígitos significativos:</p>
+<p>Por ejemplo, al evaluar:</p>
+<p><span class="math display">
+f(x) = 1 - \cos(x),
+</span></p>
+<p>con <span class="math inline">x</span> cercano a <span class="math inline">0</span> se producirá una pérdida de dígitos significativos.<br>
+Esto se puede evitar racionalizando, como sigue:</p>
+<p><span class="math display">
+f(x) = 1 - \cos(x) \;=\; \frac{\sin^{2}(x)}{1 + \cos(x)}.
+</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="algoritmos-y-convergencia" class="level3">
+<h3 class="anchored" data-anchor-id="algoritmos-y-convergencia">Algoritmos y convergencia</h3>
+<section id="qué-es-un-algoritmo" class="level4">
+<h4 class="anchored" data-anchor-id="qué-es-un-algoritmo">¿Qué es un algoritmo?</h4>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definición: Algoritmo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un algoritmo es un procedimiento que describe, sin ninguna ambigüedad, una sucesión finita de pasos a realizar en orden específico, con el propósito de resolver un problema.</p>
+</div>
+</div>
+<p><strong>Características:</strong></p>
+<ul>
+<li>Finito.<br>
+</li>
+<li>Definido (no ambiguo).<br>
+</li>
+<li>Entrada.<br>
+</li>
+<li>Salida.<br>
+</li>
+<li>Efectivo.<br>
+</li>
+<li>Eficiente.</li>
+</ul>
+<p>Para representar las instrucciones utilizaremos pseudocódigo.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Ejemplo
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Para calcular<br>
+<span class="math display">
+\sum_{k=a}^{\infty} f(x,k)
+</span> tenemos:</p>
+<p><strong>Entrada:</strong> <span class="math inline">\varepsilon, f, a, x</span>.</p>
+<p><strong>Salida:</strong> Valor aproximado de<br>
+<span class="math display">
+\sum_{k=a}^{\infty} f(x,k).
+</span></p>
+<hr>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>k <span class="op">&lt;-</span> a</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>s <span class="op">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>T <span class="op">&lt;-</span> f(x,k)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">|</span>T<span class="op">|</span> <span class="op">&lt;</span> ε do</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    s <span class="op">&lt;-</span> s <span class="op">+</span> t</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    t <span class="op">&lt;-</span> t <span class="op">*</span> (f(x,k<span class="op">+</span><span class="dv">1</span>) <span class="op">/</span> f(x,k))</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    k <span class="op">&lt;-</span> k <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>end <span class="cf">while</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> s</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definición: Algoritmos Estables
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un algoritmo se dice <strong>estable</strong> si pequeños cambios en la entrada producen pequeños cambios en la salida.<br>
+En caso contrario, es decir, pequeños cambios en la entrada producen grandes cambios en la salida, entonces el algoritmo se dice <strong>inestable (caótico)</strong>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notación
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\begin{align*}
+E \;&amp;=\; \text{Error inicial.}\\
+E_n \;&amp;=\; \text{Error luego de $n$ pasos.}
+\end{align*}</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definición: Crecimiento lineal del error
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si<br>
+<span class="math display">|E_n| = CnE,</span><br>
+con <span class="math inline">C</span> constante, entonces el crecimiento del error es <strong>lineal</strong>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definición: Crecimiento exponencial del error
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si<br>
+<span class="math display">|E_n| = K^n E, \quad K &gt; 1,</span><br>
+entonces el crecimiento del error es <strong>exponencial</strong>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-23-contents" aria-controls="callout-23" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Observación
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-23" class="callout-23-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>Crecimiento del error lineal <span class="math inline">\;\Leftrightarrow\;</span> estable.<br>
+</li>
+<li>Crecimiento del error exponencial <span class="math inline">\;\Leftrightarrow\;</span> inestable.<br>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definición: Rapidez de convergencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">\{ \alpha_n \}_{n \in \mathbb{N}}</span> una sucesión que converge a <span class="math inline">\alpha</span>, se dice que <span class="math inline">\{ \alpha_n \}_{n \in \mathbb{N}}</span> converge con una rapidez <span class="math inline">\mathcal{O}(\beta_n)</span>, donde <span class="math inline">\{ \beta_n \}_{n \in \mathbb{N}}</span> es otra sucesión (<span class="math inline">\beta_n \neq 0 \ \forall n</span>) si:</p>
+<p><span class="math display">
+\frac{|\alpha_n - \alpha|}{|\beta_n|} &lt; K
+</span></p>
+<p>para <span class="math inline">n</span> suficientemente grande y <span class="math inline">K</span> constante que no depende de <span class="math inline">n</span>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notación
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">
+\alpha_n = \alpha + \mathcal{O}(\beta_n).
+</span></p>
+<p><span class="math display">
+\alpha_n \;\to\; \alpha \;\;\; \text{con rapidez } \mathcal{O}(\beta_n).
+</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Observación
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">
+\frac{|\alpha_n - \alpha|}{|\beta_n|} &lt; K
+\;\;\;\Longleftrightarrow\;\;\;
+- K \beta_n + \alpha &lt; \alpha_n &lt; K \beta_n + \alpha.
+</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-27-contents" aria-controls="callout-27" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Ejemplo
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-27" class="callout-27-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Si <span class="math inline">\alpha_n = \dfrac{n+3}{n^3}</span>, entonces</p>
+<p><span class="math display">
+\alpha_n = 0 + \mathcal{O}\!\left(\frac{1}{n^2}\right)
+</span></p>
+<p>pues:</p>
+<p><span class="math display">
+\left| \frac{\alpha_n - \alpha}{\beta_n} \right|
+= \left| \frac{\tfrac{n+3}{n^3} - 0}{\tfrac{1}{n^2}} \right|
+= \left| \frac{n^3 + 3n^2}{n^3} \right|
+= \left| 1 + \frac{3}{n} \right|
+\leq 4, \quad \text{si } n \to \infty.
+</span></p>
+<p>Es decir, <span class="math inline">\dfrac{n+3}{n^3}</span> converge a <span class="math inline">0</span> tan rápido como <span class="math inline">\dfrac{1}{n^2}</span> converge a <span class="math inline">0</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-28-contents" aria-controls="callout-28" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Ejemplo
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-28" class="callout-28-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Si <span class="math display">
+\alpha_n = \frac{\sin(n)}{n},
+</span><br>
+entonces<br>
+<span class="math display">
+\alpha_n = 0 + \mathcal{O}\!\left(\frac{1}{n}\right), \quad \text{cuando } n \to \infty.
+</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Observación: Velocidad de convergencia de los ciclos
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>1. <span class="math inline">\texttt{For[i=1, i++, i&lt;=N, \dots]}</span></p>
+<p>tiene una velocidad de convergencia <span class="math inline">\mathcal{O}(N)</span>.</p>
+<p>2. <span class="math inline">\texttt{For[i=1, i++, i&lt;=N,} \quad</span></p>
+<p><span class="math inline">\quad\texttt{For[j=1, j++, j&lt;=M, \dots]]}</span></p>
+<p>tiene una velocidad de convergencia <span class="math inline">\mathcal{O}(N^2)</span>.</p>
+<p>3. <span class="math inline">\texttt{For[i=1, i++, i&lt;=N,} \quad</span></p>
+<p><span class="math inline">\qquad\texttt{For[j=1, j++, j&lt;=M,} \quad</span></p>
+<p><span class="math inline">\qquad\qquad\texttt{For[k=1, k++, k&lt;=L, \dots]]]}</span></p>
+<p>tiene una velocidad de convergencia <span class="math inline">\mathcal{O}(N^3)</span>.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="origen-del-error" class="level3">
+<h3 class="anchored" data-anchor-id="origen-del-error">Origen del Error</h3>
+<section id="tipos-de-error" class="level4">
+<h4 class="anchored" data-anchor-id="tipos-de-error">Tipos de Error</h4>
+<p>Existen dos tipos de error: El error en los datos y el error computacional</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Imagenes/Grafico%20Error.png" class="img-fluid figure-img" width="400"></p>
+<figcaption>Tipos de Error</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definición: Propagación del error
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">a \in \mathbb{R}</span> y sea <span class="math inline">\hat{a}</span> una aproximación de <span class="math inline">a</span> y <span class="math inline">f</span> una función o procedimiento,<br>
+entonces</p>
+<p><span class="math display">
+f(\hat{a}) - f(a)
+</span></p>
+<p>se llama <strong>propagación del error</strong> o <strong>error propagado</strong>.</p>
+</div>
+</div>
+<p>Esto se ilustra en el siguiente gráfico</p>
+<p>AGRAGAR GRAFICO ANDREY</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-31-contents" aria-controls="callout-31" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Ejemplo
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-31" class="callout-31-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Suponga que se desea calcular <span class="math inline">c</span> en el siguiente triángulo:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Imagenes/Triangulo.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="300"></p>
+</figure>
+</div>
+<p>Supongamos que <span class="math inline">a</span> tiene un error y usamos <span class="math inline">100.1</span>.<br>
+Entonces el error se propaga como se muestra en la siguiente tabla:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 20%">
+<col style="width: 25%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Expresión</th>
+<th>Exacto</th>
+<th>Aproximado</th>
+<th>Error relativo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">a</span></td>
+<td><span class="math inline">100</span></td>
+<td><span class="math inline">100.1</span></td>
+<td><span class="math inline">0.1 \,\%</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">b-a</span></td>
+<td><span class="math inline">1</span></td>
+<td><span class="math inline">0.9</span></td>
+<td><span class="math inline">-10 \,\%</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">(b-a)^2</span></td>
+<td><span class="math inline">1</span></td>
+<td><span class="math inline">0.81</span></td>
+<td><span class="math inline">-19 \,\%</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">4ab \sin^2\!\left(\tfrac{\gamma}{2}\right)</span></td>
+<td><span class="math inline">3.0765\ldots</span></td>
+<td><span class="math inline">3.0796\ldots</span></td>
+<td><span class="math inline">0.1 \,\%</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">(b-a)^2 + 4ab \sin^2\!\left(\tfrac{\gamma}{2}\right)</span></td>
+<td><span class="math inline">4.0765\ldots</span></td>
+<td><span class="math inline">3.8896\ldots</span></td>
+<td><span class="math inline">-4.6 \,\%</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">c</span></td>
+<td><span class="math inline">2.0190\ldots</span></td>
+<td><span class="math inline">1.9722\ldots</span></td>
+<td><span class="math inline">-2.3 \,\%</span></td>
+</tr>
+<tr class="odd">
+<td><strong>Error relativo inicial:</strong></td>
+<td><span class="math inline">0.1 \,\%</span></td>
+<td><strong>Error relativo final:</strong></td>
+<td><span class="math inline">-2.3 \,\%</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-32-contents" aria-controls="callout-32" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Ejemplo: Inestabilidad Numérica
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-32" class="callout-32-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Suponga que se desea calcular</p>
+<p><span class="math display">
+z = 1.000 - \frac{1.208}{x}
+</span></p>
+<p>en una computadora que solamente utiliza 4 dígitos, con <span class="math inline">x = 1.209</span>.</p>
+<p><strong>Algoritmo 1.</strong><br>
+Calcule primero <span class="math inline">y := \dfrac{1.208}{x}</span> y luego <span class="math inline">z := 1.000 - y</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Imagenes/1%20graph.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="350"></p>
+</figure>
+</div>
+<p><strong>Algoritmo 2.</strong><br>
+Calcule primero <span class="math inline">y := x - 1.208</span> y luego <span class="math inline">z := \dfrac{y}{x}</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Imagenes/2%20graph.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="350"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="principio-básico" class="level4">
+<h4 class="anchored" data-anchor-id="principio-básico">Principio Básico:</h4>
+<p>Si es posible, evite operaciones sensibles con operandos contaminados por la propagación del error.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-33-contents" aria-controls="callout-33" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Ejemplo: Raíces cuadráticas y propagación del error
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-33" class="callout-33-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Usualmente, para calcular las raíces de una ecuación cuadrática se usa:</p>
+<p><span class="math display">
+x_{1,2} = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a},
+</span></p>
+<p>pero si <span class="math inline">b &gt; 0</span> es mejor usar:</p>
+<p><span class="math display">
+x_1 = \frac{-2c}{-b - \sqrt{b^2 - 4ac}},
+</span></p>
+<p>y si <span class="math inline">b &lt; 0</span> es mejor usar:</p>
+<p><span class="math display">
+x_2 = \frac{2c}{-b + \sqrt{b^2 - 4ac}}.
+</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-34-contents" aria-controls="callout-34" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Ejemplos: Evitar cancelación numérica
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-34" class="callout-34-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Otros ejemplos que evitan problemas de cancelación cuando <span class="math inline">x \approx y</span> son:</p>
+<p><span class="math display">\begin{align*}
+x^2 - y^2 \;\;&amp;\longrightarrow\;\; (x-y)(x+y),\\
+\cos(x) - 1 \;\;&amp;\longrightarrow\;\; 2 \sin^2\!\left(\tfrac{x}{2}\right), \quad \text{para } x \to 0,\\
+\ln(x) - \ln(y) = \ln\!\left(\tfrac{x}{y}\right)&amp;\longrightarrow\; 2 \tanh^{-1}\!\left(\tfrac{x-y}{x+y}\right),\\
+e^x - e^y \;\;&amp;\longrightarrow\;\; 2 \sinh\!\left(\tfrac{x-y}{2}\right) e^{\tfrac{x+y}{2}}.
+\end{align*}</span></p>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+</section>
+<section id="elementos-de-análisis-funcional" class="level1">
+<h1>Elementos de análisis funcional</h1>
+<section id="elementos-de-análisis-funcional-para-análisis-numérico" class="level2">
+<h2 class="anchored" data-anchor-id="elementos-de-análisis-funcional-para-análisis-numérico">Elementos de Análisis Funcional para Análisis Numérico</h2>
+<section id="espacios-normados" class="level3">
+<h3 class="anchored" data-anchor-id="espacios-normados">Espacios Normados</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definición: Espacio normado
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">X</span> un espacio vectorial complejo (o real).<br>
+Una función <span class="math inline">\|\cdot\| : X \to \mathbb{R}</span> con las siguientes propiedades:</p>
+<ol type="1">
+<li><span class="math inline">\|x\| \geq 0,</span><br>
+</li>
+<li><span class="math inline">\|x\| = 0</span> si y solamente si <span class="math inline">x = 0,</span><br>
+</li>
+<li><span class="math inline">\|\alpha x\| = |\alpha| \, \|x\|,</span><br>
+</li>
+<li><span class="math inline">\|x + y\| \leq \|x\| + \|y\|,</span></li>
+</ol>
+<p>para todo <span class="math inline">x, y \in X</span> y para todo <span class="math inline">\alpha \in \mathbb{C}</span> (o <span class="math inline">\mathbb{R}</span>),<br>
+se llama <strong>norma</strong> en <span class="math inline">X</span>.</p>
+<p>El espacio vectorial <span class="math inline">X</span> provisto de una norma se llama <strong>espacio normado</strong>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" data-collapsed="true">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-36-contents" aria-controls="callout-36" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Ejemplo
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-36" class="callout-36-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Algunas normas de <span class="math inline">\mathbb{R}^n</span> y <span class="math inline">\mathbb{C}^n</span> son:</p>
+<p><span class="math display">
+\|x\|_1 := \sum_{i=1}^n |x_i|,
+\qquad
+\|x\|_2 := \left( \sum_{i=1}^n |x_i|^2 \right)^{1/2},
+\qquad
+\|x\|_\infty := \max_{i=1,2,\dots,n} |x_i|,
+</span></p>
+<p>para <span class="math inline">x = (x_1, x_2, \dots, x_n)^t</span>.</p>
+<p>Las normas anteriores son conocidas como las normas <span class="math inline">\ell_1</span>, <span class="math inline">\ell_2</span> y <span class="math inline">\ell_\infty</span> respectivamente.<br>
+Las tres son casos particulares de la <strong>norma <span class="math inline">\ell_p</span></strong>:</p>
+<p><span class="math display">
+\|x\|_p := \left( \sum_{i=1}^n |x_i|^p \right)^{1/p},
+\qquad p \geq 1.
+</span></p>
+<p>La norma <span class="math inline">\ell_\infty</span> es el límite de <span class="math inline">\ell_p</span> cuando <span class="math inline">p \to \infty</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proposición
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Para toda norma se tiene la <strong>segunda desigualdad triangular</strong>:</p>
+<p><span class="math display">
+\big| \|x\| - \|y\| \big| \leq \|x - y\|,
+</span></p>
+<p>para todo <span class="math inline">x, y \in X</span>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled" data-collapsed="true">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-38-contents" aria-controls="callout-38" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-38" class="callout-38-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>De la desigualdad triangular se tiene que</p>
+<p><span class="math display">
+\|x\| = \|x - y + y\| \leq \|x - y\| + \|y\|,
+</span></p>
+<p>por lo tanto</p>
+<p><span class="math display">
+\|x\| - \|y\| \leq \|x - y\|.
+</span></p>
+<p>Análogamente, cambiando el rol de <span class="math inline">x</span> y <span class="math inline">y</span>, se obtiene</p>
+<p><span class="math display">
+\|y\| - \|x\| \leq \|y - x\|,
+</span></p>
+<p>y por lo tanto se cumple la desigualdad.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definición: Norma
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Para dos elementos <span class="math inline">x,y</span> en un espacio normado <span class="math inline">X</span> la norma <span class="math inline">\|x-y\|</span> se llama <strong>distancia</strong> entre <span class="math inline">x</span> y <span class="math inline">y</span>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definición: Sucesión Convergente
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Una sucesión <span class="math inline">(x_n)</span> de elementos en un espacio normado <span class="math inline">X</span> se llama <strong>convergente</strong> si existe un elemento <span class="math inline">x \in X</span> tal que:</p>
+<p><span class="math display">
+\lim_{n \to \infty} \|x_n - x\| = 0,
+</span></p>
+<p>es decir, para todo <span class="math inline">\varepsilon &gt; 0</span> existe un entero <span class="math inline">N(\varepsilon)</span> tal que <span class="math inline">\|x_n - x\| &lt; \varepsilon</span> para todo <span class="math inline">n &gt; N(\varepsilon)</span>.</p>
+<p>El elemento <span class="math inline">x</span> es llamado el <strong>límite</strong> de la sucesión <span class="math inline">(x_n)</span> y se escribe:</p>
+<p><span class="math display">
+\lim_{n \to \infty} x_n = x.
+</span></p>
+<p>Si una sucesión no converge se llama <strong>divergente</strong>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proposición
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El límite de una sucesión convergente es <strong>único</strong>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-42-contents" aria-controls="callout-42" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-42" class="callout-42-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><em>(Ejercicio)</em> <span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definición: Normas Equivalentes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Dos normas en un espacio vectorial se llaman <strong>equivalentes</strong> si tienen el mismo conjunto de sucesiones convergentes.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Teorema
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Dos normas <span class="math inline">\|\cdot\|_{a}</span> y <span class="math inline">\|\cdot\|_{b}</span> en un espacio vectorial <span class="math inline">X</span> son equivalentes si y solamente si existen números positivos <span class="math inline">c</span> y <span class="math inline">C</span> tal que: <span class="math display">
+c \|x\|_{a} \;\leq\; \|x\|_{b} \;\leq\; C \|x\|_{a}, \quad \forall x \in X.
+</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-45-contents" aria-controls="callout-45" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-45" class="callout-45-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Sean las normas <span class="math inline">\|\cdot\|_{a}</span> y <span class="math inline">\|\cdot\|_{b}</span> equivalentes. Suponga que no existe <span class="math inline">C&gt;0</span> tal que <span class="math inline">\|x\|_{b} \leq C \|x\|_{a}</span> para todo <span class="math inline">x \in X</span>, entonces existe una sucesión <span class="math inline">(x_{n})</span> con <span class="math inline">\|x_{n}\|_{a} = 1</span> y <span class="math inline">\|x_{n}\|_{b} \geq n^{2}</span>.<br>
+Luego la sucesión <span class="math inline">y_{n} := x_{n}/n</span> converge a cero con respecto a <span class="math inline">\|\cdot\|_{a}</span> pero no con respecto a <span class="math inline">\|\cdot\|_{b}</span>, porque <span class="math inline">\|y_{n}\|_{b} \geq n</span>.</p>
+<p>Recíprocamente, si se tiene (2), entonces si <span class="math inline">\|x_{n}-x\|_{a}\to 0</span> es claro que <span class="math inline">\|x_{n}-x\|_{b}\to 0</span> y viceversa.<br>
+<span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Teorema
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En un espacio vectorial de dimensión finita todas las normas son equivalentes.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-47-contents" aria-controls="callout-47" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-47" class="callout-47-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Ejercicio. <span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definición: Subconjunto cerrado
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>Un subconjunto <span class="math inline">U</span> de un espacio normado se llama <strong>cerrado</strong> si este contiene el límite de todas las sucesiones convergentes de <span class="math inline">U</span>.</p></li>
+<li><p>La <strong>clausura</strong> <span class="math inline">\overline{U}</span> de un conjunto <span class="math inline">U</span> de un espacio normado <span class="math inline">X</span> es el conjunto de todos los límites de sucesiones convergentes de <span class="math inline">U</span>.</p></li>
+<li><p>Un subconjunto <span class="math inline">U</span> de <span class="math inline">X</span> se llama <strong>abierto</strong> si su complemento <span class="math inline">X \setminus U</span> es cerrado.</p></li>
+<li><p>Un conjunto <span class="math inline">U</span> se llama <strong>denso</strong> en otro conjunto <span class="math inline">V</span> si <span class="math inline">V \subset \overline{U}</span>, es decir, si cada elemento de <span class="math inline">V</span> es el límite de una sucesión convergente de <span class="math inline">U</span>.</p></li>
+<li><p>Para cada <span class="math inline">x_{0} \in X</span> y <span class="math inline">r &gt; 0</span> el conjunto<br>
+<span class="math display">
+B[x_{0}, r] := \{x \in X \;:\; \|x - x_{0}\| \leq r\}
+</span><br>
+es cerrado y se llama la <strong>bola cerrada</strong> de radio <span class="math inline">r</span> y centro <span class="math inline">x_{0}</span>.</p>
+<p>El conjunto<br>
+<span class="math display">
+B(x_{0}, r) := \{x \in X \;:\; \|x - x_{0}\| &lt; r\}
+</span><br>
+es abierto y se llama la <strong>bola abierta</strong> de radio <span class="math inline">r</span> y centro <span class="math inline">x_{0}</span>.</p></li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-49-contents" aria-controls="callout-49" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Ejemplo
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-49" class="callout-49-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><p><strong>Cerrado.</strong> <span class="math inline">[0,1] \subset \mathbb{R}</span> es cerrado: toda sucesión convergente de puntos en <span class="math inline">[0,1]</span> converge a un punto en <span class="math inline">[0,1]</span>.</p></li>
+<li><p><strong>Clausura.</strong> Si <span class="math inline">U = ]0,1[</span>, entonces <span class="math inline">\overline{U} = [0,1]</span>.<br>
+Si <span class="math inline">U = \mathbb{Q}</span>, entonces <span class="math inline">\overline{U} = \mathbb{R}</span>.</p></li>
+<li><p><strong>Abierto.</strong> <span class="math inline">]0,1[ \subset \mathbb{R}</span> es abierto porque su complemento es<br>
+<span class="math inline">\mathbb{R} \setminus ]0,1[ = ]-\infty,0] \cup [1,\infty[</span>.</p></li>
+<li><p><strong>Denso en <span class="math inline">V</span>.</strong> <span class="math inline">\mathbb{Q}</span> es denso en <span class="math inline">\mathbb{R}</span> (<span class="math inline">\overline{\mathbb{Q}} = \mathbb{R}</span>).<br>
+También <span class="math inline">]0,1[</span> es denso en <span class="math inline">[0,1]</span> pues <span class="math inline">\overline{]0,1[} = [0,1]</span>.</p></li>
+<li><p><strong>Bolas (norma usual).</strong><br>
+En <span class="math inline">\mathbb{R}</span>, con <span class="math inline">x_0 = 2</span>, <span class="math inline">r = 3</span>:<br>
+<span class="math display">
+B[2,3] = \{ x \in \mathbb{R} : |x-2| \leq 3 \} = [-1,5],
+</span> <span class="math display">
+B(2,3) = \{ x \in \mathbb{R} : |x-2| &lt; 3 \} = ]-1,5[.
+</span></p>
+<p>En <span class="math inline">\mathbb{R}^2</span>, con <span class="math inline">x_0 = (1,2)</span>, <span class="math inline">r = 2</span>:<br>
+<span class="math display">
+B[(1,2),2] = \{ (x,y) \in \mathbb{R}^2 : \sqrt{(x-1)^2+(y-2)^2} \leq 2 \},
+</span> <span class="math display">
+B((1,2),2] = \{ (x,y) \in \mathbb{R}^2 : \sqrt{(x-1)^2+(y-2)^2} &lt; 2 \}.
+</span></p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definición
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un conjunto <span class="math inline">U</span> se llama <strong>acotado</strong> si existe un número positivo <span class="math inline">C</span> tal que<br>
+<span class="math display">
+\|x\| &lt; C \quad \text{para todo } x \in U.
+</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Teorema
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Toda sucesión acotada en un espacio normado de dimensión finita <span class="math inline">X</span> contiene una subsucesión convergente.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-52-contents" aria-controls="callout-52" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-52" class="callout-52-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">u_{1}, u_{2}, \ldots, u_{n}</span> una base de <span class="math inline">X</span> y sea <span class="math inline">(x_{\nu})</span> una sucesión acotada. Entonces se puede escribir: <span class="math display">
+x_{\nu} = \sum_{j=1}^{n} \alpha_{j\nu} u_{j}.
+</span></p>
+<p>Como <span class="math inline">x_{\nu}</span> es una sucesión acotada y usando la norma <span class="math display">
+\|x_{\nu}\|_{\infty B} := \max_{j=1,2,\ldots,n} |\alpha_{j\nu}|,
+</span> se tiene que cada una de las sucesiones <span class="math inline">(\alpha_{j\nu})</span> es acotada en <span class="math inline">\mathbb{C}</span> para cada <span class="math inline">j=1,2,\ldots,n</span>.</p>
+<p>Por lo tanto, usando el teorema de Bolzano–Weierstrass se puede seleccionar una subsucesión <span class="math inline">\alpha_{j\nu(\ell)} \to \alpha_{j}</span> cuando <span class="math inline">\ell \to \infty</span> para cada <span class="math inline">j=1,2,\ldots,n</span>.</p>
+<p>Esto implica que: <span class="math display">
+x_{\nu(\ell)} \to \sum_{j=1}^{n} \alpha_{j} u_{j} \in X, \quad \text{cuando } \ell \to \infty.
+</span> <span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="productos-escalares" class="level3">
+<h3 class="anchored" data-anchor-id="productos-escalares">Productos escalares</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definición: Producto interno y espacio pre-Hilbert
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">X</span> un espacio vectorial complejo (o real).<br>
+Una función <span class="math inline">\langle \cdot,\cdot \rangle : X \times X \to \mathbb{C}</span> (o <span class="math inline">\mathbb{R}</span>) con las siguientes propiedades:</p>
+<ol type="1">
+<li><span class="math inline">\langle x, x \rangle \ge 0,</span></li>
+<li><span class="math inline">\langle x, x \rangle = 0 \quad \text{si y sólo si } x = 0,</span></li>
+<li><span class="math inline">\langle x, y \rangle = \overline{\langle y, x \rangle},</span></li>
+<li><span class="math inline">\langle \alpha x + \beta y, z \rangle = \alpha \langle x, z \rangle + \beta \langle y, z \rangle, \quad \forall\, x,y,z \in X,\; \alpha,\beta \in \mathbb{C}\; (\text{o } \mathbb{R}),</span></li>
+</ol>
+<p>se llama <strong>producto interno</strong> en <span class="math inline">X</span>.<br>
+Un espacio vectorial <span class="math inline">X</span> provisto de un producto interno se llama <strong>espacio pre-Hilbert</strong>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-54-contents" aria-controls="callout-54" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Observación
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-54" class="callout-54-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Una consecuencia inmediata de 3. y 4. es la <strong>antilinealidad</strong>: <span class="math display">
+\langle x, \alpha y + \beta z \rangle = \overline{\alpha} \langle x, y \rangle + \overline{\beta} \langle x, z \rangle.
+</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-55-contents" aria-controls="callout-55" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Ejemplo
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-55" class="callout-55-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Un ejemplo de producto interno en <span class="math inline">\mathbb{C}^n</span> (o <span class="math inline">\mathbb{R}^n</span>) está dado por: <span class="math display">
+\langle x, y \rangle := \sum_{i=1}^{n} x_i \overline{y_i},
+</span> donde <span class="math inline">x := (x_1, x_2, \ldots, x_n)^t</span> y <span class="math inline">y := (y_1, y_2, \ldots, y_n)^t</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Teorema
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Para todo producto interno se tiene la desigualdad de Cauchy–Schwarz: <span class="math display">
+|\langle x, y \rangle|^2 \leq \langle x, x \rangle \langle y, y \rangle,
+</span> para todo <span class="math inline">x, y \in X</span>. Además se tiene igualdad si para todo <span class="math inline">x, y</span> son linealmente dependientes.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-57-contents" aria-controls="callout-57" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-57" class="callout-57-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Si <span class="math inline">x = 0</span> la desigualdad es trivial.<br>
+Si <span class="math inline">x \neq 0</span>, tome <span class="math display">
+z = y - \frac{\langle y, x \rangle}{\|x\|^2}x,
+</span> luego es claro que <span class="math inline">\langle z, x \rangle = 0</span> y que: <span class="math display">
+0 \leq \|z\|^2
+= \left\langle y - \frac{\langle y, x \rangle}{\|x\|^2}x , \; y - \frac{\langle y, x \rangle}{\|x\|^2}x \right\rangle
+= \langle y, y \rangle - \frac{\langle y, x \rangle \langle x, y \rangle}{\|x\|^2}
+= \|y\|^2 - \frac{|\langle x, y \rangle|^2}{\|x\|^2},
+</span> de donde se tiene la desigualdad. Además se tiene igualdad si para todo <span class="math inline">x, y</span> son linealmente dependientes (ejercicio). <span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Teorema
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">X</span> un espacio vectorial complejo (o real).<br>
+Entonces la función: <span class="math display">
+\|x\| := \langle x, x \rangle^{1/2}
+</span> define una norma en <span class="math inline">X</span>, es decir, un espacio pre–Hilbert es siempre un espacio normado.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-59-contents" aria-controls="callout-59" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-59" class="callout-59-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Ejercicio (use la desigualdad de Cauchy–Schwarz para probar la desigualdad triangular).<br>
+<span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definición: Elementos Ortogonales
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>Dos elementos <span class="math inline">x</span> y <span class="math inline">y</span> de un espacio pre–Hilbert se llaman <strong>ortogonales</strong> si: <span class="math display">
+\langle x, y \rangle = 0.
+</span></p></li>
+<li><p>Dos subconjuntos <span class="math inline">U</span> y <span class="math inline">V</span> se llaman <strong>ortogonales</strong> si <span class="math inline">\langle u, v \rangle = 0</span> para todo <span class="math inline">u \in U</span> y <span class="math inline">v \in V</span>.</p></li>
+<li><p>Si dos elementos son ortogonales se denota <span class="math inline">x \perp y</span> y si dos conjuntos son ortogonales se denota <span class="math inline">U \perp V</span>.</p></li>
+<li><p>Un subconjunto <span class="math inline">U \subseteq X</span> se llama un <strong>sistema ortogonal</strong> si <span class="math inline">\langle x, y \rangle = 0</span> para todo <span class="math inline">x, y \in U</span> con <span class="math inline">x \neq y</span>.</p></li>
+<li><p>Un sistema ortogonal <span class="math inline">U</span> de <span class="math inline">X</span> se llama <strong>ortonormal</strong> si <span class="math inline">\|x\| = 1</span> para todo <span class="math inline">x \in U</span>.</p></li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Teorema
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Los elementos de un sistema ortogonal son linealmente independientes.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-62-contents" aria-controls="callout-62" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-62" class="callout-62-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">\{q_{1},q_{2},\ldots,q_{n}\}</span> un sistema ortogonal.<br>
+Si <span class="math display">
+\sum_{k=1}^{n} \alpha_{k} q_{k} = 0,
+</span> y se multiplica a ambos lados por <span class="math inline">q_{j}</span>, es inmediato que <span class="math inline">\alpha_{j} = 0</span> para todo <span class="math inline">j=1,2,\ldots,n</span>.<br>
+<span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Teorema [Gram–Schmidt]
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">\{u_{0},u_{1},\ldots\}</span> un conjunto finito o numerable de elementos linealmente independientes de un espacio de pre–Hilbert.<br>
+Entonces existe un sistema ortogonal único <span class="math inline">\{q_{0},q_{1},\ldots\}</span> de la forma:</p>
+<p><span class="math display">
+q_{n} = u_{n} + r_{n}, \quad \text{para } n = 0,1,\ldots,
+\tag{3}
+</span></p>
+<p>con <span class="math inline">r_{0}=0</span> y <span class="math inline">r_{n} \in \operatorname{gen}\{u_{0},u_{1},\ldots,u_{n-1}\}</span> para <span class="math inline">n=1,2,\ldots</span>.<br>
+Además se tiene que:</p>
+<p><span class="math display">
+\operatorname{gen}\{u_{0},u_{1},\ldots,u_{n}\}
+=
+\operatorname{gen}\{q_{0},q_{1},\ldots,q_{n}\},
+\quad \text{para } n=0,1,\ldots
+\tag{4}
+</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-64-contents" aria-controls="callout-64" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-64" class="callout-64-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Asumamos que hemos construido elementos de la forma (3) con la propiedad (4) hasta <span class="math inline">q_{n-1}</span>.<br>
+Por la propiedad (4) los elementos <span class="math inline">\{q_{0},q_{1},\ldots,q_{n-1}\}</span> son linealmente independientes y por lo tanto <span class="math inline">\|q_{k}\|\neq 0</span> para <span class="math inline">k=0,1,\ldots,n-1</span>.<br>
+Por lo tanto:</p>
+<p><span class="math display">
+q_{n} = u_{n} - \sum_{k=0}^{n-1}\frac{\langle u_{n},q_{k}\rangle}{\langle q_{k},q_{k}\rangle}q_{k},
+</span></p>
+<p>está bien definido, y usando la hipótesis de inducción es fácil notar que</p>
+<p><span class="math display">
+\langle q_{n},q_{k}\rangle = 0, \quad \text{para } k=0,1,\ldots,n-1.
+</span></p>
+<p>Es claro que</p>
+<p><span class="math display">
+r_{n}=\sum_{k=0}^{n-1}\frac{\langle u_{n},q_{k}\rangle}{\langle q_{k},q_{k}\rangle}q_{k}
+\;\;\in\;\;
+\operatorname{gen}\{q_{0},q_{1},\ldots,q_{n-1}\}
+=
+\operatorname{gen}\{u_{0},u_{1},\ldots,u_{n-1}\}.
+</span></p>
+<p>La unicidad queda de ejercicio al lector. <span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="completitud" class="level3">
+<h3 class="anchored" data-anchor-id="completitud">Completitud</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definición: Sucesión de Cauchy
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Una sucesión de elementos en un espacio normado <span class="math inline">X</span> se llama <strong>sucesión de Cauchy</strong> si para todo <span class="math inline">\varepsilon &gt; 0</span> existe un <span class="math inline">N(\varepsilon) \in \mathbb{N}</span> tal que:</p>
+<p><span class="math display">
+\|x_n - x_m\| &lt; \varepsilon,
+</span></p>
+<p>para todo <span class="math inline">n, m \geq N(\varepsilon)</span>, es decir, si</p>
+<p><span class="math display">
+\lim_{n \to \infty, \; m \to \infty} \|x_n - x_m\| = 0.
+</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Teorema
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Toda sucesión convergente es de Cauchy</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-67-contents" aria-controls="callout-67" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-67" class="callout-67-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">x_n \to x</span> cuando <span class="math inline">n \to \infty</span>. Entonces, para todo <span class="math inline">\varepsilon &gt; 0</span> existe un <span class="math inline">N(\varepsilon) \in \mathbb{N}</span> tal que</p>
+<p><span class="math display">
+\|x_n - x\| &lt; \tfrac{\varepsilon}{2}, \quad \text{para todo } n \geq N(\varepsilon).
+</span></p>
+<p>Ahora, usando la desigualdad triangular:</p>
+<p><span class="math display">
+\|x_n - x_m\|
+= \|x_n - x + x - x_m\|
+\leq \|x_n - x\| + \|x_m - x\| &lt; \varepsilon,
+</span></p>
+<p>para todo <span class="math inline">n, m \geq N(\varepsilon)</span>. <span class="math inline">\;\blacksquare</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-68-contents" aria-controls="callout-68" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Observación
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-68" class="callout-68-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>El recíproco del teorema anterior no es válido en general, por esto tiene sentido dar la siguiente definición.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definición: Subconjunto Completo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un subconjunto <span class="math inline">U</span> de un espacio normado <span class="math inline">X</span> se llama <strong>completo</strong> si toda sucesión de Cauchy de elementos de <span class="math inline">U</span> converge a un elemento en <span class="math inline">U</span>.</p>
+<p>Un espacio normado completo se llama <strong>espacio de Banach</strong>.</p>
+<p>Un espacio pre–Hilbert se llama <strong>espacio de Hilbert</strong> si este es un espacio completo.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-71-contents" aria-controls="callout-71" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Ejemplo
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-71" class="callout-71-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>El espacio vectorial <span class="math inline">C[a,b]</span> provisto con la norma:</p>
+<p><span class="math display">
+\|f\|_\infty := \max_{x \in [a,b]} |f(x)|
+</span></p>
+<p>es un espacio de Banach.</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-70-contents" aria-controls="callout-70" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-70" class="callout-70-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>(Ejercicio) <span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-73-contents" aria-controls="callout-73" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Ejemplo
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-73" class="callout-73-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>El espacio vectorial <span class="math inline">C[a,b]</span> provisto con la norma <span class="math inline">L_1</span>:</p>
+<p><span class="math display">
+\|f\|_1 := \int_a^b |f(x)| \, dx
+</span></p>
+<p>NO es un espacio de Banach.</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-72-contents" aria-controls="callout-72" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-72" class="callout-72-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Es evidente que <span class="math inline">\|f\|_1</span> es una norma.<br>
+Sin pérdida de generalidad se toma <span class="math inline">[a,b] = [0,2]</span> y se escoge:</p>
+<p><span class="math display">
+f_n(x) :=
+\begin{cases}
+x^n &amp; \text{si } 0 \leq x \leq 1, \\
+1   &amp; \text{si } 1 &lt; x \leq 2.
+\end{cases}
+</span></p>
+<p>Para todo <span class="math inline">m &gt; n</span> se tiene que:</p>
+<p><span class="math display">
+\| f_n - f_m \|_1
+= \int_0^1 \big( x^n - x^m \big) dx
+= \frac{1}{n+1} + \frac{1}{m+1} \to 0
+\quad \text{cuando } n,m \to \infty,
+</span></p>
+<p>por lo tanto <span class="math inline">(f_n)</span> es una sucesión de Cauchy.</p>
+<p>Ahora, supongamos que la sucesión <span class="math inline">(f_n)</span> converge a una función continua <span class="math inline">f</span> con respecto a la norma <span class="math inline">L_1</span>, es decir:</p>
+<p><span class="math display">
+\| f_n - f \|_1 \to 0 \quad \text{cuando } n \to \infty.
+</span></p>
+<p>Entonces:</p>
+<p><span class="math display">
+\int_0^1 |f(x)| \, dx
+\leq \int_0^1 |f(x) - x^n| \, dx + \int_0^1 x^n \, dx
+\leq \| f - f_n \|_1 + \frac{1}{n+1} \to 0
+</span></p>
+<p>cuando <span class="math inline">n \to \infty</span>, de donde <span class="math inline">f(x) = 0</span> para <span class="math inline">0 \leq x \leq 1</span>.</p>
+<p>Además se tiene que</p>
+<p><span class="math display">
+\int_1^2 |f(x)-1| \, dx
+= \int_1^2 |f(x)-f_n(x)| \, dx
+\leq \| f - f_n \|_1 \to 0 \quad \text{cuando } n \to \infty,
+</span></p>
+<p>esto implica que <span class="math inline">f(x) = 1</span> para <span class="math inline">1 \leq x \leq 2</span>.<br>
+Por lo tanto <span class="math inline">f</span> no es continua, lo cual es una contradicción. <span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-75-contents" aria-controls="callout-75" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Ejemplo
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-75" class="callout-75-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>El espacio vectorial <span class="math inline">C[a,b]</span> provisto con la norma <span class="math inline">L_2</span>:</p>
+<p><span class="math display">
+\| f \|_2 := \left( \int_a^b |f(x)|^2 \, dx \right)^{1/2}
+</span></p>
+<p>NO es un espacio de Banach.</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-74-contents" aria-controls="callout-74" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-74" class="callout-74-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Ejercicio (sug. use la misma sucesión del ejemplo anterior). <span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Teorema
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Todo espacio normado de dimensión finita es un espacio de Banach.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-77-contents" aria-controls="callout-77" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-77" class="callout-77-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">X</span> un espacio normado con base <span class="math inline">u_1, u_2, \dots, u_n</span> y sea <span class="math inline">(x_\nu)</span> una sucesión de Cauchy en <span class="math inline">X</span>.<br>
+Se puede escribir:</p>
+<p><span class="math display">
+x_\nu = \sum_{j=1}^n \alpha_{j\nu} u_j
+</span></p>
+<p>usando el Teorema 1 se tiene que existe un <span class="math inline">C &gt; 0</span> tal que:</p>
+<p><span class="math display">
+\max_{j=1,2,\dots,n} |\alpha_{j\nu} - \alpha_{j\mu}| \leq C \, \| x_\nu - x_\mu \|
+</span></p>
+<p>para todo <span class="math inline">\nu, \mu \in \mathbb{N}</span>.</p>
+<p>Por lo tanto <span class="math inline">(\alpha_{j\nu})</span> es una sucesión de Cauchy en <span class="math inline">\mathbb{C}</span>, entonces existen <span class="math inline">\alpha_1, \alpha_2, \dots, \alpha_n</span> tales que <span class="math inline">\alpha_{j\nu} \to \alpha_j</span> cuando <span class="math inline">\nu \to \infty</span> para cada <span class="math inline">j = 1,2,\dots,n</span>.<br>
+Por lo tanto <span class="math inline">(x_\nu)</span> converge a:</p>
+<p><span class="math display">
+x_\nu \to x := \sum_{j=1}^n \alpha_j u_j \in X \quad \text{cuando } \nu \to \infty.
+</span> <span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="el-teorema-de-punto-fijo-de-banach" class="level3">
+<h3 class="anchored" data-anchor-id="el-teorema-de-punto-fijo-de-banach">El teorema de punto fijo de Banach</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definición: Contracción
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">U</span> un subconjunto de un espacio normado <span class="math inline">X</span>.<br>
+Un operador (una función) <span class="math inline">A: U \to X</span> se llama <strong>una contracción</strong> si existe una constante <span class="math inline">q \in [0,1[</span> tal que:</p>
+<p><span class="math display">
+\|Ax - Ay\| \leq q \|x - y\|, \quad \forall\, x,y \in U.
+</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definición: Continuidad de un operador
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">U</span> un subconjunto de un espacio normado <span class="math inline">X</span>, y sea <span class="math inline">Y</span> un espacio normado.</p>
+<ul>
+<li>Una función <span class="math inline">A: U \to Y</span> se llama <strong>continua en <span class="math inline">x \in U</span></strong> si para toda sucesión <span class="math inline">(x_n)</span> de <span class="math inline">U</span> tal que <span class="math inline">\lim\limits_{n \to \infty} x_n = x</span>, se cumple que</li>
+</ul>
+<p><span class="math display">
+\lim\limits_{n \to \infty} Ax_n = Ax.
+</span></p>
+<ul>
+<li>Un operador <span class="math inline">A: U \to Y</span> se llama <strong>continuo</strong> si es continuo en <span class="math inline">x</span> para todo <span class="math inline">x \in U</span>.</li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proposición
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Toda contracción es un operador continuo.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-81-contents" aria-controls="callout-81" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-81" class="callout-81-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>La prueba es evidente, puesto que si <span class="math inline">\|x_n - x\| \to 0</span> cuando <span class="math inline">n \to \infty</span> entonces<br>
+<span class="math inline">\|Ax_n - Ax\| \to 0</span> cuando <span class="math inline">n \to \infty</span> ya que</p>
+<p><span class="math display">
+\|Ax_n - Ax\| \leq q \|x_n - x\| \to 0 \quad \text{cuando } n \to \infty.
+</span></p>
+<p><span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definición: Operador Lipschitz
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un operador <span class="math inline">A : U \to X</span> se llama <em>Lipschitz</em> con constante de Lipschitz <span class="math inline">L</span> si existe una constante positiva <span class="math inline">L</span> tal que:</p>
+<p><span class="math display">
+\|Ax - Ay\| \leq L \|x - y\|
+</span></p>
+<p>para todo <span class="math inline">x, y \in U</span>.<br>
+Es decir, una contracción es un operador <em>Lipschitz</em> con constante menor que uno.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definición: Operador lineal
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un operador <span class="math inline">A : X \to Y</span> donde <span class="math inline">X</span> y <span class="math inline">Y</span> son espacios normados se llama <strong>lineal</strong> si:</p>
+<p><span class="math display">
+A(\alpha x + \beta y) = \alpha Ax + \beta Ay
+</span></p>
+<p>para todo <span class="math inline">x, y \in X</span> y <span class="math inline">\alpha, \beta \in \mathbb{C}</span> (o <span class="math inline">\mathbb{R}</span>).</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Teorema
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un operador lineal es continuo si y solo si es continuo en un elemento.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-86-contents" aria-controls="callout-86" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-86" class="callout-86-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">A : X \to Y</span> un operador lineal continuo en <span class="math inline">x_0 \in X</span>.<br>
+Entonces, para todo <span class="math inline">x \in X</span> y para toda sucesión <span class="math inline">(x_n) \to x</span> cuando <span class="math inline">n \to \infty</span>, se tiene que:</p>
+<p><span class="math display">
+Ax_n = A(x_n - x + x_0) + A(x - x_0) \;\to\; A(x_0) + A(x - x_0) = Ax,
+\quad \text{cuando } n \to \infty.
+</span></p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-85-contents" aria-controls="callout-85" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Observación
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-85" class="callout-85-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Como <span class="math inline">x_n - x + x_0 \to x_0</span>, entonces se puede aplicar el límite dentro de la expresión.</p>
+</div>
+</div>
+</div>
+<p><span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definición: Punto fijo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un elemento <span class="math inline">x \in X</span> (espacio normado) se llama <strong>punto fijo</strong> de un operador <span class="math inline">A : U \subseteq X \to X</span> si: <span class="math display">
+Ax = x.
+</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Teorema
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Toda contracción tiene a lo más un único punto fijo.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-89-contents" aria-controls="callout-89" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-89" class="callout-89-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Supongamos que <span class="math inline">x</span> y <span class="math inline">y</span> son puntos fijos de una contracción <span class="math inline">A</span>, entonces <span class="math display">
+0 \neq \|x - y\| = \|Ax - Ay\| \leq q \|x - y\|,
+</span> lo que implica que <span class="math inline">q \geq 1</span>, lo cual es una contradicción. <span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Teorema: (Banach)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">U</span> un subconjunto completo de un espacio normado <span class="math inline">X</span> y sea <span class="math inline">A : U \to U</span> una contracción. Entonces <span class="math inline">A</span> tiene un punto fijo único.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-91-contents" aria-controls="callout-91" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-91" class="callout-91-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">x_0 \in U</span> entonces definimos recursivamente la siguiente sucesión en <span class="math inline">U</span>: <span class="math display">
+x_{n+1} := A x_n, \quad \text{para } n = 0,1,2,\dots
+</span></p>
+<p>De donde se tiene que: <span class="math display">
+\|x_{n+1} - x_n\| = \|Ax_n - Ax_{n-1}\| \leq q \|x_n - x_{n-1}\|,
+</span></p>
+<p>luego, por inducción se deduce que: <span class="math display">
+\|x_{n+1} - x_n\| \leq q^n \|x_1 - x_0\|, \quad \text{para } n = 0,1,2,\dots
+</span></p>
+<p>Por lo tanto para <span class="math inline">m &gt; n</span> se tiene que: <span class="math display">
+\|x_n - x_m\| \leq \|x_n - x_{n+1}\| + \|x_{n+1} - x_{n+2}\| + \cdots + \|x_{m-1} - x_m\|
+</span> <span class="math display">
+\leq (q^n + q^{n+1} + \cdots + q^{m-1}) \|x_1 - x_0\|
+</span> <span class="math display">
+\leq \frac{q^n}{1-q} \|x_1 - x_0\|.
+</span></p>
+<p>Como <span class="math inline">q^n \to 0</span> cuando <span class="math inline">n \to \infty</span>, entonces <span class="math inline">(x_n)</span> es una sucesión de Cauchy y como <span class="math inline">U</span> es completo entonces existe <span class="math inline">x \in U</span> tal que <span class="math inline">x_n \to x</span> cuando <span class="math inline">n \to \infty</span>. Finalmente, por la continuidad de <span class="math inline">A</span> se tiene que: <span class="math display">
+x = \lim_{n \to \infty} x_{n+1} = \lim_{n \to \infty} A x_n = A x.
+</span></p>
+<p>La unicidad se tiene por el teorema anterior. <span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-92-contents" aria-controls="callout-92" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Ejemplo
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-92" class="callout-92-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Pruebe que la función <span class="math inline">f(x) = \dfrac{x^2 - 2x}{6}, \; x \in [-1,1]</span> tiene un punto fijo único en <span class="math inline">[-1,1]</span>.</p>
+<p><strong>Solución:</strong> Como <span class="math inline">\mathbb{R}</span> es un espacio de Banach con la norma valor absoluto, se debe probar que <span class="math inline">f(x) \in [-1,1] \quad \forall x \in [-1,1]</span>.</p>
+<p>Como <span class="math display">
+f'(x) = \tfrac{1}{6}(2x-2) = \dfrac{x-1}{3} = 0 \iff x=1
+</span> se tiene que los máximos y mínimos posibles están en <span class="math inline">x=-1</span> o <span class="math inline">x=1</span>, así el valor máximo es <span class="math display">
+f(-1)=\tfrac{1}{2}
+</span> y el valor mínimo es <span class="math display">
+f(1)=-\tfrac{1}{6}.
+</span></p>
+<p>Por lo que para todo <span class="math inline">x \in [-1,1]</span> se tiene que <span class="math inline">f(x) \in [-1,1]</span>, o sea que <span class="math inline">f</span> tiene un punto fijo en <span class="math inline">[-1,1]</span>.</p>
+<p>Para probar la unicidad, por el teorema del valor medio la constante <span class="math inline">L</span> de Lipschitz está dada por: <span class="math display">
+L = \max_{x \in [-1,1]} |f'(x)| = \max_{x \in [-1,1]} \left|\frac{x-1}{3}\right|
+= \left|\frac{-1-1}{3}\right| = \frac{2}{3} &lt; 1.
+</span></p>
+<p>Por lo tanto <span class="math inline">f</span> es una contracción en <span class="math inline">[-1,1]</span>, luego la unicidad se tiene por el teorema anterior. <span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="el-teorema-de-la-mejor-aproximación" class="level3">
+<h3 class="anchored" data-anchor-id="el-teorema-de-la-mejor-aproximación">El teorema de la mejor aproximación</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definición: Mejor aproximación
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">U</span> un subconjunto de un espacio normado <span class="math inline">X</span> y sea <span class="math inline">w \in X</span>.<br>
+Un elemento <span class="math inline">v \in U</span> se llama <strong>la mejor aproximación a <span class="math inline">w</span> con respecto a <span class="math inline">U</span></strong> si:</p>
+<p><span class="math display">
+\|w - v\| \;\leq\; \inf_{u \in U} \|w - u\|,
+</span></p>
+<p>es decir, <span class="math inline">v</span> es el elemento en <span class="math inline">U</span> más cercano a <span class="math inline">w</span>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Teorema
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">U</span> un subespacio de dimensión finita de un espacio normado <span class="math inline">X</span>.<br>
+Entonces, para todo elemento <span class="math inline">w \in X</span>, existe una mejor aproximación con respecto a <span class="math inline">U</span>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-95-contents" aria-controls="callout-95" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-95" class="callout-95-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">w \in X</span> y escojamos una sucesión <span class="math inline">(u_n)</span> tal que <span class="math inline">u_n \in U</span> y satisfaga lo siguiente:</p>
+<p><span class="math display">
+\lVert w - u_n \rVert \to d := \inf_{u \in U} \lVert w - u \rVert \quad \text{cuando } n \to \infty.
+</span></p>
+<p>Como <span class="math display">
+\lVert u_n \rVert \leq \lVert w - u_n \rVert + \lVert w \rVert
+</span> entonces <span class="math inline">(u_n)</span> es una sucesión acotada.</p>
+<p>Por el Teorema 3 la sucesión <span class="math inline">(u_n)</span> contiene una subsucesión convergente <span class="math inline">(u_{n(\ell)})</span> con límite <span class="math inline">v \in U</span>.</p>
+<p>Entonces:</p>
+<p><span class="math display">
+\lVert w - v \rVert = \lim_{\ell \to \infty} \lVert w - u_{n(\ell)} \rVert = d,
+</span></p>
+<p>con lo que se prueba el teorema. <span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Teorema
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">U</span> un subespacio vectorial de un espacio de pre-Hilbert <span class="math inline">X</span>.<br>
+Un elemento <span class="math inline">v</span> es la mejor aproximación a <span class="math inline">w \in X</span> con respecto a <span class="math inline">U</span> si y solo si:</p>
+<p><span class="math display">
+\langle w - v, u \rangle = 0
+</span></p>
+<p>para todo <span class="math inline">u \in U</span>.</p>
+<p>Es decir, si y solamente si <span class="math inline">w - v \perp U</span>.<br>
+Además, para cada <span class="math inline">w \in X</span> existe a lo más una única mejor aproximación con respecto a <span class="math inline">U</span>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-97-contents" aria-controls="callout-97" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-97" class="callout-97-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>(Ejercicio) <span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definición: Operador Acotado
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un operador <span class="math inline">A : X \to Y</span> donde <span class="math inline">X</span> y <span class="math inline">Y</span> son espacios normados, se llama <strong>acotado</strong> si existe un número positivo <span class="math inline">C</span> tal que:</p>
+<p><span class="math display">
+\lVert Ax \rVert \leq C \lVert x \rVert
+</span></p>
+<p>para todo <span class="math inline">x \in X</span>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Teorema
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un operador lineal <span class="math inline">A : X \to Y</span> es acotado si y solamente si:</p>
+<p><span class="math display">
+\lVert A \rVert := \sup_{\lVert x \rVert = 1} \lVert Ax \rVert &lt; \infty .
+</span></p>
+<p>El número <span class="math inline">\lVert A \rVert</span> es la más pequeña cota para <span class="math inline">A</span> y se llama la <strong>norma de <span class="math inline">A</span></strong>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-100-contents" aria-controls="callout-100" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-100" class="callout-100-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Asuma <span class="math inline">A</span> es acotado con una cota <span class="math inline">C</span>. Entonces</p>
+<p><span class="math display">
+\sup_{\lVert x \rVert = 1} \lVert Ax \rVert &lt; C &lt; \infty ,
+</span></p>
+<p>y entonces <span class="math inline">\lVert A \rVert</span> es menor o igual que cualquier otra cota para <span class="math inline">A</span>.</p>
+<p>Inversamente, si <span class="math inline">\lVert A \rVert &lt; \infty</span>, entonces usando la linealidad de la norma se tiene que:</p>
+<p><span class="math display">
+\lVert Ax \rVert
+= \left\lVert A\!\left(\frac{x}{\lVert x \rVert}\right) \right\rVert \lVert x \rVert
+\leq \lVert A \rVert \, \lVert x \rVert ,
+</span></p>
+<p>para todo <span class="math inline">x \neq 0</span>, por lo tanto <span class="math inline">A</span> es acotado con cota <span class="math inline">C = \lVert A \rVert</span>.</p>
+<p><span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Teorema
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">U</span> un subespacio vectorial completo de un espacio pre-Hilbert <span class="math inline">X</span>. Entonces para cada elemento <span class="math inline">w \in X</span> existe una única mejor aproximación con respecto a <span class="math inline">U</span>.</p>
+<ul>
+<li>El operador <span class="math inline">P : X \to U</span> que le asigna a <span class="math inline">w \in X</span> su mejor aproximación es un operador lineal acotado con las siguientes propiedades:</li>
+</ul>
+<p><span class="math display">
+P^2 = P
+\quad \text{y} \quad
+\lVert P \rVert = 1 .
+</span></p>
+<ul>
+<li>Este operador se conoce como la <strong>proyección ortogonal</strong> de <span class="math inline">X</span> sobre <span class="math inline">U</span>.</li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-102-contents" aria-controls="callout-102" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-102" class="callout-102-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>(ejercicio) <span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Corolario
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">U</span> un subespacio vectorial de dimensión finita de un espacio pre-Hilbert <span class="math inline">X</span> con base <span class="math inline">u_{1}, u_{2}, \dots, u_{n}</span>.<br>
+Entonces la combinación lineal</p>
+<p><span class="math display">
+v = \sum_{k=1}^{n} \alpha_{k} u_{k}
+</span></p>
+<p>es la mejor aproximación para <span class="math inline">w \in X</span> con respecto a <span class="math inline">U</span> si y solamente si los coeficientes <span class="math inline">\alpha_{1}, \alpha_{2}, \dots, \alpha_{n}</span> satisfacen las <em>ecuaciones normales</em>:</p>
+<p><span class="math display">
+\sum_{k=1}^{n} \alpha_{k} \langle u_{k}, u_{j} \rangle = \langle w, u_{j} \rangle,
+\quad \text{para } j = 1, 2, \dots, n.
+</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-104-contents" aria-controls="callout-104" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-104" class="callout-104-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Es evidente que la ecuación (8) es equivalente a la ecuación (7).<br>
+<span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Corolario
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">U</span> un subespacio vectorial de dimensión finita de un espacio pre-Hilbert <span class="math inline">X</span> con base ortonormal <span class="math inline">u_{1}, u_{2}, \dots, u_{n}</span>.<br>
+Entonces la proyección ortogonal está dada por:</p>
+<p><span class="math display">
+Pw = \sum_{k=1}^{n} \langle w, u_{k} \rangle u_{k}, \quad \text{con } w \in X.
+</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-106-contents" aria-controls="callout-106" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-106" class="callout-106-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Es evidente de (8) puesto que</p>
+<p><span class="math display">
+\langle u_{k}, u_{j} \rangle =
+\begin{cases}
+0 &amp; \text{si } k \neq j, \\
+1 &amp; \text{si } k = j,
+\end{cases}
+</span></p>
+<p>luego <span class="math inline">\alpha_{k} = \langle w, u_{k} \rangle</span> para <span class="math inline">k = 1, 2, \dots, n</span>.<br>
+<span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-107-contents" aria-controls="callout-107" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Ejemplo
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-107" class="callout-107-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">P_{2}[0,1]</span> un subespacio de dimensión finita del espacio pre–Hilbert <span class="math inline">C[0,1]</span> dotado del producto interno</p>
+<p><span class="math display">
+\langle f,g \rangle := \int_{0}^{1} f(x)g(x)\,dx.
+</span></p>
+<p>Es fácil verificar que<br>
+<span class="math display">
+\mathcal{B} = \{\,1, \ \sqrt{3}(2x-1), \ \sqrt{5}(6x^{2}-6x+1)\,\}
+</span><br>
+es una base ortonormal de <span class="math inline">P_{2}[0,1]</span>.</p>
+<p>Si tomamos <span class="math inline">f(x) = e^{x}</span>, entonces la mejor aproximación de <span class="math inline">f(x)</span> en <span class="math inline">P_{2}[0,1]</span> es:</p>
+<p><span class="math display">
+Pf = \langle e^{x},1 \rangle \cdot 1
++ \langle e^{x}, \sqrt{3}(2x-1)\rangle \cdot \sqrt{3}(2x-1)
++ \langle e^{x}, \sqrt{5}(6x^{2}-6x+1)\rangle \cdot \sqrt{5}(6x^{2}-6x+1),
+</span></p>
+<p>es decir,</p>
+<p><span class="math display">
+Pf = (e-1) + \sqrt{3}(3-e)\sqrt{3}(2x-1) + \sqrt{5}(7e-19)\sqrt{5}(6x^{2}-6x+1).
+</span></p>
+<p>Por lo tanto,</p>
+<p><span class="math display">
+Pf \approx 1.01 + 0.85x + 0.84x^{2}.
+</span></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Apuntes-Teoría_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Gráfico de <span class="math inline">e^x</span> y aproximación cuadrática</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Teorema
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En una Regresión Múltiple, encontrar los parámetros <span class="math inline">\beta_1, \beta_2, \ldots, \beta_p</span> de tal manera que:</p>
+<p><span class="math display">
+\sum_{i=1}^n e_i^2
+</span></p>
+<p>sea mínima, es equivalente a proyectar ortogonalmente el vector <span class="math inline">y</span> sobre el espacio generado por <span class="math inline">x_1, x_2, \ldots, x_p</span>.</p>
+<p>Es decir, primero se ortonormaliza la base con <em>Gram–Schmidt</em> y luego se proyecta el vector <span class="math inline">y</span> sobre el subespacio generado por la base ortonormal <span class="math inline">\{v_1, v_2, \ldots, v_p\}</span>.<br>
+O sea, primero se aplica el método de Gram–Schmidt a la base <span class="math inline">B = \{x_1, x_2, \ldots, x_p\}</span> y se obtiene una base ortonormal <span class="math inline">B' = \{v_1, v_2, \ldots, v_p\}</span>.</p>
+<p>Así, la regresión se realiza proyectando el vector <span class="math inline">y</span> sobre el subespacio generado por la base ortonormal <span class="math inline">B'</span>:</p>
+<p><span class="math display">
+\hat{y} = \langle y, v_1 \rangle v_1 + \langle y, v_2 \rangle v_2 + \cdots + \langle y, v_p \rangle v_p .
+</span></p>
+<p>Donde <span class="math inline">\langle x, y \rangle = x \cdot y</span> es el producto punto.<br>
+Lo anterior es equivalente a hacerlo de la forma clásica:</p>
+<p><span class="math display">
+\hat{y} = X \beta = X (X^T X)^{-1} X^T y .
+</span></p>
+<section id="gráficamente" class="level4">
+<h4 class="anchored" data-anchor-id="gráficamente">Gráficamente:</h4>
+<!--   -->
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-108-contents" aria-controls="callout-108" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-108" class="callout-108-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Es claro, pues este teorema es nada más otra forma de calcular la proyección <span class="math inline">P</span> de la variable a predecir sobre el subespacio generado por las variables predictoras. <span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
+      for (let i=0; i<annoteTargets.length; i++) {
+        const annoteTarget = annoteTargets[i];
+        const targetCell = annoteTarget.getAttribute("data-target-cell");
+        const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
+        const contentFn = () => {
+          const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          if (content) {
+            const tipContent = content.cloneNode(true);
+            tipContent.classList.add("code-annotation-tip-content");
+            return tipContent.outerHTML;
+          }
+        }
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          onShow: (instance) => {
+            selectCodeLines(instance.reference);
+            instance.reference.classList.add('code-annotation-active');
+            window.tippy.hideAll();
+          },
+          onHide: (instance) => {
+            unselectCodeLines();
+            instance.reference.classList.remove('code-annotation-active');
+          },
+          maxWidth: 300,
+          delay: [50, 0],
+          duration: [200, 0],
+          offset: [5, 10],
+          arrow: true,
+          appendTo: function(el) {
+            return el.parentElement.parentElement.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto',
+          placement: 'right',
+          popperOptions: {
+            modifiers: [
+            {
+              name: 'flip',
+              options: {
+                flipVariations: false, // true by default
+                allowedAutoPlacements: ['right'],
+                fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
+              },
+            },
+            {
+              name: 'preventOverflow',
+              options: {
+                mainAxis: false,
+                altAxis: false
+              }
+            }
+            ]        
+          }      
+        };
+        window.tippy(annoteTarget, config); 
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

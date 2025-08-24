@@ -1,0 +1,557 @@
+---
+title: "MA0501 – Tarea 2"
+author: 
+  - name: "Diego Alberto Vega Víquez - C38367" 
+    email: "diegovv13@gmail.com"
+  - name: "José Carlos Quintero Cedeño - C26152" 
+    email: "jose.quinterocedeno@ucr.ac.cr"
+  - name: "Gabriel Valverde Guzmán - C38060"
+    email: "GABRIEL.VALVERDEGUZMAN@ucr.ac.cr"
+date: today
+lang: es
+format:
+  pdf:
+    documentclass: article
+    fontsize: 11pt
+    linestretch: 1.3
+    geometry:
+      - top=2.5cm
+      - bottom=2.5cm
+      - left=2.5cm
+      - right=2.5cm
+      - headheight=15pt
+      - footskip=1.25cm
+    toc: true
+    toc-depth: 1
+    number-sections: false
+    classoption:
+      - oneside
+      - titlepage 
+    openany: true
+    colorlinks: false   
+    top-level-division: section
+    include-in-header: 
+      text: |
+        \usepackage[most]{tcolorbox}
+        \usepackage[hidelinks]{hyperref}
+        \usepackage{setspace}
+        \AtBeginDocument{\setstretch{1.0}} % ← interlineado
+  html:
+    code-annotations: hover
+    toc: true
+    toc-depth: 1
+    toc-location: left
+    toc_float: yes
+    html-math-method: katex
+    css: styles.css
+    df_print: paged
+    theme: flatly
+    highlight: tango
+---
+
+\newpage
+
+# Ejercicio 1
+::: {.callout-note}
+## Instrucción
+
+Suponga que $p^*$ aproxima a $p$ con 3 dígitos significativos.  
+Encuentre el intervalo en el cual $p^*$ debe estar, si:
+
+a) $\quad p = 150$  
+b) $\quad p = 900$  
+c) $\quad p = 1500$  
+d) $\quad p = 90$  
+
+:::
+
+## Solución
+
+
+
+# Ejercicio 2
+::: {.callout-note}
+## Instrucción
+
+Considere los siguientes valores para $p$ y $p^*$:
+
+a. $\quad p = \pi\qquad p^* = 3.1$  
+b. $\quad p = \tfrac{1}{3}\qquad p^* = 0.333$  
+c. $\quad p = \tfrac{\pi}{1000}\qquad p^* = 0.0031$  
+d. $\quad p = \tfrac{100}{3}\qquad p^* = 33.3$  
+
+¿Cuál es el error absoluto y relativo al aproximar $p$ por $p^*$?
+
+:::
+
+## Solución
+
+
+# Ejercicio 3
+::: {.callout-note}
+## Instrucción
+
+Sea 
+$$
+\alpha_n = \frac{n+10}{n^5},
+$$
+pruebe que
+$$
+\alpha_n = 0 + O\!\left(\frac{1}{n^4}\right).
+$$
+
+¿Qué se puede concluir?
+
+:::
+
+## Solución
+
+
+# Ejercicio 4
+::: {.callout-note}
+## Instrucción
+
+Suponga que $\text{fl}(x)$ es una aproximación de $x$ con redondeo a $k$ dígitos.  
+Demuestre que:
+
+$$
+\left| \frac{x - {fl}(x)}{x} \right| \leq 0.5 \times 10^{-k+1}.
+$$
+
+:::
+
+## Solución
+
+
+# Ejercicio 5
+::: {.callout-note}
+## Instrucción
+
+Si se calcula la raíz menor en valor absoluto de la ecuación:
+
+$$
+f(x) = x^2 + 0.4002 \times 10^0 x + 0.8 \times 10^{-4} = 0,
+$$
+
+con la fórmula cuadrática usual, entonces se produce una pérdida de dígitos significativos.  
+
+¿Por qué?  
+
+Encuentre una fórmula alternativa para efectuar este cálculo sin que se produzca tal pérdida y determine la raíz de menor magnitud.
+
+:::
+
+# Ejercicio 6
+::: {.callout-note}
+## Instrucción
+
+Escriba una función en R que verifique, para cualquier $n$, la siguiente identidad:
+
+$$
+\begin{vmatrix}
+x & a_1 & a_2 & \cdots & a_n \\
+a_1 & x & a_2 & \cdots & a_n \\
+a_1 & a_2 & x & \cdots & a_n \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+a_1 & a_2 & a_3 & \cdots & x
+\end{vmatrix}
+=
+(x + a_1 + \cdots + a_n)(x-a_1)(x-a_2)\cdots(x-a_n).
+$$
+
+
+:::
+
+## Solución
+
+# Ejercicio 7
+::: {.callout-note}
+## Instrucción
+
+Escriba una función en R que verifique para cualquier $n$ la siguiente identidad:
+
+$$
+\begin{vmatrix}
+1 & 1 & 1 & \cdots & 1 \\
+b_1 & a_1 & a_1 & \cdots & a_1 \\
+b_1 & b_2 & a_2 & \cdots & a_2 \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+b_1 & b_2 & b_3 & \cdots & a_n
+\end{vmatrix}
+=
+(a_1 - b_1)(a_2 - b_2)\cdots(a_n - b_n).
+$$
+
+:::
+
+## Solución
+
+---
+
+# Ejercicio 8
+::: {.callout-note}
+## Instrucción
+
+Se dice que una matriz es *rala* si esta tiene más entradas nulas que no nulas (mayor estricto).  
+Escriba una función en R que permita determinar si una matriz es rala.
+
+:::
+
+## Solución
+
+---
+
+# Ejercicio 9
+::: {.callout-note}
+## Instrucción
+
+Se dice que una matriz $A \in M_{n \times m}$ tiene *forma de O* si todas las entradas de la fila 1, fila $n$, columna 1 y columna $m$ no son nulas, y las demás entradas de la matriz son nulas.  
+Escriba una función en R que permita determinar si una matriz está en forma de O.
+
+:::
+
+## Solución
+
+---
+
+# Ejercicio 10
+::: {.callout-note}
+## Instrucción
+
+En el capítulo de análisis funcional complete las demostraciones de los teoremas 2, 4, 5, 14, 16 y de los ejemplos 3, 5.
+
+:::
+
+## Solución
+
+::: {.callout-tip}
+## Teorema 2
+En un espacio vectorial de dimensión finita todas las normas son equivalentes.  
+
+::: {.callout-caution collapse="true"}
+### Prueba
+
+$\blacksquare$
+:::
+:::
+
+---
+
+::: {.callout-tip}
+## Teorema 4
+Para todo producto interno se tiene la desigualdad de Cauchy–Schwarz:
+
+$$|\langle x, y \rangle|^2 \leq \langle x, x \rangle \langle y, y \rangle,$$
+
+para todo $x, y \in X$, además se tiene igualdad si para todo $x, y$ son linealmente dependientes.  
+
+::: {.callout-caution collapse="true"}
+### Prueba
+
+Si $x = 0$ la desigualdad es trivial. Si $x \neq 0$, tome  
+
+$$z = y - \frac{\langle y, x \rangle}{\|x\|^2} x,$$
+
+luego es claro que $\langle z, x \rangle = 0$ y que:
+
+$$
+0 \leq \|z\|^2 
+= \left\langle y - \frac{\langle y, x \rangle}{\|x\|^2}x , \, y - \frac{\langle y, x \rangle}{\|x\|^2}x \right\rangle
+= \langle y, y \rangle - \frac{\langle y, x \rangle \langle x, y \rangle}{\|x\|^2}
+= \|y\|^2 - \frac{|\langle x, y \rangle|^2}{\|x\|^2}.
+$$
+
+De donde se tiene la desigualdad. Además se tiene igualdad si para todo $x, y$ son linealmente dependientes (ejercicio).  
+
+$\blacksquare$
+:::
+:::
+
+---
+
+::: {.callout-tip}
+## Teorema 5
+Sea $X$ un espacio vectorial complejo (o real). Entonces la función  
+
+$$
+\|x\| := \langle x, x \rangle^{1/2}
+$$
+
+define una norma en $X$, es decir un espacio pre–Hilbert es siempre un espacio normado.  
+
+::: {.callout-caution collapse="true"}
+### Prueba
+
+Ejercicio (use la desigualdad de Cauchy–Schwarz para probar la desigualdad triangular).  
+
+$\blacksquare$
+:::
+:::
+
+---
+
+::: {.callout-tip}
+## Teorema 14
+Sea $U$ un subespacio vectorial de un espacio de pre–Hilbert $X$.  
+Un elemento $v$ es la mejor aproximación a $w \in X$ con respecto a $U$ si y solo si:
+
+$$
+\langle w - v, u \rangle = 0 \quad \forall u \in U.
+$$
+
+Es decir, si y solamente si $w - v \perp U$. Además, para cada $w \in X$ existe a lo más una única mejor aproximación con respecto a $U$.
+
+::: {.callout-caution collapse="true"}
+### Prueba
+(Ejercicio)  
+
+$\blacksquare$
+:::
+:::
+
+---
+
+::: {.callout-tip}
+## Teorema 16
+Sea $U$ un subespacio vectorial completo de un espacio pre–Hilbert $X$.  
+Entonces para cada elemento $w \in X$ existe una única mejor aproximación con respecto a $U$.
+
+- El operador $P : X \to U$ que le asigna a $w \in X$ su mejor aproximación es un operador lineal acotado con las siguientes propiedades:
+
+$$
+P^2 = P \quad \text{y} \quad \|P\| = 1.
+$$
+
+- Este operador se conoce como la **proyección ortogonal** de $X$ sobre $U$.
+
+::: {.callout-caution collapse="true"}
+### Prueba
+(Ejercicio)  
+
+$\blacksquare$
+:::
+:::
+
+---
+
+::: {.callout-tip}
+## Ejemplo 3
+El espacio vectorial $C[a,b]$ provisto con la norma  
+
+$$
+\|f\|_\infty := \max_{x \in [a,b]} |f(x)|
+$$  
+
+es un espacio de Banach.  
+
+::: {.callout-caution collapse="true"}
+### Prueba
+
+(Ejercicio)  
+
+$\blacksquare$
+:::
+:::
+
+---
+
+::: {.callout-tip}
+## Ejemplo 5
+El espacio vectorial $C[a,b]$ provisto con la norma $L_2$:
+
+$$
+\|f\|_1 := \left( \int_a^b |f(x)|^2 dx \right)^2
+$$  
+
+NO es un espacio de Banach.  
+
+::: {.callout-caution collapse="true"}
+### Prueba 
+
+Ejercicio (sug. use la misma sucesión del ejemplo 4).  
+
+$\blacksquare$
+:::
+:::
+
+---
+
+# Ejercicio 11
+::: {.callout-note}
+## Instrucción
+
+En el teorema 7, si tomamos como espacio pre–Hilbert a $\mathbb{R}^n$ con el producto punto clásico, escriba una función en R que reciba una base de un subespacio de $\mathbb{R}^n$ en una lista de listas y retorne la base ortogonal en una lista de listas, luego otra función que calcule la base ortonormal.
+
+:::
+
+## Solución
+
+---
+
+# Ejercicio 12
+::: {.callout-note}
+## Instrucción
+
+Repita el ejercicio anterior usando los espacios y el producto interno del ejemplo 7.  
+¿Será posible hacer una función que reciba también como parámetro el producto interno como una función de $\mathbb{R}^n \times \mathbb{R}^n$ en $\mathbb{R}$ y genere la base ortogonal y ortonormal usando este producto interno?
+
+:::
+
+## Solución
+
+---
+
+# Ejercicio 13
+::: {.callout-note}
+## Instrucción
+
+En el Corolario 2, si tomamos como espacio pre–Hilbert a $\mathbb{R}^n$ con el producto punto clásico, escriba una función en R que reciba una base de un subespacio $U$ de $\mathbb{R}^n$ en una lista de listas, un vector de $\mathbb{R}^n$ y retorne en una lista la mejor aproximación a ese vector en $U$.
+
+:::
+
+## Solución
+
+---
+
+# Ejercicio 14
+::: {.callout-note}
+## Instrucción
+
+Repita el ejercicio anterior usando los espacios y el producto interno del ejemplo 7.  
+¿Será posible hacer una función que reciba también como parámetro el producto interno como una función de $\mathbb{R}^n \times \mathbb{R}^n$ en $\mathbb{R}$ y genere la mejor aproximación usando este producto interno?
+
+:::
+
+## Solución
+
+---
+
+
+# Ejercicio 15
+::: {.callout-note}
+## Instrucción
+
+Pruebe que la función $f(x) = \sqrt{x+2}$ tiene un punto fijo único en $[0,7]$.
+
+:::
+
+## Solución
+
+---
+
+
+# Ejercicio 16
+::: {.callout-note}
+## Instrucción
+
+Sea $f : X \to X$ una aplicación. Denotamos por $F_f$ el conjunto de puntos fijos de la aplicación $f$.  
+Pruebe las siguientes propiedades:
+
+  a. Sean $f, g : X \to X$ aplicaciones tales que $f \circ g = g \circ f$ entonces se tiene que:
+$$
+f(F_g) \subset F_g, \quad g(F_f) \subset F_f.
+$$
+
+  b. Sean $f, g : X \to X$ aplicaciones, si $F_g = \{x^*\}$ y $f \circ g = g \circ f$ entonces $F_f \neq \varnothing$.
+
+  c. Sea $X \neq \varnothing$ y $f : X \to X$ aplicación. Si existe $n \in \mathbb{R}$ tal que $F_{f^n} = \{x^*\}$ entonces $F_f = \{x^*\}$.
+
+  d. Sea $X \neq \varnothing$ y $f : X \to X$ aplicación. Si $F_f \neq \varnothing$ entonces $F_{f^n} \neq \varnothing$ para todo $n \in \mathbb{N}$.
+
+  e. Sea $X \neq \varnothing$ y $f : X \to X$ aplicación sobreyectiva, supóngase que $f_d^{-1} : X \to X$ es tal que $f \circ f_d^{-1} = I_X$ y $F_{f_d^{-1}} \neq \varnothing$ entonces $F_f \neq \varnothing$.
+
+  f. Sea $A$ un conjunto con un número impar de elementos y $f : A \to A$ tal que $f^2(x) = x$ para todo $x \in A$, se tiene entonces que $F_f \neq \varnothing$.
+
+  g. Sea $f : \mathbb{R} \to \mathbb{R}$ con $f$ continua y acotada entonces $F_f \neq \varnothing$.
+
+  h. Sea $f : \mathbb{R} \to \mathbb{R}$ con $f$ continua y periódica entonces $F_f \neq \varnothing$.
+
+:::
+
+## Solución
+
+  a. Sean $f, g : X \to X$ aplicaciones tales que $f \circ g = g \circ f$ entonces se tiene que:
+  $$
+  f(F_g) \subset F_g, \quad g(F_f) \subset F_f.
+  $$
+  
+::: {.callout-caution collapse="true"}
+### Prueba
+
+(Ejercicio)  
+
+$\blacksquare$
+:::
+
+  b. Sean $f, g : X \to X$ aplicaciones, si $F_g = \{x^*\}$ y $f \circ g = g \circ f$ entonces $F_f \neq \varnothing$.
+  
+::: {.callout-caution collapse="true"}
+### Prueba
+
+(Ejercicio)  
+
+$\blacksquare$
+:::
+
+  c. Sea $X \neq \varnothing$ y $f : X \to X$ aplicación. Si existe $n \in \mathbb{R}$ tal que $F_{f^n} = \{x^*\}$ entonces $F_f = \{x^*\}$.
+  
+::: {.callout-caution collapse="true"}
+### Prueba
+
+(Ejercicio)  
+
+$\blacksquare$
+:::
+
+  d. Sea $X \neq \varnothing$ y $f : X \to X$ aplicación. Si $F_f \neq \varnothing$ entonces $F_{f^n} \neq \varnothing$ para todo $n \in \mathbb{N}$.
+  
+::: {.callout-caution collapse="true"}
+### Prueba
+
+(Ejercicio)  
+
+$\blacksquare$
+:::
+
+  e. Sea $X \neq \varnothing$ y $f : X \to X$ aplicación sobreyectiva, supóngase que $f_d^{-1} : X \to X$ es tal que $f \circ f_d^{-1} = I_X$ y $F_{f_d^{-1}} \neq \varnothing$ entonces $F_f \neq \varnothing$.
+  
+::: {.callout-caution collapse="true"}
+### Prueba
+
+(Ejercicio)  
+
+$\blacksquare$
+:::
+
+  f. Sea $A$ un conjunto con un número impar de elementos y $f : A \to A$ tal que $f^2(x) = x$ para todo $x \in A$, se tiene entonces que $F_f \neq \varnothing$.
+  
+::: {.callout-caution collapse="true"}
+### Prueba
+
+(Ejercicio)  
+
+$\blacksquare$
+:::
+
+  g. Sea $f : \mathbb{R} \to \mathbb{R}$ con $f$ continua y acotada entonces $F_f \neq \varnothing$.
+  
+::: {.callout-caution collapse="true"}
+### Prueba
+
+(Ejercicio)  
+
+$\blacksquare$
+:::
+
+  h. Sea $f : \mathbb{R} \to \mathbb{R}$ con $f$ continua y periódica entonces $F_f \neq \varnothing$.
+  
+::: {.callout-caution collapse="true"}
+### Prueba
+
+(Ejercicio)  
+
+$\blacksquare$
+:::
+
+
+

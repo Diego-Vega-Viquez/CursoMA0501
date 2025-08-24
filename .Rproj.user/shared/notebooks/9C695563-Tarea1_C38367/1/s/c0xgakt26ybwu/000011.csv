@@ -1,0 +1,8 @@
+"0","peso <- c(76,67,55,57,87,48)"
+"0","edad <- c(25,23,19,18,57,13)"
+"0","nivel <- c('Lic','Bach','Bach','Bach','Dr','MSc')"
+"0",""
+"0","matriz <- list('Peso' = peso,"
+"0","               'Edad' = edad,"
+"0","               'Nivel Educativo' = nivel)"
+"0","df <- as.data.frame(matriz)"

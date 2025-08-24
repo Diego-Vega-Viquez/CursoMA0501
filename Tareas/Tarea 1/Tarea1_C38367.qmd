@@ -1,0 +1,759 @@
+---
+title: "MA0501 – Tarea 1"
+author: 
+  - name: "Diego Alberto Vega Víquez"
+    email: "diegovv13@gmail.com"
+date: today
+lang: es
+format:
+  pdf:
+    documentclass: article
+    fontsize: 11pt
+    linestretch: 1.3
+    geometry:
+      - top=2.5cm
+      - bottom=2.5cm
+      - left=2.5cm
+      - right=2.5cm
+      - headheight=15pt
+      - footskip=1.25cm
+    toc: true
+    toc-depth: 1
+    number-sections: false
+    classoption:
+      - oneside
+      - titlepage 
+    openany: true
+    colorlinks: false   
+    top-level-division: section
+    include-in-header: 
+      text: |
+        \usepackage{tcolorbox}
+        \usepackage[hidelinks]{hyperref}
+        \usepackage{setspace}
+        \AtBeginDocument{\setstretch{1.0}} % ← interlineado
+  html:
+    code-annotations: hover
+    toc: true
+    toc-depth: 1
+    toc-location: left
+    toc_float: yes
+    html-math-method: katex
+    css: styles.css
+    df_print: paged
+    theme: united
+    highlight: tango
+---
+
+
+# Ejercicio 1
+
+Dado:
+
+$$
+x = (3, -5, 31, -1, -9, 10, 0, 18) \qquad y = (1, 1, -3, 1, -99, -10, 10, -7)
+$$
+
+Realice:
+
+1\. Introduzca `x` y `y` como vectores en R.  
+```{r}
+x <- c(3, -5, 31, -1, -9, 10, 0, 18)
+y <- c(1, 1, -3, 1, -99, -10, 10, -7)
+```
+2\. Calcule media, varianza, raíz cuadrada y desviación estándar de `y`.  
+```{r}
+mean(y) #<1>
+var(y)  #<2>
+sqrt(y) #<3>
+sd(y)   #<4>
+
+```
+1. Media de y
+2. Varianza de y
+3. Raíz Cuadrada de y
+4. Desviación Estandar de y
+
+3\. Calcule media, varianza, raíz cuadrada y desviación estándar de `x`.  
+```{r}
+mean(x) #<5>
+var(x)  #<6>
+sqrt(x) #<7>
+sd(x)   #<8>
+
+```
+5. Media de x
+6. Varianza de x
+7. Raíz Cuadrada de x
+8. Desviación Estandar de x
+
+4\. Calcule la correlación entre `x` y `y`. 
+```{r}
+cor(x,y)
+```
+
+5\. Comando en R para extraer entradas 2 a 7 de `x`.  
+```{r}
+x[2:7]
+```
+
+6\. Comando en R para extraer entradas de `y` excepto la 2 y la 7.  
+```{r}
+y[-c(2,7)]
+```
+
+7\. Comando en R para extraer entradas de `y` menores a -3 o mayores a 10. 
+```{r}
+y[(y < -3)|(y>10)]
+```
+
+8\. Comando en R para extraer entradas de `x` mayores a 0 y pares.
+```{r}
+x[(x>0)&(x%%2==0)]
+```
+
+# Ejercicio 2
+
+Introduzca en R la matriz $4 \times 3$:
+
+```{r}
+A = matrix(c(1,2,3,4,5,6,7,8,9,10,11,12), nrow=4, "byrow"="true")
+A
+```
+
+
+Luego, obtenga algunos elementos de la matriz de la siguiente manera:  `A[1,1:3]`, `A[1:4,2]`, `A[3,3]`, `A[11]`, `A[20]`, `A[5,4]`, `A[1,1,1]` y explique qué pasa en cada caso.
+
+```{r}
+A[1,1:3]
+```
+
+El código anterior lo que hace es que retorna la primera fila de la matriz
+
+```{r}
+A[1:4,2]
+```
+
+El código anterior retorna la 2da columna de la matriz
+
+```{r}
+A[3,3]
+```
+
+El código anterior retorna la el valor que se encuentra en la entrada 3,3 de la matriz
+
+```{r}
+A[11]
+```
+Aquí lo que pasa es que las matrices se almacenan por columnas: primero todos los elementos de la columna 1, luego los de la 2, y así sucesivamente.
+A[11] toma el 11.º elemento de ese vector interno, que corresponde a la fila 3, columna 3. Este valor depende de si la matriz se llenó por filas o por columnas.
+
+```{r}
+A[20]
+```
+En este caso da vacío pues vea que la matriz tiene $3\times4=12$ elementos por lo que no tiene sentido consultar la entrada del elemento 20 del vector equivalente a la matriz.
+
+```{r}
+#| eval: false
+A[5,4]
+```
+
+Este código da error debido a que se está solicitanto el valor de la entrada que se encuentra en la 5ta fila y en la 4ta columna, pero la matriz tiene solo 3 columnas y 4 filas.
+
+```{r}
+#| eval: false
+A[1,1,1]
+```
+
+Este código también da error, para explicar esto basta con recordar que que una matriz es una lista de listas, teniendo esto en cuenta se puede entender como un elemento en 2 dimensiones (filas, columnas), pero la consulta que se le está haciendo se pide una 'tercera dimension', para que esto fucione se tendría que trabajar con una lista de listas que tiene listas como contenido, graficamente se debería entender como un cubo en tres simensiones con ancho, largo y profundidad.
+
+# Ejercicio 3
+
+Investigue para qué sirven los comandos de R `as.matrix(...)` y `as.data.frame(...)`. Explique y dé un ejemplo de cada uno.
+
+`as.matrix(...)` es una función de R que tiene como objetivo convertir su argumento en una matriz, lo que dice su documentación es que "intenta" convertir su argumento en una matriz como la del ejemplo anterior.
+
+`as.data.frame(...)` es una función que convierte su argumento en un objeto del tipo Data Frame, intuitivamente este objeto se puede entender como una tabla o base de dacos con columnas y filas, como una hoja de excel.
+
+# Ejercicio 4 
+
+Introduzca usando código R (no archivos) en un DataFrame la siguiente tabla de datos:
+
+| Peso | Edad | Nivel Educativo |
+|------|------|-----------------|
+| 76   | 25   | Lic              |
+| 67   | 23   | Bach             |
+| 55   | 19   | Bach             |
+| 57   | 18   | Bach             |
+| 87   | 57   | Dr               |
+| 48   | 13   | MSc              |
+
+```{r}
+peso <- c(76,67,55,57,87,48)
+edad <- c(25,23,19,18,57,13)
+nivel <- c('Lic','Bach','Bach','Bach','Dr','MSc')
+
+matriz <- list('Peso' = peso,
+               'Edad' = edad,
+               `Nivel Educativo` = nivel)
+df <- as.data.frame(matriz)
+df
+```
+
+# Ejercicio 5
+
+En muchas ocasiones nos interesa hacer referencia a determinadas partes o componentes de un vector.  
+Defina el vector:
+
+$$
+x = (2, -5, 4, 6, -2, 8)
+$$
+
+Luego, a partir de este vector defina instrucciones en R para generar los siguientes vectores:
+
+- $y = (2, 4, 6, 8)$, así definido $y$ es el vector formado por las componentes positivas de $x$.
+- $z = (-5, -2)$, así definido $z$ es el vector formado por las componentes negativas de $x$.
+- $v = (-5, 4, 6, -2, 8)$, así definido $v$ es el vector $x$ eliminada la primera componente.
+- $w = (2, 4, -2)$, así definido $w$ es el vector $x$ tomando las componentes con índice impares, es decir, $x[1] = 2$, $x[3] = 4$ y $x[5] = -2$.
+
+```{r}
+x <- c(2, -5, 4, 6, -2, 8)                  #<1>
+y <- x[x > 0]                               #<2>
+z <- x[x < 0]                               #<3>
+v <- x[-1]                                  #<4>
+w <- x[(1:length(x)) %% 2 == 1]             #<5>
+```
+1.	Vector x con valores positivos y negativos.
+2.	y: elementos positivos de x.
+3.	z: elementos negativos de x.
+4.	v: todos los elementos de x excepto el primero.
+5.	w: elementos en posiciones impares de x.
+
+# Ejercicio 6
+
+Cargue la tabla de datos que está en el archivo `SAheartv.csv` y realice:
+
+1. Calcule la dimensión de la tabla de datos.
+2. Despliegue las primeras 3 columnas de la tabla.
+3. Ejecute `summary()` y `str()` de los datos.
+4. Usando `cor()` de R calcule la correlación entre las variables `tobacco` y `alcohol`.
+5. Calcule la suma de las columnas con variables cuantitativas (numéricas).
+6. Calcule para todas las variables cuantitativas presentes en `SAheart.csv`: mínimo, máximo, media, mediana y para la variable `chd` determine la cantidad de **Sí** y **No**.
+
+```{r}
+#| message: false
+library(readr)
+df <- read_delim(
+  "~/Library/CloudStorage/OneDrive-UniversidaddeCostaRica/EMat/MA-0501/Recursos/Datos/Para la presentación/SAheart.csv",
+  delim = ";", escape_double = FALSE, trim_ws = TRUE
+) #<1>
+
+dim(df) #<2>
+df[1:3] #<3>
+summary(df) ; str(df) #<4>
+cor(df$tobacco, df$alcohol) #<5>
+
+cuantitativas <- df[sapply(df, is.numeric)] #<6>
+colSums(cuantitativas) #<7>
+
+data.frame(
+  Minimo  = sapply(cuantitativas, min),
+  Maximo  = sapply(cuantitativas, max),
+  Media   = sapply(cuantitativas, mean),
+  Mediana = sapply(cuantitativas, median)
+) #<8>
+
+table(as.factor(df$chd)) #<9>
+```
+1.	Cargar la base de datos
+2.	Dimensión de la tabla
+3.	Despliegue de las primeras 3 columnas de la tabla
+4.	Resumen (summary()) y estructura (str()) de los datos
+5.	Calcular correlación entre tobacco y alcohol
+6.	Filtrar variables cuantitativas
+7.	Calcular la suma de las columnas numéricas
+8.	Calcular mínimo, máximo, media y mediana para variables cuantitativas
+9.	Contar cantidad de Sí y No en la variable chd
+
+
+# Ejercicio 7
+
+Programe en R una función que genere 200 números al azar entre 1 y 500 y calcule cuántos están entre 50 y 450, ambos inclusive.
+
+```{r}
+num.aleatorios <- function() {
+  numeros <- runif(200, min = 1, max = 500) #<1>
+  bool <- numeros<=450 & numeros>=50        #<2>
+  return(sum(bool))                         #<3>
+}
+# Prueba
+num.aleatorios()
+```
+1. Genera 200 números aleatorios entre 1 y 500 (decimales)
+2. Verifica si están entre 50 y 450 inclusive
+3. Cuenta cuántos cumplen la condición
+
+
+# Ejercicio 8
+
+Desarrolle una función que calcule el costo de una llamada telefónica que ha durado $t$ minutos, sabiendo que:
+
+- Si $t < 1$: costo = 0.4 USD.
+- Si $t \ge 1$: costo = $0.4 + (t - 1)/4$ USD.
+
+La función debe recibir el valor de $t$.
+
+```{r}
+costo.llamada <- function(t) {
+  if (t < 1) {
+    costo <<- 0.4
+  } else {
+    costo <<- 0.4 + (t - 1)/4
+  }
+  return(costo)
+}
+costo.llamada(2)
+costo.llamada(.2)
+```
+
+# Ejercicio 9
+
+Desarrolle una función que reciba una matriz cuadrada $A$ de tamaño $n \times n$ y calcule su traza, es decir, la suma de los elementos de la diagonal.
+
+Ejemplo:
+
+$$
+\begin{pmatrix}
+9 & 3 & 4 \\
+1 & 3 & -1 \\
+4 & 12 & -2
+\end{pmatrix}
+$$
+Traza = 10.
+
+```{r}
+traza <- function(matriz) {
+  suma <- sum(diag(matriz))
+  return(suma)
+}
+# Prueba
+A = matrix(c(9,3,4,1,3,-1,4,12,-2), nrow=3, byrow=TRUE)
+traza(A)
+```
+
+
+# Ejercicio 10
+
+Escriba una función que genere los $n$ primeros términos de la serie de Fibonacci.
+
+```{r}
+n.fibonacci <- function(n) {
+  
+  if (n == 1) return(0)       #<1>
+  if (n == 2) return(c(0, 1))
+  
+  if (n>=3) {
+    serie <- c(0, 1)            #<2>
+    while (length(serie) < n) {
+      serie <- c(serie, serie[length(serie)] + serie[length(serie) - 1])
+    }
+    return(serie)
+  }
+}
+# Prueba
+n.fibonacci(13)
+```
+1. Casos base
+2. Generación para n >= 3
+
+
+# Ejercicio 11
+
+Escriba una función que retorne el mayor número entero cuyo cuadrado no exceda de $x$, donde $x$ es un número real que se recibe como parámetro, utilizando `while`.
+
+```{r}
+entero.cuadrado <- function(x) {
+  if (x <= 0) {
+    return(NA)
+  } else {
+    n <- 0
+    while ((n+1)^2 <= x) {
+      n <- n+1
+    }
+    return(n)
+  }
+}
+# Prueba
+entero.cuadrado(27)
+```
+
+# Ejercicio 12
+
+Cree un Data Frame con diez alumnos con su edad, año de nacimiento y número de teléfono.  
+Deberá aparecer el nombre de la columna (`edad`, `año de nacimiento`, `teléfono`) y el nombre de la fila, que será el nombre del alumno.
+
+```{r}
+edad <- c(sample(17:25, 10, TRUE))
+
+nums <- sample(60000000:89999999, 10)
+telefonos <- paste0(
+  "+506 ",
+  substr(nums, 1, 4), " ",
+  substr(nums, 5, 8)
+)
+
+alumnos <- as.data.frame(list(Edad = edad,
+                   Año.Nacimiento = 2025-edad,
+                   Teléfono = telefonos), row.names = c("Ana María","Carlos","Sofía","Javier","Mariana","Luis","Fernanda","Pablo","Camila","Andrés"))
+alumnos
+
+```
+
+
+# Ejercicio 13
+
+Desarrolle una función en **R** que reciba un **DataFrame** y retorne la cantidad de entradas que son divisibles entre 3.
+
+```{r}
+divisibles.3 <- function(df) {
+
+  datos <- unlist(df) #<1>
+  datos <- datos[!is.na(as.numeric(datos))]
+  datos <- as.numeric(datos)
+  
+  suma <- sum(datos %% 3 == 0) #<2>
+  return(suma)
+}
+# Prueba
+divisibles.3(data.frame(
+  a = c(3, 4, 9),
+  b = c(6, 7, 12)
+))
+```
+1. Convertir a vector numérico y descartar NAs
+2. Contar cuántos son divisibles entre 3
+
+# Ejercicio 14
+
+Desarrolle una función en **R** que reciba un **DataFrame** y dos números de columna y que retorne en una lista:
+
+- El nombre de las variables correspondientes a las columnas.
+- La covarianza entre dichas variables.
+- La correlación entre dichas variables.
+
+```{r}
+nombre.cov.corr <- function(df, x, y) {
+  if (x <= ncol(df) & y <= ncol(df)) {
+    col1 <- as.numeric(df[[x]])
+    col2 <- as.numeric(df[[y]])
+    return(list(
+      `Nombre de variables` = c(colnames(df)[x], colnames(df)[y]),
+      'Covarianza' = cov(col1, col2),
+      'Correlación' = cor(col1, col2))
+    )
+  }
+}
+# Prueba
+nombre.cov.corr(alumnos, 1, 2)
+
+```
+
+# Ejercicio 15
+
+Programe la siguiente función recursiva:
+
+$$
+U(n) =
+\begin{cases}
+5 & \text{si } n = 0 \\
+-5 & \text{si } n = 1 \\
+2 & \text{si } n = 2 \\
+4U_{n-1} - 15U_{n-2} + U_{n-3} & \text{si } n \ge 3
+\end{cases}
+$$
+
+```{r}
+U <- function(n) {
+  if (n == 0) {
+    return(5)
+  } else if (n == 1) {
+    return(-5)
+  } else if (n == 2) {
+    return(2)
+  } else if (n >= 3) {
+    return(4 * U(n - 1) - 15 * U(n - 2) + U(n - 3))
+  }
+}
+# Prueba
+U(5)
+```
+
+
+# Ejercicio 16
+
+El **Algoritmo de Luhn** es una fórmula de suma de verificación utilizada para validar una diversidad de números de identificación.  
+Por ejemplo, para validar si un número es o no un número de tarjeta de crédito válido.
+
+Este algoritmo es muy simple: nos dice que, dado un número que contenga solamente dígitos $[0-9]$, una tarjeta de crédito es válida si y solo si, obteniendo la reversa de este número, la suma especial de sus dígitos debe ser un múltiplo de 10, es decir, que la suma módulo 10 debe ser igual a cero.
+
+La suma especial se realiza de la siguiente forma:
+
+1. Invertir el número.
+2. Si la posición es impar, sumar el dígito tal cual.
+3. Si la posición es par, multiplicar el dígito por 2 y sumar los dígitos del resultado (o restar 9 si es mayor o igual a 10).
+4. Verificar que la suma total sea un múltiplo de 10.
+
+## Ejemplo 1
+
+Número: *49927398716*
+
+  a) Multiplicamos por 2 los dígitos que ocupan las posiciones pares empezando por el final (reversando el número):
+  
+  $$
+  (1 \times 2) = 2,\quad (8 \times 2) = 16,\quad (3 \times 2) = 6,\quad (2 \times 2) = 4,\quad (9 \times 2) = 18
+  $$
+  
+  | 4  | 9  | 9  | 2  | 7  | 3  | 9  | 8  | 7  | 1  | 6  |
+  |----|----|----|----|----|----|----|----|----|----|----|
+  | 4  | 18 | 9  | 4  | 7  | 6  | 9  | 16 | 7  | 2  | 6  |
+  
+  b) Sumamos los dígitos que ocupaban las posiciones impares con los dígitos de los productos obtenidos:
+  
+  $$
+  6 + (2) + 7 + (1 + 6) + 9 + (6) + 7 + (4) + 9 + (1 + 8) + 4 = 70
+  $$
+  
+  O equivalentemente, sumando y restando 9 en los productos mayores o iguales a 10:
+  
+  $$
+  6 + (2) + 7 + (16 - 9) + 9 + (6) + 7 + (4) + 9 + (18 - 9) + 4 = 70
+  $$
+  
+  c) Si el resto de dividir 70 entre 10 es igual a 0, el número es válido:
+  $$
+  70 \bmod 10 = 0
+  $$
+
+## Ejemplo 2
+
+Número de tarjeta: $4539319503436467$
+
+  a) Primero se toman todos los números en las posiciones pares empezando desde la derecha, es decir, reversando el número:
+  
+  $$
+  4\_3\_3\_3\_9\_0\_4\_6\_6\_
+  $$
+  
+  b) Luego se deben cambiar por el doble de ese número; si el número obtenido es mayor a 9, entonces se le resta 9 (o se suman los dígitos):
+  
+  $$
+  8\_6\_6\_9\_0\_8\_3\_3\_
+  $$
+  
+  c) Finalmente se suman todos los dígitos: $$ 8 + 5 + 6 + 9 + 6 + 1 + 9 + 5 + 0 + 3 + 8 + 3 + 3 + 4 + 3 + 7 = 80 $$ Como el número obtenido es divisible entre 10, entonces es un número de tarjeta válido.
+
+Programe en **R** las funciones necesarias para implementar el **Algoritmo de Luhn**.
+
+```{r}
+
+# Intercala elementos de dos vectores alternando posiciones
+intercalar <- function(primero, segundo) {
+  total <- length(primero) + length(segundo)
+  mezcla <- vector("list", total)          #<1> 
+  mezcla[seq(1, total, 2)] <- as.list(primero) #<2> 
+  mezcla[seq(2, total, 2)] <- as.list(segundo) #<3> 
+  unlist(mezcla, use.names = FALSE)
+}
+
+# Si el valor (resultado de doblar un dígito) es >= 10, restar 9 (suma de dígitos).
+ajustar_mayor_9 <- function(valor) {
+  if (valor >= 0 & valor <= 18) {
+    if (valor >= 10) return(valor - 9)
+    else return(valor)
+  }
+}
+
+# Devuelve TRUE si 'numero' pasa la validación, FALSE en caso contrario.
+Algoritmo.Luhn <- function(numero) {
+  
+  digitos <- as.numeric(strsplit(as.character(numero), "")[[1]]) #<4> 
+  n <- length(digitos)
+  
+  digitos_inv <- digitos[n:1] #<5> 
+  
+  # Separar posiciones impares y pares (desde la derecha, ya invertido) 
+  digitos_impares <- digitos_inv[(1:n) %% 2 == 1]          #<6> 
+  digitos_pares_doblados <- digitos_inv[(1:n) %% 2 == 0] * 2  #<7> 
+  
+  intercalados <- intercalar(digitos_impares, digitos_pares_doblados)   #<8> 
+  
+  ajustados <- sapply(intercalados, ajustar_mayor_9)   #<9> 
+  suma_total <- sum(ajustados)
+  
+  return(suma_total %% 10 == 0)   #<10> 
+}
+
+# Prueba 
+Algoritmo.Luhn(49927398716)
+Algoritmo.Luhn(4539319503436467)
+```
+1. Preasignación (lista para permitir longitudes distintas)
+2. Posiciones impares
+3. Posiciones pares
+4. Convertir número a vector de dígitos
+5. Invertir para procesar desde el dígito de la derecha
+6. se quedan igual
+7. se doblan
+8. Intercalar: impares, luego pares doblados (manteniendo el orden original de tu código)
+9. Ajustar los valores >= 10 restando 9 y sumar
+10. Válido si la suma es múltiplo de 10
+
+# Ejercicio 17
+
+La **Factorización Prima** es el proceso de descomponer un número en sus factores primos.  
+El algoritmo consiste en dividir entre números primos hasta que el cociente sea 1.
+
+Por ejemplo, para obtener los factores primos de 36 se hace:
+
+$$
+36 \div 2 = 18; \quad 18 \div 2 = 9; \quad 9 \div 3 = 3; \quad 3 \div 3 = 1
+$$
+
+Entonces los factores primos son: $2, 2, 3, 3$ y la factorización prima de $36 = 2 \times 2 \times 3 \times 3$.
+
+Programe en **R** una función recursiva que reciba un valor y retorne una lista con los factores primos de dicho valor.
+
+Los factores primos de un número entero son los números primos divisores exactos de ese número entero.  
+El proceso de búsqueda de esos divisores se denomina factorización de enteros, o factorización en números primos.
+
+Por ejemplo, para 60 el proceso es el siguiente:
+
+- $60 / 2 = 30$  
+- $30 / 2 = 15$  
+- $15 / 3 = 5$  
+- $5 / 5 = 1$  
+
+Por tanto, el resultado es: **(2 2 3 5)**.
+
+```{r}
+primos_menores_a <- function(n) {
+  if (n <= 2) return(integer(0))                                         #<1> 
+  primos <- rep(TRUE, n - 1)                                             #<2> 
+  limite <- entero.cuadrado(n)
+  
+  for (p in 2:limite) {
+    if (primos[p - 1]) {
+      primos[seq(p * p, n - 1, by = p) - 1] <- FALSE
+    }
+  }
+  
+  which(primos) + 1                                                      #<3> 
+}
+
+# Recursiva auxiliar
+.factoriza_rec <- function(n, primos, i = 1L, acc = integer(0)) {
+  if (n == 1) {
+    return(acc)
+  }
+  if (i > length(primos) || primos[i]^2 > n) {
+   return(c(acc, n)) #<4>  
+  }
+  p <- primos[i]
+  if (n %% p == 0) {                                                     #<5>
+    return(.factoriza_rec(n / p, primos, i, c(acc, p)))                   
+  } else {                                                               #<6> 
+    return(.factoriza_rec(n, primos, i + 1L, acc))
+  }
+}
+
+factorizacion.prima <- function(n) {
+  if (n < 2) return(list(factores = integer(0)))
+  ps <- primos_menores_a(n)
+  list(factores = .factoriza_rec(n, ps))
+}
+
+factorizacion.prima(76)
+```
+1. No hay primos menores que 2
+2. índice 1 representa el número 2
+3. Ajuste porque el índice 1 corresponde al 2
+4. Si ya no hay más primos o p^2 > n, lo que queda es primo
+5. Misma i para capturar potencias de p
+6. Pasar al siguiente primo
+
+# Ejercicio 18
+
+La **Conjetura de Goldbach** dice que todo número par mayor a 2 se puede expresar como la suma de 2 números primos.  
+Por tanto, desarrolle un sistema que reciba un número (por teclado) y retorne una lista con los 2 números primos que componen la suma.  
+Se puede asumir que el número ingresado siempre es mayor a 2 y es par.
+
+Debe programar en **R** lo siguiente:
+
+a) `es_primo`: determina si un valor es primo. Debe programarla con recursión.
+
+b) `valores`: obtiene en una lista los 2 números que conforman la suma. Debe programarla con recursión.
+
+c) `resultado`: para un valor dado despliega la lista con los números primos.
+
+```{r}
+es_primo <- function(n, d = 2) {
+  if (n < 2) return(FALSE)              #<1>
+  if (d * d > n) return(TRUE)           #<2>
+  if (n %% d == 0) return(FALSE)        #<3>
+  
+  siguiente <- if (d == 2) 3 else d + 2 #<4>
+  es_primo(n, siguiente)
+}
+
+valores <- function(n, a = 2) {
+  b <- n - a
+  if (es_primo(a) && es_primo(b)) {
+    return(list(a = a, b = b))
+  }
+  siguiente <- if (a == 2) 3 else a + 2
+  valores(n, siguiente)
+}
+
+resultado <- function(x = NULL) {
+  if (is.null(x)) {
+    entrada <- readline("Ingrese un número par (>2): ")
+    x <- as.integer(entrada)
+  }
+  return(valores(x))
+}
+```
+1. 0 y 1 no son primos
+2. no hay divisores hasta √n
+3. divisor encontrado
+4. si d == 2, saltar a 3; luego avanzar de 2 en 2 (solo impares)
+
+# Ejercicio 19
+
+Desarrolle una función en **R** que reciba un Data Frame y dos números de columna y que retorne en una lista:
+
+- El nombre de las variables correspondientes a las columnas.
+- La covarianza entre esas dos variables.
+- La correlación entre esas dos variables.
+
+Pruebe la función usando el archivo `EjemploEstudiantes.csv`.
+
+```{r}
+#| message: false
+nombre.cov.corr <- function(df, x, y) {
+  if (x <= ncol(df) & y <= ncol(df)) {
+    col1 <- as.numeric(df[[x]])
+    col2 <- as.numeric(df[[y]])
+    return(list(
+      `Nombre de variables` = c(colnames(df)[x], colnames(df)[y]),
+      'Covarianza' = cov(col1, col2),
+      'Correlación' = cor(col1, col2))
+    )
+  }
+}
+# Prueba
+df <- read_delim("~/Library/CloudStorage/OneDrive-UniversidaddeCostaRica/EMat/MA-0501/Recursos/Datos/Para la presentación/EjemploEstudiantes.csv", 
+    delim = ";", escape_double = FALSE, trim_ws = TRUE)
+
+nombre.cov.corr(df,3,5)
+```
+
