@@ -2015,7 +2015,7 @@ Ejemplo
 <div class="callout-body-container callout-body">
 <p>El espacio vectorial <span class="math inline">C[a,b]</span> provisto con la norma <span class="math inline">L_2</span>:</p>
 <p><span class="math display">
-\| f \|_2 := \left( \int_a^b |f(x)|^2 \, dx \right)^{1/2}
+\| f \|_2 := \left( \int_a^b |f(x)|^2 \, dx \right)^{2}
 </span></p>
 <p>NO es un espacio de Banach.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
@@ -2030,7 +2030,53 @@ Prueba
 </div>
 <div id="callout-74" class="callout-74-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Ejercicio (sug. use la misma sucesión del ejemplo anterior). <span class="math inline">\blacksquare</span></p>
+<p>Hay que probar que el espacio vectorial <span class="math inline">C[a,b]</span> normado provisto con la norma <span class="math inline">L_2</span> <strong>NO</strong> es completo. Es decir, hay que encontrar una sucesión de Cauchy de elementos de <span class="math inline">U</span> que <strong>NO</strong> converge a un elemento en <span class="math inline">U</span>, siendo <span class="math inline">U</span> un subconjunto del espacio vectorial <span class="math inline">C[a,b]</span></p>
+<p>Sin pérdida de generalidad se toma <span class="math inline">[a,b] = [0,2]</span> y se escoge:</p>
+<p><span class="math display">
+f_n(x) :=
+\begin{cases}
+x^n &amp; \text{si } 0 \leq x \leq 1, \\
+1   &amp; \text{si } 1 &lt; x \leq 2.
+\end{cases}
+</span></p>
+<p>Para todo <span class="math inline">m &gt; n</span> se tiene que:</p>
+<p><span class="math display">\begin{align*}
+\| f_n - f_m \|_1
+&amp;= \left( \int_0^2 |f_n(x) - f_m(x)|^2 \, dx \right)^2\\[1ex]
+&amp;= \left( \int_0^1 |x^n - x^m|^2 \, dx \right)^2\\[1ex]
+&amp;= \left( \int_0^1 \big(x^{2n} - 2x^{n+m} + x^{2m}\big) \, dx \right)^2\\[1ex]
+&amp;= \left( \frac{1}{2n+1} - \frac{2}{n+m+1} + \frac{1}{2m+1} \right)^2 \to 0
+\quad \text{cuando } n,m \to \infty,
+\end{align*}</span></p>
+<p>por lo tanto <span class="math inline">(f_n)</span> es una sucesión de Cauchy.</p>
+<p>Ahora, supongamos que la sucesión <span class="math inline">(f_n)</span> converge a una función continua <span class="math inline">f</span> con respecto a la norma <span class="math inline">L_1</span>, es decir:</p>
+<p><span class="math display">
+\| f_n - f \|_1 \to 0 \quad \text{cuando } n \to \infty.
+</span> Entonces,</p>
+<p><span class="math display">\begin{align*}
+\|f\|_{1}
+  &amp;= \|(f-x^{n})+x^{n}\|_{1}
+\\
+  &amp;\le \|f-x^{n}\|_{1} + \|x^{n}\|_{1}
+  \qquad\text{(desigualdad triangular)}
+\\
+  &amp;= \|f-f_{n}\|_{1} + \left(\int_{0}^{1} |x^{n}|^{2}\,dx\right)^{2}
+\\
+  &amp;= \|f-f_{n}\|_{1} + \left(\int_{0}^{1} x^{2n}\,dx\right)^{2}
+\\
+  &amp;= \|f-f_{n}\|_{1} + \left(\frac{1}{2n+1}\right)^{2}
+  \xrightarrow[n\to\infty]{} 0
+\end{align*}</span> de donde <span class="math inline">f(x) = 0</span> para <span class="math inline">0 \leq x \leq 1</span>.</p>
+<p>Vea además que</p>
+<p><span class="math display">\begin{align*}
+\Biggl(\int_{1}^{2}\!\bigl|f(x)-1\bigr|^{2}\,dx\Biggr)^{2}
+&amp;= \Biggl(\int_{1}^{2}\!\bigl|f(x)-f_n(x)\bigr|^{2}\,dx\Biggr)^{2}
+\qquad\text{(pues $f_n(x)=1$ en $(1,2]$)}\\[4pt]
+&amp;\le \Biggl(\int_{0}^{2}\!\bigl|f(x)-f_n(x)\bigr|^{2}\,dx\Biggr)^{2}
+= \,\|f-f_n\|_{1}\;\xrightarrow[n\to\infty]{}\;0 .
+\end{align*}</span></p>
+<p>esto implica que <span class="math inline">f(x) = 1</span> para <span class="math inline">1 \leq x \leq 2</span>.<br>
+Por lo tanto <span class="math inline">f</span> no es continua, lo cual es una contradicción. <span class="math inline">\qquad\blacksquare</span></p>
 </div>
 </div>
 </div>

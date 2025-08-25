@@ -537,9 +537,67 @@ NO es un espacio de Banach.
 ::: {.callout-caution collapse="true"}
 ### Prueba 
 
-Ejercicio (sug. use la misma sucesión del ejemplo 4).  
+Hay que probar que el espacio vectorial $C[a,b]$ normado provisto con la norma $L_2$ **NO** es completo. Es decir,
+hay que encontrar una sucesión de Cauchy de elementos de $U$ que **NO** converge a un elemento en $U$, siendo $U$ un subconjunto del espacio vectorial $C[a,b]$
 
-$\blacksquare$
+Sin pérdida de generalidad se toma $[a,b] = [0,2]$ y se escoge:
+
+$$
+f_n(x) := 
+\begin{cases}
+x^n & \text{si } 0 \leq x \leq 1, \\
+1   & \text{si } 1 < x \leq 2.
+\end{cases}
+$$
+
+Para todo $m > n$ se tiene que:
+
+\begin{align*}
+\| f_n - f_m \|_1
+&= \left( \int_0^2 |f_n(x) - f_m(x)|^2 \, dx \right)^2\\[1ex]
+&= \left( \int_0^1 |x^n - x^m|^2 \, dx \right)^2\\[1ex]
+&= \left( \int_0^1 \big(x^{2n} - 2x^{n+m} + x^{2m}\big) \, dx \right)^2\\[1ex]
+&= \left( \frac{1}{2n+1} - \frac{2}{n+m+1} + \frac{1}{2m+1} \right)^2 \to 0
+\quad \text{cuando } n,m \to \infty,
+\end{align*}
+
+por lo tanto $(f_n)$ es una sucesión de Cauchy. 
+
+Ahora, supongamos que la sucesión $(f_n)$ converge a una función continua $f$ con respecto a la norma $L_1$, es decir:
+
+$$
+\| f_n - f \|_1 \to 0 \quad \text{cuando } n \to \infty.
+$$
+Entonces,
+
+\begin{align*}
+\|f\|_{1} 
+  &= \|(f-x^{n})+x^{n}\|_{1}
+\\
+  &\le \|f-x^{n}\|_{1} + \|x^{n}\|_{1}
+  \qquad\text{(desigualdad triangular)}
+\\
+  &= \|f-f_{n}\|_{1} + \left(\int_{0}^{1} |x^{n}|^{2}\,dx\right)^{2}
+\\
+  &= \|f-f_{n}\|_{1} + \left(\int_{0}^{1} x^{2n}\,dx\right)^{2}
+\\
+  &= \|f-f_{n}\|_{1} + \left(\frac{1}{2n+1}\right)^{2}
+  \xrightarrow[n\to\infty]{} 0
+\end{align*}
+de donde $f(x) = 0$ para $0 \leq x \leq 1$.
+
+Vea además que 
+
+\begin{align*}
+\Biggl(\int_{1}^{2}\!\bigl|f(x)-1\bigr|^{2}\,dx\Biggr)^{2} 
+&= \Biggl(\int_{1}^{2}\!\bigl|f(x)-f_n(x)\bigr|^{2}\,dx\Biggr)^{2} 
+\qquad\text{(pues $f_n(x)=1$ en $(1,2]$)}\\[4pt]
+&\le \Biggl(\int_{0}^{2}\!\bigl|f(x)-f_n(x)\bigr|^{2}\,dx\Biggr)^{2} 
+= \,\|f-f_n\|_{1}\;\xrightarrow[n\to\infty]{}\;0 .
+\end{align*}
+
+esto implica que $f(x) = 1$ para $1 \leq x \leq 2$.  
+Por lo tanto $f$ no es continua, lo cual es una contradicción. $\qquad\blacksquare$
 :::
 :::
 
