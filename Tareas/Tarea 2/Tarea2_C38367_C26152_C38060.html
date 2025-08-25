@@ -223,33 +223,49 @@ P - 0.5 \times 10^{-t+1}\,|P| &amp;&lt; P^* &lt; P + 0.5 \times 10^{-t+1}\,|P|
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definir el valor de t</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Función que devuelve los extremos del intervalo como fila de una tabla</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>intervalo <span class="ot">&lt;-</span> <span class="cf">function</span>(P, t) {</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  margen <span class="ot">&lt;-</span> <span class="fl">0.5</span> <span class="sc">*</span> <span class="dv">10</span><span class="sc">^</span>(<span class="sc">-</span>t <span class="sc">+</span> <span class="dv">1</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  inferior <span class="ot">&lt;-</span> P <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> margen)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  superior <span class="ot">&lt;-</span> P <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">+</span> margen)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">P =</span> P,</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">t =</span> t,</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">Limite_Inferior =</span> <span class="fu">round</span>(inferior, <span class="dv">4</span>),</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">Limite_Superior =</span> <span class="fu">round</span>(superior, <span class="dv">4</span>)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear tabla con los resultados para varios valores de P</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>tabla_intervalos <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">intervalo</span>(<span class="dv">150</span>, t),</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">intervalo</span>(<span class="dv">900</span>, t),</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">intervalo</span>(<span class="dv">1500</span>, t),</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">intervalo</span>(<span class="dv">90</span>, t)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostrar la tabla (Quarto renderiza automáticamente como tabla bonita)</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>kableExtra<span class="sc">::</span><span class="fu">kable</span>(tabla_intervalos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1">1</button><span id="annotated-cell-1-1" class="code-annotation-target"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="annotated-cell-1-2"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2">2</button><span id="annotated-cell-1-3" class="code-annotation-target"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a>intervalo <span class="ot">&lt;-</span> <span class="cf">function</span>(P, t) {</span>
+<span id="annotated-cell-1-4"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a>  margen <span class="ot">&lt;-</span> <span class="fl">0.5</span> <span class="sc">*</span> <span class="dv">10</span><span class="sc">^</span>(<span class="sc">-</span>t <span class="sc">+</span> <span class="dv">1</span>)</span>
+<span id="annotated-cell-1-5"><a href="#annotated-cell-1-5" aria-hidden="true" tabindex="-1"></a>  inferior <span class="ot">&lt;-</span> P <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> margen)</span>
+<span id="annotated-cell-1-6"><a href="#annotated-cell-1-6" aria-hidden="true" tabindex="-1"></a>  superior <span class="ot">&lt;-</span> P <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">+</span> margen)</span>
+<span id="annotated-cell-1-7"><a href="#annotated-cell-1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="annotated-cell-1-8"><a href="#annotated-cell-1-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">P =</span> P,</span>
+<span id="annotated-cell-1-9"><a href="#annotated-cell-1-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">t =</span> t,</span>
+<span id="annotated-cell-1-10"><a href="#annotated-cell-1-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Limite_Inferior =</span> <span class="fu">round</span>(inferior, <span class="dv">4</span>),</span>
+<span id="annotated-cell-1-11"><a href="#annotated-cell-1-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">Limite_Superior =</span> <span class="fu">round</span>(superior, <span class="dv">4</span>)</span>
+<span id="annotated-cell-1-12"><a href="#annotated-cell-1-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="annotated-cell-1-13"><a href="#annotated-cell-1-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="annotated-cell-1-14"><a href="#annotated-cell-1-14" aria-hidden="true" tabindex="-1"></a></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="3">3</button><span id="annotated-cell-1-15" class="code-annotation-target"><a href="#annotated-cell-1-15" aria-hidden="true" tabindex="-1"></a>tabla_intervalos <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="annotated-cell-1-16"><a href="#annotated-cell-1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">intervalo</span>(<span class="dv">150</span>, t),</span>
+<span id="annotated-cell-1-17"><a href="#annotated-cell-1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">intervalo</span>(<span class="dv">900</span>, t),</span>
+<span id="annotated-cell-1-18"><a href="#annotated-cell-1-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">intervalo</span>(<span class="dv">1500</span>, t),</span>
+<span id="annotated-cell-1-19"><a href="#annotated-cell-1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">intervalo</span>(<span class="dv">90</span>, t)</span>
+<span id="annotated-cell-1-20"><a href="#annotated-cell-1-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="annotated-cell-1-21"><a href="#annotated-cell-1-21" aria-hidden="true" tabindex="-1"></a></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="4">4</button><span id="annotated-cell-1-22" class="code-annotation-target"><a href="#annotated-cell-1-22" aria-hidden="true" tabindex="-1"></a>kableExtra<span class="sc">::</span><span class="fu">kable</span>(tabla_intervalos)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="1" data-code-annotation="1">Definir el valor de t</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="3" data-code-annotation="2">Función que devuelve los extremos del intervalo como fila de una tabla</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="15" data-code-annotation="3">Crear tabla con los resultados para varios valores de P</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="22" data-code-annotation="4">Mostrar la tabla (Quarto renderiza automáticamente como tabla bonita)</span>
+</dd>
+</dl>
+</div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -473,11 +489,11 @@ Instrucción
 <p>Escriba una función en R que verifique para cualquier <span class="math inline">n</span> la siguiente identidad:</p>
 <p><span class="math display">
 \begin{vmatrix}
-1 &amp; 1 &amp; 1 &amp; \cdots &amp; 1 \\
-b_1 &amp; a_1 &amp; a_1 &amp; \cdots &amp; a_1 \\
-b_1 &amp; b_2 &amp; a_2 &amp; \cdots &amp; a_2 \\
-\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-b_1 &amp; b_2 &amp; b_3 &amp; \cdots &amp; a_n
+1 &amp; 1 &amp; 1 &amp; \cdots &amp; 1 &amp; 1 \\
+b_1 &amp; a_1 &amp; a_1 &amp; \cdots &amp; a_1 &amp; a_1 \\
+b_1 &amp; b_2 &amp; a_2 &amp; \cdots &amp; a_2 &amp; a_2 \\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \ddots &amp; \vdots \\
+b_1 &amp; b_2 &amp; b_3 &amp; \cdots &amp; b_n &amp; a_n
 \end{vmatrix}
 =
 (a_1 - b_1)(a_2 - b_2)\cdots(a_n - b_n).
@@ -486,7 +502,61 @@ b_1 &amp; b_2 &amp; b_3 &amp; \cdots &amp; a_n
 </div>
 <section id="solución-5" class="level2">
 <h2 class="anchored" data-anchor-id="solución-5">Solución</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-2"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-2-1"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a>identidad <span class="ot">&lt;-</span> <span class="cf">function</span>(df) {</span>
+<span id="annotated-cell-2-2"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">ncol</span>(df) <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="annotated-cell-2-3"><a href="#annotated-cell-2-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Validaciones básicas</span></span>
+<span id="annotated-cell-2-4"><a href="#annotated-cell-2-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">nrow</span>(df) <span class="sc">!=</span> n <span class="sc">+</span> <span class="dv">1</span>) <span class="fu">return</span>(<span class="cn">FALSE</span>)</span>
+<span id="annotated-cell-2-5"><a href="#annotated-cell-2-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">all</span>(df[<span class="dv">1</span>, ] <span class="sc">==</span> <span class="dv">1</span>)) <span class="fu">return</span>(<span class="cn">FALSE</span>)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1">1</button><span id="annotated-cell-2-6" class="code-annotation-target"><a href="#annotated-cell-2-6" aria-hidden="true" tabindex="-1"></a>  M <span class="ot">&lt;-</span> df[<span class="sc">-</span><span class="dv">1</span>, ]</span>
+<span id="annotated-cell-2-7"><a href="#annotated-cell-2-7" aria-hidden="true" tabindex="-1"></a>  a <span class="ot">&lt;-</span> <span class="fu">diag</span>(M[, <span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="annotated-cell-2-8"><a href="#annotated-cell-2-8" aria-hidden="true" tabindex="-1"></a>  b <span class="ot">&lt;-</span> <span class="fu">diag</span>(M[, <span class="sc">-</span><span class="fu">ncol</span>(M)])</span>
+<span id="annotated-cell-2-9"><a href="#annotated-cell-2-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="2">2</button><span id="annotated-cell-2-10" class="code-annotation-target"><a href="#annotated-cell-2-10" aria-hidden="true" tabindex="-1"></a>  estructura_valida <span class="ot">&lt;-</span> <span class="fu">all</span>(</span>
+<span id="annotated-cell-2-11"><a href="#annotated-cell-2-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>n, <span class="cf">function</span>(i) {</span>
+<span id="annotated-cell-2-12"><a href="#annotated-cell-2-12" aria-hidden="true" tabindex="-1"></a>      fila <span class="ot">&lt;-</span> M[i, ]</span>
+<span id="annotated-cell-2-13"><a href="#annotated-cell-2-13" aria-hidden="true" tabindex="-1"></a>      izquierda <span class="ot">&lt;-</span> fila[<span class="dv">1</span><span class="sc">:</span>i]</span>
+<span id="annotated-cell-2-14"><a href="#annotated-cell-2-14" aria-hidden="true" tabindex="-1"></a>      derecha <span class="ot">&lt;-</span> fila[(i<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>(n<span class="sc">+</span><span class="dv">1</span>)]</span>
+<span id="annotated-cell-2-15"><a href="#annotated-cell-2-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">all</span>(izquierda <span class="sc">==</span> b[i]) <span class="sc">&amp;&amp;</span> <span class="fu">all</span>(derecha <span class="sc">==</span> a[i])</span>
+<span id="annotated-cell-2-16"><a href="#annotated-cell-2-16" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="annotated-cell-2-17"><a href="#annotated-cell-2-17" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="annotated-cell-2-18"><a href="#annotated-cell-2-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span>estructura_valida) <span class="fu">return</span>(<span class="cn">FALSE</span>)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="3">3</button><span id="annotated-cell-2-19" class="code-annotation-target"><a href="#annotated-cell-2-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">isTRUE</span>(<span class="fu">all.equal</span>(<span class="fu">det</span>(df), <span class="fu">prod</span>(a <span class="sc">-</span> b))))</span>
+<span id="annotated-cell-2-20"><a href="#annotated-cell-2-20" aria-hidden="true" tabindex="-1"></a>}</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="6" data-code-annotation="1">Extraer submatriz sin la primera fila</span>
+</dd>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="10" data-code-annotation="2">Verificar estructura: por filas, los valores deben seguir patrón</span>
+</dd>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="19" data-code-annotation="3">Validar identidad con tolerancia numérica</span>
+</dd>
+</dl>
+</div>
+</div>
+<section id="prueba" class="level3">
+<h3 class="anchored" data-anchor-id="prueba">Prueba</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">4</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">5</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>), <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">identidad</span>(df)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
 <hr>
+</section>
 </section>
 </section>
 <section id="ejercicio-8" class="level1">
@@ -647,8 +717,35 @@ Prueba
 </div>
 <div id="callout-15" class="callout-15-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Ejercicio (use la desigualdad de Cauchy–Schwarz para probar la desigualdad triangular).</p>
-<p><span class="math inline">\blacksquare</span></p>
+<p>Sea <span class="math inline">X</span> un espacio pre–Hilbert, defina la función <span class="math inline">\langle \cdot,\cdot \rangle : X \times X \to \mathbb{C}</span> (o <span class="math inline">\mathbb{R}</span>) y vea que para <span class="math inline">x\in V</span></p>
+<ul>
+<li><span class="math inline">\langle x, x \rangle \geq 0 \implies \langle x, x \rangle^{1/2}\ge 0</span></li>
+<li><span class="math inline">\Big(\langle x, x \rangle = 0 \iff x = 0 \Big)\implies\Big( \langle x, x \rangle^{1/2} = 0 \iff x = 0 \Big)</span></li>
+<li>Sea <span class="math inline">\alpha\in\mathbb{C}</span> (o <span class="math inline">\mathbb{R}</span>) entonces</li>
+</ul>
+<p><span class="math display">\begin{align*}
+\langle \alpha x, \alpha x \rangle^{1/2} &amp;= \Big( \alpha\langle x, \alpha x \rangle\Big)^{1/2}\\
+&amp;= \Big( \alpha\overline{\langle \alpha x, x \rangle}\Big)^{1/2}\\
+  &amp;= \Big( \alpha\cdot\overline{\alpha} \cdot {\langle x, x \rangle}\Big)^{1/2}\\
+  &amp;= \Big( |\alpha|^2 {\langle x, x \rangle}\Big)^{1/2}\\
+&amp;=  |\alpha|\langle x, x \rangle^{1/2}\\
+\end{align*}</span></p>
+<ul>
+<li>Sea <span class="math inline">y \in V</span> entonces</li>
+</ul>
+<p><span class="math display">\begin{align*}
+  \langle x+y, x+y \rangle^{1/2} &amp;= \Big(\langle x, x+y \rangle + \langle y, x+y \rangle\Big)^{1/2} \\
+  &amp;= \Big(\overline{\langle x+y, x \rangle} + \overline{\langle x+y, y \rangle}\Big)^{1/2} \\
+&amp;= \Big( \langle x,x \rangle + \langle x,y \rangle + \langle y,x \rangle + \langle y,y \rangle \Big)^{1/2}\\
+&amp;\le \Big( \langle x,x \rangle + 2\cdot \langle x, x \rangle^{1/2} \langle y, y \rangle^{1/2} + \langle y,y \rangle \Big)^{1/2}\\
+\end{align*}</span></p>
+<p>Esto último asumiendo que <span class="math inline">\langle y,x \rangle = \overline{\langle y,x \rangle}</span> y usando Cauchy–Schwarz. De esta forma vea que</p>
+<p><span class="math display">\begin{align*}
+\langle x+y, x+y \rangle &amp;\le \langle x,x \rangle + 2\cdot \langle x, x \rangle^{1/2} \langle y, y \rangle^{1/2} + \langle y,y \rangle\\[1ex]
+&amp;= \Big( \langle x, x \rangle^{1/2} + \langle y, y \rangle^{1/2}\Big)^{2}\\[1ex]
+\implies \qquad \langle x+y, x+y \rangle^{1/2} &amp;\le  \langle x, x \rangle^{1/2} + \langle y, y \rangle^{1/2}
+\end{align*}</span></p>
+<p>Vea que la función <span class="math inline">\|\cdot\| := \langle \cdot, \cdot \rangle^{1/2}</span> cumple las propiedades de una norma, por lo que <span class="math inline">\|\cdot\|</span> sería la norma del espacio de pre-Hilbert <span class="math inline">X</span>. Así se puede concluir que el espacio pre–Hilbert es siempre un espacio normado <span class="math inline">\qquad\blacksquare</span></p>
 </div>
 </div>
 </div>

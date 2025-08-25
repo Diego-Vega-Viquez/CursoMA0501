@@ -82,11 +82,9 @@ $$
 $$
 ```{r}
 #| code-fold: true
-# Definir el valor de t
-t <- 3
+t <- 3 #<1>
 
-# Función que devuelve los extremos del intervalo como fila de una tabla
-intervalo <- function(P, t) {
+intervalo <- function(P, t) { #<2>
   margen <- 0.5 * 10^(-t + 1)
   inferior <- P * (1 - margen)
   superior <- P * (1 + margen)
@@ -98,17 +96,19 @@ intervalo <- function(P, t) {
   )
 }
 
-# Crear tabla con los resultados para varios valores de P
-tabla_intervalos <- rbind(
+tabla_intervalos <- rbind( #<3>
   intervalo(150, t),
   intervalo(900, t),
   intervalo(1500, t),
   intervalo(90, t)
 )
 
-# Mostrar la tabla (Quarto renderiza automáticamente como tabla bonita)
-kableExtra::kable(tabla_intervalos)
+kableExtra::kable(tabla_intervalos) #<4>
 ```
+1. Definir el valor de t
+2. Función que devuelve los extremos del intervalo como fila de una tabla
+3. Crear tabla con los resultados para varios valores de P
+4. Mostrar la tabla (Quarto renderiza automáticamente como tabla bonita)
 
 
 # Ejercicio 2
@@ -268,11 +268,11 @@ Escriba una función en R que verifique para cualquier $n$ la siguiente identida
 
 $$
 \begin{vmatrix}
-1 & 1 & 1 & \cdots & 1 \\
-b_1 & a_1 & a_1 & \cdots & a_1 \\
-b_1 & b_2 & a_2 & \cdots & a_2 \\
-\vdots & \vdots & \vdots & \ddots & \vdots \\
-b_1 & b_2 & b_3 & \cdots & a_n
+1 & 1 & 1 & \cdots & 1 & 1 \\
+b_1 & a_1 & a_1 & \cdots & a_1 & a_1 \\
+b_1 & b_2 & a_2 & \cdots & a_2 & a_2 \\
+\vdots & \vdots & \vdots & \ddots & \ddots & \vdots \\
+b_1 & b_2 & b_3 & \cdots & b_n & a_n
 \end{vmatrix}
 =
 (a_1 - b_1)(a_2 - b_2)\cdots(a_n - b_n).
@@ -281,6 +281,48 @@ $$
 :::
 
 ## Solución
+
+```{r}
+identidad <- function(df) {
+  n <- ncol(df) - 1
+  # Validaciones básicas
+  if (nrow(df) != n + 1) return(FALSE)
+  if (!all(df[1, ] == 1)) return(FALSE)
+  M <- df[-1, ] #<1>
+  a <- diag(M[, -1])
+  b <- diag(M[, -ncol(M)])
+  
+  estructura_valida <- all( #<2>
+    sapply(1:n, function(i) {
+      fila <- M[i, ]
+      izquierda <- fila[1:i]
+      derecha <- fila[(i+1):(n+1)]
+      all(izquierda == b[i]) && all(derecha == a[i])
+    })
+  )
+  if (!estructura_valida) return(FALSE)
+  return(isTRUE(all.equal(det(df), prod(a - b)))) #<3> 
+}
+
+```
+1. Extraer submatriz sin la primera fila
+2. Verificar estructura: por filas, los valores deben seguir patrón
+3. Validar identidad con tolerancia numérica
+
+
+### Prueba
+```{r}
+df <- matrix(c(
+  1, 1, 1, 1,
+  2, 3, 3, 3,
+  2, 2, 4, 4,
+  2, 2, 2, 5
+), nrow = 4, byrow = TRUE)
+
+identidad(df)
+```
+
+
 
 ---
 
@@ -378,9 +420,40 @@ define una norma en $X$, es decir un espacio pre–Hilbert es siempre un espacio
 ::: {.callout-caution collapse="true"}
 ### Prueba
 
-Ejercicio (use la desigualdad de Cauchy–Schwarz para probar la desigualdad triangular).  
+Sea $X$ un espacio pre–Hilbert, defina la función $\langle \cdot,\cdot \rangle : X \times X \to \mathbb{C}$ (o $\mathbb{R}$) y vea que para $x\in V$
 
-$\blacksquare$
+ - $\langle x, x \rangle \geq 0 \implies \langle x, x \rangle^{1/2}\ge 0$
+ - $\Big(\langle x, x \rangle = 0 \iff x = 0 \Big)\implies\Big( \langle x, x \rangle^{1/2} = 0 \iff x = 0 \Big)$
+ - Sea $\alpha\in\mathbb{C}$ (o $\mathbb{R}$) entonces
+ 
+ \begin{align*}
+ \langle \alpha x, \alpha x \rangle^{1/2} &= \Big( \alpha\langle x, \alpha x \rangle\Big)^{1/2}\\
+ &= \Big( \alpha\overline{\langle \alpha x, x \rangle}\Big)^{1/2}\\
+  &= \Big( \alpha\cdot\overline{\alpha} \cdot {\langle x, x \rangle}\Big)^{1/2}\\
+  &= \Big( |\alpha|^2 {\langle x, x \rangle}\Big)^{1/2}\\
+ &=  |\alpha|\langle x, x \rangle^{1/2}\\
+ \end{align*}
+ 
+ - Sea $y \in V$ entonces
+ 
+ \begin{align*}
+  \langle x+y, x+y \rangle^{1/2} &= \Big(\langle x, x+y \rangle + \langle y, x+y \rangle\Big)^{1/2} \\
+  &= \Big(\overline{\langle x+y, x \rangle} + \overline{\langle x+y, y \rangle}\Big)^{1/2} \\
+&= \Big( \langle x,x \rangle + \langle x,y \rangle + \langle y,x \rangle + \langle y,y \rangle \Big)^{1/2}\\
+&\le \Big( \langle x,x \rangle + 2\cdot \langle x, x \rangle^{1/2} \langle y, y \rangle^{1/2} + \langle y,y \rangle \Big)^{1/2}\\
+\end{align*}
+
+Esto último asumiendo que $\langle y,x \rangle = \overline{\langle y,x \rangle}$ y usando Cauchy–Schwarz. De esta forma vea que 
+
+\begin{align*}
+\langle x+y, x+y \rangle &\le \langle x,x \rangle + 2\cdot \langle x, x \rangle^{1/2} \langle y, y \rangle^{1/2} + \langle y,y \rangle\\[1ex]
+&= \Big( \langle x, x \rangle^{1/2} + \langle y, y \rangle^{1/2}\Big)^{2}\\[1ex]
+\implies \qquad \langle x+y, x+y \rangle^{1/2} &\le  \langle x, x \rangle^{1/2} + \langle y, y \rangle^{1/2}
+\end{align*}
+
+Vea que la función $\|\cdot\| := \langle \cdot, \cdot \rangle^{1/2}$ cumple las propiedades de una norma, por lo que $\|\cdot\|$ sería la norma del espacio de pre-Hilbert $X$. Así se puede concluir que el espacio pre–Hilbert es siempre un espacio normado $\qquad\blacksquare$
+
+
 :::
 :::
 
