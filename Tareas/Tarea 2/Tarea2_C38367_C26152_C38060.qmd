@@ -632,6 +632,17 @@ Repita el ejercicio anterior usando los espacios y el producto interno del ejemp
 ::: {.callout-note}
 ## Instrucción
 
+::: {.callout-note}
+##### Corolario 2
+
+Sea $U$ un subespacio vectorial de dimensión finita de un espacio pre-Hilbert $X$ con base ortonormal $u_{1}, u_{2}, \dots, u_{n}$.  
+Entonces la proyección ortogonal está dada por:  
+
+$$
+Pw = \sum_{k=1}^{n} \langle w, u_{k} \rangle u_{k}, \quad \text{con } w \in X.
+$$
+:::
+
 En el Corolario 2, si tomamos como espacio pre–Hilbert a $\mathbb{R}^n$ con el producto punto clásico, escriba una función en R que reciba una base de un subespacio $U$ de $\mathbb{R}^n$ en una lista de listas, un vector de $\mathbb{R}^n$ y retorne en una lista la mejor aproximación a ese vector en $U$.
 
 :::

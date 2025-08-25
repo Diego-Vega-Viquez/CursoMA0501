@@ -999,6 +999,23 @@ Instrucción
 </div>
 </div>
 <div class="callout-body-container callout-body">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Corolario 2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">U</span> un subespacio vectorial de dimensión finita de un espacio pre-Hilbert <span class="math inline">X</span> con base ortonormal <span class="math inline">u_{1}, u_{2}, \dots, u_{n}</span>.<br>
+Entonces la proyección ortogonal está dada por:</p>
+<p><span class="math display">
+Pw = \sum_{k=1}^{n} \langle w, u_{k} \rangle u_{k}, \quad \text{con } w \in X.
+</span></p>
+</div>
+</div>
 <p>En el Corolario 2, si tomamos como espacio pre–Hilbert a <span class="math inline">\mathbb{R}^n</span> con el producto punto clásico, escriba una función en R que reciba una base de un subespacio <span class="math inline">U</span> de <span class="math inline">\mathbb{R}^n</span> en una lista de listas, un vector de <span class="math inline">\mathbb{R}^n</span> y retorne en una lista la mejor aproximación a ese vector en <span class="math inline">U</span>.</p>
 </div>
 </div>
@@ -1084,26 +1101,6 @@ f(F_g) \subset F_g, \quad g(F_f) \subset F_f.
   </span></li>
 </ol>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-31-contents" aria-controls="callout-31" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Prueba
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-31" class="callout-31-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>(Ejercicio)</p>
-<p><span class="math inline">\blacksquare</span></p>
-</div>
-</div>
-</div>
-<ol start="2" type="a">
-<li>Sean <span class="math inline">f, g : X \to X</span> aplicaciones, si <span class="math inline">F_g = \{x^*\}</span> y <span class="math inline">f \circ g = g \circ f</span> entonces <span class="math inline">F_f \neq \varnothing</span>.</li>
-</ol>
-<div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-32-contents" aria-controls="callout-32" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -1120,8 +1117,8 @@ Prueba
 </div>
 </div>
 </div>
-<ol start="3" type="a">
-<li>Sea <span class="math inline">X \neq \varnothing</span> y <span class="math inline">f : X \to X</span> aplicación. Si existe <span class="math inline">n \in \mathbb{R}</span> tal que <span class="math inline">F_{f^n} = \{x^*\}</span> entonces <span class="math inline">F_f = \{x^*\}</span>.</li>
+<ol start="2" type="a">
+<li>Sean <span class="math inline">f, g : X \to X</span> aplicaciones, si <span class="math inline">F_g = \{x^*\}</span> y <span class="math inline">f \circ g = g \circ f</span> entonces <span class="math inline">F_f \neq \varnothing</span>.</li>
 </ol>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-33-contents" aria-controls="callout-33" aria-expanded="false" aria-label="Toggle callout">
@@ -1140,8 +1137,8 @@ Prueba
 </div>
 </div>
 </div>
-<ol start="4" type="a">
-<li>Sea <span class="math inline">X \neq \varnothing</span> y <span class="math inline">f : X \to X</span> aplicación. Si <span class="math inline">F_f \neq \varnothing</span> entonces <span class="math inline">F_{f^n} \neq \varnothing</span> para todo <span class="math inline">n \in \mathbb{N}</span>.</li>
+<ol start="3" type="a">
+<li>Sea <span class="math inline">X \neq \varnothing</span> y <span class="math inline">f : X \to X</span> aplicación. Si existe <span class="math inline">n \in \mathbb{R}</span> tal que <span class="math inline">F_{f^n} = \{x^*\}</span> entonces <span class="math inline">F_f = \{x^*\}</span>.</li>
 </ol>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-34-contents" aria-controls="callout-34" aria-expanded="false" aria-label="Toggle callout">
@@ -1160,8 +1157,8 @@ Prueba
 </div>
 </div>
 </div>
-<ol start="5" type="a">
-<li>Sea <span class="math inline">X \neq \varnothing</span> y <span class="math inline">f : X \to X</span> aplicación sobreyectiva, supóngase que <span class="math inline">f_d^{-1} : X \to X</span> es tal que <span class="math inline">f \circ f_d^{-1} = I_X</span> y <span class="math inline">F_{f_d^{-1}} \neq \varnothing</span> entonces <span class="math inline">F_f \neq \varnothing</span>.</li>
+<ol start="4" type="a">
+<li>Sea <span class="math inline">X \neq \varnothing</span> y <span class="math inline">f : X \to X</span> aplicación. Si <span class="math inline">F_f \neq \varnothing</span> entonces <span class="math inline">F_{f^n} \neq \varnothing</span> para todo <span class="math inline">n \in \mathbb{N}</span>.</li>
 </ol>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-35-contents" aria-controls="callout-35" aria-expanded="false" aria-label="Toggle callout">
@@ -1180,8 +1177,8 @@ Prueba
 </div>
 </div>
 </div>
-<ol start="6" type="a">
-<li>Sea <span class="math inline">A</span> un conjunto con un número impar de elementos y <span class="math inline">f : A \to A</span> tal que <span class="math inline">f^2(x) = x</span> para todo <span class="math inline">x \in A</span>, se tiene entonces que <span class="math inline">F_f \neq \varnothing</span>.</li>
+<ol start="5" type="a">
+<li>Sea <span class="math inline">X \neq \varnothing</span> y <span class="math inline">f : X \to X</span> aplicación sobreyectiva, supóngase que <span class="math inline">f_d^{-1} : X \to X</span> es tal que <span class="math inline">f \circ f_d^{-1} = I_X</span> y <span class="math inline">F_{f_d^{-1}} \neq \varnothing</span> entonces <span class="math inline">F_f \neq \varnothing</span>.</li>
 </ol>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-36-contents" aria-controls="callout-36" aria-expanded="false" aria-label="Toggle callout">
@@ -1200,8 +1197,8 @@ Prueba
 </div>
 </div>
 </div>
-<ol start="7" type="a">
-<li>Sea <span class="math inline">f : \mathbb{R} \to \mathbb{R}</span> con <span class="math inline">f</span> continua y acotada entonces <span class="math inline">F_f \neq \varnothing</span>.</li>
+<ol start="6" type="a">
+<li>Sea <span class="math inline">A</span> un conjunto con un número impar de elementos y <span class="math inline">f : A \to A</span> tal que <span class="math inline">f^2(x) = x</span> para todo <span class="math inline">x \in A</span>, se tiene entonces que <span class="math inline">F_f \neq \varnothing</span>.</li>
 </ol>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-37-contents" aria-controls="callout-37" aria-expanded="false" aria-label="Toggle callout">
@@ -1220,8 +1217,8 @@ Prueba
 </div>
 </div>
 </div>
-<ol start="8" type="a">
-<li>Sea <span class="math inline">f : \mathbb{R} \to \mathbb{R}</span> con <span class="math inline">f</span> continua y periódica entonces <span class="math inline">F_f \neq \varnothing</span>.</li>
+<ol start="7" type="a">
+<li>Sea <span class="math inline">f : \mathbb{R} \to \mathbb{R}</span> con <span class="math inline">f</span> continua y acotada entonces <span class="math inline">F_f \neq \varnothing</span>.</li>
 </ol>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-38-contents" aria-controls="callout-38" aria-expanded="false" aria-label="Toggle callout">
@@ -1234,6 +1231,26 @@ Prueba
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-38" class="callout-38-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>(Ejercicio)</p>
+<p><span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
+<ol start="8" type="a">
+<li>Sea <span class="math inline">f : \mathbb{R} \to \mathbb{R}</span> con <span class="math inline">f</span> continua y periódica entonces <span class="math inline">F_f \neq \varnothing</span>.</li>
+</ol>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-39-contents" aria-controls="callout-39" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-39" class="callout-39-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>(Ejercicio)</p>
 <p><span class="math inline">\blacksquare</span></p>
