@@ -168,6 +168,56 @@ Ya que ${fl}(x)$ es una aproximación de $x$ con redondeo a $k$ dígitos eso sig
 
 $${fl}(x) = 0.d_1 d_2 \cdots d_k \times 10^{n}$$
 
+Sea $x\in\mathbb{R}$ que escribiremos como 
+
+$$x=0.d_1 d_2 \cdots \times 10^{n}$$
+
+De esta forma
+
+\begin{align*}
+\left| \frac{x - fl(x)}{x} \right|
+&= \left| \frac{0.d_1 d_2 \cdots \times 10^n - 0.d_1 d_2 \cdots d_k \times 10^n}{0.d_1 d_2 \cdots \times 10^n} \right| \\[1ex]
+&= \left| \frac{0.d_{k+1} d_{k+2} \cdots \times 10^{n-k}}{0.d_1 d_2 \cdots \times 10^n} \right| \\[1ex]
+&= \left| \frac{0.d_{k+1} d_{k+2} \cdots}{0.d_1 d_2 \cdots} \right| \times 10^{-k} \\[1ex]
+\end{align*}
+
+Aquí hay que analizar por casos:
+
+- Suponga que $d_{k+1} < 5$
+
+En este caso basta con cortar en $d_k$ así:
+
+\begin{align*}
+\left| \frac{x - fl(x)}{x} \right|
+&= \left| \frac{0.d_{k+1} d_{k+2} \cdots}{0.d_1 d_2 \cdots} \right| \times 10^{-k} \\[1ex]
+&\leq 0.5\cdot\left| \frac{1}{0.1} \right| \times 10^{-k} \\[1ex]
+&= 0.5\times 10^{-k+1}
+\end{align*}
+
+- Suponga que $d_{k+1} \ge 5$.
+
+Recuerde que para este caso en ${fl}(x)$ pasa que $d_k$ es una unidad mayor que el $d_k$ de $x$. De esta forma se va a cumplir que $d_{j_\text{real}}$$=d_{j_\text{aproximado}}$ para $j=\{1,2,\ldots,k-1\}$ así se tiene que 
+
+$$
+|x - fl(x)| = 10^{1-k}\cdot(1-0.d_{k+1}\cdots)
+$$
+$$
+\left| \frac{x - fl(x)}{x} \right| = \frac{10^{1-k}\cdot(1-0.d_{k+1}\cdots)}{|0.d_1 d_2 \cdots\times 10^{n}|}
+$$
+Vea que 
+\begin{align*}
+d_{k+1} \ge 5 &\implies 0.d_{k+1}\cdots\ge\frac{1}{2}\\
+&\implies 1-0.d_{k+1}\cdots\le\frac{1}{2}\\
+&\implies 1-0.d_{k+1}\cdots\le\frac{1}{2}
+\end{align*}
+Así
+$$
+\left| \frac{x - fl(x)}{x} \right| \le \frac{10^{1-k} \cdot 0.5}{|0.d_1 d_2 \cdots\times 10^{n}|} \le 10^{1-k} \cdot 0.5
+$$
+Luego, concluya que 
+$$
+\left| \frac{x - {fl}(x)}{x} \right| \leq 0.5 \times 10^{-k+1} \qquad \blacksquare
+$$
 
 # Ejercicio 5
 ::: {.callout-note}
