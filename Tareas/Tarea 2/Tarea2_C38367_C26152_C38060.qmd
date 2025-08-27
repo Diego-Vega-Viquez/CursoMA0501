@@ -128,6 +128,48 @@ d. $\quad p = \tfrac{100}{3}\qquad p^* = 33.3$
 
 ## Solución
 
+a) 
+
+```{r}
+err.abs.a <- abs(pi - 3.1)
+err.rel.a <- err.abs.a / pi
+```
+```{r}
+#| echo: false
+cat("error absoluto:", err.abs.a)
+cat("error relativo:", err.rel.a)
+```
+b)
+```{r}
+err.abs.b <- abs(pi/1000 - 0.0031)
+err.rel.b <- err.abs.b/(pi/1000)
+```
+```{r}
+#| echo: false
+cat("error absoluto:", err.abs.b)
+cat("error relativo:", err.rel.b)
+```
+
+c)
+```{r}
+err.abs.c <- abs(1/3 - 0.333)
+err.rel.c <- err.abs.c/(1/3)
+```
+```{r}
+#| echo: false
+cat("error absoluto:", err.abs.c)
+cat("error relativo:", err.rel.c)
+```
+d)
+```{r}
+err.abs.d <- abs(100/3 - 33.3)
+err.rel.d <- err.abs.d/(100/3)
+```
+```{r}
+#| echo: false
+cat("error absoluto:", err.abs.d)
+cat("error relativo:", err.rel.d)
+```
 
 # Ejercicio 3
 ::: {.callout-note}
@@ -237,6 +279,31 @@ Encuentre una fórmula alternativa para efectuar este cálculo sin que se produz
 
 :::
 
+## Solución
+
+Con la formula usual:
+```{r}
+a <- 1
+b <- 0.4002
+c <- 0.8e-4
+discriminante <- b^2 -4*a*c
+raiz.menor <- abs((-b + sqrt(discriminante))/2*a)
+raiz.discriminante <- sqrt(discriminante)
+
+format(raiz.menor, scientific = FALSE, digits = 22)
+b
+raiz.discriminante
+```
+
+Una de las razones por las que hay perdida significativa de digitos es porque al aplicar la raiz del discriminante se obtiene un numero muy parecido a -b, de manera que se esta restando en el numerador numeros muy parecidos.
+
+Una forma de calcular la raiz menor de forma mas precisa es usando la siguiente formula (la cual se obtiene al multiplicar por el conjugado del numerador en forma de un 1 conveniente y desarrollando):
+
+```{r}
+raiz.menor.nueva <- abs((2 * c) / (-b - sqrt(discriminante)))
+format(raiz.menor.nueva, scientific = FALSE, digits = 22)
+```
+
 # Ejercicio 6
 ::: {.callout-note}
 ## Instrucción
@@ -259,6 +326,25 @@ $$
 :::
 
 ## Solución
+
+```{r}
+a <- matrix(c(1, 2, 3, 2, 1, 3, 2, 3, 1), byrow = TRUE, nrow = 3)
+verificar.identidad <- function(matriz) {
+  derecha <- sum(matriz[1, ]) * prod(sapply(matriz[1, ][-1], function(y) {
+    return(matriz[1] - y)
+  }))
+  izquierda <- det(matriz)
+  return(
+    list(
+      "Matriz" = matriz,
+      "Determinante" = izquierda,
+      "ResultadoFormula" = derecha,
+      "SeVerificaIdentidad" = (izquierda == derecha)
+    )
+  )
+}
+verificar.identidad(a)
+```
 
 # Ejercicio 7
 ::: {.callout-note}
@@ -337,6 +423,24 @@ Escriba una función en R que permita determinar si una matriz es rala.
 
 ## Solución
 
+```{r}
+a <- matrix(c(0, 0, 0, 0, 0, 3, 2, 4, 5), nrow = 3, byrow = TRUE)
+es.rala <- function(matriz) {
+  nulos <- sum(sapply(matriz, function(y) {
+    if (y == 0) {
+      return(1)
+    }
+    else {
+      return(0)
+    }
+  }))
+  no.nulos <- length(matriz) - nulos
+  
+  return(list("Matriz" = matriz, "entradas nulas" = nulos, "entradas no nulas" = no.nulos, "EsRala" = nulos > no.nulos))
+}
+es.rala(a)
+
+```
 ---
 
 # Ejercicio 9
@@ -350,6 +454,52 @@ Escriba una función en R que permita determinar si una matriz está en forma de
 
 ## Solución
 
+```{r}
+a <- matrix(c(1, 1, 1, 1, 0, 1, 1, 1, 1), nrow = 3, byrow = TRUE)
+es.o <- function(matriz) {
+  fila.1 <- matriz[1, ]
+  fila.n <- matriz[nrow(matriz), ]
+  col.1 <- matriz[, 1]
+  col.n <- matriz[, ncol(matriz)]
+  
+  if (nrow(matriz) > 2 && ncol(matriz) > 2) {
+    matriz.central <- matriz[-c(1, nrow(matriz)), -c(1, ncol(matriz)), drop = FALSE]
+  } else {
+    matriz.central <- NULL
+  }
+  
+  todo.bien <- TRUE
+  
+  for (elem in seq_along(fila.1)) {
+    if (fila.1[elem] == 0 || fila.n[elem] == 0) {
+      todo.bien <- FALSE
+      break
+    }
+  }
+  
+  if (todo.bien) {
+    for (elem in seq_along(col.1)) {
+      if (col.1[elem] == 0 || col.n[elem] == 0) {
+        todo.bien <- FALSE
+        break
+      }
+    }
+  }
+  
+  if (todo.bien && !is.null(matriz.central)) {
+    for (elem in matriz.central) {
+      if (elem != 0) {
+        todo.bien <- FALSE
+        break
+      }
+    }
+  }
+  
+  return(list("Matriz" = matriz, "Tiene forma de O" = todo.bien))
+}
+
+es.o(a)
+```
 ---
 
 # Ejercicio 10
@@ -613,6 +763,48 @@ En el teorema 7, si tomamos como espacio pre–Hilbert a $\mathbb{R}^n$ con el p
 
 ## Solución
 
+```{r}
+prod.punto <- function(x, y) {
+  return(sum(x * y))
+}
+
+norma <- function(x) {
+  return(sqrt(prod.punto(x, x)))
+}
+
+proy.ortogonal <- function(u, v) {
+  (prod.punto(u, v) / prod.punto(v, v)) * v
+}
+
+gs.ortogonal <- function(base) {
+  U <- base
+  Q <- list()
+  for (k in seq_along(U)) {
+    u <- U[[k]]
+    if (length(Q) > 0) {
+      for (q in Q)
+        u <- u - proy.ortogonal(u, q)
+    }
+    Q[[length(Q) + 1]] <- u
+  }
+  return(Q)
+}
+
+gs.ortonormal <- function(base) {
+  base.ortogonal <- gs.ortogonal(base)
+  return(lapply(base.ortogonal, function(x) {
+    return(x / norma(x))
+  }))
+}
+
+base <- list(c(1,2,3), c(4,5,6), c(1,0,1))
+gs.ortogonal(base)
+gs.ortonormal(base)
+```
+
+
+
+
 ---
 
 # Ejercicio 12
@@ -649,6 +841,31 @@ En el Corolario 2, si tomamos como espacio pre–Hilbert a $\mathbb{R}^n$ con el
 
 ## Solución
 
+```{r}
+prod.punto <- function(x, y) {
+  return(sum(x * y))
+}
+
+mejor.aprox <- function(base, vector) {
+  U <- gs.ortonormal(base)
+  aprox <- numeric(length(vector))
+  coef  <- numeric(length(U))
+  
+  for (k in seq_along(U)) {
+    u <- U[[k]]
+    coef[k] <- prod.punto(vector, u)
+    aprox <- aprox + coef[k] * u
+  }
+  
+  return(list("Aproximacion" = aprox, "Coeficientes" = coef))
+}
+
+mejor.aprox(list(c(1,2, 3), c(4, 5, 6)), c(1,0,1))
+```
+
+
+
+
 ---
 
 # Ejercicio 14
@@ -661,6 +878,62 @@ Repita el ejercicio anterior usando los espacios y el producto interno del ejemp
 :::
 
 ## Solución
+
+```{r}
+prod.l2 <- function(f, g) {
+  integrate(function(x) f(x) * g(x), lower = 0, upper = 1)$value
+}
+
+mejor.aprox.2 <- function(base, f, prod.interno = prod.l2) {
+  coef <- sapply(base, function(u) prod.interno(f, u))
+  aprox <- function(x) {
+    s <- 0
+    for (k in seq_along(base)) {
+      s <- s + coef[k] * base[[k]](x)
+    } 
+    return(s)
+  }
+  return(list("Aproximacion" = aprox, "Coeficientes" = coef))
+}
+```
+```{r}
+#| message: false
+
+library(tidyverse)
+# Base del ejemplo 7
+u1 <- function(x) 1
+u2 <- function(x) sqrt(3) * (2*x - 1)
+u3 <- function(x) sqrt(5) * (6*x^2 - 6*x + 1)
+B_ON <- list(u1, u2, u3)
+
+f <- function(x) tan(x)
+
+res <- mejor.aprox.2(B_ON, f)
+Pf  <- res$Aproximacion
+
+x  <- seq(0, 1, length.out = 400)
+df <- data.frame(x = x, real = f(x), aprox = Pf(x))
+
+ggplot(df, aes(x = x)) +
+  geom_line(aes(y = real, color = "f(x) = tan(x)"), size = 1.1) +
+  geom_line(aes(y = aprox, color = "Aproximación (P2)"),
+            size = 1.1,
+            linetype = "dashed") +
+  scale_color_manual(values = c(
+    "f(x) = tan(x)" = "black",
+    "Aproximación (P2)" = "red"
+  )) +
+  labs(
+    title = expression(paste("f(x)=tan(x) vs proyección en ", P[2], "[0,1]")),
+    x = "x",
+    y = "valor",
+    color = "Curva"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "top")
+
+```
+
 
 ---
 
