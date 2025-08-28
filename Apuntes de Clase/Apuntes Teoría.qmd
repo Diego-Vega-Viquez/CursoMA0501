@@ -1896,3 +1896,660 @@ Es claro, pues este teorema es nada más otra forma de calcular la proyección $
 
 :::
 
+# Solución numérica de ecuaciones no lineales.
+
+## El método de aproximaciones sucesivas.
+
+### Teoremas de convergencia y del error
+
+::: {.callout-note}
+##### Teorema
+Sea $U$ un subconjunto completo de un espacio normado $X$ y $A:U \to U$ una contracción. Entonces las **aproximaciones sucesivas**:
+
+$$
+x_{n+1} = Ax_n, \quad \text{para } n = 0,1,2,\ldots,
+$$
+
+con $x_0$ arbitrario en $U$, convergen al punto fijo único $x$ de $A$.
+:::
+
+::: {.callout-caution collapse="true"}
+##### Prueba
+
+Sea $x_0 \in U$ entonces definimos recursivamente la siguiente sucesión en $U$:
+
+$$
+x_{n+1} := Ax_n, \quad \text{para } n=0,1,2,\ldots
+$$
+
+De donde se tiene que:
+
+$$
+\|x_{n+1} - x_n\| = \|Ax_n - Ax_{n-1}\| \leq q \|x_n - x_{n-1}\|,
+$$
+
+luego por inducción se deduce que:
+
+$$
+\|x_{n+1} - x_n\| \leq q^n \|x_1 - x_0\|, \quad \text{para } n=0,1,2,\ldots
+$$
+
+Por lo tanto para $m > n$ se tiene que:
+
+\begin{align*}
+\|x_n - x_m\| &\leq \|x_n - x_{n+1}\| + \|x_{n+1} - x_{n+2}\| + \cdots + \|x_{m-1} - x_m\| \\
+&\leq (q^n + q^{n+1} + \cdots + q^{m-1}) \|x_1 - x_0\| \\
+&\leq \frac{q^n}{1-q} \|x_1 - x_0\|.
+\end{align*}
+
+Como $q^n \to 0$ cuando $n \to \infty$, entonces $(x_n)$ es una sucesión de Cauchy y como $U$ es completo existe $x \in U$ tal que $x_n \to x$ cuando $n \to \infty$.  
+
+$\blacksquare$
+:::
+
+::: {.callout-note}
+##### Corolario: Cota del Error a Priori
+Con las mismas hipótesis del teorema anterior se tiene el siguiente *estimado para el error a priori*:
+
+$$
+\|x_n - x\| \leq \frac{q^n}{1-q} \, \|x_1 - x_0\|.
+$$
+
+::: {.callout-caution collapse="true"}
+##### Prueba
+Es evidente de la desigualdad (1.1).  
+
+$\blacksquare$
+:::
+:::
+
+::: {.callout-note}
+##### Corolario: Cota del Error a Posteriori
+Con las mismas hipótesis del teorema anterior se tiene el siguiente *estimado para el error a posteriori*:
+
+$$
+\|x_n - x\| \leq \frac{q}{1-q} \, \|x_n - x_{n-1}\|.
+$$
+
+::: {.callout-caution collapse="true"}
+##### Prueba
+Se deduce del error a priori iniciando con $x_0 = x_{n-1}$.  
+
+$\blacksquare$
+:::
+:::
+
+
+::: {.callout-note}
+##### Teorema [Versión 1]
+Sea $D \subset \mathbb{R}$ un cerrado y sea $g: D \to D$ una función continuamente diferenciable con la siguiente propiedad:
+
+$$
+q := \sup_{x \in D} |g'(x)| < 1.
+$$
+
+Entonces la ecuación $g(x) = x$ tiene solución única $x \in D$ y la sucesión de aproximaciones sucesivas:
+
+$$
+x_{n+1} := g(x_n), \quad \text{para } n = 0,1,2,\ldots
+$$
+
+con $x_0$ arbitrario en $D$ converge a esta solución. Además se tiene el siguiente *estimado para el error a priori*:
+
+$$
+|x_n - x| \leq \frac{q^n}{1-q}|x_1 - x_0|,
+$$
+
+y el siguiente *estimado para el error a posteriori*:
+
+$$
+|x_n - x| \leq \frac{q}{1-q}|x_n - x_{n-1}|.
+$$
+
+Además, si $D = [a,b]$ entonces se tiene también la siguiente cota del error:
+
+$$
+|x_n - x| \leq q^n \max\{x_0 - a, b - x_0\}.
+$$
+
+::: {.callout-caution collapse="true"}
+##### Prueba
+
+El espacio $\mathbb{R}$ equipado de la norma valor absoluto $|\cdot|$ es un espacio de Banach.  
+Por el teorema del valor medio, para todo $x, y \in D$ con $x < y$ se tiene que:
+
+$$
+g(x) - g(y) = g'(\xi)(x-y)
+$$
+
+para algún punto $\xi \in ]x,y[$. Por lo tanto:
+
+$$
+|g(x) - g(y)| \leq \sup_{\xi \in D} |g'(\xi)| \cdot |x-y| = q|x-y|,
+$$
+
+lo cual también es válido para $x,y \in D$ con $x \geq y$.  
+Por lo tanto $g$ es una contracción, luego aplicando el Teorema de Banach o el Teorema 1 se tiene la existencia y unicidad del punto fijo.
+
+De los corolarios 1 y 2 se tienen obviamente las desigualdades (1.2) y (1.3).  
+Para probar la cota del error (1.4) note que:
+
+
+\begin{align*}
+|x_n - x|
+&= |g(x_{n-1}) - g(x)| = |g'(\xi_1)| \cdot |x_{n-1} - x| \leq q |x_{n-1} - x| \\[1ex]
+&= q |g(x_{n-2}) - g(x)| = q |g'(\xi_2)| \cdot |x_{n-2} - x| \leq q^2 |x_{n-2} - x| \\[1ex]
+&\leq \dots \\[1ex]
+&\leq q^n |x_0 - x| \\[1ex]
+&\leq q^n \max\{x_0 - a, \; b - x_0\}.
+\end{align*}
+
+
+$\blacksquare$
+:::
+:::
+
+::: {.callout-note}
+##### Teorema [Versión 2]
+Sea $g \in C[a,b]$, con $g:[a,b] \to [a,b]$. Entonces:
+
+1. $g$ tiene un punto fijo en $[a,b]$.
+
+2. Además, si $g'(x)$ existe en $]a,b[$ y $|g'(x)| \leq q < 1$, para todo $x \in ]a,b[$, entonces $g$ tiene un punto fijo único en $[a,b]$.
+
+::: {.callout-caution collapse="true"}
+##### Prueba
+
+**I Caso**: Si $g(a) = a$ o $g(b) = b$ se tiene la prueba.  
+
+**II Caso**: Si $g(a) \neq a$ y $g(b) \neq b \Rightarrow g(a) > a$ y $g(b) < b$  
+
+Tome $h(x) = g(x) - x$, note que:  
+
+- $h$ es continua en $[a,b]$,  
+- $h(a) = g(a) - a > 0$,  
+- $h(b) = g(b) - b < 0$.  
+
+Luego $h(a)$ y $h(b)$ tienen signos opuestos, usando el teorema de los valores intermedios se tiene que existe $x \in [a,b]$ tal que $h(x) = 0 \Rightarrow g(x) - x = 0 \Rightarrow g(x) = x$, por lo tanto $x$ es el punto fijo de $g$.  
+
+2. Suponga que $g$ tiene dos puntos fijos en $[a,b]$, sean estos $x$ y $y$, con $x \neq y$, entonces por el Teorema del Valor Medio existe $\xi \in ]a,b[$ tal que:  
+
+$$
+|x-y| = |g(x) - g(y)| = g'(\xi)|x-y| \leq q|x-y| < |x-y|
+$$
+
+De donde $|x-y| < |x-y|$, lo cual es una contradicción, luego se tiene que $x=y$.  
+
+$\blacksquare$
+:::
+:::
+
+
+::: {.callout-tip collapse="true"}
+##### Ejemplo
+Pruebe que 
+
+$$
+f(x) = \frac{x^2 - 2x}{6}, \quad x \in [-1,1]
+$$
+
+tiene un punto fijo en $[-1,1]$.
+
+::: {.callout-caution collapse="true"}
+##### Solución
+
+Se debe probar que $f(x) \in [-1,1]$ para todo $x \in [-1,1]$.  
+Como 
+$$
+f'(x) = \tfrac{1}{6}(2x-2) = \frac{x-1}{3} = 0 \;\;\Leftrightarrow\;\; x=1
+$$
+entonces los máximos o mínimos posibles están en $x=-1$ o $x=1$.  
+
+Como $f(-1) = \tfrac{1}{2}$ es máximo y $f(1) = -\tfrac{1}{6}$ es mínimo entonces para todo $x \in [-1,1]$ se tiene que $f(x)\in[-1,1]$, de donde $f$ tiene un punto fijo en $[-1,1]$.
+
+Solo se ha probado que existe por lo menos un punto fijo, ahora tenemos que probar que es único.  
+Se debe probar que existe $q<1$ tal que $|f'(x)| \leq q < 1$, para todo $x \in ]-1,1[$.  
+
+Note que:
+
+$$
+|f'(x)| = \left|\frac{x-1}{3}\right| \leq \left|\frac{-1-1}{3}\right| = \tfrac{2}{3} < 1, 
+\quad \text{para todo } x \in ]-1,1[.
+$$
+
+Luego $f(x)$ tiene un punto fijo único en $[-1,1]$.  
+$\blacksquare$
+:::
+
+:::
+
+
+
+
+::: {.callout-note}
+##### Teorema
+
+Sea $x$ un punto fijo de una función continuamente diferenciable $g$ tal que $|g'(x)|<1$.  
+Entonces el método de las aproximaciones sucesivas 
+$$
+x_{n+1} := g(x_n), \quad \text{para } n=0,1,2,\dots
+$$
+es localmente convergente, es decir, existe un vecindario $\mathcal{B}$ del punto fijo $x$ de $g$ tal que el método de aproximaciones sucesivas converge a $x$, para $x_0 \in \mathcal{B}$.
+
+::: {.callout-caution collapse="true"}
+##### Prueba
+
+Como $g'$ es continua y $|g'(x)|<1$ entonces existe una constante $0<q<1$ y $\delta>0$ tal que $|g'(y)|<q$ para todo $y\in \mathcal{B}:=[x-\delta,x+\delta]$.  
+
+Entonces se tiene que:
+
+$$
+|g(y)-x| = |g(y)-g(x)| \leq q|y-x| < |y-x| \leq \delta
+$$
+
+para todo $y\in \mathcal{B}$.  
+
+Por lo que se deduce que $g$ mapea $\mathcal{B}$ en sí mismo, o sea que $g:\mathcal{B}\to \mathcal{B}$ es una contracción, por lo que el resultado se tiene del Teorema 1.  
+
+$\blacksquare$
+:::
+El Teorema se ilustra en la Figura.
+![El método de aproximaciones sucesivas.](Imagenes/3 graph.png)
+:::
+
+
+**Algoritmo**: Método de las aproximaciones sucesivas
+
+**Entrada:** $x_0$ (aproximación inicial), $Tol$, $N$, $g(x)$  
+**Salida:** $x$ (punto fijo aproximado) o mensaje de error  
+
+**Pasos:**
+
+1. $i \leftarrow 1$  
+2. Mientras $i \leq N$, siga los pasos 3–6:  
+   - $x \leftarrow g(x_0)$  
+   - Si $|x - x_0| < Tol$:  
+     - Salida: $x$  
+     - **Parar**  
+   - $i \leftarrow i+1$  
+   - $x_0 \leftarrow x$  
+3. Mensaje de error: *“Número máximo de iteraciones excedido”*.  
+   **Parar**
+   
+Una implementación en R es la siguiente:
+   
+```{r}
+punto.fijo <- function(p0, tol, n, g) {
+  i <- 1
+  p0_tem <- p0
+  while (i <= n) {
+    p <- g(p0_tem)
+    if (abs(p - p0_tem) < tol) {
+      return(p)
+    }
+    i <- i + 1
+    p0_tem <- p
+  }
+  return(Inf)
+}
+```
+
+::: {.callout-tip collapse="true"}
+###### Ejemplo
+
+Sea $$f(x) = e^{-x}$$, es fácil probar que $$f(x)$$ mapea  
+$$A = [0.5, 0.69]$$ en sí mismo (ejercicio).  
+
+Como $$f$$ es continuamente diferenciable, tome:
+
+$$
+q = \max_{x \in A} \, \big| f'(x) \big| 
+   = \max_{x \in A} \, \big| -e^{-x} \big| 
+   \approx 0.606531 < 1
+$$
+
+Si se ejecuta el programa iterativo en **R** como sigue:
+
+```{r}
+#| echo: false
+
+punto.fijo <- function(p0, tol, n, g) {
+  i <- 1
+  p0_tem <- p0
+  while (i <= n) {
+    p <- g(p0_tem)
+    cat(sprintf("En la iteración %d el valor de P es %.15f\n", i, p))
+    if (abs(p - p0_tem) < tol) {
+      return(p)
+    }
+    i <- i + 1
+    p0_tem <- p
+  }
+  cat("El método no converge\n")
+  return(NULL)
+}
+```
+
+
+```{r}
+g <- function(x) exp(-x)
+sol3 <- punto.fijo(p0 = 0.55, tol = 1e-6, n = 30, g = g)
+```
+
+es decir, tomando $x_0 = 0.55$ como aproximación inicial, con $\varepsilon = Tol = 10^{-6}$ para el algoritmo anterior obtenemos que el “punto fijo” de $F$ es  
+
+$$
+x = x_{19} = 0.567143650676,
+$$  
+
+pues en $x_{19}$ se terminó la ejecución de la función,  
+como se aprecia en la salida del programa:
+
+```{r}
+#| echo: false
+cat("Solución punto.fijo:", sol3, "\n")
+```
+
+Por otro lado el error absoluto al calcular $x_{12} = 0.567124201933893$ es igual a:
+
+$$
+|x - x_{12}| \approx 1.91 \cdot 10^{-5},
+$$
+
+mientras que usando el error a priori se obtiene:
+
+$$
+|x - x_{12}| \leq \frac{q^{12}}{1-q} |x_1 - x_0| = 1.70 \cdot 10^{-4}
+$$
+
+y usando el error a posteriori se obtiene que:
+
+$$
+|x - x_{12}| \leq \frac{q}{1-q} |x_{12} - x_{11}| = 8.13 \cdot 10^{-5}
+$$
+
+que es una mejor estimación del verdadero error.  
+Usando el error a priori se deduce que para obtener una precisión de $\varepsilon = 10^{-6}$ se requieren al menos:
+
+$$
+n \geq \frac{\log \left(\dfrac{\varepsilon(1-q)}{|x_1 - x_0|}\right)}{\log(q)} 
+\approx 22.3 \leq 23 \text{ iteraciones},
+$$
+
+pero se observa que el programa requirió de 19 iteraciones. 
+
+Ver la versión recursiva en el *HTML*.
+
+```{r}
+#| code-fold: true
+
+punto.fijo.recursivo <- function(p0, tol, n, g) {
+  p1 <- g(p0)
+  if (abs(p0 - p1) < tol || n < 1) {
+    if (n > 1) {
+      return(p1)
+    } else {
+      return(Inf)
+    }
+  } else {
+    return(punto.fijo.recursivo(p1, tol, n - 1, g))
+  }
+}
+sol3 <- punto.fijo.recursivo(p0 = 0.55, tol = 1e-6, n = 30, g = g)
+cat("Solución punto.fijo.recursivo:", sol3, "\n")
+```
+
+:::
+
+
+::: {.callout-tip collapse="true"}
+###### Ejemplo
+
+Resuelva la ecuación $x^3 - x - 1 = 0$ en el intervalo $[1,2]$.
+
+**Solución:**  
+Se debe plantear un problema de encontrar los puntos fijos de una función $g(x)$ que sea equivalente a resolver la ecuación $x^3 - x - 1 = 0$.  
+Resolver $x^3 - x - 1 = 0$ es equivalente a resolver la ecuación $x^3 - 1 = x$, entonces se puede tratar de encontrar los puntos de $g(x) := x^3 - 1$.  
+
+Pero $g(x)$ no cumple las hipótesis del Teorema de Punto Fijo de Banach, pues $g'(x) = 3x^2 > 0 \implies g(x)$ es creciente en $[1,2]$, luego $g(1) = 0$ y $g(2) = 7$ son el mínimo y el máximo de $g(x)$ en el intervalo $[1,2]$ respectivamente, por lo que $g(x) \notin [1,2] \quad \forall x \in [1,2]$.
+
+Otro intento se puede hacer usando el hecho de que:
+
+$$
+x^3 - x - 1 = 0 \iff x = \pm \sqrt{1 + \frac{1}{x}},
+$$
+
+luego tome 
+
+$$
+g(x) := \sqrt{1 + \frac{1}{x}}, 
+\quad g'(x) = -\frac{1}{2x^2\sqrt{1 + \frac{1}{x}}} < 0 \quad \text{en } [1,2].
+$$
+
+Esto implica que $g(x)$ es decreciente en $[1,2]$, luego:
+
+$$
+g(1) = \sqrt{2} \approx 1.41, 
+\quad g(2) = \sqrt{\tfrac{3}{2}} \approx 1.22.
+$$
+
+El máximo y el mínimo respectivamente de $g(x)$ en $[1,2]$, por lo que $g(x) \in [1,2]$  
+$\forall x \in [1,2]$, luego la función $g(x)$ tiene al menos un punto fijo en $[1,2]$.
+
+Se probó que $g : [1,2] \to [1,2]$, falta probar que $g$ es una contracción en el intervalo $[1,2]$. Veamos
+
+\begin{align*}
+g'(x) = -\frac{1}{2x^2 \sqrt{1 + \frac{1}{x}}} 
+\Rightarrow |g'(x)| = \frac{1}{2x^2 \sqrt{1 + \frac{1}{x}}} \leq \frac{1}{2} := q < 1
+\end{align*}
+
+de donde se puede tomar $q := \frac{1}{2}$.  
+Se pueden ver las ejecuciones de las funciones en **R** de punto fijo con $x_0 = 2$ y $\epsilon = 10^{-5}$ en el archivo `punto_fijo.html`.
+
+Luego el punto fijo de $g(x)$ y solución de la ecuación $x^3 - x - 1 = 0$ en el intervalo $[1,2]$ es:  
+$$x = 1.32471747253653$$  
+Que coincide con la solución encontrada por nuestro programa. Gráficamente se ilustra en la Figura
+
+```{r}
+#| echo: false
+# Definir los valores de x
+x <- seq(0.01, 3, by = 0.01)
+
+# Definir la función G(x)
+G <- function(x) sqrt(1 + 1/x)
+
+# Crear el gráfico
+plot(x, G(x), type = "l", col = "blue", lwd = 2,
+     ylim = c(0, 3.2), xlab = "x", ylab = "y", main = "Gráfico de G(x) y x")
+
+# Agregar la recta y = x
+lines(x, x, col = "red", lty = 2, lwd = 2)
+
+# Agregar leyenda
+legend("topright", legend = c("G(x) = sqrt(1 + 1/x)", "y = x"),
+       col = c("blue", "red"), lty = c(1, 2), lwd = 2)
+```
+
+
+$\blacksquare$
+
+:::
+
+::: {.callout-tip collapse="true"}
+###### Ejemplo
+
+Dada la ecuación del ejemplo anterior $x^3 - x - 1 = 0$ en el intervalo $[1,2]$,  ¿cuántas iteraciones se requieren para obtener un error absoluto menor que $10^{-5}$?
+
+**Solución:** Recuerde que $q = \frac{1}{2}$, de donde se tiene que:
+
+\begin{align*}
+|x_n - x| 
+&\leq q^n \max\{x_0 - a, b - x_0\} \\
+&= \left(\frac{1}{2}\right)^n \max\{1, 0\} \quad \text{(con $x_0 = 2$)} \\
+&\leq \left(\frac{1}{2}\right)^n
+\end{align*}
+
+Luego:
+
+\begin{align*}
+|x_n - x| \leq 10^{-5} 
+\Leftrightarrow \left(\frac{1}{2}\right)^n \leq 10^{-5} 
+\Leftrightarrow n \geq 16.6
+\end{align*}
+
+Tome $n = 17$. $\blacksquare$
+
+::: {.callout-important collapse="true"}
+###### Observación
+
+**Observación 1** En la práctica el programa requirió solamente 9 iteraciones.
+:::
+:::
+
+::: {.callout-tip collapse="true"}
+###### Ejemplo
+
+Para la ecuación $x^3 - x - 1 = 0$ en el intervalo $[1,2]$, con $x_0 = 2$, estime usando el error a priori (1.2) ¿Cuántas iteraciones se requieren para obtener un error absoluto menor que $10^{-5}$?
+
+**Solución:** Se tiene que
+
+$$
+q = \frac{1}{2}, \quad x_0 = 2, \quad g(x) = \sqrt{1 + \frac{1}{x}}
+$$
+
+De donde se obtiene que $x_1 = \sqrt{1 + \frac{1}{2}} = \sqrt{\frac{3}{2}} \approx 1.2$, entonces:
+
+\begin{align*}
+|x_n - x| 
+&\leq \frac{\left(\frac{1}{2}\right)^n}{1 - \frac{1}{2}} |2 - 1.2| \\
+&= \left(\frac{1}{2}\right)^{n-1} \cdot 0.8
+\end{align*}
+
+entonces:
+
+\begin{align*}
+|x_n - x| 
+&\leq 10^{-5} 
+\Leftrightarrow \left(\frac{1}{2}\right)^{n-1} \cdot 0.8 \leq 10^{-5} \\
+&\Leftrightarrow (n-1)(-\log(2)) \leq -5 - \log(0.8)
+\end{align*}
+
+esto implica que $n \geq 17.28$, por lo que se puede tomar $n = 18$. $\blacksquare$
+
+::: {.callout-important collapse="true"}
+###### Observación
+
+**Observación 2** En la práctica el programa requirió solamente 9 iteraciones.
+:::
+:::
+
+
+## Método de bisección, método regula falsi y método de la secante.
+
+### Método de la Bisección
+
+
+Las hipótesis de este método son:
+
+- $f$ debe ser continua en el intervalo $[a, b]$.
+- $f(a)$ y $f(b)$ deben tener signos opuestos.
+
+Luego, por el Teorema de los Valores Intermedios, existe $x \in [a, b]$ tal que $f(x) = 0$, gráficamente se ilustra en la Figura .
+
+![El Método de la Bisección](Imagenes/4 grpah.png){width=400px fig-align="center"}
+
+La idea es encontrar una sucesión $(x_n)$ tal que $x_n \to x$ cuando $n \to \infty$ tal que $f(x) = 0$. Para encontrar la sucesión $(x_n)$, la idea es la siguiente:
+
+- Tome $a_1 = a$, $b_1 = b$, $x_1 = \dfrac{a_1 + b_1}{2}$.
+- Si $f(x_1) = 0$, entonces ya se tiene el cero de la ecuación $x = x_1$.
+- Si no:
+  - Si $f(x_1)$ y $f(a)$ tienen el mismo signo, se toma:
+  
+    $$
+    a_2 = x_1, \quad b_2 = b_1, \quad x_2 = \dfrac{a_2 + b_2}{2}.
+    $$
+  - Si no se toma:
+
+  $$
+  a_2 = a_1, \quad b_2 = x_1, \quad x_2 = \dfrac{a_2 + b_2}{2},
+  $$
+
+  y así sucesivamente hasta que $f(x_i) \approx 0$ o hasta superar el número máximo de iteraciones. El pseudocódigo se puede escribir como sigue:
+
+
+#### Algoritmo
+
+**Entrada:** $a, b, Tol$ (tolerancia), $N$, $f$  
+**Salida:** Aproximación de $x$ (cero de la ecuación) o mensaje de error
+
+1. $i \leftarrow 1$  
+2. Mientras $i \leq N$, siga los pasos 3–6  
+3. $x \leftarrow \dfrac{a + b}{2}$  
+4. Si $f(x) = 0$ o $|b - a| < Tol$  
+  -  Salida ($x$)  
+  - **Parar**  
+5. $i \leftarrow i + 1$  
+6. Si $f(a) \cdot f(x) > 0$  
+   - $a \leftarrow x$  
+   -  Si no  
+   -  $b \leftarrow x$  
+7. Salida (“Número máximo de iteraciones excedido”)  
+    **Parar**
+
+
+Este algoritmo se puede programar iterativamente en **R**, ver el archivo `biseccion.html`.
+
+```{r}
+# Versión detallada: imprime cada iteración
+biseccion <- function(a, b, tol, n, G) {
+  i <- 1
+  a1 <- a
+  b1 <- b
+  if (G(a) * G(b) > 0) {
+    cat("No cumple las hipótesis\n")
+  } else {
+    while (i <= n) {
+      X <- (a1 + b1) / 2
+      cat("En la iteración", i, "el valor de X es", X, "\n")
+      if (G(a) * G(X) > 0) {
+        a1 <- X
+      } else {
+        b1 <- X
+      }
+      if ((b1 - a1) < tol) {
+        return(X)
+      }
+      i <- i + 1
+    }
+    cat("El método no converge\n")
+    return(NA)
+  }
+}
+```
+
+
+::: {.callout-tip collapse="true"}
+###### Ejemplo
+
+Resuelva la ecuación $x^3 + 4x^2 - 10 = 0$ en el intervalo $[1,2]$ con una tolerancia de $\varepsilon = 10^{-6}$.
+
+**Solución:** 
+```{r}
+# Definición de la función
+G <- function(x) x^3 + 4*x^2 - 10
+# Gráfico de la función
+curve(G, from = 1, to = 2, col = "blue", lwd = 2,
+      main = "Gráfico de G(x) = x^3 + 4x^2 - 10",
+      xlab = "x", ylab = "G(x)")
+abline(h = 0, col = "red", lty = 2)
+# Llamada a la función biseccion
+resultado <- biseccion(1, 2, 1e-6, 50, G)
+cat("Resultado final:", resultado, "\n")
+```
+
+$\blacksquare$
+:::
+
+
+## Método de Newton–Raphson.
+## Aceleración de la convergencia y método de Steﬀensen.
