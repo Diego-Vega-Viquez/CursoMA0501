@@ -170,7 +170,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Fecha de publicación</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">24 de agosto de 2025</p>
+      <p class="date">28 de agosto de 2025</p>
     </div>
   </div>
   
@@ -334,6 +334,78 @@ Instrucción
 </div>
 <section id="solución-1" class="level2">
 <h2 class="anchored" data-anchor-id="solución-1">Solución</h2>
+<ol type="a">
+<li></li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>err.abs.a <span class="ot">&lt;-</span> <span class="fu">abs</span>(pi <span class="sc">-</span> <span class="fl">3.1</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>err.rel.a <span class="ot">&lt;-</span> err.abs.a <span class="sc">/</span> pi</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>error absoluto: 0.04159265</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>error relativo: 0.01323935</code></pre>
+</div>
+</div>
+<ol start="2" type="a">
+<li></li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>err.abs.b <span class="ot">&lt;-</span> <span class="fu">abs</span>(pi<span class="sc">/</span><span class="dv">1000</span> <span class="sc">-</span> <span class="fl">0.0031</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>err.rel.b <span class="ot">&lt;-</span> err.abs.b<span class="sc">/</span>(pi<span class="sc">/</span><span class="dv">1000</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>error absoluto: 0.00004159265</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>error relativo: 0.01323935</code></pre>
+</div>
+</div>
+<ol start="3" type="a">
+<li></li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>err.abs.c <span class="ot">&lt;-</span> <span class="fu">abs</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span> <span class="sc">-</span> <span class="fl">0.333</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>err.rel.c <span class="ot">&lt;-</span> err.abs.c<span class="sc">/</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>error absoluto: 0.0003333333</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>error relativo: 0.001</code></pre>
+</div>
+</div>
+<ol start="4" type="a">
+<li></li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>err.abs.d <span class="ot">&lt;-</span> <span class="fu">abs</span>(<span class="dv">100</span><span class="sc">/</span><span class="dv">3</span> <span class="sc">-</span> <span class="fl">33.3</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>err.rel.d <span class="ot">&lt;-</span> err.abs.d<span class="sc">/</span>(<span class="dv">100</span><span class="sc">/</span><span class="dv">3</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>error absoluto: 0.03333333</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>error relativo: 0.001</code></pre>
+</div>
+</div>
 </section>
 </section>
 <section id="ejercicio-3" class="level1">
@@ -443,6 +515,40 @@ f(x) = x^2 + 0.4002 \times 10^0 x + 0.8 \times 10^{-4} = 0,
 <p>Encuentre una fórmula alternativa para efectuar este cálculo sin que se produzca tal pérdida y determine la raíz de menor magnitud.</p>
 </div>
 </div>
+<section id="solución-4" class="level2">
+<h2 class="anchored" data-anchor-id="solución-4">Solución</h2>
+<p>Con la formula usual:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fl">0.4002</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="fl">0.8e-4</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>discriminante <span class="ot">&lt;-</span> b<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span><span class="dv">4</span><span class="sc">*</span>a<span class="sc">*</span>c</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>raiz.menor <span class="ot">&lt;-</span> <span class="fu">abs</span>((<span class="sc">-</span>b <span class="sc">+</span> <span class="fu">sqrt</span>(discriminante))<span class="sc">/</span><span class="dv">2</span><span class="sc">*</span>a)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>raiz.discriminante <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(discriminante)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(raiz.menor, <span class="at">scientific =</span> <span class="cn">FALSE</span>, <span class="at">digits =</span> <span class="dv">22</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "0.0001999999999999779731752"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>b</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4002</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>raiz.discriminante</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3998</code></pre>
+</div>
+</div>
+<p>Una de las razones por las que hay perdida significativa de digitos es porque al aplicar la raiz del discriminante se obtiene un numero muy parecido a -b, de manera que se esta restando en el numerador numeros muy parecidos.</p>
+<p>Una forma de calcular la raiz menor de forma mas precisa es usando la siguiente formula (la cual se obtiene al multiplicar por el conjugado del numerador en forma de un 1 conveniente y desarrollando):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>raiz.menor.nueva <span class="ot">&lt;-</span> <span class="fu">abs</span>((<span class="dv">2</span> <span class="sc">*</span> c) <span class="sc">/</span> (<span class="sc">-</span>b <span class="sc">-</span> <span class="fu">sqrt</span>(discriminante)))</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(raiz.menor.nueva, <span class="at">scientific =</span> <span class="cn">FALSE</span>, <span class="at">digits =</span> <span class="dv">22</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "0.0002000000000000000095843"</code></pre>
+</div>
+</div>
+</section>
 </section>
 <section id="ejercicio-6" class="level1">
 <h1>Ejercicio 6</h1>
@@ -470,8 +576,42 @@ a_1 &amp; a_2 &amp; a_3 &amp; \cdots &amp; x
 </span></p>
 </div>
 </div>
-<section id="solución-4" class="level2">
-<h2 class="anchored" data-anchor-id="solución-4">Solución</h2>
+<section id="solución-5" class="level2">
+<h2 class="anchored" data-anchor-id="solución-5">Solución</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>), <span class="at">byrow =</span> <span class="cn">TRUE</span>, <span class="at">nrow =</span> <span class="dv">3</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>verificar.identidad <span class="ot">&lt;-</span> <span class="cf">function</span>(matriz) {</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  derecha <span class="ot">&lt;-</span> <span class="fu">sum</span>(matriz[<span class="dv">1</span>, ]) <span class="sc">*</span> <span class="fu">prod</span>(<span class="fu">sapply</span>(matriz[<span class="dv">1</span>, ][<span class="sc">-</span><span class="dv">1</span>], <span class="cf">function</span>(y) {</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(matriz[<span class="dv">1</span>] <span class="sc">-</span> y)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  }))</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  izquierda <span class="ot">&lt;-</span> <span class="fu">det</span>(matriz)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Matriz"</span> <span class="ot">=</span> matriz,</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Determinante"</span> <span class="ot">=</span> izquierda,</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>      <span class="st">"ResultadoFormula"</span> <span class="ot">=</span> derecha,</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>      <span class="st">"SeVerificaIdentidad"</span> <span class="ot">=</span> (izquierda <span class="sc">==</span> derecha)</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="fu">verificar.identidad</span>(a)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$Matriz
+     [,1] [,2] [,3]
+[1,]    1    2    3
+[2,]    2    1    3
+[3,]    2    3    1
+
+$Determinante
+[1] 12
+
+$ResultadoFormula
+[1] 12
+
+$SeVerificaIdentidad
+[1] TRUE</code></pre>
+</div>
+</div>
 </section>
 </section>
 <section id="ejercicio-7" class="level1">
@@ -500,42 +640,42 @@ b_1 &amp; b_2 &amp; b_3 &amp; \cdots &amp; b_n &amp; a_n
 </span></p>
 </div>
 </div>
-<section id="solución-5" class="level2">
-<h2 class="anchored" data-anchor-id="solución-5">Solución</h2>
+<section id="solución-6" class="level2">
+<h2 class="anchored" data-anchor-id="solución-6">Solución</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-2"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-2-1"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a>identidad <span class="ot">&lt;-</span> <span class="cf">function</span>(df) {</span>
-<span id="annotated-cell-2-2"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">ncol</span>(df) <span class="sc">-</span> <span class="dv">1</span></span>
-<span id="annotated-cell-2-3"><a href="#annotated-cell-2-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Validaciones básicas</span></span>
-<span id="annotated-cell-2-4"><a href="#annotated-cell-2-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">nrow</span>(df) <span class="sc">!=</span> n <span class="sc">+</span> <span class="dv">1</span>) <span class="fu">return</span>(<span class="cn">FALSE</span>)</span>
-<span id="annotated-cell-2-5"><a href="#annotated-cell-2-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">all</span>(df[<span class="dv">1</span>, ] <span class="sc">==</span> <span class="dv">1</span>)) <span class="fu">return</span>(<span class="cn">FALSE</span>)</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1">1</button><span id="annotated-cell-2-6" class="code-annotation-target"><a href="#annotated-cell-2-6" aria-hidden="true" tabindex="-1"></a>  M <span class="ot">&lt;-</span> df[<span class="sc">-</span><span class="dv">1</span>, ]</span>
-<span id="annotated-cell-2-7"><a href="#annotated-cell-2-7" aria-hidden="true" tabindex="-1"></a>  a <span class="ot">&lt;-</span> <span class="fu">diag</span>(M[, <span class="sc">-</span><span class="dv">1</span>])</span>
-<span id="annotated-cell-2-8"><a href="#annotated-cell-2-8" aria-hidden="true" tabindex="-1"></a>  b <span class="ot">&lt;-</span> <span class="fu">diag</span>(M[, <span class="sc">-</span><span class="fu">ncol</span>(M)])</span>
-<span id="annotated-cell-2-9"><a href="#annotated-cell-2-9" aria-hidden="true" tabindex="-1"></a>  </span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="2">2</button><span id="annotated-cell-2-10" class="code-annotation-target"><a href="#annotated-cell-2-10" aria-hidden="true" tabindex="-1"></a>  estructura_valida <span class="ot">&lt;-</span> <span class="fu">all</span>(</span>
-<span id="annotated-cell-2-11"><a href="#annotated-cell-2-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>n, <span class="cf">function</span>(i) {</span>
-<span id="annotated-cell-2-12"><a href="#annotated-cell-2-12" aria-hidden="true" tabindex="-1"></a>      fila <span class="ot">&lt;-</span> M[i, ]</span>
-<span id="annotated-cell-2-13"><a href="#annotated-cell-2-13" aria-hidden="true" tabindex="-1"></a>      izquierda <span class="ot">&lt;-</span> fila[<span class="dv">1</span><span class="sc">:</span>i]</span>
-<span id="annotated-cell-2-14"><a href="#annotated-cell-2-14" aria-hidden="true" tabindex="-1"></a>      derecha <span class="ot">&lt;-</span> fila[(i<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>(n<span class="sc">+</span><span class="dv">1</span>)]</span>
-<span id="annotated-cell-2-15"><a href="#annotated-cell-2-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">all</span>(izquierda <span class="sc">==</span> b[i]) <span class="sc">&amp;&amp;</span> <span class="fu">all</span>(derecha <span class="sc">==</span> a[i])</span>
-<span id="annotated-cell-2-16"><a href="#annotated-cell-2-16" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="annotated-cell-2-17"><a href="#annotated-cell-2-17" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="annotated-cell-2-18"><a href="#annotated-cell-2-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span>estructura_valida) <span class="fu">return</span>(<span class="cn">FALSE</span>)</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="3">3</button><span id="annotated-cell-2-19" class="code-annotation-target"><a href="#annotated-cell-2-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">isTRUE</span>(<span class="fu">all.equal</span>(<span class="fu">det</span>(df), <span class="fu">prod</span>(a <span class="sc">-</span> b))))</span>
-<span id="annotated-cell-2-20"><a href="#annotated-cell-2-20" aria-hidden="true" tabindex="-1"></a>}</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-11"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-11-1"><a href="#annotated-cell-11-1" aria-hidden="true" tabindex="-1"></a>identidad <span class="ot">&lt;-</span> <span class="cf">function</span>(df) {</span>
+<span id="annotated-cell-11-2"><a href="#annotated-cell-11-2" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">ncol</span>(df) <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="annotated-cell-11-3"><a href="#annotated-cell-11-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Validaciones básicas</span></span>
+<span id="annotated-cell-11-4"><a href="#annotated-cell-11-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">nrow</span>(df) <span class="sc">!=</span> n <span class="sc">+</span> <span class="dv">1</span>) <span class="fu">return</span>(<span class="cn">FALSE</span>)</span>
+<span id="annotated-cell-11-5"><a href="#annotated-cell-11-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">all</span>(df[<span class="dv">1</span>, ] <span class="sc">==</span> <span class="dv">1</span>)) <span class="fu">return</span>(<span class="cn">FALSE</span>)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="1">1</button><span id="annotated-cell-11-6" class="code-annotation-target"><a href="#annotated-cell-11-6" aria-hidden="true" tabindex="-1"></a>  M <span class="ot">&lt;-</span> df[<span class="sc">-</span><span class="dv">1</span>, ]</span>
+<span id="annotated-cell-11-7"><a href="#annotated-cell-11-7" aria-hidden="true" tabindex="-1"></a>  a <span class="ot">&lt;-</span> <span class="fu">diag</span>(M[, <span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="annotated-cell-11-8"><a href="#annotated-cell-11-8" aria-hidden="true" tabindex="-1"></a>  b <span class="ot">&lt;-</span> <span class="fu">diag</span>(M[, <span class="sc">-</span><span class="fu">ncol</span>(M)])</span>
+<span id="annotated-cell-11-9"><a href="#annotated-cell-11-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="2">2</button><span id="annotated-cell-11-10" class="code-annotation-target"><a href="#annotated-cell-11-10" aria-hidden="true" tabindex="-1"></a>  estructura_valida <span class="ot">&lt;-</span> <span class="fu">all</span>(</span>
+<span id="annotated-cell-11-11"><a href="#annotated-cell-11-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>n, <span class="cf">function</span>(i) {</span>
+<span id="annotated-cell-11-12"><a href="#annotated-cell-11-12" aria-hidden="true" tabindex="-1"></a>      fila <span class="ot">&lt;-</span> M[i, ]</span>
+<span id="annotated-cell-11-13"><a href="#annotated-cell-11-13" aria-hidden="true" tabindex="-1"></a>      izquierda <span class="ot">&lt;-</span> fila[<span class="dv">1</span><span class="sc">:</span>i]</span>
+<span id="annotated-cell-11-14"><a href="#annotated-cell-11-14" aria-hidden="true" tabindex="-1"></a>      derecha <span class="ot">&lt;-</span> fila[(i<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>(n<span class="sc">+</span><span class="dv">1</span>)]</span>
+<span id="annotated-cell-11-15"><a href="#annotated-cell-11-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">all</span>(izquierda <span class="sc">==</span> b[i]) <span class="sc">&amp;&amp;</span> <span class="fu">all</span>(derecha <span class="sc">==</span> a[i])</span>
+<span id="annotated-cell-11-16"><a href="#annotated-cell-11-16" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="annotated-cell-11-17"><a href="#annotated-cell-11-17" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="annotated-cell-11-18"><a href="#annotated-cell-11-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span>estructura_valida) <span class="fu">return</span>(<span class="cn">FALSE</span>)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="3">3</button><span id="annotated-cell-11-19" class="code-annotation-target"><a href="#annotated-cell-11-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">isTRUE</span>(<span class="fu">all.equal</span>(<span class="fu">det</span>(df), <span class="fu">prod</span>(a <span class="sc">-</span> b))))</span>
+<span id="annotated-cell-11-20"><a href="#annotated-cell-11-20" aria-hidden="true" tabindex="-1"></a>}</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-11" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="6" data-code-annotation="1">Extraer submatriz sin la primera fila</span>
+<span data-code-cell="annotated-cell-11" data-code-lines="6" data-code-annotation="1">Extraer submatriz sin la primera fila</span>
 </dd>
-<dt data-target-cell="annotated-cell-2" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-11" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="10" data-code-annotation="2">Verificar estructura: por filas, los valores deben seguir patrón</span>
+<span data-code-cell="annotated-cell-11" data-code-lines="10" data-code-annotation="2">Verificar estructura: por filas, los valores deben seguir patrón</span>
 </dd>
-<dt data-target-cell="annotated-cell-2" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-11" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="19" data-code-annotation="3">Validar identidad con tolerancia numérica</span>
+<span data-code-cell="annotated-cell-11" data-code-lines="19" data-code-annotation="3">Validar identidad con tolerancia numérica</span>
 </dd>
 </dl>
 </div>
@@ -543,14 +683,14 @@ b_1 &amp; b_2 &amp; b_3 &amp; \cdots &amp; b_n &amp; a_n
 <section id="prueba" class="level3">
 <h3 class="anchored" data-anchor-id="prueba">Prueba</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">4</span>,</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">5</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>), <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">identidad</span>(df)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">4</span>,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">5</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>), <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="fu">identidad</span>(df)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
@@ -575,8 +715,41 @@ Instrucción
 Escriba una función en R que permita determinar si una matriz es rala.</p>
 </div>
 </div>
-<section id="solución-6" class="level2">
-<h2 class="anchored" data-anchor-id="solución-6">Solución</h2>
+<section id="solución-7" class="level2">
+<h2 class="anchored" data-anchor-id="solución-7">Solución</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>), <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>es.rala <span class="ot">&lt;-</span> <span class="cf">function</span>(matriz) {</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  nulos <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">sapply</span>(matriz, <span class="cf">function</span>(y) {</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (y <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(<span class="dv">1</span>)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> {</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(<span class="dv">0</span>)</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  }))</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>  no.nulos <span class="ot">&lt;-</span> <span class="fu">length</span>(matriz) <span class="sc">-</span> nulos</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="st">"Matriz"</span> <span class="ot">=</span> matriz, <span class="st">"entradas nulas"</span> <span class="ot">=</span> nulos, <span class="st">"entradas no nulas"</span> <span class="ot">=</span> no.nulos, <span class="st">"EsRala"</span> <span class="ot">=</span> nulos <span class="sc">&gt;</span> no.nulos))</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="fu">es.rala</span>(a)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$Matriz
+     [,1] [,2] [,3]
+[1,]    0    0    0
+[2,]    0    0    3
+[3,]    2    4    5
+
+$`entradas nulas`
+[1] 5
+
+$`entradas no nulas`
+[1] 4
+
+$EsRala
+[1] TRUE</code></pre>
+</div>
+</div>
 <hr>
 </section>
 </section>
@@ -596,8 +769,64 @@ Instrucción
 Escriba una función en R que permita determinar si una matriz está en forma de O.</p>
 </div>
 </div>
-<section id="solución-7" class="level2">
-<h2 class="anchored" data-anchor-id="solución-7">Solución</h2>
+<section id="solución-8" class="level2">
+<h2 class="anchored" data-anchor-id="solución-8">Solución</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>es.o <span class="ot">&lt;-</span> <span class="cf">function</span>(matriz) {</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  fila<span class="fl">.1</span> <span class="ot">&lt;-</span> matriz[<span class="dv">1</span>, ]</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  fila.n <span class="ot">&lt;-</span> matriz[<span class="fu">nrow</span>(matriz), ]</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  col<span class="fl">.1</span> <span class="ot">&lt;-</span> matriz[, <span class="dv">1</span>]</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  col.n <span class="ot">&lt;-</span> matriz[, <span class="fu">ncol</span>(matriz)]</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">nrow</span>(matriz) <span class="sc">&gt;</span> <span class="dv">2</span> <span class="sc">&amp;&amp;</span> <span class="fu">ncol</span>(matriz) <span class="sc">&gt;</span> <span class="dv">2</span>) {</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    matriz.central <span class="ot">&lt;-</span> matriz[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="fu">nrow</span>(matriz)), <span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="fu">ncol</span>(matriz)), drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>    matriz.central <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>  todo.bien <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (elem <span class="cf">in</span> <span class="fu">seq_along</span>(fila<span class="fl">.1</span>)) {</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (fila<span class="fl">.1</span>[elem] <span class="sc">==</span> <span class="dv">0</span> <span class="sc">||</span> fila.n[elem] <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>      todo.bien <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span></span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (todo.bien) {</span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (elem <span class="cf">in</span> <span class="fu">seq_along</span>(col<span class="fl">.1</span>)) {</span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (col<span class="fl">.1</span>[elem] <span class="sc">==</span> <span class="dv">0</span> <span class="sc">||</span> col.n[elem] <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>        todo.bien <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (todo.bien <span class="sc">&amp;&amp;</span> <span class="sc">!</span><span class="fu">is.null</span>(matriz.central)) {</span>
+<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (elem <span class="cf">in</span> matriz.central) {</span>
+<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (elem <span class="sc">!=</span> <span class="dv">0</span>) {</span>
+<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a>        todo.bien <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb27-36"><a href="#cb27-36" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
+<span id="cb27-37"><a href="#cb27-37" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb27-38"><a href="#cb27-38" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb27-39"><a href="#cb27-39" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb27-40"><a href="#cb27-40" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="st">"Matriz"</span> <span class="ot">=</span> matriz, <span class="st">"Tiene forma de O"</span> <span class="ot">=</span> todo.bien))</span>
+<span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-44"><a href="#cb27-44" aria-hidden="true" tabindex="-1"></a><span class="fu">es.o</span>(a)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$Matriz
+     [,1] [,2] [,3]
+[1,]    1    1    1
+[2,]    1    0    1
+[3,]    1    1    1
+
+$`Tiene forma de O`
+[1] TRUE</code></pre>
+</div>
+</div>
 <hr>
 </section>
 </section>
@@ -616,8 +845,8 @@ Instrucción
 <p>En el capítulo de análisis funcional complete las demostraciones de los teoremas 2, 4, 5, 14, 16 y de los ejemplos 3, 5.</p>
 </div>
 </div>
-<section id="solución-8" class="level2">
-<h2 class="anchored" data-anchor-id="solución-8">Solución</h2>
+<section id="solución-9" class="level2">
+<h2 class="anchored" data-anchor-id="solución-9">Solución</h2>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -780,7 +1009,40 @@ Prueba
 </div>
 <div id="callout-17" class="callout-17-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>(Ejercicio)</p>
+<p><strong><span class="math inline">(\Rightarrow)</span></strong> Sea <span class="math inline">r := w - v</span>, para cualquier <span class="math inline">u \in U</span> y todo <span class="math inline">t \in \mathbb{R}</span>.<br>
+Note que <span class="math inline">v + t u \in U</span>.</p>
+<p>Como <span class="math inline">v</span> es la mejor aproximación:</p>
+<p><span class="math display">\begin{align*}
+\|w - (v + tu)\|^2 &amp;\geq \|w - v\|^2 \quad \forall t \in \mathbb{R} \\
+\|r - tu\|^2 &amp;= \|r\|^2 - 2t \operatorname{Re} \langle r, u \rangle + t^2 \|u\|^2 \geq \|r\|^2 \quad \forall t \in \mathbb{R}
+\end{align*}</span></p>
+<p>Entonces:</p>
+<p><span class="math display">\begin{align*}
+-2t \operatorname{Re} \langle r, u \rangle + t^2 \|u\|^2 \geq 0 \quad \forall t \in \mathbb{R}
+\end{align*}</span></p>
+<p>La única forma en que esto ocurre para todo <span class="math inline">t</span> es que <span class="math inline">\langle r, u \rangle = 0</span>,<br>
+por tanto:</p>
+<p><span class="math display">
+\langle w - v, u \rangle = 0
+</span></p>
+<p><strong><span class="math inline">(\Leftarrow)</span></strong> Sea <span class="math inline">r := w - v</span> y tome cualquier <span class="math inline">u \in U</span>.</p>
+<p>Si <span class="math inline">v - u \in U</span> y <span class="math inline">\langle w - v, u \rangle = 0</span>, entonces:</p>
+<p><span class="math display">\begin{align*}
+\|w - u\|^2 &amp;= \|(w - v) + (v - u)\|^2 \\
+&amp;= \|r\|^2 + \|v - u\|^2 + 2 \operatorname{Re} \langle r, v - u \rangle \\
+&amp;= \|r\|^2 + \|v - u\|^2 \geq \|r\|^2 \quad \text{(ya que $\langle r, v - u \rangle = 0$)}
+\end{align*}</span></p>
+<p>Por lo tanto, <span class="math inline">v</span> es la mejor aproximación de <span class="math inline">w</span> en <span class="math inline">U</span>.</p>
+<p><strong>Unicidad:</strong></p>
+<p>Si <span class="math inline">v, v' \in U</span> fuesen dos mejores aproximaciones, entonces:</p>
+<p><span class="math display">\begin{align*}
+\|w - v\|^2 &amp;= \|w - v'\|^2 \\
+\text{y } \quad \|w - v\|^2 &amp;= \|w - v'\|^2 + \|v - v'\|^2
+\end{align*}</span></p>
+<p>Esto implica que:</p>
+<p><span class="math display">
+\|v - v'\|^2 = 0 \Rightarrow v' = v
+</span></p>
 <p><span class="math inline">\blacksquare</span></p>
 </div>
 </div>
@@ -856,7 +1118,42 @@ Prueba
 </div>
 <div id="callout-21" class="callout-21-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>(Ejercicio)</p>
+<p>Sea <span class="math inline">\{x_n\}</span> una sucesión de Cauchy en <span class="math inline">C([a,b])</span>.</p>
+<p>Sea <span class="math inline">\varepsilon &gt; 0</span>.<br>
+Dado que <span class="math inline">\{x_n\}</span> es de Cauchy, existe <span class="math inline">n_0 \in \mathbb{N}</span> tal que:</p>
+<p><span class="math display">
+\|x_n - x_m\|_\infty &lt; \varepsilon \quad \forall n, m \geq n_0
+</span></p>
+<p>Entonces:</p>
+<p><span class="math display">
+\sup_{t \in [a,b]} |x_n(t) - x_m(t)| &lt; \varepsilon \quad \Rightarrow \quad |x_n(t) - x_m(t)| &lt; \varepsilon \quad \forall t \in [a,b], \, n, m \geq n_0
+</span></p>
+<p>Para cada <span class="math inline">t \in [a,b]</span>, la sucesión <span class="math inline">\{x_n(t)\}_{n=1}^\infty</span> es de Cauchy en <span class="math inline">\mathbb{R}</span>.<br>
+Como <span class="math inline">\mathbb{R}</span> es completo, existe un límite:</p>
+<p><span class="math display">
+\lim_{n \to \infty} x_n(t) = x(t) \in \mathbb{R}, \quad \forall t \in [a,b]
+</span></p>
+<p>Por tanto, <span class="math inline">x</span> es una función de <span class="math inline">[a,b]</span> en <span class="math inline">\mathbb{R}</span> y definimos <span class="math inline">x \in C([a,b])</span>.</p>
+<p>Sea <span class="math inline">t_0 \in [a,b]</span>.<br>
+Notamos que:</p>
+<p><span class="math display">\begin{align*}
+|x(t) - x(t_0)| &amp;\leq |x(t) - x_{n_0}(t)| + |x_{n_0}(t) - x_{n_0}(t_0)| + |x_{n_0}(t_0) - x(t_0)| \\
+&amp;&lt; \varepsilon + \varepsilon + \varepsilon = 3\varepsilon
+\end{align*}</span></p>
+<p>Ya que <span class="math inline">x_{n_0} \in C([a,b])</span>, es continua en <span class="math inline">t_0</span>, entonces existe <span class="math inline">\delta &gt; 0</span> tal que:</p>
+<p><span class="math display">
+|x_{n_0}(t) - x_{n_0}(t_0)| &lt; \varepsilon \quad \text{si } |t - t_0| &lt; \delta
+</span></p>
+<p>Y como además <span class="math inline">|x(t) - x_{n_0}(t)| &lt; \varepsilon</span> y <span class="math inline">|x_{n_0}(t_0) - x(t_0)| &lt; \varepsilon</span>, se concluye que <span class="math inline">x \in C([a,b])</span>.</p>
+<p>Finalmente, dado que:</p>
+<p><span class="math display">
+\sup_{t \in [a,b]} |x_n(t) - x(t)| &lt; \varepsilon \quad \Rightarrow \quad \|x_n - x\|_\infty &lt; \varepsilon \quad \forall n \geq n_0
+</span></p>
+<p>tenemos que <span class="math inline">x_n \to x</span> en la norma <span class="math inline">\|\cdot\|_\infty</span>.</p>
+<p>Por tanto:</p>
+<p><span class="math display">
+C([a,b]), \; \|\cdot\|_\infty \text{ es un espacio de Banach.}
+</span></p>
 <p><span class="math inline">\blacksquare</span></p>
 </div>
 </div>
@@ -961,8 +1258,66 @@ Instrucción
 <p>En el teorema 7, si tomamos como espacio pre–Hilbert a <span class="math inline">\mathbb{R}^n</span> con el producto punto clásico, escriba una función en R que reciba una base de un subespacio de <span class="math inline">\mathbb{R}^n</span> en una lista de listas y retorne la base ortogonal en una lista de listas, luego otra función que calcule la base ortonormal.</p>
 </div>
 </div>
-<section id="solución-9" class="level2">
-<h2 class="anchored" data-anchor-id="solución-9">Solución</h2>
+<section id="solución-10" class="level2">
+<h2 class="anchored" data-anchor-id="solución-10">Solución</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>prod.punto <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">sum</span>(x <span class="sc">*</span> y))</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>norma <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">sqrt</span>(<span class="fu">prod.punto</span>(x, x)))</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>proy.ortogonal <span class="ot">&lt;-</span> <span class="cf">function</span>(u, v) {</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">prod.punto</span>(u, v) <span class="sc">/</span> <span class="fu">prod.punto</span>(v, v)) <span class="sc">*</span> v</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>gs.ortogonal <span class="ot">&lt;-</span> <span class="cf">function</span>(base) {</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>  U <span class="ot">&lt;-</span> base</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>  Q <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (k <span class="cf">in</span> <span class="fu">seq_along</span>(U)) {</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>    u <span class="ot">&lt;-</span> U[[k]]</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">length</span>(Q) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> (q <span class="cf">in</span> Q)</span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>        u <span class="ot">&lt;-</span> u <span class="sc">-</span> <span class="fu">proy.ortogonal</span>(u, q)</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>    Q[[<span class="fu">length</span>(Q) <span class="sc">+</span> <span class="dv">1</span>]] <span class="ot">&lt;-</span> u</span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(Q)</span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a>gs.ortonormal <span class="ot">&lt;-</span> <span class="cf">function</span>(base) {</span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a>  base.ortogonal <span class="ot">&lt;-</span> <span class="fu">gs.ortogonal</span>(base)</span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">lapply</span>(base.ortogonal, <span class="cf">function</span>(x) {</span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(x <span class="sc">/</span> <span class="fu">norma</span>(x))</span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a>  }))</span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a>base <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>), <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a><span class="fu">gs.ortogonal</span>(base)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] 1 2 3
+
+[[2]]
+[1]  1.7142857  0.4285714 -0.8571429
+
+[[3]]
+[1]  0.3333333 -0.6666667  0.3333333</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gs.ortonormal</span>(base)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] 0.2672612 0.5345225 0.8017837
+
+[[2]]
+[1]  0.8728716  0.2182179 -0.4364358
+
+[[3]]
+[1]  0.4082483 -0.8164966  0.4082483</code></pre>
+</div>
+</div>
 <hr>
 </section>
 </section>
@@ -982,8 +1337,8 @@ Instrucción
 ¿Será posible hacer una función que reciba también como parámetro el producto interno como una función de <span class="math inline">\mathbb{R}^n \times \mathbb{R}^n</span> en <span class="math inline">\mathbb{R}</span> y genere la base ortogonal y ortonormal usando este producto interno?</p>
 </div>
 </div>
-<section id="solución-10" class="level2">
-<h2 class="anchored" data-anchor-id="solución-10">Solución</h2>
+<section id="solución-11" class="level2">
+<h2 class="anchored" data-anchor-id="solución-11">Solución</h2>
 <hr>
 </section>
 </section>
@@ -1019,8 +1374,36 @@ Pw = \sum_{k=1}^{n} \langle w, u_{k} \rangle u_{k}, \quad \text{con } w \in X.
 <p>En el Corolario 2, si tomamos como espacio pre–Hilbert a <span class="math inline">\mathbb{R}^n</span> con el producto punto clásico, escriba una función en R que reciba una base de un subespacio <span class="math inline">U</span> de <span class="math inline">\mathbb{R}^n</span> en una lista de listas, un vector de <span class="math inline">\mathbb{R}^n</span> y retorne en una lista la mejor aproximación a ese vector en <span class="math inline">U</span>.</p>
 </div>
 </div>
-<section id="solución-11" class="level2">
-<h2 class="anchored" data-anchor-id="solución-11">Solución</h2>
+<section id="solución-12" class="level2">
+<h2 class="anchored" data-anchor-id="solución-12">Solución</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>prod.punto <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">sum</span>(x <span class="sc">*</span> y))</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>mejor.aprox <span class="ot">&lt;-</span> <span class="cf">function</span>(base, vector) {</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  U <span class="ot">&lt;-</span> <span class="fu">gs.ortonormal</span>(base)</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  aprox <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">length</span>(vector))</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  coef  <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">length</span>(U))</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (k <span class="cf">in</span> <span class="fu">seq_along</span>(U)) {</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>    u <span class="ot">&lt;-</span> U[[k]]</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>    coef[k] <span class="ot">&lt;-</span> <span class="fu">prod.punto</span>(vector, u)</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>    aprox <span class="ot">&lt;-</span> aprox <span class="sc">+</span> coef[k] <span class="sc">*</span> u</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="st">"Aproximacion"</span> <span class="ot">=</span> aprox, <span class="st">"Coeficientes"</span> <span class="ot">=</span> coef))</span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a><span class="fu">mejor.aprox</span>(<span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>, <span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)), <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$Aproximacion
+[1] 0.6666667 0.6666667 0.6666667
+
+$Coeficientes
+[1] 1.0690450 0.4364358</code></pre>
+</div>
+</div>
 <hr>
 </section>
 </section>
@@ -1040,8 +1423,70 @@ Instrucción
 ¿Será posible hacer una función que reciba también como parámetro el producto interno como una función de <span class="math inline">\mathbb{R}^n \times \mathbb{R}^n</span> en <span class="math inline">\mathbb{R}</span> y genere la mejor aproximación usando este producto interno?</p>
 </div>
 </div>
-<section id="solución-12" class="level2">
-<h2 class="anchored" data-anchor-id="solución-12">Solución</h2>
+<section id="solución-13" class="level2">
+<h2 class="anchored" data-anchor-id="solución-13">Solución</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>prod.l2 <span class="ot">&lt;-</span> <span class="cf">function</span>(f, g) {</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">integrate</span>(<span class="cf">function</span>(x) <span class="fu">f</span>(x) <span class="sc">*</span> <span class="fu">g</span>(x), <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="dv">1</span>)<span class="sc">$</span>value</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>mejor.aprox<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="cf">function</span>(base, f, <span class="at">prod.interno =</span> prod.l2) {</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  coef <span class="ot">&lt;-</span> <span class="fu">sapply</span>(base, <span class="cf">function</span>(u) <span class="fu">prod.interno</span>(f, u))</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  aprox <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    s <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (k <span class="cf">in</span> <span class="fu">seq_along</span>(base)) {</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>      s <span class="ot">&lt;-</span> s <span class="sc">+</span> coef[k] <span class="sc">*</span> base[[k]](x)</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>    } </span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(s)</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="st">"Aproximacion"</span> <span class="ot">=</span> aprox, <span class="st">"Coeficientes"</span> <span class="ot">=</span> coef))</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Base del ejemplo 7</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>u1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="dv">1</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>u2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">sqrt</span>(<span class="dv">3</span>) <span class="sc">*</span> (<span class="dv">2</span><span class="sc">*</span>x <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>u3 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">sqrt</span>(<span class="dv">5</span>) <span class="sc">*</span> (<span class="dv">6</span><span class="sc">*</span>x<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">6</span><span class="sc">*</span>x <span class="sc">+</span> <span class="dv">1</span>)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>B_ON <span class="ot">&lt;-</span> <span class="fu">list</span>(u1, u2, u3)</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">tan</span>(x)</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">mejor.aprox.2</span>(B_ON, f)</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>Pf  <span class="ot">&lt;-</span> res<span class="sc">$</span>Aproximacion</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>x  <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">400</span>)</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">real =</span> <span class="fu">f</span>(x), <span class="at">aprox =</span> <span class="fu">Pf</span>(x))</span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span></span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> real, <span class="at">color =</span> <span class="st">"f(x) = tan(x)"</span>), <span class="at">size =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> aprox, <span class="at">color =</span> <span class="st">"Aproximación (P2)"</span>),</span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>            <span class="at">size =</span> <span class="fl">1.1</span>,</span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a>            <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"f(x) = tan(x)"</span> <span class="ot">=</span> <span class="st">"black"</span>,</span>
+<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Aproximación (P2)"</span> <span class="ot">=</span> <span class="st">"red"</span></span>
+<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">+</span></span>
+<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">"f(x)=tan(x) vs proyección en "</span>, P[<span class="dv">2</span>], <span class="st">"[0,1]"</span>)),</span>
+<span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"x"</span>,</span>
+<span id="cb36-28"><a href="#cb36-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"valor"</span>,</span>
+<span id="cb36-29"><a href="#cb36-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Curva"</span></span>
+<span id="cb36-30"><a href="#cb36-30" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-31"><a href="#cb36-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb36-32"><a href="#cb36-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Tarea2_C38367_C26152_C38060_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 <hr>
 </section>
 </section>
@@ -1060,8 +1505,8 @@ Instrucción
 <p>Pruebe que la función <span class="math inline">f(x) = \sqrt{x+2}</span> tiene un punto fijo único en <span class="math inline">[0,7]</span>.</p>
 </div>
 </div>
-<section id="solución-13" class="level2">
-<h2 class="anchored" data-anchor-id="solución-13">Solución</h2>
+<section id="solución-14" class="level2">
+<h2 class="anchored" data-anchor-id="solución-14">Solución</h2>
 <hr>
 </section>
 </section>
@@ -1093,8 +1538,8 @@ f(F_g) \subset F_g, \quad g(F_f) \subset F_f.
 </ol>
 </div>
 </div>
-<section id="solución-14" class="level2">
-<h2 class="anchored" data-anchor-id="solución-14">Solución</h2>
+<section id="solución-15" class="level2">
+<h2 class="anchored" data-anchor-id="solución-15">Solución</h2>
 <ol type="a">
 <li>Sean <span class="math inline">f, g : X \to X</span> aplicaciones tales que <span class="math inline">f \circ g = g \circ f</span> entonces se tiene que: <span class="math display">
   f(F_g) \subset F_g, \quad g(F_f) \subset F_f.
@@ -1112,7 +1557,23 @@ Prueba
 </div>
 <div id="callout-32" class="callout-32-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>(Ejercicio)</p>
+<p>Tome <span class="math inline">x_i \in F_g</span>.<br>
+Entonces:</p>
+<p><span class="math display">
+g(x_i) = x_i \quad \Rightarrow \quad f(g(x_i)) = f(x_i)
+</span></p>
+<p>Pero como <span class="math inline">f \circ g = g \circ f</span>, también se cumple que:</p>
+<p><span class="math display">
+g(f(x_i)) = f(g(x_i)) = f(x_i)
+</span></p>
+<p>Por lo tanto:</p>
+<p><span class="math display">
+f(x_i) \in F_g \quad \Rightarrow \quad f(F_g) \subseteq F_g
+</span></p>
+<p>La misma lógica se puede emplear para mostrar que:</p>
+<p><span class="math display">
+g(F_f) \subseteq F_f
+</span></p>
 <p><span class="math inline">\blacksquare</span></p>
 </div>
 </div>
@@ -1132,7 +1593,17 @@ Prueba
 </div>
 <div id="callout-33" class="callout-33-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>(Ejercicio)</p>
+<p>Sea <span class="math inline">F_g = \{x^*\}</span>, es decir, <span class="math inline">x^*</span> es el único punto fijo de <span class="math inline">g</span>.<br>
+Entonces:</p>
+<p><span class="math display">
+g(x^*) = x^* \Rightarrow f(g(x^*)) = f(x^*) \Leftrightarrow g(f(x^*)) = f(x^*)
+</span></p>
+<p>Esto implica que <span class="math inline">f(x^*) \in F_g = \{x^*\}</span>, por lo tanto <span class="math inline">f(x^*) = x^*</span>,<br>
+es decir, <span class="math inline">x^*</span> también es punto fijo de <span class="math inline">f</span>.</p>
+<p>Así que:</p>
+<p><span class="math display">
+\{x^*\} \subseteq F_f \quad \Rightarrow \quad F_f \neq \varnothing
+</span></p>
 <p><span class="math inline">\blacksquare</span></p>
 </div>
 </div>
@@ -1172,7 +1643,30 @@ Prueba
 </div>
 <div id="callout-35" class="callout-35-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>(Ejercicio)</p>
+<p>Sabemos que:</p>
+<p><span class="math display">
+F_f \neq \varnothing \Rightarrow \exists x \in X \text{ tal que } f(x) = x
+</span></p>
+<p><strong>Caso base:</strong> <span class="math inline">n = 1</span><br>
+Esto es trivial porque <span class="math inline">F_{f^1} = F_f \neq \varnothing</span> por hipótesis.</p>
+<p><strong>Paso inductivo:</strong> Supongamos que <span class="math inline">F_{f^n} \neq \varnothing</span>,<br>
+es decir:</p>
+<p><span class="math display">
+\exists x \in X \text{ tal que } f^n(x) = x
+</span></p>
+<p>Entonces:</p>
+<p><span class="math display">\begin{align*}
+f(f^n(x)) &amp;= f(x) \\
+\Rightarrow f^{n+1}(x) &amp;= x
+\end{align*}</span></p>
+<p>Por lo tanto:</p>
+<p><span class="math display">
+x \in F_{f^{n+1}} \Rightarrow F_{f^{n+1}} \neq \varnothing
+</span></p>
+<p>Concluimos por inducción que:</p>
+<p><span class="math display">
+F_{f^n} \neq \varnothing \quad \text{para todo } n \in \mathbb{N}.
+</span></p>
 <p><span class="math inline">\blacksquare</span></p>
 </div>
 </div>
@@ -1192,7 +1686,15 @@ Prueba
 </div>
 <div id="callout-36" class="callout-36-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>(Ejercicio)</p>
+<p>Si <span class="math inline">F_{f_d^{-1}} \neq \varnothing</span>, entonces:</p>
+<p><span class="math display">
+\exists \hat{x} \in X : f_d^{-1}(\hat{x}) = \hat{x}
+</span></p>
+<p>Como <span class="math inline">f \circ f_d^{-1} = I_X</span>, entonces:</p>
+<p><span class="math display">
+f(f_d^{-1}(\hat{x})) = f(\hat{x}) = \hat{x}
+\Rightarrow \hat{x} \in F_f \Rightarrow F_f \neq \varnothing
+</span></p>
 <p><span class="math inline">\blacksquare</span></p>
 </div>
 </div>
@@ -1212,7 +1714,29 @@ Prueba
 </div>
 <div id="callout-37" class="callout-37-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>(Ejercicio)</p>
+<p>Se tiene que:</p>
+<p><span class="math display">
+f(f(x)) = x \quad \forall x \in A
+</span></p>
+<p>Tome <span class="math inline">a \in A</span>.</p>
+<p><strong>Caso 1:</strong> <span class="math inline">f(a) = a</span><br>
+Entonces <span class="math inline">a</span> es punto fijo de <span class="math inline">f \Rightarrow F_f \neq \varnothing</span></p>
+<p><strong>Caso 2:</strong> <span class="math inline">f(a) \neq a</span><br>
+Entonces:</p>
+<p><span class="math display">\begin{align*}
+f(f(a)) &amp;= a \Rightarrow f^{-1}(a) = f(a) \Rightarrow f(f(a)) = a \text{ y } f(a) \neq a
+\end{align*}</span></p>
+<p>Esto implica que para cada <span class="math inline">a \in A</span> habrá un <span class="math inline">b \in A</span> tal que:</p>
+<p><span class="math display">
+f(a) = b \text{ y } f(b) = a
+</span></p>
+<p>Es decir, <span class="math inline">A</span> se puede descomponer en pares de elementos <span class="math inline">(a,b)</span> tales que <span class="math inline">f(a) = b</span>, <span class="math inline">f(b) = a</span> (biyecciones de orden 2).</p>
+<p>Pero esto implicaría que <span class="math inline">A</span> tiene un número <strong>par</strong> de elementos.</p>
+<p><strong>Sin embargo</strong>, <span class="math inline">A</span> es impar.<br>
+Por tanto, no todos los elementos pueden emparejarse <span class="math inline">\Rightarrow</span> al menos uno debe cumplir <span class="math inline">f(x) = x</span>.</p>
+<p><span class="math display">
+\Rightarrow F_f \neq \varnothing
+</span></p>
 <p><span class="math inline">\blacksquare</span></p>
 </div>
 </div>
@@ -1232,7 +1756,17 @@ Prueba
 </div>
 <div id="callout-38" class="callout-38-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>(Ejercicio)</p>
+<p>Existe <span class="math inline">k \in \mathbb{N}</span> tal que <span class="math inline">|f(x)| \leq k</span> para todo <span class="math inline">x \in \mathbb{R}</span>.</p>
+<p>Sea <span class="math inline">g(x) := f(x) - x</span>. Como <span class="math inline">f</span> es continua y <span class="math inline">x \mapsto x</span> también lo es, <span class="math inline">g</span> es continua en <span class="math inline">\mathbb{R}</span>.</p>
+<p>Tome <span class="math inline">M &gt; k</span>. Entonces:</p>
+<ul>
+<li><span class="math inline">g(-M) = f(-M) + M \geq -k + M &gt; 0</span></li>
+<li><span class="math inline">g(M) = f(M) - M \leq k - M &lt; 0</span></li>
+</ul>
+<p>Por el teorema del valor intermedio, existe <span class="math inline">x^* \in [-M, M]</span> tal que <span class="math inline">g(x^*) = 0</span>:</p>
+<p><span class="math display">
+f(x^*) - x^* = 0 \Rightarrow f(x^*) = x^* \Rightarrow x^* \in F_f \Rightarrow F_f \neq \varnothing
+</span></p>
 <p><span class="math inline">\blacksquare</span></p>
 </div>
 </div>
@@ -1252,7 +1786,25 @@ Prueba
 </div>
 <div id="callout-39" class="callout-39-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>(Ejercicio)</p>
+<p>Sea <span class="math inline">f : \mathbb{R} \to \mathbb{R}</span> continua y <span class="math inline">T &gt; 0</span> un periodo, es decir:</p>
+<p><span class="math display">
+f(x + T) = f(x) \quad \forall x \in \mathbb{R}
+</span></p>
+<p>Sea <span class="math inline">g(x) := f(x) - x</span>, que es continua.</p>
+<p>Por la periodicidad:</p>
+<p><span class="math display">\begin{align*}
+g(x + T) &amp;= f(x + T) - (x + T) = f(x) - x - T = g(x) - T
+\end{align*}</span></p>
+<p>Tome <span class="math inline">x_0 \in \mathbb{R}</span>. Entonces:</p>
+<p><span class="math display">
+g(x_0 + kT) = g(x_0) - kT \quad \forall k \in \mathbb{Z}
+</span></p>
+<p>Tome <span class="math inline">m, n \in \mathbb{Z}</span> tal que <span class="math inline">g(x_0 + mT) &gt; 0</span> y <span class="math inline">g(x_0 + nT) &lt; 0</span>.</p>
+<p>Entonces, por el teorema del valor intermedio:</p>
+<p><span class="math display">
+\exists x^* \in [x_0 + nT, x_0 + mT] \text{ tal que } g(x^*) = 0 \Rightarrow f(x^*) = x^*
+\Rightarrow x^* \in F_f \Rightarrow F_f \neq \varnothing \quad \blacksquare
+</span></p>
 <p><span class="math inline">\blacksquare</span></p>
 </div>
 </div>

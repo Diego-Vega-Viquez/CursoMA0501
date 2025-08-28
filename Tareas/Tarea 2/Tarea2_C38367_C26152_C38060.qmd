@@ -131,6 +131,7 @@ d. $\quad p = \tfrac{100}{3}\qquad p^* = 33.3$
 a) 
 
 ```{r}
+#| code-fold: true
 err.abs.a <- abs(pi - 3.1)
 err.rel.a <- err.abs.a / pi
 ```
@@ -141,17 +142,19 @@ cat("error relativo:", err.rel.a)
 ```
 b)
 ```{r}
+#| code-fold: true
 err.abs.b <- abs(pi/1000 - 0.0031)
 err.rel.b <- err.abs.b/(pi/1000)
 ```
 ```{r}
 #| echo: false
-cat("error absoluto:", err.abs.b)
+cat("error absoluto:", format(err.abs.b, scientific = F))
 cat("error relativo:", err.rel.b)
 ```
 
 c)
 ```{r}
+#| code-fold: true
 err.abs.c <- abs(1/3 - 0.333)
 err.rel.c <- err.abs.c/(1/3)
 ```
@@ -162,6 +165,7 @@ cat("error relativo:", err.rel.c)
 ```
 d)
 ```{r}
+#| code-fold: true
 err.abs.d <- abs(100/3 - 33.3)
 err.rel.d <- err.abs.d/(100/3)
 ```
@@ -622,7 +626,58 @@ Es decir, si y solamente si $w - v \perp U$. Además, para cada $w \in X$ existe
 
 ::: {.callout-caution collapse="true"}
 ### Prueba
-(Ejercicio)  
+
+
+**$(\Rightarrow)$** Sea $r := w - v$, para cualquier $u \in U$ y todo $t \in \mathbb{R}$.  
+Note que $v + t u \in U$.
+
+Como $v$ es la mejor aproximación:
+
+\begin{align*}
+\|w - (v + tu)\|^2 &\geq \|w - v\|^2 \quad \forall t \in \mathbb{R} \\
+\|r - tu\|^2 &= \|r\|^2 - 2t \operatorname{Re} \langle r, u \rangle + t^2 \|u\|^2 \geq \|r\|^2 \quad \forall t \in \mathbb{R}
+\end{align*}
+
+Entonces:
+
+\begin{align*}
+-2t \operatorname{Re} \langle r, u \rangle + t^2 \|u\|^2 \geq 0 \quad \forall t \in \mathbb{R}
+\end{align*}
+
+La única forma en que esto ocurre para todo $t$ es que $\langle r, u \rangle = 0$,  
+por tanto:
+
+$$
+\langle w - v, u \rangle = 0
+$$
+
+
+**$(\Leftarrow)$**  Sea $r := w - v$ y tome cualquier $u \in U$.
+
+Si $v - u \in U$ y $\langle w - v, u \rangle = 0$, entonces:
+
+\begin{align*}
+\|w - u\|^2 &= \|(w - v) + (v - u)\|^2 \\
+&= \|r\|^2 + \|v - u\|^2 + 2 \operatorname{Re} \langle r, v - u \rangle \\
+&= \|r\|^2 + \|v - u\|^2 \geq \|r\|^2 \quad \text{(ya que $\langle r, v - u \rangle = 0$)}
+\end{align*}
+
+Por lo tanto, $v$ es la mejor aproximación de $w$ en $U$.
+
+**Unicidad:**
+
+Si $v, v' \in U$ fuesen dos mejores aproximaciones, entonces:
+
+\begin{align*}
+\|w - v\|^2 &= \|w - v'\|^2 \\
+\text{y } \quad \|w - v\|^2 &= \|w - v'\|^2 + \|v - v'\|^2
+\end{align*}
+
+Esto implica que:
+
+$$
+\|v - v'\|^2 = 0 \Rightarrow v' = v
+$$
 
 $\blacksquare$
 :::
@@ -666,7 +721,62 @@ es un espacio de Banach.
 ::: {.callout-caution collapse="true"}
 ### Prueba
 
-(Ejercicio)  
+
+Sea $\{x_n\}$ una sucesión de Cauchy en $C([a,b])$.
+
+Sea $\varepsilon > 0$.  
+Dado que $\{x_n\}$ es de Cauchy, existe $n_0 \in \mathbb{N}$ tal que:
+
+$$
+\|x_n - x_m\|_\infty < \varepsilon \quad \forall n, m \geq n_0
+$$
+
+Entonces:
+
+$$
+\sup_{t \in [a,b]} |x_n(t) - x_m(t)| < \varepsilon \quad \Rightarrow \quad |x_n(t) - x_m(t)| < \varepsilon \quad \forall t \in [a,b], \, n, m \geq n_0
+$$
+
+Para cada $t \in [a,b]$, la sucesión $\{x_n(t)\}_{n=1}^\infty$ es de Cauchy en $\mathbb{R}$.  
+Como $\mathbb{R}$ es completo, existe un límite:
+
+$$
+\lim_{n \to \infty} x_n(t) = x(t) \in \mathbb{R}, \quad \forall t \in [a,b]
+$$
+
+Por tanto, $x$ es una función de $[a,b]$ en $\mathbb{R}$ y definimos $x \in C([a,b])$.
+
+
+Sea $t_0 \in [a,b]$.  
+Notamos que:
+
+\begin{align*}
+|x(t) - x(t_0)| &\leq |x(t) - x_{n_0}(t)| + |x_{n_0}(t) - x_{n_0}(t_0)| + |x_{n_0}(t_0) - x(t_0)| \\
+&< \varepsilon + \varepsilon + \varepsilon = 3\varepsilon
+\end{align*}
+
+Ya que $x_{n_0} \in C([a,b])$, es continua en $t_0$, entonces existe $\delta > 0$ tal que:
+
+$$
+|x_{n_0}(t) - x_{n_0}(t_0)| < \varepsilon \quad \text{si } |t - t_0| < \delta
+$$
+
+Y como además $|x(t) - x_{n_0}(t)| < \varepsilon$ y $|x_{n_0}(t_0) - x(t_0)| < \varepsilon$, se concluye que $x \in C([a,b])$.
+
+Finalmente, dado que:
+
+$$
+\sup_{t \in [a,b]} |x_n(t) - x(t)| < \varepsilon \quad \Rightarrow \quad \|x_n - x\|_\infty < \varepsilon \quad \forall n \geq n_0
+$$
+
+tenemos que $x_n \to x$ en la norma $\|\cdot\|_\infty$.
+
+Por tanto:
+
+$$
+C([a,b]), \; \|\cdot\|_\infty \text{ es un espacio de Banach.}
+$$
+
 
 $\blacksquare$
 :::
@@ -989,7 +1099,31 @@ $$
 ::: {.callout-caution collapse="true"}
 ### Prueba
 
-(Ejercicio)  
+
+Tome $x_i \in F_g$.  
+Entonces:
+
+$$
+g(x_i) = x_i \quad \Rightarrow \quad f(g(x_i)) = f(x_i)
+$$
+
+Pero como $f \circ g = g \circ f$, también se cumple que:
+
+$$
+g(f(x_i)) = f(g(x_i)) = f(x_i)
+$$
+
+Por lo tanto:
+
+$$
+f(x_i) \in F_g \quad \Rightarrow \quad f(F_g) \subseteq F_g
+$$
+
+La misma lógica se puede emplear para mostrar que:
+
+$$
+g(F_f) \subseteq F_f 
+$$
 
 $\blacksquare$
 :::
@@ -999,7 +1133,22 @@ $\blacksquare$
 ::: {.callout-caution collapse="true"}
 ### Prueba
 
-(Ejercicio)  
+Sea $F_g = \{x^*\}$, es decir, $x^*$ es el único punto fijo de $g$.  
+Entonces:
+
+$$
+g(x^*) = x^* \Rightarrow f(g(x^*)) = f(x^*) \Leftrightarrow g(f(x^*)) = f(x^*)
+$$
+
+Esto implica que $f(x^*) \in F_g = \{x^*\}$, por lo tanto $f(x^*) = x^*$,  
+es decir, $x^*$ también es punto fijo de $f$.
+
+Así que:
+
+$$
+\{x^*\} \subseteq F_f \quad \Rightarrow \quad F_f \neq \varnothing
+$$
+
 
 $\blacksquare$
 :::
@@ -1019,7 +1168,41 @@ $\blacksquare$
 ::: {.callout-caution collapse="true"}
 ### Prueba
 
-(Ejercicio)  
+
+Sabemos que:
+
+$$
+F_f \neq \varnothing \Rightarrow \exists x \in X \text{ tal que } f(x) = x
+$$
+
+**Caso base:** $n = 1$  
+Esto es trivial porque $F_{f^1} = F_f \neq \varnothing$ por hipótesis.
+
+**Paso inductivo:** Supongamos que $F_{f^n} \neq \varnothing$,  
+es decir:
+
+$$
+\exists x \in X \text{ tal que } f^n(x) = x
+$$
+
+Entonces:
+
+\begin{align*}
+f(f^n(x)) &= f(x) \\
+\Rightarrow f^{n+1}(x) &= x
+\end{align*}
+
+Por lo tanto:
+
+$$
+x \in F_{f^{n+1}} \Rightarrow F_{f^{n+1}} \neq \varnothing
+$$
+
+Concluimos por inducción que:
+
+$$
+F_{f^n} \neq \varnothing \quad \text{para todo } n \in \mathbb{N}. 
+$$
 
 $\blacksquare$
 :::
@@ -1029,7 +1212,18 @@ $\blacksquare$
 ::: {.callout-caution collapse="true"}
 ### Prueba
 
-(Ejercicio)  
+Si $F_{f_d^{-1}} \neq \varnothing$, entonces:
+
+$$
+\exists \hat{x} \in X : f_d^{-1}(\hat{x}) = \hat{x}
+$$
+
+Como $f \circ f_d^{-1} = I_X$, entonces:
+
+$$
+f(f_d^{-1}(\hat{x})) = f(\hat{x}) = \hat{x}
+\Rightarrow \hat{x} \in F_f \Rightarrow F_f \neq \varnothing 
+$$ 
 
 $\blacksquare$
 :::
@@ -1039,7 +1233,41 @@ $\blacksquare$
 ::: {.callout-caution collapse="true"}
 ### Prueba
 
-(Ejercicio)  
+
+Se tiene que:
+
+$$
+f(f(x)) = x \quad \forall x \in A
+$$
+
+Tome $a \in A$.
+
+**Caso 1:** $f(a) = a$  
+Entonces $a$ es punto fijo de $f \Rightarrow F_f \neq \varnothing$
+
+**Caso 2:** $f(a) \neq a$  
+Entonces:
+
+\begin{align*}
+f(f(a)) &= a \Rightarrow f^{-1}(a) = f(a) \Rightarrow f(f(a)) = a \text{ y } f(a) \neq a
+\end{align*}
+
+Esto implica que para cada $a \in A$ habrá un $b \in A$ tal que:
+
+$$
+f(a) = b \text{ y } f(b) = a
+$$
+
+Es decir, $A$ se puede descomponer en pares de elementos $(a,b)$ tales que $f(a) = b$, $f(b) = a$ (biyecciones de orden 2).
+
+Pero esto implicaría que $A$ tiene un número **par** de elementos.
+
+**Sin embargo**, $A$ es impar.  
+Por tanto, no todos los elementos pueden emparejarse $\Rightarrow$ al menos uno debe cumplir $f(x) = x$.
+
+$$
+\Rightarrow F_f \neq \varnothing 
+$$
 
 $\blacksquare$
 :::
@@ -1049,7 +1277,20 @@ $\blacksquare$
 ::: {.callout-caution collapse="true"}
 ### Prueba
 
-(Ejercicio)  
+Existe $k \in \mathbb{N}$ tal que $|f(x)| \leq k$ para todo $x \in \mathbb{R}$.
+
+Sea $g(x) := f(x) - x$. Como $f$ es continua y $x \mapsto x$ también lo es, $g$ es continua en $\mathbb{R}$.
+
+Tome $M > k$. Entonces:
+
+- $g(-M) = f(-M) + M \geq -k + M > 0$
+- $g(M) = f(M) - M \leq k - M < 0$
+
+Por el teorema del valor intermedio, existe $x^* \in [-M, M]$ tal que $g(x^*) = 0$:
+
+$$
+f(x^*) - x^* = 0 \Rightarrow f(x^*) = x^* \Rightarrow x^* \in F_f \Rightarrow F_f \neq \varnothing
+$$
 
 $\blacksquare$
 :::
@@ -1059,7 +1300,35 @@ $\blacksquare$
 ::: {.callout-caution collapse="true"}
 ### Prueba
 
-(Ejercicio)  
+
+Sea $f : \mathbb{R} \to \mathbb{R}$ continua y $T > 0$ un periodo, es decir:
+
+$$
+f(x + T) = f(x) \quad \forall x \in \mathbb{R}
+$$
+
+Sea $g(x) := f(x) - x$, que es continua.
+
+Por la periodicidad:
+
+\begin{align*}
+g(x + T) &= f(x + T) - (x + T) = f(x) - x - T = g(x) - T
+\end{align*}
+
+Tome $x_0 \in \mathbb{R}$. Entonces:
+
+$$
+g(x_0 + kT) = g(x_0) - kT \quad \forall k \in \mathbb{Z}
+$$
+
+Tome $m, n \in \mathbb{Z}$ tal que $g(x_0 + mT) > 0$ y $g(x_0 + nT) < 0$.
+
+Entonces, por el teorema del valor intermedio:
+
+$$
+\exists x^* \in [x_0 + nT, x_0 + mT] \text{ tal que } g(x^*) = 0 \Rightarrow f(x^*) = x^*
+\Rightarrow x^* \in F_f \Rightarrow F_f \neq \varnothing \quad \blacksquare
+$$
 
 $\blacksquare$
 :::
