@@ -2448,7 +2448,6 @@ esto implica que $n \geq 17.28$, por lo que se puede tomar $n = 18$. $\blacksqua
 
 ### Método de la Bisección
 
-
 Las hipótesis de este método son:
 
 - $f$ debe ser continua en el intervalo $[a, b]$.
