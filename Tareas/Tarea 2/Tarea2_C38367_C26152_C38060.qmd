@@ -990,6 +990,7 @@ Repita el ejercicio anterior usando los espacios y el producto interno del ejemp
 ## Solución
 
 ```{r}
+#| code-fold: true
 prod.l2 <- function(f, g) {
   integrate(function(x) f(x) * g(x), lower = 0, upper = 1)$value
 }
@@ -1008,7 +1009,8 @@ mejor.aprox.2 <- function(base, f, prod.interno = prod.l2) {
 ```
 ```{r}
 #| message: false
-
+#| warning: false
+#| code-fold: true
 library(tidyverse)
 # Base del ejemplo 7
 u1 <- function(x) 1
