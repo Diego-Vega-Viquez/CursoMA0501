@@ -911,7 +911,24 @@ Prueba
 = \langle y, y \rangle - \frac{\langle y, x \rangle \langle x, y \rangle}{\|x\|^2}
 = \|y\|^2 - \frac{|\langle x, y \rangle|^2}{\|x\|^2}.
 </span></p>
-<p>De donde se tiene la desigualdad. Además se tiene igualdad si para todo <span class="math inline">x, y</span> son linealmente dependientes (ejercicio).</p>
+<p>por lo tanto:</p>
+<p><span class="math display">
+|\langle x, y \rangle|^2 \leq \|x\|^2 \|y\|^2 = \langle x, x \rangle \langle y, y \rangle.
+</span></p>
+<p>Para la igualdad, observe que <span class="math inline">\|z\|^2 = 0</span> si y solo si <span class="math inline">z = 0</span>, es decir:</p>
+<p><span class="math display">
+y = \frac{\langle y, x \rangle}{\|x\|^2} x = \lambda x,
+</span></p>
+<p>para <span class="math inline">\lambda \in \mathbb{R}</span> (o <span class="math inline">\mathbb{C}</span>). Por lo tanto, <span class="math inline">x</span> y <span class="math inline">y</span> son linealmente dependientes.</p>
+<p>Recíprocamente, si <span class="math inline">y = \lambda x</span>, entonces:</p>
+<p><span class="math display">
+\langle x, y \rangle = \langle x, \lambda x \rangle = \lambda \langle x, x \rangle,
+</span></p>
+<p>y por lo tanto:</p>
+<p><span class="math display">
+|\langle x, y \rangle|^2 = |\lambda|^2 \langle x, x \rangle^2 = \langle x, x \rangle (\lambda \overline{\lambda} \langle x, x \rangle) = \langle x, x \rangle \langle y, y \rangle.
+</span></p>
+<p>Así, se tiene igualdad si y solo si <span class="math inline">x</span> y <span class="math inline">y</span> son linealmente dependientes.</p>
 <p><span class="math inline">\blacksquare</span></p>
 </div>
 </div>

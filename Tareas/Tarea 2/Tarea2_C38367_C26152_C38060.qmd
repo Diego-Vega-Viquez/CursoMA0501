@@ -553,7 +553,35 @@ $$
 = \|y\|^2 - \frac{|\langle x, y \rangle|^2}{\|x\|^2}.
 $$
 
-De donde se tiene la desigualdad. Además se tiene igualdad si para todo $x, y$ son linealmente dependientes (ejercicio).  
+
+por lo tanto:
+
+$$
+|\langle x, y \rangle|^2 \leq \|x\|^2 \|y\|^2 = \langle x, x \rangle \langle y, y \rangle.
+$$
+
+Para la igualdad, observe que $\|z\|^2 = 0$ si y solo si $z = 0$, es decir:
+
+$$
+y = \frac{\langle y, x \rangle}{\|x\|^2} x = \lambda x,
+$$
+
+para $\lambda \in \mathbb{R}$ (o $\mathbb{C}$). Por lo tanto, $x$ y $y$ son linealmente dependientes.
+
+Recíprocamente, si $y = \lambda x$, entonces:
+
+$$
+\langle x, y \rangle = \langle x, \lambda x \rangle = \lambda \langle x, x \rangle,
+$$
+
+y por lo tanto:
+
+$$
+|\langle x, y \rangle|^2 = |\lambda|^2 \langle x, x \rangle^2 = \langle x, x \rangle (\lambda \overline{\lambda} \langle x, x \rangle) = \langle x, x \rangle \langle y, y \rangle.
+$$
+
+Así, se tiene igualdad si y solo si $x$ y $y$ son linealmente dependientes.
+
 
 $\blacksquare$
 :::
