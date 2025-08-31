@@ -170,7 +170,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Fecha de publicación</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">29 de agosto de 2025</p>
+      <p class="date">30 de agosto de 2025</p>
     </div>
   </div>
   
@@ -423,13 +423,40 @@ Instrucción
 <p>Sea <span class="math display">
 \alpha_n = \frac{n+10}{n^5},
 </span> pruebe que <span class="math display">
-\alpha_n = 0 + O\!\left(\frac{1}{n^4}\right).
+A_n = 0+\mathcal{O}\left(\dfrac{1}{n^4}\right)
 </span></p>
 <p>¿Qué se puede concluir?</p>
 </div>
 </div>
 <section id="solución-2" class="level2">
 <h2 class="anchored" data-anchor-id="solución-2">Solución</h2>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">\alpha_n = \dfrac{n + 10}{n^5}</span> y <span class="math inline">\beta_n = \dfrac{1}{n^4}</span>, y note que para <span class="math inline">\alpha = 0</span>:</p>
+<p><span class="math display">\begin{align*}
+\left| \frac{\alpha_n - \alpha}{\beta_n} \right|
+&amp;= \left| \frac{\dfrac{n + 10}{n^5} - 0}{\dfrac{1}{n^4}} \right| \\
+&amp;= \left| \frac{n^5 + 10n^4}{n^5} \right|
+= \left| 1 + \frac{10}{n} \right| \leq 2 \quad \text{para } n \to \infty
+\end{align*}</span></p>
+<p>Así,</p>
+<p><span class="math display">
+\frac{n + 10}{n^5} \in \mathcal{O}\left(\frac{1}{n^4}\right)
+</span></p>
+<p>es decir, <span class="math inline">\dfrac{n + 10}{n^5}</span> converge a <span class="math inline">0</span> tan rápido como <span class="math inline">\dfrac{1}{n^4}</span> converge a <span class="math inline">0</span>. <span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="ejercicio-4" class="level1">
@@ -680,8 +707,8 @@ b_1 &amp; b_2 &amp; b_3 &amp; \cdots &amp; b_n &amp; a_n
 </dl>
 </div>
 </div>
-<section id="prueba" class="level3">
-<h3 class="anchored" data-anchor-id="prueba">Prueba</h3>
+<section id="prueba-1" class="level3">
+<h3 class="anchored" data-anchor-id="prueba-1">Prueba</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>,</span>
@@ -859,7 +886,7 @@ Teorema 2
 <div class="callout-body-container callout-body">
 <p>En un espacio vectorial de dimensión finita todas las normas son equivalentes.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -868,7 +895,7 @@ Prueba
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><span class="math inline">\blacksquare</span></p>
 </div>
@@ -891,7 +918,7 @@ Teorema 4
 <p><span class="math display">|\langle x, y \rangle|^2 \leq \langle x, x \rangle \langle y, y \rangle,</span></p>
 <p>para todo <span class="math inline">x, y \in X</span>, además se tiene igualdad si para todo <span class="math inline">x, y</span> son linealmente dependientes.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -900,7 +927,7 @@ Prueba
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Si <span class="math inline">x = 0</span> la desigualdad es trivial. Si <span class="math inline">x \neq 0</span>, tome</p>
 <p><span class="math display">z = y - \frac{\langle y, x \rangle}{\|x\|^2} x,</span></p>
@@ -952,7 +979,7 @@ Teorema 5
 </span></p>
 <p>define una norma en <span class="math inline">X</span>, es decir un espacio pre–Hilbert es siempre un espacio normado.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -961,7 +988,7 @@ Prueba
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Sea <span class="math inline">X</span> un espacio pre–Hilbert, defina la función <span class="math inline">\langle \cdot,\cdot \rangle : X \times X \to \mathbb{C}</span> (o <span class="math inline">\mathbb{R}</span>) y vea que para <span class="math inline">x\in V</span></p>
 <ul>
@@ -1015,7 +1042,7 @@ Un elemento <span class="math inline">v</span> es la mejor aproximación a <span
 </span></p>
 <p>Es decir, si y solamente si <span class="math inline">w - v \perp U</span>. Además, para cada <span class="math inline">w \in X</span> existe a lo más una única mejor aproximación con respecto a <span class="math inline">U</span>.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1024,7 +1051,7 @@ Prueba
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong><span class="math inline">(\Rightarrow)</span></strong> Sea <span class="math inline">r := w - v</span>, para cualquier <span class="math inline">u \in U</span> y todo <span class="math inline">t \in \mathbb{R}</span>.<br>
 Note que <span class="math inline">v + t u \in U</span>.</p>
@@ -1089,7 +1116,7 @@ P^2 = P \quad \text{y} \quad \|P\| = 1.
 <li>Este operador se conoce como la <strong>proyección ortogonal</strong> de <span class="math inline">X</span> sobre <span class="math inline">U</span>.</li>
 </ul>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1098,10 +1125,30 @@ Prueba
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>(Ejercicio)</p>
-<p><span class="math inline">\blacksquare</span></p>
+<p>Sea <span class="math inline">U \subseteq X</span> un subespacio cerrado y convexo de un espacio de Hilbert completo <span class="math inline">X</span>.</p>
+<ul>
+<li><p>Por el <strong>Teorema 14</strong>, sabemos que para cada <span class="math inline">w \in X</span> existe una mejor aproximación respecto a <span class="math inline">U</span>, y además esta es única.</p></li>
+<li><p>Sea <span class="math inline">P : X \to U</span> el operador que asigna la mejor aproximación respecto a <span class="math inline">U</span>.</p></li>
+</ul>
+<p>Es claro que el operador es acotado, pues para todo <span class="math inline">w \in X</span> se cumple:</p>
+<p><span class="math display">
+P_w \leq \hat{u}
+</span></p>
+<p>donde <span class="math inline">\hat{u} \in U</span> cumple que <span class="math inline">\|w - \hat{u}\| = \sup_{u \in U} \|w - u\|</span>.<br>
+Es decir, la “peor aproximación” de <span class="math inline">w</span> respecto a <span class="math inline">U</span>.</p>
+<p>Suponga que <span class="math inline">v \in U</span> es la mejor aproximación de <span class="math inline">w \in X</span>, es decir, <span class="math inline">P_w = v</span>.<br>
+Note que <span class="math inline">v</span> es la mejor aproximación de sí mismo, ya que:</p>
+<p><span class="math display">\begin{align*}
+0 \leq \inf_{u \in U} \|v - u\| \leq \|v - v\| = 0 \\
+\Rightarrow \inf_{u \in U} \|v - u\| = 0 \Rightarrow P_v = v
+\end{align*}</span></p>
+<p>Entonces, vea que:</p>
+<p><span class="math display">
+P^2 w = P(Pw) = P(v) = v = Pw
+</span></p>
+<p>Con esto se concluye que <span class="math inline">P^2 = P</span>. <span class="math inline">\blacksquare</span></p>
 </div>
 </div>
 </div>
@@ -1124,7 +1171,7 @@ Ejemplo 3
 </span></p>
 <p>es un espacio de Banach.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1133,7 +1180,7 @@ Prueba
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-21" class="callout-21-contents callout-collapse collapse">
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Sea <span class="math inline">\{x_n\}</span> una sucesión de Cauchy en <span class="math inline">C([a,b])</span>.</p>
 <p>Sea <span class="math inline">\varepsilon &gt; 0</span>.<br>
@@ -1194,7 +1241,7 @@ Ejemplo 5
 </span></p>
 <p>NO es un espacio de Banach.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-23-contents" aria-controls="callout-23" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-24-contents" aria-controls="callout-24" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1203,7 +1250,7 @@ Prueba
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-23" class="callout-23-contents callout-collapse collapse">
+<div id="callout-24" class="callout-24-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Hay que probar que el espacio vectorial <span class="math inline">C[a,b]</span> normado provisto con la norma <span class="math inline">L_2</span> <strong>NO</strong> es completo. Es decir, hay que encontrar una sucesión de Cauchy de elementos de <span class="math inline">U</span> que <strong>NO</strong> converge a un elemento en <span class="math inline">U</span>, siendo <span class="math inline">U</span> un subconjunto del espacio vectorial <span class="math inline">C[a,b]</span></p>
 <p>Sin pérdida de generalidad se toma <span class="math inline">[a,b] = [0,2]</span> y se escoge:</p>
@@ -1526,6 +1573,42 @@ Instrucción
 </div>
 <section id="solución-14" class="level2">
 <h2 class="anchored" data-anchor-id="solución-14">Solución</h2>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-32-contents" aria-controls="callout-32" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-32" class="callout-32-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Vea que <span class="math inline">\mathbb{R}</span> es un espacio de Banach bajo la norma valor absoluto.</p>
+<p>Vamos a probar que <span class="math inline">f(x) \in [0, 7]</span> para todo <span class="math inline">x \in [0, 7]</span>. Note que:</p>
+<p><span class="math display">
+f'(x) = \frac{1}{2} \cdot \frac{1}{(x + 2)^{1/2}} \Rightarrow 0 &lt; f'(x) \quad \forall x \in [0, 7]
+</span></p>
+<p>Por lo tanto, los valores mínimos y máximos de <span class="math inline">f</span> en <span class="math inline">[0, 7]</span> se alcanzan en los extremos:</p>
+<p><span class="math display">\begin{align*}
+f(0) &amp;= \sqrt{2} \approx 1.4142 \\
+f(7) &amp;= \sqrt{9} = 3
+\end{align*}</span></p>
+<p>Entonces:</p>
+<p><span class="math display">
+0 \leq f(x) \leq 3 \leq 7 \quad \Rightarrow \quad f(x) \in [0,7] \quad \forall x \in [0,7]
+</span></p>
+<p>Por el <strong>Teorema de punto fijo de Banach</strong>, <span class="math inline">f</span> tiene <strong>al menos un punto fijo</strong> en <span class="math inline">[0,7]</span>.</p>
+<hr>
+<p>Para la <strong>unicidad</strong>, calculemos la constante de Lipschitz:</p>
+<p><span class="math display">\begin{align*}
+L &amp;= \max_{x \in [0,7]} |f'(x)| = |f'(0)| = \frac{1}{2\sqrt{2}} &lt; 1
+\end{align*}</span></p>
+<p>Por lo tanto, <span class="math inline">f</span> es una <strong>contracción</strong> en <span class="math inline">[0,7]</span>, y el Teorema de Banach garantiza la <strong>unicidad</strong> del punto fijo. <span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
 <hr>
 </section>
 </section>
@@ -1565,7 +1648,7 @@ f(F_g) \subset F_g, \quad g(F_f) \subset F_f.
   </span></li>
 </ol>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-32-contents" aria-controls="callout-32" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-34-contents" aria-controls="callout-34" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1574,7 +1657,7 @@ Prueba
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-32" class="callout-32-contents callout-collapse collapse">
+<div id="callout-34" class="callout-34-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Tome <span class="math inline">x_i \in F_g</span>.<br>
 Entonces:</p>
@@ -1601,7 +1684,7 @@ g(F_f) \subseteq F_f
 <li>Sean <span class="math inline">f, g : X \to X</span> aplicaciones, si <span class="math inline">F_g = \{x^*\}</span> y <span class="math inline">f \circ g = g \circ f</span> entonces <span class="math inline">F_f \neq \varnothing</span>.</li>
 </ol>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-33-contents" aria-controls="callout-33" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-35-contents" aria-controls="callout-35" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1610,7 +1693,7 @@ Prueba
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-33" class="callout-33-contents callout-collapse collapse">
+<div id="callout-35" class="callout-35-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Sea <span class="math inline">F_g = \{x^*\}</span>, es decir, <span class="math inline">x^*</span> es el único punto fijo de <span class="math inline">g</span>.<br>
 Entonces:</p>
@@ -1631,7 +1714,7 @@ es decir, <span class="math inline">x^*</span> también es punto fijo de <span c
 <li>Sea <span class="math inline">X \neq \varnothing</span> y <span class="math inline">f : X \to X</span> aplicación. Si existe <span class="math inline">n \in \mathbb{R}</span> tal que <span class="math inline">F_{f^n} = \{x^*\}</span> entonces <span class="math inline">F_f = \{x^*\}</span>.</li>
 </ol>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-34-contents" aria-controls="callout-34" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-36-contents" aria-controls="callout-36" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1640,9 +1723,37 @@ Prueba
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-34" class="callout-34-contents callout-collapse collapse">
+<div id="callout-36" class="callout-36-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>(Ejercicio)</p>
+<p>Sea <span class="math inline">f : X \to X</span> una aplicación con <span class="math inline">X \neq \varnothing</span>.<br>
+Si existe <span class="math inline">n \in \mathbb{N}</span> tal que <span class="math inline">F_{f^n} = \{x^*\}</span>, entonces:</p>
+<p><span class="math display">
+F_f = \{x^*\}
+</span></p>
+<p>Suponga que existe <span class="math inline">n \in \mathbb{N}</span> tal que <span class="math inline">F_{f^n} = \{x^*\}</span>,<br>
+es decir, <span class="math inline">x^*</span> es el único punto fijo de <span class="math inline">f^n</span>, es decir:</p>
+<p><span class="math display">
+f^n(x^*) = x^*
+</span></p>
+<p>Como <span class="math inline">f(x^*) \in X</span>, evaluamos:</p>
+<p><span class="math display">\begin{align*}
+f(f(x^*)) &amp;= f^{n+1}(x^*) = f(f^n(x^*)) = f(x^*)
+\end{align*}</span></p>
+<p>Entonces <span class="math inline">f(x^*)</span> es también punto fijo de <span class="math inline">f^n</span>,<br>
+pero como <span class="math inline">F_{f^n} = \{x^*\}</span>, se deduce que <span class="math inline">f(x^*) = x^*</span>.<br>
+Así, <span class="math inline">x^*</span> es punto fijo de <span class="math inline">f</span>.</p>
+<hr>
+<p>Ahora, probemos la <strong>unicidad</strong>. Suponga que existe <span class="math inline">\hat{x} \in X</span> con <span class="math inline">\hat{x} \neq x^*</span> tal que <span class="math inline">f(\hat{x}) = \hat{x}</span>.</p>
+<p>Entonces aplicando <span class="math inline">f</span> <span class="math inline">n</span> veces:</p>
+<p><span class="math display">
+f^n(\hat{x}) = f(f(\dots f(\hat{x}) \dots)) = f(\hat{x}) = \hat{x}
+</span></p>
+<p>Esto implica que <span class="math inline">\hat{x} \in F_{f^n} = \{x^*\}</span>,<br>
+lo cual contradice que <span class="math inline">\hat{x} \neq x^*</span>.</p>
+<p>Por tanto, <span class="math inline">x^*</span> es el único punto fijo de <span class="math inline">f</span>:</p>
+<p><span class="math display">
+F_f = \{x^*\}
+</span></p>
 <p><span class="math inline">\blacksquare</span></p>
 </div>
 </div>
@@ -1651,7 +1762,7 @@ Prueba
 <li>Sea <span class="math inline">X \neq \varnothing</span> y <span class="math inline">f : X \to X</span> aplicación. Si <span class="math inline">F_f \neq \varnothing</span> entonces <span class="math inline">F_{f^n} \neq \varnothing</span> para todo <span class="math inline">n \in \mathbb{N}</span>.</li>
 </ol>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-35-contents" aria-controls="callout-35" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-37-contents" aria-controls="callout-37" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1660,7 +1771,7 @@ Prueba
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-35" class="callout-35-contents callout-collapse collapse">
+<div id="callout-37" class="callout-37-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Sabemos que:</p>
 <p><span class="math display">
@@ -1694,7 +1805,7 @@ F_{f^n} \neq \varnothing \quad \text{para todo } n \in \mathbb{N}.
 <li>Sea <span class="math inline">X \neq \varnothing</span> y <span class="math inline">f : X \to X</span> aplicación sobreyectiva, supóngase que <span class="math inline">f_d^{-1} : X \to X</span> es tal que <span class="math inline">f \circ f_d^{-1} = I_X</span> y <span class="math inline">F_{f_d^{-1}} \neq \varnothing</span> entonces <span class="math inline">F_f \neq \varnothing</span>.</li>
 </ol>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-36-contents" aria-controls="callout-36" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-38-contents" aria-controls="callout-38" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1703,7 +1814,7 @@ Prueba
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-36" class="callout-36-contents callout-collapse collapse">
+<div id="callout-38" class="callout-38-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Si <span class="math inline">F_{f_d^{-1}} \neq \varnothing</span>, entonces:</p>
 <p><span class="math display">
@@ -1722,7 +1833,7 @@ f(f_d^{-1}(\hat{x})) = f(\hat{x}) = \hat{x}
 <li>Sea <span class="math inline">A</span> un conjunto con un número impar de elementos y <span class="math inline">f : A \to A</span> tal que <span class="math inline">f^2(x) = x</span> para todo <span class="math inline">x \in A</span>, se tiene entonces que <span class="math inline">F_f \neq \varnothing</span>.</li>
 </ol>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-37-contents" aria-controls="callout-37" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-39-contents" aria-controls="callout-39" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1731,7 +1842,7 @@ Prueba
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-37" class="callout-37-contents callout-collapse collapse">
+<div id="callout-39" class="callout-39-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Se tiene que:</p>
 <p><span class="math display">
@@ -1764,7 +1875,7 @@ Por tanto, no todos los elementos pueden emparejarse <span class="math inline">\
 <li>Sea <span class="math inline">f : \mathbb{R} \to \mathbb{R}</span> con <span class="math inline">f</span> continua y acotada entonces <span class="math inline">F_f \neq \varnothing</span>.</li>
 </ol>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-38-contents" aria-controls="callout-38" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-40-contents" aria-controls="callout-40" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1773,7 +1884,7 @@ Prueba
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-38" class="callout-38-contents callout-collapse collapse">
+<div id="callout-40" class="callout-40-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Existe <span class="math inline">k \in \mathbb{N}</span> tal que <span class="math inline">|f(x)| \leq k</span> para todo <span class="math inline">x \in \mathbb{R}</span>.</p>
 <p>Sea <span class="math inline">g(x) := f(x) - x</span>. Como <span class="math inline">f</span> es continua y <span class="math inline">x \mapsto x</span> también lo es, <span class="math inline">g</span> es continua en <span class="math inline">\mathbb{R}</span>.</p>
@@ -1794,7 +1905,7 @@ f(x^*) - x^* = 0 \Rightarrow f(x^*) = x^* \Rightarrow x^* \in F_f \Rightarrow F_
 <li>Sea <span class="math inline">f : \mathbb{R} \to \mathbb{R}</span> con <span class="math inline">f</span> continua y periódica entonces <span class="math inline">F_f \neq \varnothing</span>.</li>
 </ol>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-39-contents" aria-controls="callout-39" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-41-contents" aria-controls="callout-41" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1803,7 +1914,7 @@ Prueba
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-39" class="callout-39-contents callout-collapse collapse">
+<div id="callout-41" class="callout-41-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Sea <span class="math inline">f : \mathbb{R} \to \mathbb{R}</span> continua y <span class="math inline">T &gt; 0</span> un periodo, es decir:</p>
 <p><span class="math display">

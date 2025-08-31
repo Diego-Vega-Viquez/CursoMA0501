@@ -185,7 +185,7 @@ $$
 $$
 pruebe que
 $$
-\alpha_n = 0 + O\!\left(\frac{1}{n^4}\right).
+A_n = 0+\mathcal{O}\left(\dfrac{1}{n^4}\right)
 $$
 
 ¿Qué se puede concluir?
@@ -193,6 +193,28 @@ $$
 :::
 
 ## Solución
+
+::: {.callout-caution collapse="true"}
+##### Prueba
+
+Sea $\alpha_n = \dfrac{n + 10}{n^5}$ y $\beta_n = \dfrac{1}{n^4}$, y note que para $\alpha = 0$:
+
+\begin{align*}
+\left| \frac{\alpha_n - \alpha}{\beta_n} \right| 
+&= \left| \frac{\dfrac{n + 10}{n^5} - 0}{\dfrac{1}{n^4}} \right| \\
+&= \left| \frac{n^5 + 10n^4}{n^5} \right| 
+= \left| 1 + \frac{10}{n} \right| \leq 2 \quad \text{para } n \to \infty
+\end{align*}
+
+Así,
+
+$$
+\frac{n + 10}{n^5} \in \mathcal{O}\left(\frac{1}{n^4}\right)
+$$
+
+es decir, $\dfrac{n + 10}{n^5}$ converge a $0$ tan rápido como $\dfrac{1}{n^4}$ converge a $0$. $\blacksquare$
+
+:::
 
 
 # Ejercicio 4
@@ -728,8 +750,37 @@ $$
 
 ::: {.callout-caution collapse="true"}
 ### Prueba
-(Ejercicio)  
 
+Sea $U \subseteq X$ un subespacio cerrado y convexo de un espacio de Hilbert completo $X$.
+
+- Por el **Teorema 14**, sabemos que para cada $w \in X$ existe una mejor aproximación respecto a $U$, y además esta es única.
+
+- Sea $P : X \to U$ el operador que asigna la mejor aproximación respecto a $U$.
+
+Es claro que el operador es acotado, pues para todo $w \in X$ se cumple:
+
+$$
+P_w \leq \hat{u}
+$$
+
+donde $\hat{u} \in U$ cumple que $\|w - \hat{u}\| = \sup_{u \in U} \|w - u\|$.  
+Es decir, la "peor aproximación" de $w$ respecto a $U$.
+
+Suponga que $v \in U$ es la mejor aproximación de $w \in X$, es decir, $P_w = v$.  
+Note que $v$ es la mejor aproximación de sí mismo, ya que:
+
+\begin{align*}
+0 \leq \inf_{u \in U} \|v - u\| \leq \|v - v\| = 0 \\
+\Rightarrow \inf_{u \in U} \|v - u\| = 0 \Rightarrow P_v = v
+\end{align*}
+
+Entonces, vea que:
+
+$$
+P^2 w = P(Pw) = P(v) = v = Pw
+$$
+
+Con esto se concluye que $P^2 = P$. 
 $\blacksquare$
 :::
 :::
@@ -1088,6 +1139,43 @@ Pruebe que la función $f(x) = \sqrt{x+2}$ tiene un punto fijo único en $[0,7]$
 
 ## Solución
 
+::: {.callout-caution collapse="true"}
+##### Prueba
+
+Vea que $\mathbb{R}$ es un espacio de Banach bajo la norma valor absoluto.
+
+Vamos a probar que $f(x) \in [0, 7]$ para todo $x \in [0, 7]$. Note que:
+
+$$
+f'(x) = \frac{1}{2} \cdot \frac{1}{(x + 2)^{1/2}} \Rightarrow 0 < f'(x) \quad \forall x \in [0, 7]
+$$
+
+Por lo tanto, los valores mínimos y máximos de $f$ en $[0, 7]$ se alcanzan en los extremos:
+
+\begin{align*}
+f(0) &= \sqrt{2} \approx 1.4142 \\
+f(7) &= \sqrt{9} = 3
+\end{align*}
+
+Entonces:
+
+$$
+0 \leq f(x) \leq 3 \leq 7 \quad \Rightarrow \quad f(x) \in [0,7] \quad \forall x \in [0,7]
+$$
+
+Por el **Teorema de punto fijo de Banach**, $f$ tiene **al menos un punto fijo** en $[0,7]$.
+
+---
+
+Para la **unicidad**, calculemos la constante de Lipschitz:
+
+\begin{align*}
+L &= \max_{x \in [0,7]} |f'(x)| = |f'(0)| = \frac{1}{2\sqrt{2}} < 1
+\end{align*}
+
+Por lo tanto, $f$ es una **contracción** en $[0,7]$, y el Teorema de Banach garantiza la **unicidad** del punto fijo. $\blacksquare$
+:::
+
 ---
 
 
@@ -1188,7 +1276,49 @@ $\blacksquare$
 ::: {.callout-caution collapse="true"}
 ### Prueba
 
-(Ejercicio)  
+Sea $f : X \to X$ una aplicación con $X \neq \varnothing$.  
+Si existe $n \in \mathbb{N}$ tal que $F_{f^n} = \{x^*\}$, entonces:
+
+$$
+F_f = \{x^*\}
+$$
+
+
+Suponga que existe $n \in \mathbb{N}$ tal que $F_{f^n} = \{x^*\}$,  
+es decir, $x^*$ es el único punto fijo de $f^n$, es decir:
+
+$$
+f^n(x^*) = x^*
+$$
+
+Como $f(x^*) \in X$, evaluamos:
+
+\begin{align*}
+f(f(x^*)) &= f^{n+1}(x^*) = f(f^n(x^*)) = f(x^*)
+\end{align*}
+
+Entonces $f(x^*)$ es también punto fijo de $f^n$,  
+pero como $F_{f^n} = \{x^*\}$, se deduce que $f(x^*) = x^*$.  
+Así, $x^*$ es punto fijo de $f$.
+
+---
+
+Ahora, probemos la **unicidad**. Suponga que existe $\hat{x} \in X$ con $\hat{x} \neq x^*$ tal que $f(\hat{x}) = \hat{x}$.
+
+Entonces aplicando $f$ $n$ veces:
+
+$$
+f^n(\hat{x}) = f(f(\dots f(\hat{x}) \dots)) = f(\hat{x}) = \hat{x}
+$$
+
+Esto implica que $\hat{x} \in F_{f^n} = \{x^*\}$,  
+lo cual contradice que $\hat{x} \neq x^*$.
+
+Por tanto, $x^*$ es el único punto fijo de $f$:
+
+$$
+F_f = \{x^*\}
+$$
 
 $\blacksquare$
 :::
