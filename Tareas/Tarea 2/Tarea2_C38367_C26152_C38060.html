@@ -897,6 +897,35 @@ Prueba
 </div>
 <div id="callout-12" class="callout-12-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
+<p>Vamos a proceder a probar que <strong>todas las normas son equivalentes a <span class="math inline">\|\cdot\|_2</span></strong>, la norma euclideana.<br>
+Recordemos que:</p>
+<p><span class="math display">
+\|x\|_2 = \left( \sum_{i=1}^n |x_i|^2 \right)^{1/2}
+</span></p>
+<p>Sea <span class="math inline">\|\cdot\|</span> una norma cualquiera en <span class="math inline">X</span>, y consideremos el conjunto:</p>
+<p><span class="math display">
+S = \{x \in X : \|x\|_2 = 1\}
+</span></p>
+<p>Es decir, <strong>la esfera unitaria respecto a <span class="math inline">\|\cdot\|_2</span></strong>.</p>
+<p>Este conjunto <span class="math inline">S</span> es <strong>cerrado y acotado</strong> <span class="math inline">\Rightarrow</span> es <strong>compacto</strong> (por el teorema de Heine-Borel en dimensión finita).</p>
+<p>La función <span class="math inline">f(x) = \|x\|</span> es continua en <span class="math inline">S</span>, por lo que alcanza su mínimo <span class="math inline">m &gt; 0</span> y su máximo <span class="math inline">M &gt; 0</span>.</p>
+<p>Así, para todo <span class="math inline">x \in X</span>:</p>
+<p><span class="math display">
+m \leq \|x\| \leq M \quad \text{para } x \in S
+</span></p>
+<hr>
+<p>Ahora, sea <span class="math inline">x \in X \setminus \{0\}</span>. Note que:</p>
+<p><span class="math display">\begin{align*}
+\|x\| &amp;= \left\| \|x\|_2 \cdot \frac{x}{\|x\|_2} \right\|
+= \|x\|_2 \cdot \left\| \frac{x}{\|x\|_2} \right\|
+\end{align*}</span></p>
+<p>Vea que <span class="math inline">\frac{x}{\|x\|_2} \in S</span> (pues su norma euclideana es 1).<br>
+Por lo tanto, aplicando la cota sobre <span class="math inline">S</span>:</p>
+<p><span class="math display">\begin{align*}
+m \cdot \|x\|_2 \leq \|x\| \leq M \cdot \|x\|_2
+\end{align*}</span></p>
+<p>Esto prueba que las normas <span class="math inline">\|\cdot\|</span> y <span class="math inline">\|\cdot\|_2</span> son <strong>equivalentes</strong>.</p>
+<p>Como la norma <span class="math inline">\|\cdot\|</span> era arbitraria, concluimos que <strong>todas las normas</strong> en <span class="math inline">X</span> son equivalentes.</p>
 <p><span class="math inline">\blacksquare</span></p>
 </div>
 </div>

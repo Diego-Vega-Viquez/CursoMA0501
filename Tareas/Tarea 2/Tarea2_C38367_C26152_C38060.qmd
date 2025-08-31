@@ -545,6 +545,53 @@ En un espacio vectorial de dimensión finita todas las normas son equivalentes.
 ::: {.callout-caution collapse="true"}
 ### Prueba
 
+
+Vamos a proceder a probar que **todas las normas son equivalentes a $\|\cdot\|_2$**, la norma euclideana.  
+Recordemos que:
+
+$$
+\|x\|_2 = \left( \sum_{i=1}^n |x_i|^2 \right)^{1/2}
+$$
+
+Sea $\|\cdot\|$ una norma cualquiera en $X$, y consideremos el conjunto:
+
+$$
+S = \{x \in X : \|x\|_2 = 1\}
+$$
+
+Es decir, **la esfera unitaria respecto a $\|\cdot\|_2$**.
+
+Este conjunto $S$ es **cerrado y acotado** $\Rightarrow$ es **compacto** (por el teorema de Heine-Borel en dimensión finita).
+
+La función $f(x) = \|x\|$ es continua en $S$, por lo que alcanza su mínimo $m > 0$ y su máximo $M > 0$.
+
+Así, para todo $x \in X$:
+
+$$
+m \leq \|x\| \leq M \quad \text{para } x \in S
+$$
+
+---
+
+Ahora, sea $x \in X \setminus \{0\}$. Note que:
+
+\begin{align*}
+\|x\| &= \left\| \|x\|_2 \cdot \frac{x}{\|x\|_2} \right\| 
+= \|x\|_2 \cdot \left\| \frac{x}{\|x\|_2} \right\|
+\end{align*}
+
+Vea que $\frac{x}{\|x\|_2} \in S$ (pues su norma euclideana es 1).  
+Por lo tanto, aplicando la cota sobre $S$:
+
+\begin{align*}
+m \cdot \|x\|_2 \leq \|x\| \leq M \cdot \|x\|_2
+\end{align*}
+
+Esto prueba que las normas $\|\cdot\|$ y $\|\cdot\|_2$ son **equivalentes**.
+
+Como la norma $\|\cdot\|$ era arbitraria, concluimos que **todas las normas** en $X$ son equivalentes.
+
+
 $\blacksquare$
 :::
 :::
