@@ -203,7 +203,7 @@ Sea $\alpha_n = \dfrac{n + 10}{n^5}$ y $\beta_n = \dfrac{1}{n^4}$, y note que pa
 \left| \frac{\alpha_n - \alpha}{\beta_n} \right| 
 &= \left| \frac{\dfrac{n + 10}{n^5} - 0}{\dfrac{1}{n^4}} \right| \\
 &= \left| \frac{n^5 + 10n^4}{n^5} \right| 
-= \left| 1 + \frac{10}{n} \right| \leq 2 \quad \text{para } n \to \infty
+= \left| 1 + \frac{10}{n} \right| \leq 11 \quad \text{para } n \to \infty
 \end{align*}
 
 Así,
@@ -329,6 +329,17 @@ Una forma de calcular la raiz menor de forma mas precisa es usando la siguiente 
 raiz.menor.nueva <- abs((2 * c) / (-b - sqrt(discriminante)))
 format(raiz.menor.nueva, scientific = FALSE, digits = 22)
 ```
+
+Con el primer método, se obtiene este error:
+```{r}
+abs((raiz.menor - 0.0002)/0.0002)
+```
+Mientras que con el segundo método, el error es mucho menor (en nuestra máquina da que es 0):
+```{r}
+format(abs((raiz.menor.nueva-0.0002)/0.0002), digits = 22)
+```
+
+
 
 # Ejercicio 6
 ::: {.callout-note}
@@ -1341,7 +1352,7 @@ $$
 Como $f(x^*) \in X$, evaluamos:
 
 \begin{align*}
-f(f(x^*)) &= f^{n+1}(x^*) = f(f^n(x^*)) = f(x^*)
+f^n(f(x^*)) &= f^{n+1}(x^*) = f(f^n(x^*)) = f(x^*)
 \end{align*}
 
 Entonces $f(x^*)$ es también punto fijo de $f^n$,  
