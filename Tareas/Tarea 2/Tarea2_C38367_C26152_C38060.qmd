@@ -1534,7 +1534,7 @@ Entonces, por el teorema del valor intermedio:
 
 $$
 \exists x^* \in [x_0 + nT, x_0 + mT] \text{ tal que } g(x^*) = 0 \Rightarrow f(x^*) = x^*
-\Rightarrow x^* \in F_f \Rightarrow F_f \neq \varnothing \quad \blacksquare
+\Rightarrow x^* \in F_f \Rightarrow F_f \neq \varnothing
 $$
 
 $\blacksquare$
