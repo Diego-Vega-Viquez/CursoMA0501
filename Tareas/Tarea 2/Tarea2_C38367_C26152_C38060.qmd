@@ -1065,6 +1065,74 @@ Repita el ejercicio anterior usando los espacios y el producto interno del ejemp
 
 ## Solución
 
+```{r}
+
+resta  <- function(f, g) { force(f); force(g); function(x) f(x) - g(x) }
+suma   <- function(f, g) { force(f); force(g); function(x) f(x) + g(x) }
+escala <- function(a, f) { force(a); force(f); function(x) a * f(x) }
+
+
+prod.l2 <- function(f, g) {
+  integrate(function(x) f(x) * g(x), lower = 0, upper = 1)$value
+}
+
+norma.l2 <- function(x, prod.interno) {
+  return(sqrt(prod.interno(x, x)))
+}
+
+proy.ortogonal.l2 <- function(u, v, prod.interno) {
+  num <- prod.interno(u, v)
+  den <- prod.interno(v, v)
+  cte <- num / den
+  return(escala(cte, v))
+}
+
+gs.ortogonal.l2 <- function(base, prod.interno) {
+  Q <- list()
+  for (k in seq_along(base)) {
+    u <- base[[k]]
+    if (length(Q) > 0) {
+      for (q in Q) {
+        u <- resta(u, proy.ortogonal.l2(u, q, prod.interno))
+      }
+    }
+    Q[[length(Q) + 1]] <- u
+  }
+  return(Q)
+}
+
+normalizar <- function(base, prod.interno) {
+  Q <- list()
+  for (k in seq_along(base)) {
+    u <- base[[k]]
+    nrm <- norma.l2(u, prod.interno)
+    u.nrm <- escala(1/nrm, u)
+    Q[[length(Q) + 1]] <- u.nrm
+  }
+  return(Q)
+}
+
+# Ejemplo de prueba
+
+f1 <- function(x) x*0 + 1
+f2 <- function(x) x
+f3 <- function(x) x^2
+base <- list(f1, f2, f3)
+
+#Se obtiene la base ortonormal
+base.ortonormal <- normalizar(gs.ortogonal.l2(base, prod.l2), prod.l2)
+
+```
+Para verificar que la base que se obtuvo es en efecto ortonormal (puesto que no se puede ver de fondo cuales son las funciones), se emplea esta funcion, en donde se crea una matriz con los productos internos entre todos los elementos de la base entre si. En la diagonal, vemos que el producto l2 entre dos elementos iguales es 1, lo que evidencia que todos los "vectores" tienen norma 1. Por otra parte, vemos que todos los productos entre elementos diferentes da 0, lo que evidencia que son ortogonales:
+
+```{r}
+G <- sapply(seq_along(base.ortonormal), function(i)
+  sapply(seq_along(base.ortonormal), function(j) prod.l2(base.ortonormal[[i]], base.ortonormal[[j]])))
+round(G, 6)  
+```
+Con respecto a si se puede hacer una funcion "general" en donde uno le introduzca como parametro el producto interno, la respuesta es que sí se podria. El método de Gram–Schmidt en realidad solo ocupa que uno pueda calcular el producto interno entre los elementos de la base. Entonces, si yo le paso como parámetro cualquier producto interno válido, ya sea el usual o uno definido de otra forma, el proceso se puede aplicar igual y genera la base ortogonal y luego la ortonormal usando esa “regla” de producto interno.
+
+
 ---
 
 # Ejercicio 13
