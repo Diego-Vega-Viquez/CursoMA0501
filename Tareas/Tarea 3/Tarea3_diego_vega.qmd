@@ -1,0 +1,688 @@
+---
+title: "MA0501 – Tarea 2"
+author: 
+  - name: "Diego Alberto Vega Víquez - C38367" 
+    email: "diegovv13@gmail.com"
+  - name: "José Carlos Quintero Cedeño - C26152" 
+    email: "jose.quinterocedeno@ucr.ac.cr"
+  - name: "Gabriel Valverde Guzmán - C38060"
+    email: "GABRIEL.VALVERDEGUZMAN@ucr.ac.cr"
+date: today
+lang: es
+format:
+  pdf:
+    documentclass: article
+    fontsize: 11pt
+    linestretch: 1.3
+    geometry:
+      - top=2.5cm
+      - bottom=2.5cm
+      - left=2.5cm
+      - right=2.5cm
+      - headheight=15pt
+      - footskip=1.25cm
+    toc: true
+    toc-depth: 1
+    number-sections: false
+    classoption:
+      - oneside
+      - titlepage 
+    openany: true
+    colorlinks: false   
+    top-level-division: section
+    include-in-header: 
+      text: |
+        \usepackage[most]{tcolorbox}
+        \usepackage[hidelinks]{hyperref}
+        \usepackage{setspace}
+        \AtBeginDocument{\setstretch{1.0}} % ← interlineado
+  html:
+    code-annotations: hover
+    toc: true
+    toc-depth: 1
+    toc-location: left
+    toc_float: yes
+    html-math-method: katex
+    css: styles.css
+    df_print: paged
+    theme: flatly
+    highlight: tango
+    embed-resources: true
+---
+
+\newpage
+
+# Ejercicio 1
+
+::: {.callout-note}
+## Instrucción
+
+Desarrolle funciones iterativas y recursivas en R para los algoritmos de los métodos de:
+
+- iteración de punto fijo,
+- bisección,
+- método de Newton–Raphson,
+- método de la secante, y
+- método de Steffensen vistos en clase,
+
+y el método Regula–Falsi que se describe en el ejercicio 11.
+:::
+
+## Solución
+
+
+
+# Ejercicio 2
+
+::: {.callout-note}
+## Instrucción
+
+Use el procedimiento `Bisección` para resolver las siguientes ecuaciones, con por lo menos 5 dígitos significativos. Compare los resultados con los que se obtienen usando directamente `R`.
+
+a) $\cos^2(x) = 2\sin(x)$ para $0 \leq x \leq 1$
+
+b) $-x^3 + x + 1 = 0$ para $1 \leq x \leq 2$
+
+Para cada una de las ecuaciones anteriores, de acuerdo con los teoremas de error vistos en clase, calcule el número de iteraciones necesarias para obtener la precisión pedida, y compare estos resultados con los obtenidos con **R**.
+:::
+
+## Solución
+
+
+
+# Ejercicio 3
+
+::: {.callout-note}
+## Instrucción
+
+Use el procedimiento `Bisección` para resolver las siguientes ecuaciones, con por lo menos 4 dígitos significativos. Compare los resultados con los que se obtienen usando directamente `R`.
+
+a) $e^x + 4x - 5 = 0$
+
+b) $x^4 - 2x - 1 = 0$
+
+Determine gráficamente un intervalo inicial $[a, b]$, con $a, b \in \mathbb{Z}$.
+:::
+
+## Solución
+
+
+
+# Ejercicio 4
+
+::: {.callout-note}
+## Instrucción
+
+Para cada una de las siguientes ecuaciones, determine el intervalo $[a, b]$ en el cual la iteración de punto fijo converge. Estime el número de iteraciones necesarias para obtener aproximaciones con 5 dígitos significativos, y efectúe los cálculos con el procedimiento `PuntoFijo`. Compare los resultados con los que se obtienen usando directamente `R`.
+
+a) $e^{-x} - x = 0$
+
+b) $e^x = 3x$
+:::
+
+## Solución
+
+
+
+# Ejercicio 5
+
+::: {.callout-note}
+## Instrucción
+
+Repita el ejercicio anterior usando el método de Steffensen.
+:::
+
+## Solución
+
+
+
+# Ejercicio 6
+
+::: {.callout-note}
+## Instrucción
+
+Para cada una de las siguientes ecuaciones, determine una función $g$ y un intervalo $[a, b]$ en el cual la iteración de punto fijo converja a una solución positiva de la ecuación. Debe probar que $g(x)$ cumple las hipótesis del teorema de Banach. Encuentre esta solución usando el procedimiento `PuntoFijo`. Compare los resultados con los que se obtienen usando directamente **R**.
+
+a) $3x^2 - e^x = 0$
+
+b) $x - \cos(x) = 0$
+:::
+
+## Solución
+
+
+# Ejercicio 7
+
+::: {.callout-note}
+## Instrucción
+
+Use el procedimiento `Newton` para resolver las siguientes ecuaciones, con por lo menos 4 dígitos significativos. Compare los resultados con los que se obtienen usando directamente `R`.
+
+a) $\cos(x) - x^2 = 0$
+
+b) $4\sin(x) = e^x$
+:::
+
+## Solución
+
+
+
+# Ejercicio 8
+
+::: {.callout-note}
+## Instrucción
+
+Repita el ejercicio anterior usando el procedimiento `Secante`, y compare los resultados.
+:::
+
+## Solución
+
+
+
+# Ejercicio 9
+
+::: {.callout-note}
+## Instrucción
+
+Suponga que $p$ es un cero de multiplicidad $m$ de $f$ donde $f^{(m)}$ es continua en un intervalo abierto que contiene a $p$. Demuestre que el método de punto fijo siguiente:
+
+$$
+g(x) = x - m \frac{f(x)}{f'(x)}
+$$
+
+cumple que $g'(p) = 0$.
+:::
+
+## Solución
+
+
+
+# Ejercicio 10
+
+::: {.callout-note}
+## Instrucción
+
+Demuestre que el método de Newton aplicado a $x^m - R$ y a $1 - (R/x^m)$ para calcular $\sqrt[m]{R}$ da dos fórmulas diferentes de iterativas. Para $R > 0$ y $m \geq 0$, ¿cuál fórmula es mejor y por qué?
+:::
+
+## Solución
+
+
+# Ejercicio 11
+
+::: {.callout-note}
+## Instrucción
+
+**Método Regula Falsi**: Este es otro método para encontrar una raíz de la ecuación $f(x) = 0$ que se encuentra en el intervalo $[a, b]$. El método es similar al de la bisección en que se generan intervalos $[a_i, b_i]$ encerrando la raíz de $f(x) = 0$, y es similar al método de la secante en la forma de obtener los nuevos intervalos aproximados.
+
+Suponiendo que el intervalo $[a_i, b_i]$ contiene una raíz de $f(x) = 0$, calculamos la intersección con el eje $x$ de la recta que pasa por los puntos $(a_i, f(a_i))$ y $(b_i, f(b_i))$, denotando este punto por $p_i$.
+
+- Si $f(p_i)f(a_i) < 0$, se define $a_{i+1} = a_i$ y $b_{i+1} = p_i$;
+- En caso contrario, se define $a_{i+1} = p_i$ y $b_{i+1} = b_i$.
+
+  a) Dé una interpretación geométrica del método Regula Falsi con ayuda del siguiente gráfico:
+  
+  ![](images/Ejercicio11a.png){width=400px fig-align="center"}
+  
+  b) Calcule la ecuación de la recta que pasa por $(a_i, f(a_i))$ y $(b_i, f(b_i))$.
+
+  c) Pruebe que:  
+  $$
+  p_i = \frac{a_i f(b_i) - b_i f(a_i)}{f(b_i) - f(a_i)}
+  $$
+  
+  d) Escriba un algoritmo en pseudocódigo para el método *Regula Falsi*.
+  
+  e) Escriba una función en R para este algoritmo.
+:::
+
+
+
+# Ejercicio 12
+
+::: {.callout-note}
+## Instrucción
+
+Use el método de *Regula Falsi* para aproximar la solución de las siguientes ecuaciones con 6 dígitos significativos, determine el intervalo inicial gráficamente. Compare los resultados con los que se obtienen usando directamente **R**.
+
+a) $\log(1 + x) - x^2 = 0$
+
+b) $x^3 + 2x - 1 = 0$
+:::
+
+## Solución
+
+
+
+# Ejercicio 13
+
+::: {.callout-note}
+## Instrucción
+
+Pruebe que la sucesión construida por:
+
+$$
+x_{n+1} = 
+\begin{cases}
+1 & \text{si } n = 0 \\
+\dfrac{a + (m - 1)x_n^m}{m x_n^{m-1}} & \text{si } n \geq 1
+\end{cases}
+$$
+
+converge a $\sqrt[m]{a}$, con $a > 0$.
+:::
+
+## Solución
+
+
+
+# Ejercicio 14
+
+::: {.callout-note}
+## Instrucción
+
+Demuestre que las siguientes sucesiones $(x_n)$ convergen linealmente a $x = 0$. Encuentre cuántos términos deben generarse antes de que $|x_n - x| \leq 5 \times 10^{-2}$.
+
+a) $x_n = \dfrac{1}{n}$, $n \geq 0$
+
+b) $x_n = \dfrac{1}{n^2}$, $n \geq 0$
+:::
+
+## Solución
+
+
+
+# Ejercicio 15
+
+::: {.callout-note}
+## Instrucción
+
+Demuestre que la sucesión definida por $x_n = 1/n^k$, $n \geq 1$, para cualquier entero positivo $k$, converge linealmente a $x = 0$. Para cada par de enteros $k$ y $m$, determinar un número $N$ para el cual $1/N^k < 10^{-m}$.
+:::
+
+## Solución
+
+
+
+# Ejercicio 16
+
+::: {.callout-note}
+## Instrucción
+
+Demostrar que la sucesión $x_n = 10^{-2^n}$ converge cuadráticamente a cero.
+:::
+
+## Solución
+
+
+
+# Ejercicio 17
+
+::: {.callout-note}
+## Instrucción
+
+Para las siguientes sucesiones $(x_n)$, linealmente convergentes, use el método $\Delta^2$ de Aitken para generar una sucesión $(\bar{x}_n)$ hasta que $|\bar{x}_n - x| \leq 5 \times 10^{-2}$.
+
+a) $x_n = \dfrac{1}{n}$, $n \geq 0$
+
+b) $x_n = \dfrac{1}{n^2}$, $n \geq 0$
+:::
+
+## Solución
+
+# Ejercicio 18
+
+::: {.callout-note}
+## Instrucción
+
+Un conocido método numérico para minimizar funciones *estrictamente unimodales* (una función $f$ que decrece estrictamente (o crece estrictamente) hasta su punto mínimo (máximo)) se llama la función estrictamente unimodal en un intervalo $[a, b]$, y uno de ellos es el **Método Igualmente Espaciado**. La idea geométrica se ilustra en el siguiente gráfico:
+
+![](images/Ejercicio18.png){width=300px fig-align="center"}
+
+Se toma $a_1 = a$ y $b_1 = b$, y además:
+$$
+x_1 := \frac{2a + b}{3}, \qquad x_2 := \frac{a + 2b}{3}
+$$
+
+Entonces, como se ilustra en el gráfico:
+
+- Si $f(x_1) > f(x_2)$, entonces se toma:
+  $$
+  a_2 = x_1, \quad b_2 = b_1, \quad p_1 = a_2
+  $$
+  y el nuevo intervalo es:
+  $$
+  [a_2, b_2] = [x_1, b_1] = \left[ \frac{2a + b}{3}, b \right]
+  $$
+
+- En caso contrario, se toma:
+  $$
+  a_2 = a_1, \quad b_2 = x_2, \quad p_1 = b_2
+  $$
+  y el nuevo intervalo es:
+  $$
+  [a_2, b_2] = [a_1, x_2] = \left[ a_1, \frac{a + 2b}{3} \right]
+  $$
+
+Con el nuevo intervalo se aplica el proceso de nuevo, y así sucesivamente hasta que $a_n$ y $b_n$ estén suficientemente cerca. La sucesión $(p_n)$ converge al punto $p$ donde $f$ alcanza el mínimo.
+
+a) De acuerdo con lo anterior, pruebe que $x_1 < x_2$.
+
+b) Construya un algoritmo en pseudocódigo y la correspondiente función en **R** para el método *Igualmente Espaciado* descrito anteriormente.
+
+c) Pruebe que el intervalo construido con el algoritmo anterior satisface la relación:
+$$
+|b_n - a_n| \leq \left( \frac{2}{3} \right)^{n-1} (b - a)
+$$
+
+¿Qué se puede concluir, respecto al error absoluto?
+:::
+
+## Solución
+
+
+# Ejercicio 19
+
+::: {.callout-note}
+## Instrucción
+
+En este ejercicio se presenta el **Método Dicotómico** para minimizar funciones estrictamente unimodales. En este método primeramente se evalúa la función $f(x)$ en dos puntos que están a una distancia de $\varepsilon/2$ del punto medio del intervalo $[a, b]$, es decir se calculan:
+
+$$
+f\left( \frac{a + b - \varepsilon}{2} \right) \quad \text{y} \quad f\left( \frac{a + b + \varepsilon}{2} \right),
+$$
+
+y se procede a compararlos. Si
+
+### a)
+
+$$
+f\left( \frac{a + b - \varepsilon}{2} \right) \leq f\left( \frac{a + b + \varepsilon}{2} \right),
+$$
+
+entonces se descarta el intervalo $\left] \frac{a + b + \varepsilon}{2}, b \right]$ y así el punto mínimo $x^*$ debe estar en el intervalo $\left[a, \frac{a + b + \varepsilon}{2} \right],$ el cual será el nuevo intervalo de búsqueda.
+
+Si
+
+$$
+f\left( \frac{a + b - \varepsilon}{2} \right) > f\left( \frac{a + b + \varepsilon}{2} \right),
+$$
+
+entonces se descarta el intervalo $\left[a, \frac{a + b - \varepsilon}{2} \right[$ y en este caso el punto mínimo $x^*$ debe estar en el intervalo $\left[ \frac{a + b - \varepsilon}{2}, b \right].$
+
+Pruebe que en cualquiera de los casos la longitud del intervalo de búsqueda se reduce de $b - a$ a $\frac{b - a + \varepsilon}{2}.$
+
+### b)
+
+Suponga que se tiene el caso:
+
+$$
+f\left( \frac{a + b - \varepsilon}{2} \right) \leq f\left( \frac{a + b + \varepsilon}{2} \right),
+$$
+
+entonces se descarta el intervalo $\left] \frac{a + b + \varepsilon}{2}, b \right]$, y el nuevo intervalo de búsqueda es $\left[ a, \frac{a + b + \varepsilon}{2} \right].$
+
+Ahora se debe calcular:
+
+$$
+f\left( \frac{3a + b - \varepsilon}{4} \right) \quad \text{y} \quad f\left( \frac{3a + b + 3\varepsilon}{4} \right),
+$$
+
+y surgen de nuevo dos posibilidades. Si
+
+$$
+f\left( \frac{3a + b - \varepsilon}{4} \right) \leq f\left( \frac{3a + b + 3\varepsilon}{4} \right),
+$$
+
+entonces se descarta el intervalo $\left] \frac{3a + b + 3\varepsilon}{4}, \frac{a + b + \varepsilon}{2} \right]$
+y el nuevo intervalo de búsqueda es $\left[a, \frac{3a + b + 3\varepsilon}{4} \right]$. En el otro caso se descarta el intervalo $\left[a, \frac{3a + b - \varepsilon}{4} \right]$ y el nuevo intervalo de búsqueda es $\left[ \frac{3a + b - \varepsilon}{4}, \frac{a + b + \varepsilon}{2} \right].$
+
+Pruebe que en cualquiera de los casos la longitud del intervalo de búsqueda se reduce de $\frac{b - a + \varepsilon}{2}$ a $\frac{b - a + 3\varepsilon}{4}.$
+
+
+### c)
+
+Repitiendo el proceso $n$ veces deben calcularse:
+
+$$
+f\left( \frac{(2^n - 1)a + b - \varepsilon}{2^n} \right) \quad \text{y} \quad f\left( \frac{(2^n - 1)a + b + (2^n - 1)\varepsilon}{2^n} \right),
+$$
+
+pruebe que en cualquiera de los dos casos la longitud del intervalo de búsqueda es
+
+$$
+\frac{b - a + (2^n - 1)\varepsilon}{2^n}.
+$$
+
+Con lo cual, si $x_n$ representa la $n$-ésima aproximación del punto mínimo $x^*$, entonces pruebe que:
+
+$$
+|x^* - x_n| \leq \frac{b - a + (2^n - 1)\varepsilon}{2^n}.
+$$
+
+El proceso se ilustra en la Figuras 1 y 2.
+
+![Figura 1](images/Figura1.png){width=500px fig-align="center"}
+
+![Figura 2](images/Figura2.png){width=500px fig-align="center"}
+
+
+### d)
+
+Construya un algoritmo en pseudocódigo y la correspondiente función **R** para el *Método Dicotómico* descrito anteriormente.
+
+### e)
+
+¿Cuántas iteraciones se requieren teóricamente para minimizar 
+$$
+f(x) = x^4 - 4x^3 + 3x^2
+$$
+en el intervalo $[1, 4]$ si se desea que el resultado tenga un error absoluto menor a $10^{-5}$?  
+
+Encuentre el mínimo.
+:::
+
+## Solución
+
+# Ejercicio 20
+
+::: {.callout-note}
+## Instrucción
+
+El objetivo de este ejercicio es demostrar la convergencia del método de Newton–Raphson sin utilizar el Teorema de punto fijo de Banach.
+
+**Teorema:** Sea $f \in C^2[a, b]$. Si $x \in [a, b]$ con $f(x) = 0$ y $f'(x) \neq 0$, entonces existe $\varepsilon > 0$ tal que el método de Newton–Raphson:
+$$
+x_{n+1} := x_n - \frac{f(x_n)}{f'(x_n)}
+$$
+genera una sucesión que está bien definida y converge a $x$ cuando $n \to \infty$, para todo $x_0 \in [x - \varepsilon, x + \varepsilon]$.
+
+Para esto haga lo siguiente:
+
+a) Pruebe que si $(r_n)_{n \geq 0}$ es una sucesión de números positivos o nulos que verifican: $$r_{n+1} \leq r_n^2,$$ y si $r_0 < 1$, entonces $(r_n)$ converge a 0. Además, pruebe que: $$r_n \leq (r_0)^{2^n}.$$
+
+b) Pruebe que:
+
+$$
+x_{n+1} - x = \frac{(x_n - x)f'(x_n) - f(x_n) + f(x)}{f'(x_n)}. \tag{1}
+$$
+
+c) Pruebe que existen números estrictamente positivos $\epsilon_1$ y $M$ tales que:
+
+$$
+\text{para todo } y \in [x - \epsilon_1, x + \epsilon_1] \text{ se tiene que } |f'(y)| \geq M.
+$$
+
+d) Justifique por qué:
+
+$$
+\max_{y \in [x - \epsilon_1, x + \epsilon_1]} |f''(y)| := L < \infty.
+$$
+
+e) Pruebe que el valor absoluto de la parte derecha del numerador de la ecuación (1) es igual a:
+
+$$
+\left| \int_{x_n}^{x} f''(t)(x - t) \, dt \right|. \tag{2}
+$$
+
+f) Pruebe que (2) está acotado por:
+
+$$
+\frac{L}{2} |x_n - x|^2.
+$$
+
+g) Pruebe que si se define
+
+$$
+r_n := \frac{L}{2M} |x_n - x|
+\quad \text{entonces} \quad
+r_{n+1} \leq r_n^2.
+$$
+
+h) Sea $\epsilon = \min\left(\epsilon_1, \frac{2M}{L} \right)$, pruebe que si $|x_n - x| < \epsilon$, entonces use la parte (a) para probar que $|x_{n+1} - x| < \epsilon$, y concluya el resultado.
+
+:::
+
+## Solución
+
+# Ejercicio 21
+
+::: {.callout-note}
+## Instrucción
+
+Demuestre que en el caso de ceros de multiplicidad $m$, el **Método de Newton Modificado**:
+
+$$
+x_{n+1} = x_n - m \frac{f(x_n)}{f'(x_n)}
+$$
+
+es cuadráticamente convergente. Sugerencia: Use series de Taylor.
+:::
+
+## Solución
+
+
+# Ejercicio 22
+
+::: {.callout-note}
+## Instrucción
+
+El objetivo de este ejercicio es demostrar la convergencia del método de la **Secante** sin utilizar el Teorema de punto fijo de Banach.
+
+**Teorema:**  
+Sea $f$ una función de clase $C^2[a, b]$, con $a < b$. Si existe un punto $x$ tal que $f(x) = 0$ y $f'(x) \neq 0$, entonces existe un número $\varepsilon > 0$ tal que si $x_0$ y $x_1$ están dentro del intervalo \([x - \varepsilon, x + \varepsilon]\), la sucesión generada por el método de la secante
+
+$$
+x_{n+1} = x_n - \frac{(x_n - x_{n-1})f(x_n)}{f(x_n) - f(x_{n-1})}
+$$
+
+está bien definida dentro del intervalo \([x - \varepsilon, x + \varepsilon]\) y converge a $x$, cero de la ecuación $f(x) = 0$.
+
+a) Sea $(r_n)$ una sucesión de números reales positivos tales que: $$r_{n+1} \leq r_n r_{n-1}$$ Pruebe que si $r_0 < 1$ y $r_1 < 1$, entonces la sucesión $(r_n)$ está acotada por 1 y converge a 0. Además, pruebe que existe una constante $C$ tal que: $$r_n \leq C r^\rho,$$ donde $r$ es un número estrictamente menor que 1, y $$\rho = \frac{1 + \sqrt{5}}{2} \approx 1.618. $$
+
+b) Se denota: $$ f[x_n, x_{n-1}] := \frac{f(x_n) - f(x_{n-1})}{x_n - x_{n-1}}$$ pruebe que: $$
+f(x_n) = (x_n - x) f[x_n, x] $$
+
+c) Pruebe que: $$x_{n+1} - x = (x_n - x) \cdot \frac{f[x_n, x_{n-1}] - f[x_n, x]}{f[x_n, x_{n-1}]}$$
+
+d) Pruebe que: $$x_{n+1} - x = \frac{(x_n - x)(x_n - x_{n-1}) f[x_n, x_{n-1}, x]}{f[x_n, x_{n-1}]},$$ donde: $$f[x_n, x_{n-1}, x] := \frac{f[x_n, x_{n-1}] - f[x_n, x]}{x_n - x}$$
+
+e) Sea $[x - \epsilon_1, x + \epsilon_1]$ un intervalo sobre el cual $|f'(x)| \geq M$.  
+Pruebe que si $x_n$ y $x_{n-1}$ están dentro del intervalo, entonces: $$|f[x_n, x_{n-1}]| \geq M$$
+
+f) Sea $L$ la cota superior de $|f''|$ en el intervalo $[x - \epsilon_1, x + \epsilon_1]$.   Pruebe que si $x_n$ y $x_{n-1}$ están dentro del intervalo, entonces: $$|f[x_n, x_{n-1}, x]| \leq \frac{L}{2}$$
+
+g) Pruebe que: $$|x_{n+1} - x| \leq \frac{L}{2M} |x_n - x| \cdot |x_{n-1} - x|$$
+
+h) Tome: $$ r_n := \frac{L}{2M} |x_n - x|, \quad \text{y} \quad \varepsilon < \min\left( \epsilon_1, \frac{2M}{L} \right)$$ usando (a), concluya que si $x_0$ y $x_1$ están dentro del intervalo $[x - \varepsilon, x + \varepsilon]$, entonces $x_n$ está dentro del intervalo para todo $n$, y $|x_n - x| \to 0$ cuando $n \to \infty$.
+
+:::
+
+## Solución
+
+# Ejercicio 22
+
+::: {.callout-note}
+## Instrucción
+Pruebe los Teoremas 7, 10, 11 y 12 de la presentación de la clase.
+:::
+
+## Solución
+
+::: {.callout-tip}
+## Teorema 7
+
+Sea $f$ una función de clase $C^2[a, b]$ con $a < b$.  
+Si existe un punto $x$ tal que $f(x) = 0$ y $f'(x) \neq 0$, entonces existe un número $\varepsilon > 0$ tal que si $x_0$ y $x_1$ están dentro del intervalo $[x - \varepsilon, x + \varepsilon]$, la sucesión generada por el **método de la secante**
+$$
+x_n = x_{n-1} - \frac{(x_{n-2} - x_{n-1}) f(x_{n-1})}{f(x_{n-2}) - f(x_{n-1})}
+$$
+
+está bien definida dentro del intervalo $[x - \varepsilon, x + \varepsilon]$ y **converge a** $x$, **cero de la ecuación** $f(x) = 0$.
+
+::: {.callout-caution collapse="true"}
+### Prueba
+
+:::
+:::
+
+::: {.callout-tip}
+## Teorema 10
+
+Sea $f$ una función de clase $C^2[a, b]$.  
+Si existe un punto $\tilde{x}$ tal que $f(\tilde{x}) = 0$, $f'(\tilde{x}) \ne 0$ y $f''(\tilde{x}) \ne 0$, entonces existe un número $\varepsilon > 0$ tal que si $x_0$ y $x_1$ están dentro del intervalo $[x - \varepsilon, x + \varepsilon]$, la sucesión generada por el **método de la secante**
+$$
+x_n = x_{n-1} - \frac{(x_{n-2} - x_{n-1}) f(x_{n-1})}{f(x_{n-2}) - f(x_{n-1})}
+$$
+converge a $\tilde{x}$ **con orden de al menos** $\dfrac{1 + \sqrt{5}}{2} \approx 1.618$.
+
+::: {.callout-caution collapse="true"}
+### Prueba
+Pruebe que:
+\begin{equation}
+|e_{n+1}| \approx C \cdot |e_n| \cdot |e_{n-1}| \tag{1.10}
+\end{equation}
+con $C := \dfrac{|f'''(\tilde{x})|}{2 |f'(\tilde{x})|}$.
+
+Por la definición 1 se busca una solución aproximada a la ecuación:
+\begin{equation}
+|e_n| = \lambda |e_{n-1}|^\alpha \tag{1.11}
+\end{equation}
+con $\lambda > 0$ y $\alpha \geq 1$.
+
+Sustituyendo esta expresión en la anterior, se tiene:
+\begin{equation}
+\lambda |e_n|^\alpha = \lambda \lambda^\alpha |e_{n-1}|^{\alpha^2} = C \lambda |e_{n-1}|^{\alpha + 1}.\tag{1.12}
+\end{equation}
+Por tanto, para que se cumpla esta igualdad para $n$ suficientemente grandes, debe cumplirse:
+
+$$\lambda^\alpha = C\text{ y }\alpha^2 = \alpha + 1$$
+
+De donde se obtiene que:
+
+$$\alpha = \dfrac{1 + \sqrt{5}}{2}\text{ y }\lambda = C^{1/\alpha}\qquad\blacksquare$$
+
+:::
+:::
+
+::: {.callout-tip}
+## Teorema 11
+Sea $(x_n)$ una sucesión que converge a $x$ con orden lineal con constante asintótica $\lambda < 1$, además se asume que $e_n = x_n - x \ne 0$ para todo $n$. Entonces la sucesión $(\tilde{x}_n)$, definida en (1.14), converge a $x$ más rápido que $(x_n)$.
+
+::: {.callout-caution collapse="true"}
+### Prueba
+
+:::
+:::
+
+::: {.callout-tip}
+
+## Teorema 12
+Si el método de punto fijo $x_{n+1} = g(x_n)$ converge linealmente, entonces el orden de convergencia del método de Steffensen es al menos dos.
+
+::: {.callout-caution collapse="true"}
+### Prueba
+Suponga que $g(x)$ es un número suficientemente de veces derivable, luego pruebe que: $$\lim_{n \to \infty} \frac{|x_{n+1} - \tilde{x}|}{|x_n - \tilde{x}|^2} = \frac{1}{2} \left| \frac{g'(\tilde{x}) g''(\tilde{x})}{g'(\tilde{x}) - 1} \right|:= \lambda \ne 0.$$
+:::
+
+:::

@@ -43,6 +43,7 @@ format:
     df_print: paged
     theme: united
     highlight: tango
+    embed-resources: true
 ---
 
 
