@@ -600,7 +600,7 @@ h) Tome: $$ r_n := \frac{L}{2M} |x_n - x|, \quad \text{y} \quad \varepsilon < \m
 
 ## Solución
 
-# Ejercicio 22
+# Ejercicio 23
 
 ::: {.callout-note}
 ## Instrucción
