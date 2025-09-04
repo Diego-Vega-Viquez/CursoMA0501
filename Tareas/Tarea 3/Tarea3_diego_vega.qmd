@@ -70,7 +70,264 @@ y el método Regula–Falsi que se describe en el ejercicio 11.
 
 ## Solución
 
+**Metodo de punto fijo**
+```{r}
+punto.fijo <- function(p0, tol, n, g) {
+  i <- 1
+  p0_temp <- p0
+  while (i <= n) {
+    p <- g(p0_temp)
+    if (abs(p - p0_temp) < tol) {
+      return(p)
+    }
+    i <- i + 1
+    p0_temp <- p
+  }
+  return(NULL)
+}
 
+punto.fijo.rec <- function(p0, tol, n, g) {
+  p1 <- g(p0)
+  if (abs(p1 - p0) < tol || n < 1) {
+    if (n >= 1) {
+      return(p1)
+    }
+    else{
+      return(Inf)
+    }
+  }
+  else{
+    return(punto.fijo.rec(p1, tol, n - 1, g))
+  }
+}
+
+f1 <- function(x) sqrt(1 + 1/x)
+
+punto.fijo(1, 1e-8, 20, f1)
+punto.fijo.rec(1, 1e-8, 20, f1)
+```
+**Método de bisección**
+```{r}
+biseccion <- function(a, b, tol, n, g) {
+  i <- 1
+  a1 <- a
+  b1 <- b
+  if (g(a) * g(b) > 0) {
+    return("No se cumplen las hipotesis")
+  }
+  else{
+    while (i <= n) {
+      x <- (a1 + b1) / 2
+      if (g(a1) * g(x) > 0) {
+        a1 <- x
+      }
+      else{
+        b1 <- x
+      }
+      if (abs(b1 - a1) < tol) {
+        return(list("valor" = x, "iteraciones" = i))
+      }
+      i <- i + 1
+    }
+    return(NULL)
+  }
+}
+
+biseccion.rec <- function(a, b, tol, n, g) {
+  a1 <- a
+  b1 <- b
+  x <- (a + b) / 2
+  if (abs(b1 - a1) < tol || n < 1) {
+    if (n >= 1) {
+      return(x)
+    }
+    else{
+      return(x)
+    }
+  }
+  else {
+    if (g(a) * g(x) > 0) {
+      return(biseccion.rec(x, b1, tol, n - 1, g))
+    }
+    else {
+      return(biseccion.rec(a1, x, tol, n - 1, g))
+    }
+  }
+}
+
+f <- function(x) (cos(x))^2 - 2 * sin(x)
+
+biseccion(0, 1, 1e-8, 100, f)
+biseccion.rec(0, 1, 1e-8, 100, f)
+```
+
+**Método de Newton-Raphson**
+```{r}
+newton.raphson <- function(x0, tol, n, f, df) {
+  i <- 1
+  x0_temp <- x0
+  while (i <= n) {
+    x <- x0_temp - f(x0_temp) / df(x0_temp)
+    if (abs(x - x0_temp) < tol) {
+      return(list("valor" = x, "iteraciones" = i))
+    }
+    i <- i + 1
+    x0_temp <- x
+  }
+  return(NULL)
+}
+
+newton.raphson.rec <- function(x0, tol, n, f, df) {
+  x0_temp <- x0
+  x <- x0_temp - f(x0_temp) / df(x0_temp)
+  if (abs(x - x0) < tol || n < 1) {
+    if (n >= 1) {
+      return(x)
+    }
+    else{
+      return(NULL)
+    }
+  }
+  else{
+    return(newton.raphson.rec(x, tol, n - 1, f, df))
+  }
+}
+
+f <- function(x) (cos(x))^2 - 2 * sin(x)
+df <- function(x) - 2 * cos(x) * sin(x) - 2 * sin(x)
+
+newton.raphson(0.5, 1e-8, 100, f, df)
+newton.raphson.rec(0.5, 1e-8, 100, f, df)
+```
+
+**Método de la secante**
+```{r}
+secante <- function(x0, x1, tol, n, f) {
+  i <- 2
+  x0.temp <- x0
+  x1.temp <- x1
+  while (i <= n) {
+    x <- x1.temp - ((x0.temp - x1.temp) * f(x1.temp)) / (f(x0.temp) - f(x1.temp))
+    if (abs(x - x0.temp) < tol) {
+      return(list("valor" = x, "iteraciones" = i))
+    }
+    x0.temp <- x1.temp
+    x1.temp <- x
+    i <- i + 1
+  }
+  return(NULL)
+}
+
+secante.rec <- function(x0, x1, tol, n, f) {
+  x <- x1 - ((x0 - x1) * f(x1)) / (f(x0) - f(x1))
+  if (abs(x - x0) < tol || n < 1) {
+    if (n >= 1) {
+      return(x)
+    }
+    else{
+      return(NULL)
+    }
+  }
+  else{
+    return(secante.rec(x1, x, tol, n - 1, f))
+  }
+}
+
+g <- function(x) cos(x) - x^2
+
+secante(0, 1, 1e-8, 100, g)
+secante.rec(0, 1, 1e-8, 100, g)
+```
+**Método de Steffensen**
+```{r}
+steffensen <- function(x0, tol, n, f) {
+  i <- 2
+  x0.temp <- x0
+  while (i <= n) {
+    x1 <- f(x0.temp)
+    x2 <- f(x1)
+    x <- x0.temp - (x1 - x0.temp)^2 / (x2 - 2 * x1 + x0.temp)
+    if (abs(x - x0.temp) < tol) {
+      return(list("valor" = x, "iteraciones" = i))
+    }
+    i <- i + 1
+    x0.temp <- x
+  }
+  return(NULL)
+}
+
+steffensen.rec <- function(x0, tol, n, f) {
+  x1 <- f(x0)
+  x2 <- f(x1)
+  x <- x0 - (x1-x0)^2/(x2-2*x1+x0)
+  if(abs(x - x0) < tol || n < 1){
+    if(n>=1){
+      return(x)
+    }
+    else{
+      return(NULL)
+    }
+  }
+  else{
+    return(steffensen.rec(x, tol, n-1, f))
+  }
+}
+
+f1 <- function(x) sqrt(1 + 1/x)
+
+steffensen(1, 1e-8, 100, f1)
+steffensen.rec(1, 1e-8, 100, f1)
+```
+**Método Regula Falsi**
+```{r}
+regula.falsi <- function(a,b, tol, n, f){
+  i <- 1
+  a.temp <- a
+  b.temp <- b
+  while (i <= n) {
+    x <- (a.temp*f(b.temp) - b.temp*f(a.temp))/(f(b.temp) - f(a.temp))
+    if(f(a.temp)*f(x) > 0){
+      a.temp <- x
+    }
+    else{
+      b.temp <- x
+    }
+    if(abs(b.temp-a.temp) < tol) {
+      return(list("valor" = x, "iteraciones" = i))
+    }
+    i <- i + 1
+  }
+  return(NULL)
+}
+
+regula.falsi.rec <- function(a, b, tol, n, f) {
+  a.temp <- a
+  b.temp <- b
+  x <- (a.temp*f(b.temp) - b.temp*f(a.temp))/(f(b.temp) - f(a.temp))
+  if(abs(b.temp-a.temp)<tol || n<1){
+    if(n>=1){
+      return(x)
+    }
+    else{
+      return(NULL)
+    }
+  }
+  else{
+    if(f(a)*f(x) > 0){
+      return(regula.falsi.rec(x, b.temp, tol, n-1, f))
+    }
+    else{
+      return(regula.falsi.rec(a.temp, x, tol, n-1, f))
+    }
+  }
+}
+
+f <- function(x) (cos(x))^2 - 2 * sin(x)
+
+regula.falsi(0, 1, 1e-8, 100, f)
+regula.falsi.rec(0, 1, 1e-8, 100, f)
+
+```
 
 # Ejercicio 2
 
@@ -88,6 +345,29 @@ Para cada una de las ecuaciones anteriores, de acuerdo con los teoremas de error
 
 ## Solución
 
+a)
+```{r}
+f <- function(x) cos(x)^2 - 2*sin(x)
+biseccion(0, 1, 5*1e-5, 30, f)
+
+#Calculo con R
+raiz.a <- uniroot(f, c(0,1))$root
+sprintf("%.20f", raiz.a)  
+
+-log(5*10^-5*raiz.a)/log(2)
+```
+b)
+```{r}
+g <- function(x) -x^3 + x + 1
+biseccion(1, 2, 5 * 1e-5, 30, g)
+
+#Calculo con R
+raiz.b <- uniroot(g, c(1,2))$root
+sprintf("%.20f", raiz.b)
+
+-log(5*10^-5*raiz.b)/log(2)
+
+```
 
 
 # Ejercicio 3
@@ -106,7 +386,50 @@ Determine gráficamente un intervalo inicial $[a, b]$, con $a, b \in \mathbb{Z}$
 
 ## Solución
 
+Grafico de las funciones:
+```{r}
+library(ggplot2)
 
+f1 <- function(x) exp(x) + 4*x - 5
+f2 <- function(x) x^4 - 2*x - 1
+
+ggplot(data.frame(x = c(-3, 3)), aes(x)) +
+  stat_function(fun = f1, aes(colour = "f1(x) = exp(x)+4x-5"), size = 1.2) +
+  stat_function(fun = f2, aes(colour = "f2(x) = x^4-2x-1"), size = 1.2) +
+  geom_hline(yintercept = 0, colour = "red", linetype = "dashed") +
+  scale_colour_manual(values = c("blue", "darkgreen")) +
+  labs(y = "y", colour = "Funciones",
+       title = "Gráfico de f1 y f2 en [-3,3]") +
+  theme_minimal()
+```
+
+Con base en este grafico, es razonable determinar que f1 = 0 en el intervalo [0,1], y que f2 = 0 en el intervalo [1,2] y en [-1,0]
+
+
+a)
+```{r}
+biseccion(0,1,1e-4,30,f1)
+
+#Calculo con R
+raiz.a <- uniroot(f1,c(0,1))$root
+sprintf("%.20f", raiz.a)  
+```
+b)
+```{r}
+#Raiz en intervalo [1,2]
+biseccion(1,2,1e-4,30,f2)$valor
+
+#Calculo con R
+raiz.b.1 <- uniroot(f2,c(1,2))$root
+sprintf("%.20f", raiz.b.1)
+
+#Raiz en intervalo [-1,0]
+biseccion(-1,0,1e-4,30,f2)$valor
+
+#Calculo con R
+raiz.b.2 <- uniroot(f2,c(-1,0))$root
+sprintf("%.20f", raiz.b.2)
+```
 
 # Ejercicio 4
 
@@ -122,6 +445,31 @@ b) $e^x = 3x$
 
 ## Solución
 
+```{r}
+f1 <- function(x) exp(-x) - x
+f1.f <- function(x) exp(-x)
+f2 <- function(x) exp(x) - 3*x
+f2.f <- function(x) exp(x)/3
+```
+
+a)
+```{r}
+punto.fijo(0.5, 1e-5, 18, f1.f)
+
+
+#Calculo con R
+pto.fijo.a <- uniroot(f1, c(0,1))$root
+sprintf("%.20f", pto.fijo.a)
+
+```
+b)
+```{r}
+punto.fijo(0.5, 1e-5, 30, f2.f)
+
+#Calculo con R
+pto.fijo.b <- uniroot(f2, c(0,1))$root
+sprintf("%.20f", pto.fijo.b)
+```
 
 
 # Ejercicio 5
@@ -134,7 +482,23 @@ Repita el ejercicio anterior usando el método de Steffensen.
 
 ## Solución
 
+a)
+```{r}
+steffensen(0.5, 1e-5, 30, f1.f)
 
+#Calculo con R
+pto.fijo.a <- uniroot(f1, c(0,1))$root
+sprintf("%.20f", pto.fijo.a)
+
+```
+b)
+```{r}
+steffensen(0.5, 1e-5, 30, f2.f)
+
+#Calculo con R
+pto.fijo.b <- uniroot(f2, c(0,1))$root
+sprintf("%.20f", pto.fijo.b)
+```
 
 # Ejercicio 6
 
@@ -150,6 +514,36 @@ b) $x - \cos(x) = 0$
 
 ## Solución
 
+```{r}
+g1 <- function(x) 3*x^2 - exp(x)
+g1.g <- function(x) (sqrt(3)/3) * exp(x/2)
+g2 <- function(x) x - cos(x)
+g2.g <- function(x) cos(x)
+```
+
+a)
+```{r}
+punto.fijo(0.5, 1e-8, 30, g1.g)
+
+#Calculo con R
+pto.fijo.a <- uniroot(g1, c(0,1))$root
+sprintf("%.20f", pto.fijo.a)
+```
+
+b)
+```{r}
+punto.fijo(0.5, 1e-8, 60, g2.g)
+
+#Calculo con R
+pto.fijo.b <- uniroot(g2, c(0,1))$root
+sprintf("%.20f", pto.fijo.b)
+```
+c)
+```{r}
+g <- function(x) sqrt(x + 2)
+
+punto.fijo(3.5,1e-8, 60,g)
+```
 
 # Ejercicio 7
 
@@ -165,7 +559,35 @@ b) $4\sin(x) = e^x$
 
 ## Solución
 
+```{r}
+f1 <- function(x) cos(x) - x^2
+df1 <- function(x) -sin(x) - 2*x
+f2 <- function(x) exp(x) - 4*sin(x)
+df2 <- function(x) exp(x) -4*cos(x)
+```
 
+a)
+```{r}
+newton.raphson(0.5, 1e-4, 10, f1, df1)
+
+#Calculo con R
+raiz.a <- uniroot(f1, c(0,1))$root
+sprintf("%.20f", raiz.a)
+```
+b)
+```{r}
+newton.raphson(0.5, 1e-4, 10, f2, df2)
+
+#Calculo con R
+raiz.b.1 <- uniroot(f2, c(0,1))$root
+sprintf("%.20f", raiz.b.1)
+
+newton.raphson(1.5, 1e-4, 10, f2, df2)
+
+#Calculo con R
+raiz.b.2 <- uniroot(f2, c(1,2))$root
+sprintf("%.20f", raiz.b.2)
+```
 
 # Ejercicio 8
 
@@ -177,7 +599,35 @@ Repita el ejercicio anterior usando el procedimiento `Secante`, y compare los re
 
 ## Solución
 
+```{r}
+f1 <- function(x) cos(x) - x^2
+df1 <- function(x) -sin(x) - 2*x
+f2 <- function(x) exp(x) - 4*sin(x)
+df2 <- function(x) exp(x) -4*cos(x)
+```
 
+a)
+```{r}
+secante(0,1,1e-4,10,f1)
+
+#Calculo con R
+raiz.a <- uniroot(f1, c(0,1))$root
+sprintf("%.20f", raiz.a)
+```
+b)
+```{r}
+secante(0,1, 1e-4, 10, f2)
+
+#Calculo con R
+raiz.b.1 <- uniroot(f2, c(0,1))$root
+sprintf("%.20f", raiz.b.1)
+
+secante(1,2, 1e-4, 10, f2)
+
+#Calculo con R
+raiz.b.2 <- uniroot(f2, c(1,2))$root
+sprintf("%.20f", raiz.b.2)
+```
 
 # Ejercicio 9
 
@@ -252,7 +702,33 @@ b) $x^3 + 2x - 1 = 0$
 
 ## Solución
 
+```{r}
+f1 <- function(x) log(1 + x) - x^2
+f2 <- function(x) x^3 + 2*x - 1
+```
+a)
+```{r}
+regula.falsi(-0.5, 0.5, 1e-6, 100, f1)
 
+#Calculo con R
+raiz.a.1 <- uniroot(f1, c(-0.5,0.5))$root
+sprintf("%.20f", raiz.a.1)
+
+regula.falsi(0.5, 1, 1e-6, 100, f1)
+
+#Calculo con R
+raiz.a.2 <- uniroot(f1, c(0.5,1))$root
+sprintf("%.20f", raiz.a.2)
+```
+
+b)
+```{r}
+regula.falsi(0,1,1e-6, 100,f2)
+
+#Calculo con R
+raiz.b <- uniroot(f2, c(0,1))$root
+sprintf("%.20f", raiz.b)
+```
 
 # Ejercicio 13
 
@@ -380,6 +856,33 @@ $$
 
 ## Solución
 
+b)
+```{r}
+ig.espaciado <- function(a, b, tol, n, f) {
+  i <- 1
+  a.temp <- a
+  b.temp <- b
+  while (i <= n) {
+    x1 <- (2 * a.temp + b.temp) / 3
+    x2 <- (a.temp + 2 * b.temp) / 3
+    if (f(x1) > f(x2)) {
+      a.temp <- x1
+      x <- a.temp
+    }
+    else{
+      b.temp <- x2
+      x <- b.temp
+    }
+    if (abs(b.temp - a.temp) < tol) {
+      return(list("valor" = x, "iteraciones" = i))
+    }
+    i <- i + 1
+  }
+  return(NULL)
+}
+f <- function(x) x^4 - 4*x^3 +3*x^2
+f(ig.espaciado(1, 4, 1e-5, 1000, f)$valor)
+```
 
 # Ejercicio 19
 
@@ -483,6 +986,41 @@ Encuentre el mínimo.
 :::
 
 ## Solución
+
+d)
+```{r}
+dicotomico <- function(a, b, e, tol, n, f) {
+  i <- 1
+  a.temp <- a
+  b.temp <- b
+  while (i <= n) {
+    x1 <- (a.temp + b.temp - e)/2
+    x2 <- (a.temp + b.temp + e)/2
+    if(f(x1) <= f(x2)){
+      b.temp <- x2
+      x <- b.temp
+    }
+    else{
+      a.temp <- x1
+      x <- a.temp
+    }
+    if(abs(b.temp - a.temp) < tol){
+      return(list("valor" = x, "iteraciones" = i))
+    }
+    i <- i+1
+  }
+  return(NULL)
+}
+```
+
+e)
+```{r}
+f <- function(x) x^4 -4*x^3 + 3*x^2
+
+dicotomico(1, 4, 0, 1e-8, 1000, f)
+```
+
+
 
 # Ejercicio 20
 
