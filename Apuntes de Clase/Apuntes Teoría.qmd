@@ -2476,7 +2476,7 @@ La idea es encontrar una sucesión $(x_n)$ tal que $x_n \to x$ cuando $n \to \in
   y así sucesivamente hasta que $f(x_i) \approx 0$ o hasta superar el número máximo de iteraciones. El pseudocódigo se puede escribir como sigue:
 
 
-#### Algoritmo
+#### Algoritmo [Método de la Bisección]
 
 **Entrada:** $a, b, Tol$ (tolerancia), $N$, $f$  
 **Salida:** Aproximación de $x$ (cero de la ecuación) o mensaje de error
@@ -2549,6 +2549,130 @@ cat("Resultado final:", resultado, "\n")
 $\blacksquare$
 :::
 
+#### Estudio del error en el método de la bisección
 
-## Método de Newton–Raphson.
+::: {.callout-note}
+##### Teorema
+
+Sea $f \in C[a,b]$, con $f(a)f(b) < 0$. Entonces el algoritmo de la bisección produce una sucesión $(x_n)$ que aproxima a $x$, el cero de la ecuación $f(x) = 0$, con un error absoluto tal que:
+
+$$
+|x_n - x| < \frac{b - a}{2^n} \quad \text{para } n \geq 1.
+$$
+
+::: {.callout-caution collapse="true"}
+##### Prueba
+
+\begin{align*}
+|b_1 - a_1| &= |b - a| \\
+|b_2 - a_2| &= \frac{1}{2} |b - a| \\
+|b_3 - a_3| &= \frac{1}{2^2} |b - a| \\
+&\vdots \\
+|b_n - a_n| &= \frac{1}{2^{n-1}} |b - a|
+\end{align*}
+
+Como $x \in \, ]a_n, b_n[$ y $x_n = \dfrac{a_n + b_n}{2}$, se tiene que:
+
+\begin{align*}
+|x_n - x| &\leq \frac{|b_n - a_n|}{2} = \frac{1}{2} \cdot \frac{1}{2^{n-1}} |b - a| = \frac{1}{2^n}(b - a)
+\end{align*}
+
+$\blacksquare$
+:::
+:::
+::: {.callout-important collapse="true"}
+###### Observación
+
+Sea $|x_n - x| < \dfrac{b - a}{2^n} \Rightarrow \dfrac{|x_n - x|}{\frac{1}{2^n}} < b - a = k$,  
+esto implica que la sucesión $(x_n)$ es $\mathcal{O}\left( \dfrac{1}{2^n} \right)$,  
+es decir, $x_n \to x$ con rapidez $\dfrac{1}{2^n}$, lo cual es bastante rápido.
+:::
+
+::: {.callout-tip collapse="true"}
+###### Ejemplo
+
+Para $f(x) = x^3 + 4x^2 - 10$, con $a = 1$ y $b = 2$; usando (1.5), hallar el $n \in \mathbb{N}$ necesario para tener un error absoluto menor a $\varepsilon = 10^{-6}$.
+
+**Solución:**
+
+\begin{align*}
+|x_n - x| &< \frac{b - a}{2^n} < 10^{-6} \\
+\Leftrightarrow \quad 2^{-n} &< 10^{-6} \\
+\Leftrightarrow \quad -n \log 2 &< -6 \\
+\Leftrightarrow \quad n &> \frac{6}{\log 2} \\
+\Leftrightarrow \quad n &> 19.9
+\end{align*}
+
+Entonces se puede escoger $n = 20$. $\blacksquare$
+:::
+
+::: {.callout-important collapse="true"}
+###### Observación
+
+$n = 20$ fue exactamente lo que requirió el programa.
+:::
+
+### Método de Newton–Raphson
+
+El método de Newton–Raphson es uno de los más poderosos para resolver la ecuación $f(x) = 0$.  
+Si $f$ es una función de una variable y $x_0$ es una aproximación a cero de la función $f$, entonces en un vecindario de $x_0$, por la fórmula de Taylor se tiene que:
+
+$$
+f(x) \approx f(x_0) + f'(x_0)(x - x_0).
+$$
+
+Si se define $g(x) := f(x_0) + f'(x_0)(x - x_0)$, entonces el cero de la función afín $g(x)$ se puede considerar como una nueva aproximación al cero de $f(x)$, el cual denotamos por $x_1$.  
+Luego se tiene que:
+
+$$
+g(x_1) = f(x_0) + f'(x_0)(x_1 - x_0) = 0,
+$$
+
+despejando se tiene:
+
+$$
+x_1 = x_0 - \frac{f(x_0)}{f'(x_0)}.
+\tag{1.6}
+$$
+
+Geométricamente, la función afín $g(x)$ representa la recta tangente a $f(x)$ en el punto $x_0$. Esto se ilustra en la siguiente Figura.
+
+![El Método de la Secante](Imagenes/MetodoNR.png){width=400px fig-align="center"}
+
+De la Figura también se puede deducir el método de Newton–Raphson.  
+Nótese que:
+
+$$
+f'(x_i) = \frac{f(x_i) - 0}{x_i - x_{i+1}}
+$$
+
+lo cual implica que:
+
+$$
+x_i - x_{i+1} = \frac{f(x_i)}{f'(x_i)}
+$$
+
+de donde:
+
+$$
+x_{i+1} = x_i - \frac{f(x_i)}{f'(x_i)}
+$$
+
+que es la sucesión del método de Newton–Raphson.
+
+::: {.callout-important collapse="true"}
+###### Observación
+
+El método de Newton–Raphson consiste en diseñar un algoritmo que calcule la sucesión:
+
+$$
+x_n =
+\begin{cases}
+x_0 & \text{si } n = 0 \\
+x_{n-1} - \dfrac{f(x_{n-1})}{f'(x_{n-1})} & \text{si } n > 0
+\end{cases}
+$$
+:::
+
+
 ## Aceleración de la convergencia y método de Steﬀensen.

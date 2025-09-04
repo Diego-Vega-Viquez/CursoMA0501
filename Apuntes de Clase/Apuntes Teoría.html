@@ -161,8 +161,8 @@ window.Quarto = {
   <li><a href="#método-de-bisección-método-regula-falsi-y-método-de-la-secante." id="toc-método-de-bisección-método-regula-falsi-y-método-de-la-secante." class="nav-link" data-scroll-target="#método-de-bisección-método-regula-falsi-y-método-de-la-secante.">Método de bisección, método regula falsi y método de la secante.</a>
   <ul class="collapse">
   <li><a href="#método-de-la-bisección" id="toc-método-de-la-bisección" class="nav-link" data-scroll-target="#método-de-la-bisección">Método de la Bisección</a></li>
+  <li><a href="#método-de-newtonraphson" id="toc-método-de-newtonraphson" class="nav-link" data-scroll-target="#método-de-newtonraphson">Método de Newton–Raphson</a></li>
   </ul></li>
-  <li><a href="#método-de-newtonraphson." id="toc-método-de-newtonraphson." class="nav-link" data-scroll-target="#método-de-newtonraphson.">Método de Newton–Raphson.</a></li>
   <li><a href="#aceleración-de-la-convergencia-y-método-de-steﬀensen." id="toc-aceleración-de-la-convergencia-y-método-de-steﬀensen." class="nav-link" data-scroll-target="#aceleración-de-la-convergencia-y-método-de-steﬀensen.">Aceleración de la convergencia y método de Steﬀensen.</a></li>
   </ul></li>
   </ul>
@@ -191,7 +191,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Fecha de publicación</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">28 de agosto de 2025</p>
+      <p class="date">4 de septiembre de 2025</p>
     </div>
   </div>
   
@@ -3470,8 +3470,8 @@ a_2 = a_1, \quad b_2 = x_1, \quad x_2 = \dfrac{a_2 + b_2}{2},
 </span></p>
 <p>y así sucesivamente hasta que <span class="math inline">f(x_i) \approx 0</span> o hasta superar el número máximo de iteraciones. El pseudocódigo se puede escribir como sigue:</p></li>
 </ul>
-<section id="algoritmo" class="level4">
-<h4 class="anchored" data-anchor-id="algoritmo">Algoritmo</h4>
+<section id="algoritmo-método-de-la-bisección" class="level4">
+<h4 class="anchored" data-anchor-id="algoritmo-método-de-la-bisección">Algoritmo <a href="#método-de-la-bisección">Método de la Bisección</a></h4>
 <p><strong>Entrada:</strong> <span class="math inline">a, b, Tol</span> (tolerancia), <span class="math inline">N</span>, <span class="math inline">f</span><br>
 <strong>Salida:</strong> Aproximación de <span class="math inline">x</span> (cero de la ecuación) o mensaje de error</p>
 <ol type="1">
@@ -3596,10 +3596,174 @@ En la iteración 20 el valor de X es 1.36523 </code></pre>
 </div>
 </div>
 </section>
+<section id="estudio-del-error-en-el-método-de-la-bisección" class="level4">
+<h4 class="anchored" data-anchor-id="estudio-del-error-en-el-método-de-la-bisección">Estudio del error en el método de la bisección</h4>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Teorema
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">f \in C[a,b]</span>, con <span class="math inline">f(a)f(b) &lt; 0</span>. Entonces el algoritmo de la bisección produce una sucesión <span class="math inline">(x_n)</span> que aproxima a <span class="math inline">x</span>, el cero de la ecuación <span class="math inline">f(x) = 0</span>, con un error absoluto tal que:</p>
+<p><span class="math display">
+|x_n - x| &lt; \frac{b - a}{2^n} \quad \text{para } n \geq 1.
+</span></p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-131-contents" aria-controls="callout-131" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-131" class="callout-131-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math display">\begin{align*}
+|b_1 - a_1| &amp;= |b - a| \\
+|b_2 - a_2| &amp;= \frac{1}{2} |b - a| \\
+|b_3 - a_3| &amp;= \frac{1}{2^2} |b - a| \\
+&amp;\vdots \\
+|b_n - a_n| &amp;= \frac{1}{2^{n-1}} |b - a|
+\end{align*}</span></p>
+<p>Como <span class="math inline">x \in \, ]a_n, b_n[</span> y <span class="math inline">x_n = \dfrac{a_n + b_n}{2}</span>, se tiene que:</p>
+<p><span class="math display">\begin{align*}
+|x_n - x| &amp;\leq \frac{|b_n - a_n|}{2} = \frac{1}{2} \cdot \frac{1}{2^{n-1}} |b - a| = \frac{1}{2^n}(b - a)
+\end{align*}</span></p>
+<p><span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-133-contents" aria-controls="callout-133" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Observación
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-133" class="callout-133-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">|x_n - x| &lt; \dfrac{b - a}{2^n} \Rightarrow \dfrac{|x_n - x|}{\frac{1}{2^n}} &lt; b - a = k</span>,<br>
+esto implica que la sucesión <span class="math inline">(x_n)</span> es <span class="math inline">\mathcal{O}\left( \dfrac{1}{2^n} \right)</span>,<br>
+es decir, <span class="math inline">x_n \to x</span> con rapidez <span class="math inline">\dfrac{1}{2^n}</span>, lo cual es bastante rápido.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-134-contents" aria-controls="callout-134" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Ejemplo
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-134" class="callout-134-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Para <span class="math inline">f(x) = x^3 + 4x^2 - 10</span>, con <span class="math inline">a = 1</span> y <span class="math inline">b = 2</span>; usando (1.5), hallar el <span class="math inline">n \in \mathbb{N}</span> necesario para tener un error absoluto menor a <span class="math inline">\varepsilon = 10^{-6}</span>.</p>
+<p><strong>Solución:</strong></p>
+<p><span class="math display">\begin{align*}
+|x_n - x| &amp;&lt; \frac{b - a}{2^n} &lt; 10^{-6} \\
+\Leftrightarrow \quad 2^{-n} &amp;&lt; 10^{-6} \\
+\Leftrightarrow \quad -n \log 2 &amp;&lt; -6 \\
+\Leftrightarrow \quad n &amp;&gt; \frac{6}{\log 2} \\
+\Leftrightarrow \quad n &amp;&gt; 19.9
+\end{align*}</span></p>
+<p>Entonces se puede escoger <span class="math inline">n = 20</span>. <span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-135-contents" aria-controls="callout-135" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Observación
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-135" class="callout-135-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math inline">n = 20</span> fue exactamente lo que requirió el programa.</p>
+</div>
+</div>
+</div>
 </section>
 </section>
-<section id="método-de-newtonraphson." class="level2">
-<h2 class="anchored" data-anchor-id="método-de-newtonraphson.">Método de Newton–Raphson.</h2>
+<section id="método-de-newtonraphson" class="level3">
+<h3 class="anchored" data-anchor-id="método-de-newtonraphson">Método de Newton–Raphson</h3>
+<p>El método de Newton–Raphson es uno de los más poderosos para resolver la ecuación <span class="math inline">f(x) = 0</span>.<br>
+Si <span class="math inline">f</span> es una función de una variable y <span class="math inline">x_0</span> es una aproximación a cero de la función <span class="math inline">f</span>, entonces en un vecindario de <span class="math inline">x_0</span>, por la fórmula de Taylor se tiene que:</p>
+<p><span class="math display">
+f(x) \approx f(x_0) + f'(x_0)(x - x_0).
+</span></p>
+<p>Si se define <span class="math inline">g(x) := f(x_0) + f'(x_0)(x - x_0)</span>, entonces el cero de la función afín <span class="math inline">g(x)</span> se puede considerar como una nueva aproximación al cero de <span class="math inline">f(x)</span>, el cual denotamos por <span class="math inline">x_1</span>.<br>
+Luego se tiene que:</p>
+<p><span class="math display">
+g(x_1) = f(x_0) + f'(x_0)(x_1 - x_0) = 0,
+</span></p>
+<p>despejando se tiene:</p>
+<p><span class="math display">
+x_1 = x_0 - \frac{f(x_0)}{f'(x_0)}.
+\tag{1.6}
+</span></p>
+<p>Geométricamente, la función afín <span class="math inline">g(x)</span> representa la recta tangente a <span class="math inline">f(x)</span> en el punto <span class="math inline">x_0</span>. Esto se ilustra en la siguiente Figura.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Imagenes/MetodoNR.png" class="img-fluid figure-img" width="400"></p>
+<figcaption>El Método de la Secante</figcaption>
+</figure>
+</div>
+<p>De la Figura también se puede deducir el método de Newton–Raphson.<br>
+Nótese que:</p>
+<p><span class="math display">
+f'(x_i) = \frac{f(x_i) - 0}{x_i - x_{i+1}}
+</span></p>
+<p>lo cual implica que:</p>
+<p><span class="math display">
+x_i - x_{i+1} = \frac{f(x_i)}{f'(x_i)}
+</span></p>
+<p>de donde:</p>
+<p><span class="math display">
+x_{i+1} = x_i - \frac{f(x_i)}{f'(x_i)}
+</span></p>
+<p>que es la sucesión del método de Newton–Raphson.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-136-contents" aria-controls="callout-136" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Observación
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-136" class="callout-136-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>El método de Newton–Raphson consiste en diseñar un algoritmo que calcule la sucesión:</p>
+<p><span class="math display">
+x_n =
+\begin{cases}
+x_0 &amp; \text{si } n = 0 \\
+x_{n-1} - \dfrac{f(x_{n-1})}{f'(x_{n-1})} &amp; \text{si } n &gt; 0
+\end{cases}
+</span></p>
+</div>
+</div>
+</div>
+</section>
 </section>
 <section id="aceleración-de-la-convergencia-y-método-de-steﬀensen." class="level2">
 <h2 class="anchored" data-anchor-id="aceleración-de-la-convergencia-y-método-de-steﬀensen.">Aceleración de la convergencia y método de Steﬀensen.</h2>
