@@ -45,6 +45,7 @@ format:
     toc-location: left
     html-math-method: katex
     css: styles.css
+    embed-resources: true
 ---
 \newpage
 # Fundamentos de la Programación en Lenguaje R
@@ -525,7 +526,7 @@ En caso contrario, es decir, pequeños cambios en la entrada producen grandes ca
 
 \begin{align*}
 E \;&=\; \text{Error inicial.}\\
-E_n \;&=\; \text{Error luego de $n$ pasos.}
+E_n \;&=\; \text{Error luego de }n\text{ pasos.}
 \end{align*}
 :::
 
@@ -1364,7 +1365,7 @@ Vea además que
 \begin{align*}
 \Biggl(\int_{1}^{2}\!\bigl|f(x)-1\bigr|^{2}\,dx\Biggr)^{2} 
 &= \Biggl(\int_{1}^{2}\!\bigl|f(x)-f_n(x)\bigr|^{2}\,dx\Biggr)^{2} 
-\qquad\text{(pues $f_n(x)=1$ en $(1,2]$)}\\[4pt]
+\qquad\text{(pues $f_n(x)=1$ en $(1,2]$)}\\[4ex]
 &\le \Biggl(\int_{0}^{2}\!\bigl|f(x)-f_n(x)\bigr|^{2}\,dx\Biggr)^{2} 
 = \,\|f-f_n\|_{1}\;\xrightarrow[n\to\infty]{}\;0 .
 \end{align*}
@@ -2637,7 +2638,7 @@ $$
 
 Geométricamente, la función afín $g(x)$ representa la recta tangente a $f(x)$ en el punto $x_0$. Esto se ilustra en la siguiente Figura.
 
-![El Método de la Secante](Imagenes/MetodoNR.png){width=400px fig-align="center"}
+![El Método de  Newton](Imagenes/MetodoNR.png){width=400px fig-align="center"}
 
 De la Figura también se puede deducir el método de Newton–Raphson.  
 Nótese que:
@@ -2674,5 +2675,708 @@ x_{n-1} - \dfrac{f(x_{n-1})}{f'(x_{n-1})} & \text{si } n > 0
 $$
 :::
 
+::: {.callout-note}
+##### Algoritmo 3 – Método de Newton–Raphson
 
+**Entrada:** $x_0$, $N$, $Tol$, $f$  
+**Salida:** La solución $x$ aproximada de la ecuación $f(x) = 0$ o mensaje de error.
+
+**Pasos:**
+
+1 $i \leftarrow 1$  
+2 Mientras $i \leq N$, hacer pasos 3–6:  
+  3 $x \leftarrow x_0 - \dfrac{f(x_0)}{f'(x_0)}$  
+  4 Si $|x - x_0| < Tol$  
+  Salida $(x)$  
+  Parar  
+   5 $i \leftarrow i + 1$  
+   6 $x_0 \leftarrow x$  
+7 Salida (“Número máximo de iteraciones excedido”)  
+ Parar
+:::
+
+El método de Newton–Raphson se puede implementar iterativamente en **R**.  
+Ver el archivo `Newton_Raphson.html`.
+
+::: {.callout-tip collapse="true"}
+###### Ejemplo
+
+**Ejemplo 8.** Ejecutando el programa iterativo para resolver la ecuación  
+$e^{-x} - x = 0$ con $x_0 = 1$ como aproximación inicial y una tolerancia de $\varepsilon = 10^{-6}$,  
+se obtiene la siguiente solución en el archivo `Newton_Raphson.html`.
+:::
+
+::: {.callout-note}
+##### Teorema
+
+Sea $f \in C^2[a,b]$. Si $x \in [a,b]$ con $f(x) = 0$ y $f'(x) \ne 0$, entonces existe $\varepsilon > 0$ tal que el método de Newton–Raphson:
+
+$$
+x_{n+1} := x_n - \frac{f(x_n)}{f'(x_n)}
+$$
+
+genera una sucesión que está bien definida y converge a $x$ cuando $n \to \infty$, para todo $x_0 \in [x - \varepsilon, x + \varepsilon]$.
+
+::: {.callout-caution collapse="true"}
+##### Prueba
+
+Sea
+
+$$
+g(x) := x - \frac{f(x)}{f'(x)}.
+$$
+
+Nótese que si $\tilde{x} \in [a,b]$ con $f(\tilde{x}) = 0$, entonces $g(\tilde{x}) \in [a,b]$ y $g(\tilde{x}) = \tilde{x}$.
+
+Se define:
+
+$$
+p_n := \begin{cases}
+p_0 & \text{si } n = 0 \\
+g(p_{n-1}) & \text{si } n \geq 1
+\end{cases}
+$$
+
+Es claro que la $(p_n)$ es la sucesión de Newton–Raphson, entonces basta probar que $g$ cumple las hipótesis del Teorema de punto fijo de Banach, a saber:
+
+$$
+\exists \, \varepsilon > 0 \text{ y } q \in ]0,1[ \text{ tal que } \forall x \in [\tilde{x} - \varepsilon, \tilde{x} + \varepsilon] \Rightarrow |g'(x)| \leq q < 1,
+$$
+
+y que $g$ mapea el intervalo $[\tilde{x} - \varepsilon, \tilde{x} + \varepsilon]$ en sí mismo.
+
+Como $f'(\tilde{x}) \ne 0$ y $f'$ es continua, se tiene que existe un $\varepsilon_1 > 0$ tal que $f'(x) \ne 0$ para todo $x \in [\tilde{x} - \varepsilon_1, \tilde{x} + \varepsilon_1] \subset [a,b]$,  
+de esta manera $g$ está definida y es continua en $[\tilde{x} - \varepsilon_1, \tilde{x} + \varepsilon_1]$.  
+También lo está:
+
+$$
+g'(x) = \frac{f(x) f''(x)}{[f'(x)]^2} \quad \text{para todo } x \in [\tilde{x} - \varepsilon_1, \tilde{x} + \varepsilon_1].
+$$
+
+Como $f \in C^2[a,b]$, entonces $g \in C^1[\tilde{x} - \varepsilon_1, \tilde{x} + \varepsilon_1]$.  
+Como por hipótesis $f(\tilde{x}) = 0$, entonces:
+
+$$
+g'(\tilde{x}) = \frac{f(\tilde{x}) f''(\tilde{x})}{[f'(\tilde{x})]^2} = 0.
+$$
+
+Luego, como $g'$ es continua, esto implica que para cualquier constante $q < 1$ existe un $\varepsilon$, con $0 < \varepsilon < \varepsilon_1$, tal que:
+
+$$
+|g'(x)| \leq q < 1 \quad \text{para todo } x \in [\tilde{x} - \varepsilon, \tilde{x} + \varepsilon].
+$$
+
+Solo falta probar que $g : [\tilde{x} - \varepsilon, \tilde{x} + \varepsilon] \to [\tilde{x} - \varepsilon, \tilde{x} + \varepsilon]$,  
+pero si $x \in [\tilde{x} - \varepsilon, \tilde{x} + \varepsilon]$, por el Teorema del Valor Medio para algún $\xi$ entre $x$ y $\tilde{x}$ se tiene que:
+
+$$
+|g(x) - g(\tilde{x})| = |g'(\xi)||x - \tilde{x}|,
+$$
+
+entonces:
+
+$$
+|g(x) - \tilde{x}| = |g(x) - g(\tilde{x})| = |g'(\xi)| \cdot |x - \tilde{x}| \leq q \cdot |x - \tilde{x}| < |x - \tilde{x}|.
+\tag{1.7}
+$$
+
+Como $x \in [\tilde{x} - \varepsilon, \tilde{x} + \varepsilon]$, entonces $|x - \tilde{x}| < \varepsilon$,  
+y luego por (1.7) se tiene que $|g(x) - \tilde{x}| < \varepsilon$,  
+lo cual implica que $g(x) \in [\tilde{x} - \varepsilon, \tilde{x} + \varepsilon]$,  
+con lo que se prueba que $g : [\tilde{x} - \varepsilon, \tilde{x} + \varepsilon] \to [\tilde{x} - \varepsilon, \tilde{x} + \varepsilon]$.
+
+$\blacksquare$
+:::
+:::
+
+::: {.callout-tip collapse="true"}
+###### Ejemplo
+
+**Ejemplo 9.** Hallar un método para calcular $\sqrt{A}$, con $A \geq 0$.
+
+**Solución:** Probaremos que la sucesión $(x_n)$ definida por  
+$x_{n+1} = \dfrac{1}{2} \left( x_n + \dfrac{A}{x_n} \right)$  
+converge a $\sqrt{A}$.  
+
+Nótese que calcular $\sqrt{A}$ es equivalente a resolver la ecuación:
+
+$$
+x^2 - A = 0,
+$$
+
+usando el método de Newton–Raphson con $f(x) = x^2 - A$ y $f'(x) = 2x$, se tiene que:
+
+\begin{align*}
+x_{n+1} &= x_n - \frac{f(x_n)}{f'(x_n)} \\
+        &= x_n - \frac{x_n^2 - A}{2x_n} \\
+        &= \frac{1}{2} \left( x_n + \frac{A}{x_n} \right).
+\end{align*}
+
+De donde es claro que la sucesión $x_n \to \sqrt{A}$ cuando $n \to \infty$. $\blacksquare$
+:::
+
+### Método de la Secante
+
+El problema con el método de Newton–Raphson es que requiere la derivada de $f(x)$,  
+la cual en muchos casos no se tiene.  
+
+La idea del método de la secante es usar una aproximación para esta derivada,  
+como se ilustra en la Figura 1.5.
+
+![El Método de la Secante](Imagenes/MetodoSecante.png){width=400px fig-align="center"}
+
+La deducción del método es la siguiente:
+
+$$
+f'(x_{n-1}) = \lim_{x \to x_{n-1}} \frac{f(x) - f(x_{n-1})}{x - x_{n-1}} \approx \frac{f(x_{n-2}) - f(x_{n-1})}{x_{n-2} - x_{n-1}}.
+\tag{1.8}
+$$
+
+Si en el método de Newton–Raphson $x_n = x_{n-1} - \dfrac{f(x_{n-1})}{f'(x_{n-1})}$ sustituimos $f'(x_{n-1})$ por la aproximación dada en (1.8), se tiene que:
+
+$$
+x_n \approx x_{n-1} - \frac{f(x_{n-1})}{\dfrac{f(x_{n-2}) - f(x_{n-1})}{x_{n-2} - x_{n-1}}},
+$$
+
+simplificando se obtiene el Método de la Secante:
+
+$$
+x_n \approx x_{n-1} - \frac{(x_{n-2} - x_{n-1}) f(x_{n-1})}{f(x_{n-2}) - f(x_{n-1})}.
+$$
+
+Entonces el método de la secante consiste en calcular la sucesión $(x_n)$ definida por:
+
+$$
+x_n =
+\begin{cases}
+x_0 & \text{si } n = 0 \\
+x_1 & \text{si } n = 1 \\
+x_{n-1} - \dfrac{(x_{n-2} - x_{n-1}) f(x_{n-1})}{f(x_{n-2}) - f(x_{n-1})} & \text{si } n \geq 2
+\end{cases}
+$$
+
+::: {.callout-note}
+##### Algoritmo 4 – Método de la Secante
+
+**Entrada:** $N$, $Tol$, $x_0$, $x_1$  
+**Salida:** Aproximación de $x$, con $f(x) = 0$, o mensaje de error.
+
+ Paso 1. $i \leftarrow 2$  
+
+  Paso 2. Mientras $i \leq N$, hacer pasos 3–6:
+
+  Paso 3. $x \leftarrow x_1 - \dfrac{(x_0 - x_1)f(x_1)}{f(x_0) - f(x_1)}$
+
+  Paso 4. Si $|x - x_0| < Tol$  
+
+    Salida $(x)$  
+
+   Parar  
+
+  Paso 5. $x_0 \leftarrow x_1$ 
+
+     $x_1 \leftarrow x$  
+  Paso 6. $i \leftarrow i + 1$  
+  Paso 7. Salida (“Número máximo de iteraciones excedido”)  
+ Parar
+:::
+
+Una implementación iterativa y otra recursiva en **R** se pueden ver en el archivo `secante.html`.
+
+::: {.callout-tip collapse="true"}
+###### Ejemplo
+
+**Ejemplo 10.** Ejecutando el programa iterativo para resolver la ecuación  
+$e^{-x} - x = 0$ con $x_0 = 1$ y $x_1 = \dfrac{1}{2}$ como aproximaciones iniciales  
+y con una tolerancia de $\varepsilon = 10^{-6}$, se obtienen las siguientes soluciones  
+en el archivo `secante.html`.
+:::
+
+::: {.callout-note}
+##### Teorema
+
+Sea $f$ una función de clase $C^2[a,b]$ con $a < b$.  
+Si existe un punto $x$ tal que $f(x) = 0$ y $f'(x) \ne 0$,  
+entonces existe un número $\varepsilon > 0$ tal que si $x_0$ y $x_1$ están dentro del intervalo $[x - \varepsilon, x + \varepsilon]$,  
+la sucesión generada por el método de la secante
+
+$$
+x_n = x_{n-1} - \frac{(x_{n-2} - x_{n-1}) f(x_{n-1})}{f(x_{n-2}) - f(x_{n-1})}
+$$
+
+está bien definida dentro del intervalo $[x - \varepsilon, x + \varepsilon]$  
+y converge a $x$ (cero de la ecuación $f(x) = 0$).
+:::
+
+::: {.callout-caution collapse="true"}
+##### Prueba
+
+Ejercicio. $\blacksquare$
+:::
+
+### Orden de convergencia
+
+::: {.callout-note}
+##### Definición
+
+Sea $(x_n)$ una sucesión que converge a $x$, se denota $e_n := x_n - x$ para $n \geq 0$.  
+Si existen constantes $\alpha$ y $\lambda$ positivas, tal que:
+
+$$
+\lim_{n \to \infty} \frac{|x_{n+1} - x|}{|x_n - x|^\alpha} = 
+\lim_{n \to \infty} \frac{|e_{n+1}|}{|e_n|^\alpha} = \lambda,
+$$
+
+entonces se dice que la sucesión $(x_n)$ converge a $x$ con **orden $\alpha$**  
+y con **constante asintótica** $\lambda$.
+:::
+
+::: {.callout-important collapse="true"}
+###### Observación
+
+- Entre mayor sea el orden de convergencia, o sea entre mayor sea $\alpha$, mayor será la “velocidad” de convergencia.
+- Si $\alpha = 1$, se dice que el método tiene **orden lineal**.
+- Si $\alpha = 2$, se dice que el método tiene **orden cuadrático**.
+:::
+
+::: {.callout-tip collapse="true"}
+###### Ejemplo
+
+Suponga que tenemos dos esquemas (sucesiones) $x_n$ y $\tilde{x}_n$ tal que:
+
+- $\displaystyle \lim_{n \to \infty} \frac{|e_{n+1}|}{|e_n|} = 0.75$ (método lineal),
+- $\displaystyle \lim_{n \to \infty} \frac{|\tilde{e}_{n+1}|}{|\tilde{e}_n|^2} = 0.75$ (método cuadrático),
+- Se supone además que $e_0 = 0.5$ y $\tilde{e}_0 = 0.5$.
+
+**¿Cuántas iteraciones requieren $x_n$ y $\tilde{x}_n$ para converger con un error absoluto menor a $10^{-8}$?**
+
+**Solución:**
+
+**1. Analicemos primero la sucesión (esquema) $x_n$:**
+
+\begin{align*}
+|x_{n+1} - x| < 10^{-8} &\Leftrightarrow |e_{n+1}| < 10^{-8} \\
+\text{Pero } \frac{|e_{n+1}|}{|e_n|} &\approx 0.75 \Rightarrow |e_{n+1}| \approx 0.75 |e_n| \approx 0.75^2 |e_{n-1}| \approx \cdots \\
+&\approx 0.75^n |e_0| = 0.75^n \cdot 0.5 \\
+\Rightarrow |e_{n+1}| < 10^{-8} &\Leftrightarrow 0.75^n \cdot 0.5 < 10^{-8} \\
+\Leftrightarrow \log(0.75^n \cdot 0.5) &< \log(10^{-8}) \\
+n \log(0.75) + \log(0.5) &< -8 \\
+n &> \frac{-8 - \log(0.5)}{\log(0.75)} \approx 61.62
+\end{align*}
+
+Se puede tomar $n = 62$, por lo tanto $x_n$ requiere aproximadamente **62 iteraciones** para converger a $x$.
+
+---
+
+**2. Analicemos ahora la sucesión $\tilde{x}_n$:**
+
+\begin{align*}
+|\tilde{x}_{n+1} - x| < 10^{-8} &\Leftrightarrow |\tilde{e}_{n+1}| < 10^{-8} \\
+\text{Pero } \frac{|\tilde{e}_{n+1}|}{|\tilde{e}_n|^2} &\approx 0.75 \Rightarrow |\tilde{e}_{n+1}| \approx 0.75 |\tilde{e}_n|^2 \\
+&\approx 0.75 \left[ 0.75 |\tilde{e}_{n-1}|^2 \right]^2 = 0.75^3 |\tilde{e}_{n-1}|^4 \\
+&\approx 0.75^3 \left[ 0.75 |\tilde{e}_{n-2}|^2 \right]^4 = 0.75^7 |\tilde{e}_{n-2}|^8 \\
+&\approx \cdots \approx 0.75^{2^n - 1} |\tilde{e}_0|^{2^n}
+\end{align*}
+de donde
+\begin{align*}
+|\tilde{e}_{n+1}| &< 10^{-8} \\
+0.75^{2^{n+1}-1} |\tilde{e}_0|^{2^{n+1}} &< 10^{-8} \\
+0.75^{2^{n+1}-1} \cdot 0.5^{2^{n+1}} &< 10^{-8} \\
+0.75^{-1} \cdot 0.375^{2^{n+1}} &< 10^{-8} \\
+2^{n+1} \log(0.375) &< -8 + \log(0.75) \\
+2^{n+1} &> \frac{-8 + \log(0.5)}{\log(0.375)} \\
+(n + 1) \log(2) &> \log(19.07) \\
+n &> \frac{\log(19.07)}{\log(2)} - 1 \approx 3.24
+\end{align*}
+
+Luego $n = 4$, por lo que $\tilde{x}_n$ requiere solamente de **4 iteraciones** para converger a $x$, mientras que el esquema lineal requirió aproximadamente **62 iteraciones** para converger a $x$.
+
+$\blacksquare$
+
+:::
+
+::: {.callout-note}
+##### Teorema
+
+Sea $x_n = \begin{cases}
+x_0 & \text{si } n = 0 \\
+g(x_{n-1}) & \text{si } n \geq 1
+\end{cases}$ el esquema (la sucesión) de punto fijo visto en la sección 1.1.  
+
+Si además se supone que:
+
+- $g : [a,b] \to [a,b]$
+- $g \in C^2[a,b]$
+- Existe $q$ tal que $0 \leq q < 1$ y $|g'(x)| \leq q < 1$ para todo $x \in ]a,b[$
+- $g'(x) \ne 0$ para el punto fijo de $g$
+
+Entonces $(x_n)$ converge al menos **linealmente a $x$**, cuando $n \to \infty$.
+:::
+
+::: {.callout-caution collapse="true"}
+##### Prueba
+
+\begin{align*}
+|e_{n+1}| &= |x_{n+1} - x| = |g(x_n) - g(x)| = |g'(\xi_n)(x_n - x)| = |g'(\xi_n)||e_n|
+\end{align*}
+
+con $\xi_n$ entre $x_n$ y $x$.  
+Como $x_n \to x$ cuando $n \to \infty$, y $\xi_n$ está entre $x_n$ y $x$, entonces la sucesión $(\xi_n)$ también converge a $x$ cuando $n \to \infty$.  
+
+Luego:
+
+$$
+\lim_{n \to \infty} \frac{|e_{n+1}|}{|e_n|} 
+= \lim_{n \to \infty} |g'(\xi_n)| 
+= |g'\left( \lim_{n \to \infty} \xi_n \right)| = |g'(x)|
+$$
+
+Por lo tanto:
+
+$$
+\lim_{n \to \infty} \frac{|e_{n+1}|}{|e_n|} = g'(x) := \lambda < 1,
+$$
+
+de donde la convergencia es lineal.  
+$\blacksquare$
+:::
+
+::: {.callout-note}
+##### Teorema
+
+Sea $\tilde{x}$ un punto fijo de $g$, además $g'(\tilde{x}) = 0$, $g''$ es continua en un intervalo abierto $I$ que contiene a $x$ y $g''(\tilde{x}) \ne 0$.  
+Entonces existe $\epsilon > 0$ tal que para $x_0 \in [\tilde{x} - \epsilon, \tilde{x} + \epsilon]$ la sucesión  
+$x_n = \begin{cases}
+x_0 & \text{si } n = 0 \\
+g(x_{n-1}) & \text{si } n \geq 1
+\end{cases}$  
+converge al menos **cuadráticamente** a $\tilde{x}$.
+
+::: {.callout-caution collapse="true"}
+##### Prueba
+
+Escoja $\epsilon$ tal que el intervalo $[\tilde{x} - \epsilon, \tilde{x} + \epsilon]$ esté contenido en $I$,  
+$|g'(x)| \leq q < 1$ y $g''$ sea continua.  
+
+Como $|g'(x)| \leq q < 1$, se tiene que los términos de la sucesión $(x_n)$ están contenidos en $[\tilde{x} - \epsilon, \tilde{x} + \epsilon]$.  
+
+Expandiendo $g(x)$ en su polinomio de Taylor para $x \in [\tilde{x} - \epsilon, \tilde{x} + \epsilon]$, se tiene que:
+
+\begin{align*}
+g(x) &= g(\tilde{x}) + g'(\tilde{x})(x - \tilde{x}) + \frac{g''(\xi)}{2}(x - \tilde{x})^2
+\end{align*}
+
+con $\xi$ entre $x$ y $\tilde{x}$. Por hipótesis $g(\tilde{x}) = \tilde{x}$ y $g'(\tilde{x}) = 0$, esto implica que:
+
+\begin{align*}
+g(x) = \tilde{x} + \frac{g''(\xi)}{2}(x - \tilde{x})^2
+\end{align*}
+
+En particular si se toma $x = x_n$, entonces:
+
+\begin{align*}
+x_{n+1} = g(x_n) = \tilde{x} + \frac{g''(\xi_n)}{2}(x_n - \tilde{x})^2
+\end{align*}
+
+con $\xi_n$ entre $x_n$ y $\tilde{x}$. Luego:
+
+\begin{align}
+x_{n+1} - \tilde{x} = \frac{g''(\xi_n)}{2}(x_n - \tilde{x})^2 \tag{1.9}
+\end{align}
+
+Como $|g'(x)| \leq q < 1$ y $g$ mapea $[\tilde{x} - \epsilon, \tilde{x} + \epsilon]$ en sí mismo, es claro que $(x_n)$ converge a $\tilde{x}$ punto fijo de $g$,  
+entonces como $\xi_n$ está entre $x_n$ y $\tilde{x}$, la sucesión $(\xi_n)$ converge también a $\tilde{x}$.  
+Luego usando (1.9) se deduce que:
+
+\begin{align*}
+\lim_{n \to \infty} \frac{|x_{n+1} - \tilde{x}|}{|x_n - \tilde{x}|^2}
+= \left| \frac{g''(\xi_n)}{2} \right| = \frac{|g''(\tilde{x})|}{2} = \lambda \ne 0
+\end{align*}
+
+Entonces la sucesión $(x_n)$ converge cuadráticamente a $\tilde{x}$.  
+$\blacksquare$
+:::
+:::
+
+
+::: {.callout-note}
+##### Corolario
+
+Sea $f \in C^3[a,b]$. Si $\tilde{x} \in [a,b]$ con $f(\tilde{x}) = 0$, $f'(\tilde{x}) \ne 0$ y $f''(\tilde{x}) \ne 0$,  
+entonces existe $\epsilon > 0$ tal que el método de Newton–Raphson:
+
+$$
+x_{n+1} := x_n - \frac{f(x_n)}{f'(x_n)}
+$$
+
+genera una sucesión que **converge al menos cuadráticamente a $\tilde{x}$** cuando $n \to \infty$,  
+para todo $x_0 \in [\tilde{x} - \epsilon, \tilde{x} + \epsilon]$.
+:::
+
+::: {.callout-note}
+##### Corolario
+
+Sea $f \in C^3[a,b]$.  
+Si $\tilde{x} \in [a,b]$ con $f(\tilde{x}) = 0$, $f'(\tilde{x}) \ne 0$ y $f''(\tilde{x}) \ne 0$,  
+entonces existe $\epsilon > 0$ tal que el método de Newton–Raphson:
+
+$$
+x_{n+1} := x_n - \frac{f(x_n)}{f'(x_n)}
+$$
+
+genera una sucesión que converge al menos cuadráticamente a $\tilde{x}$  
+cuando $n \to \infty$, para todo $x_0 \in [\tilde{x} - \epsilon, \tilde{x} + \epsilon]$.
+
+
+::: {.callout-caution collapse="true"}
+##### Prueba
+
+La convergencia de $(x_n)$ se demostró en el teorema anterior.  
+Usando el teorema anterior se concluye el corolario, pues si se toma $g(x) := x - \frac{f(x)}{f'(x)}$  
+entonces:
+
+\begin{align*}
+g(\tilde{x}) = \tilde{x} - \frac{f(\tilde{x})}{f'(\tilde{x})} = \tilde{x} \quad \text{pues } f(\tilde{x}) = 0 \text{ y } f'(\tilde{x}) \ne 0.
+\end{align*}
+
+Además,
+
+\begin{align*}
+g'(x) &= 1 - \frac{f'(x)f'(x) - f(x)f''(x)}{(f'(x))^2} = 1 - 1 - \frac{f(x)f''(x)}{[f'(x)]^2} = -\frac{f(x)f''(x)}{[f'(x)]^2}
+\end{align*}
+
+de donde $g'(\tilde{x}) = 0$, pues $f(\tilde{x}) = 0$.
+
+Como:
+
+\begin{align*}
+g''(x) = \frac{[f'(x)]^2 f''(x) + f(x)f'(x)f^{(3)}(x) - 2f(x)[f''(x)]^2}{[f'(x)]^3}
+\end{align*}
+
+entonces:
+
+\begin{align*}
+g''(\tilde{x}) = \frac{f''(\tilde{x})}{f'(\tilde{x})} \ne 0.
+\end{align*}
+
+Es claro que $g''$ es continua en un intervalo que contiene a $\tilde{x}$ dado que $f \in C^3[a,b]$.  
+Entonces $g(x)$ cumple todas las hipótesis del teorema anterior por lo que $(x_n)$ converge cuadráticamente a $\tilde{x}$.  
+$\blacksquare$
+:::
+:::
+
+::: {.callout-note}
+##### Teorema
+
+Sea $f$ una función de clase $C^2[a,b]$.  
+Si existe un punto $\tilde{x}$ tal que $f(\tilde{x}) = 0$, $f'(\tilde{x}) \ne 0$ y $f''(\tilde{x}) \ne 0$  
+entonces existe un número $\epsilon > 0$ tal que si $x_0$ y $x_1$ están dentro del intervalo $[x - \epsilon, x + \epsilon]$  
+la sucesión generada por el método de la secante:
+
+$$
+x_n = x_{n-1} - \frac{(x_{n-2} - x_{n-1})f(x_{n-1})}{f(x_{n-2}) - f(x_{n-1})}
+$$
+
+converge a $\tilde{x}$ con orden de al menos:
+
+$$
+\frac{1 + \sqrt{5}}{2} \approx 1.618.
+$$
+
+
+::: {.callout-caution collapse="true"}
+##### Prueba
+
+(Ejercicio)  
+Sugerencias: Pruebe que
+
+\begin{align}
+|e_{n+1}| \approx C \cdot |e_n| \cdot |e_{n-1}| \tag{1.10}
+\end{align}
+
+con $C := \left| \frac{f''(\tilde{x})}{2f'(\tilde{x})} \right|$.  
+Por la definición 1 se busca una solución aproximada a la ecuación:
+
+\begin{align}
+|e_n| = \lambda |e_{n-1}|^\alpha \tag{1.11}
+\end{align}
+
+con $\lambda > 0$ y $\alpha \geq 1$.  
+Pero considerando (1.10) como una ecuación y sustituyendo en (1.11), se tiene que:
+
+\begin{align}
+\lambda |e_n|^\alpha = \lambda \lambda^\alpha |e_{n-1}|^{\alpha^2} = C \lambda |e_{n-1}|^{\alpha + 1} \tag{1.12}
+\end{align}
+
+La ecuación (1.12) es válida solamente para $n$ suficientemente grandes si:
+
+\begin{align*}
+\lambda^\alpha = C \quad \text{y} \quad \alpha^2 = \alpha + 1
+\end{align*}
+
+de donde:
+
+\begin{align*}
+\alpha = \frac{1 + \sqrt{5}}{2}, \quad \text{y} \quad \lambda = C^{1/\alpha}.
+\end{align*}
+
+$\blacksquare$
+:::
+:::
 ## Aceleración de la convergencia y método de Steﬀensen.
+
+
+### Método $\triangle^2$ de Aitken
+
+El método $\triangle^2$ de *Aitken* tiene las siguientes hipótesis:
+
+1. $(x_n)$ converge linealmente a $x$ con constante asintótica $\lambda$ tal que $0 < \lambda < 1$.
+
+2. Los signos de $x_n - x$, $x_{n+1} - x$ y $x_{n+2} - x$ son iguales.
+
+3. Se asume que para $n$ suficientemente grande:
+
+$$
+\frac{x_{n+1} - x}{x_n - x} \approx \frac{x_{n+2} - x}{x_{n+1} - x}.
+$$
+
+La idea es encontrar una sucesión $(\tilde{x}_n)$ la cual converge “más rápidamente” a $x$ que la sucesión $(x_n)$. Note que de la expresión anterior:
+
+\begin{align*}
+&\Rightarrow (x_{n+1} - x)(x_n - x) \approx (x_n - x)(x_{n+2} - x) \\
+&\Rightarrow x_{n+1}^2 - 2x_nx_{n+1} + x^2 \approx x_nx_{n+2} - xx_{n+2} - xx_n + x^2 \\
+&\Rightarrow -2x_nx_{n+1} + xx_{n+1} + xx_n \approx -x_{n+1}^2 + x_nx_{n+2} \\
+&\Rightarrow (-2x_nx_{n+1} + x_nx_{n+2} + x_nx_{n+1})x \approx -x_{n+1}^2 + x_nx_{n+2} \\
+&\Rightarrow x \approx \frac{-x_{n+1}^2 + x_nx_{n+2}}{(-2x_nx_{n+1} + x_nx_{n+2} + x_n)} \\
+&\Rightarrow x \approx \frac{x_nx_{n+2} - x_{n+1}^2}{x_{n+2} - 2x_{n+1} + x_n} \\
+&\Rightarrow x \approx \frac{x_n^2 + x_nx_{n+2} - 2x_nx_{n+1} - x_{n+1}^2 + 2x_nx_{n+1} - x_{n+1}^2}{x_{n+2} - 2x_{n+1} + x_n} \\
+&\Rightarrow x \approx \frac{x_n(x_n + x_{n+2} - 2x_{n+1}) - (x_{n+1} - x_n)^2}{x_{n+2} - 2x_{n+1} + x_n} \\
+&\Rightarrow x \approx x_n - \frac{(x_{n+1} - x_n)^2}{x_{n+2} - 2x_{n+1} + x_n}
+\end{align*}
+
+El método de $\triangle^2$ de Aitken se basa en el hecho de que la sucesión $(\tilde{x}_n)$ definida por:
+
+$$
+\tilde{x}_{n+3} := x_n - \frac{(x_{n+1} - x_n)^2}{x_{n+2} - 2x_{n+1} + x_n},
+$$
+
+bajo ciertas condiciones, converge “más rápidamente” a $x$ que la sucesión $(x_n)$.
+
+
+::: {.callout-note}
+###### Notación: Diferencia Progresiva
+
+- $\triangle(x_n) := x_{n+1} - x_n$ para $n \ge 0$.
+- $\triangle^k(x_n) := \triangle^{k-1}(\triangle x_n)$ para $k \ge 2$.
+:::
+::: {.callout-important collapse="true"}
+###### Observación
+
+Nótese que con esta notación se tiene:
+
+\begin{align*}
+\triangle^2(x_n) &= \triangle(\triangle x_n) \\
+              &= \triangle x_{n+1} - \triangle x_n \\
+              &= x_{n+2} - x_{n+1} - (x_{n+1} - x_n) \\
+              &= x_{n+2} - 2x_{n+1} + x_n.
+\end{align*}
+
+Por lo que el método $\triangle^2$ de Aitken se puede escribir como:
+
+$$
+\tilde{x}_{n+3} := x_n - \frac{(\triangle x_n)^2}{\triangle^2 x_n}.
+$$
+:::
+
+::: {.callout-note}
+##### Definición
+
+Sean $(x_n)$ y $(\tilde{x}_n)$ dos sucesiones que convergen a $x$, se dice que la sucesión $(\tilde{x}_n)$ **converge más rápido a** $x$ que la sucesión $(x_n)$ si:
+
+$$
+\lim_{n \to \infty} \frac{\tilde{x}_n - x}{x_n - x} = 0.
+$$
+:::
+
+::: {.callout-note}
+##### Teorema
+
+Sea $(x_n)$ una sucesión que converge a $x$ con orden lineal con constante asintótica $\lambda < 1$, además se asume que $e_n = x_n - x \ne 0$ para todo $n$. Entonces la sucesión $(\tilde{x}_n)$, definida como en (1.14), converge a $x$ más rápido que $(x_n)$.
+:::
+
+::: {.callout-caution collapse="true"}
+##### Prueba
+
+Ejercicio. $\blacksquare$
+:::
+
+### El método de Steffensen
+
+Por el Teorema 8 la sucesión de aproximaciones sucesivas $(x_n)$ converge linealmente a $x$, cuando $n \to \infty$ con constante asintótica $\lambda < 1$, entonces tiene sentido aplicar el método $\triangle^2$ de Aitken a esta sucesión. Es así como una combinación entre el método de aproximaciones sucesivas y el método $\triangle^2$ de Aitken produce un método conocido como el **Método de Steffensen**, el cual consiste en calcular la sucesión:
+
+$$
+x_{n+1} := x_n - \frac{[g(x_n) - x_n]^2}{g(g(x_n)) - 2g(x_n) + x_n}.
+$$
+
+Algorítmicamente, el Método de Steffensen para acelerar el método de punto fijo se puede expresar de la siguiente manera. Sea $x_0$ la aproximación inicial en el método de punto fijo, entonces se toma:
+
+\begin{align*}
+x_0^{(0)} &= x_0 \\
+x_1^{(0)} &= g\left(x_0^{(0)}\right) \\
+x_2^{(0)} &= g\left(x_1^{(0)}\right) \\
+x_0^{(1)} &= \Delta^2\left(x_0^{(0)}\right) = x_0^{(0)} - \frac{\left(x_1^{(0)} - x_0^{(0)}\right)^2}{x_2^{(0)} - 2x_1^{(0)} + x_0^{(0)}} \\
+x_1^{(1)} &= g\left(x_0^{(1)}\right) \\
+x_2^{(1)} &= g\left(x_1^{(1)}\right) \\
+x_0^{(2)} &= \Delta^2\left(x_0^{(1)}\right) = x_0^{(1)} - \frac{\left(x_1^{(1)} - x_0^{(1)}\right)^2}{x_2^{(1)} - 2x_1^{(1)} + x_0^{(1)}} \\
+\vdots &
+\end{align*}
+
+
+::: {.callout-note}
+##### Algoritmo [Método de Steffensen]
+
+**Entrada**: $N$, $Tol$, $x_0$, $g$  
+**Salida**: Aproximación de $x$ o mensaje de error
+
+\begin{align*}
+&\text{Paso 1. } i \gets 2 \\
+&\text{Paso 2. Mientras } i \leq N, \text{ siga los pasos 3–6} \\
+&\quad \text{Paso 3. } x_1 = g(x_0), \quad x_2 = g(x_1) \\
+&\qquad x = x_0 - \frac{(x_1 - x_0)^2}{x_2 - 2x_1 + x_0} \\
+&\quad \text{Paso 4. Si } |x - x_0| < Tol \\
+&\qquad \text{Salida } (x) \\
+&\qquad \text{Parar} \\
+&\quad \text{Paso 5. } i \gets i + 1 \\
+&\quad \text{Paso 6. } x_0 \gets x \\
+&\text{Paso 7. Salida (``Número máximo de iteraciones excedido'')} \\
+&\text{Parar}
+\end{align*}
+
+Este algoritmo se puede programar iterativamente y recursivamente en **R**, como se muestra en el archivo `steffensen.html`.
+:::
+
+::: {.callout-tip collapse="true"}
+###### Ejemplo
+
+Resolver la ecuación $x^3 - x - 1 = 0$ en el intervalo $[1, 2]$ con $\epsilon = 10^{-5}$.
+
+**Solución**: Como se mostró en el ejemplo 3, utilizando $g(x) = \sqrt{1 + \frac{1}{x}}$, el método de punto fijo requirió de 9 iteraciones, con $x_0 = 2$, para resolver esta ecuación, con una tolerancia de $\epsilon = 10^{-5}$, mientras que el Método de Steffensen requiere solamente de 3 iteraciones, como se muestra en el archivo `steffensen.html`. $\blacksquare$
+:::
+::: {.callout-note}
+##### Teorema
+
+Si el método de punto fijo $x_{n+1} = g(x_n)$ converge linealmente, entonces el orden de convergencia del método de Steffensen es al menos dos.
+:::
+
+::: {.callout-caution collapse="true"}
+##### Prueba
+
+(Ejercicio) Suponga que $g(x)$ es un número suficientemente de veces derivable, luego pruebe que:
+
+$$
+\lim_{n \to \infty} \frac{|x_{n+1} - \widetilde{x}|}{|x_n - \widetilde{x}|^2} 
+= \frac{1}{2} \left| \frac{g'(\widetilde{x})g''(\widetilde{x})}{g'(\widetilde{x}) - 1} \right| := \lambda \neq 0.
+$$
+
+$\blacksquare$
+:::
