@@ -1,5 +1,5 @@
 ---
-title: "MA0501 – Tarea 2"
+title: "MA0501 – Tarea 3"
 author: 
   - name: "Diego Alberto Vega Víquez - C38367" 
     email: "diegovv13@gmail.com"
@@ -72,6 +72,7 @@ y el método Regula–Falsi que se describe en el ejercicio 11.
 
 **Metodo de punto fijo**
 ```{r}
+#| code-fold: true
 punto.fijo <- function(p0, tol, n, g) {
   i <- 1
   p0_temp <- p0
@@ -108,6 +109,7 @@ punto.fijo.rec(1, 1e-8, 20, f1)
 ```
 **Método de bisección**
 ```{r}
+#| code-fold: true
 biseccion <- function(a, b, tol, n, g) {
   i <- 1
   a1 <- a
@@ -163,6 +165,7 @@ biseccion.rec(0, 1, 1e-8, 100, f)
 
 **Método de Newton-Raphson**
 ```{r}
+#| code-fold: true
 newton.raphson <- function(x0, tol, n, f, df) {
   i <- 1
   x0_temp <- x0
@@ -202,6 +205,7 @@ newton.raphson.rec(0.5, 1e-8, 100, f, df)
 
 **Método de la secante**
 ```{r}
+#| code-fold: true
 secante <- function(x0, x1, tol, n, f) {
   i <- 2
   x0.temp <- x0
@@ -240,6 +244,7 @@ secante.rec(0, 1, 1e-8, 100, g)
 ```
 **Método de Steffensen**
 ```{r}
+#| code-fold: true
 steffensen <- function(x0, tol, n, f) {
   i <- 2
   x0.temp <- x0
@@ -280,6 +285,7 @@ steffensen.rec(1, 1e-8, 100, f1)
 ```
 **Método Regula Falsi**
 ```{r}
+#| code-fold: true
 regula.falsi <- function(a,b, tol, n, f){
   i <- 1
   a.temp <- a
@@ -347,6 +353,7 @@ Para cada una de las ecuaciones anteriores, de acuerdo con los teoremas de error
 
 a)
 ```{r}
+#| code-fold: true
 f <- function(x) cos(x)^2 - 2*sin(x)
 biseccion(0, 1, 5*1e-5, 30, f)
 
@@ -358,6 +365,7 @@ sprintf("%.20f", raiz.a)
 ```
 b)
 ```{r}
+#| code-fold: true
 g <- function(x) -x^3 + x + 1
 biseccion(1, 2, 5 * 1e-5, 30, g)
 
@@ -388,6 +396,9 @@ Determine gráficamente un intervalo inicial $[a, b]$, con $a, b \in \mathbb{Z}$
 
 Grafico de las funciones:
 ```{r}
+#| code-fold: true
+#| warning: false
+#| message: false
 library(ggplot2)
 
 f1 <- function(x) exp(x) + 4*x - 5
@@ -408,6 +419,7 @@ Con base en este grafico, es razonable determinar que f1 = 0 en el intervalo [0,
 
 a)
 ```{r}
+#| code-fold: true
 biseccion(0,1,1e-4,30,f1)
 
 #Calculo con R
@@ -416,6 +428,7 @@ sprintf("%.20f", raiz.a)
 ```
 b)
 ```{r}
+#| code-fold: true
 #Raiz en intervalo [1,2]
 biseccion(1,2,1e-4,30,f2)$valor
 
@@ -766,7 +779,45 @@ b) $x_n = \dfrac{1}{n^2}$, $n \geq 0$
 
 ## Solución
 
+::: {.callout-caution collapse="true"}
+##### Prueba a)
+ $x_n=\frac{1}{n}$
 
+  **Convergencia a $0$.** 
+  
+  Vea que como $\lim\limits_{n\to\infty}\frac{1}{n}=0$, la sucesión converge a $x=0$.
+  
+  Tomando $x_n=\frac{1}{n}$,
+  $$\frac{x_{n+1}}{x_n}=\frac{1/(n+1)}{1/n}=\frac{n}{n+1}\xrightarrow[n\to\infty]{}1$$
+  Vea entonces que $\lim\limits_{n\to\infty}\frac{|x_{n+1-0}|}{|x_n-0|^1} = 1>0$ lo que implica convergencia lineal.
+  
+  **Tolerancia:** $|x_n|\le 5\times 10^{-2}$
+  $$\frac{1}{n}\le 0.05 \;\;\Longleftrightarrow\;\; n\ge 20.$$
+  Se requieren **$n=20$** (el término 20 ya cumple la cota).
+
+:::
+
+::: {.callout-caution collapse="true"}
+##### Prueba b)
+
+$x_n=\frac{1}{n^2}$
+  
+  **Convergencia a $0$.** 
+
+  Note que $\lim\limits_{n\to\infty}\frac{1}{n^2}=0$.
+  
+  Con $x_n=\frac{1}{n^2}$,
+  $$\frac{x_{n+1}}{x_n}=\frac{1/(n+1)^2}{1/n^2}=\Big(\frac{n}{n+1}\Big)^2\xrightarrow[n\to\infty]{}1$$
+  **Tolerancia $|x_n|\le 5\times 10^{-2}$.**
+  $$\frac{1}{n^2}\le 0.05 \;\;\Longleftrightarrow\;\; n\ge \sqrt{20}\approx 4.472.$$
+  Por lo tanto, basta con **$n=5$**.
+
+  - Ambas sucesiones **convergen linealmente a $0$**
+  - Para cumplir $|x_n|\le 5\times 10^{-2}$:
+    - $x_n=\frac{1}{n}$: **$n\ge 20$**.
+    - $x_n=\frac{1}{n^2}$: **$n\ge 5$**.
+
+:::
 
 # Ejercicio 15
 
@@ -790,7 +841,20 @@ Demostrar que la sucesión $x_n = 10^{-2^n}$ converge cuadráticamente a cero.
 
 ## Solución
 
+Hay que demostrar que existe $\lambda$ positiva, tal que:
 
+$$
+\lim_{n \to \infty} \frac{|x_{n+1} - 0|}{|x_n - 0|^2} = \lambda,
+$$
+\begin{align*}
+\lim_{n\to\infty}\frac{|x_{n+1}-0|}{|x_n-0|^2}
+&= \lim_{n\to\infty}\frac{|10^{-2^{\,n+1}}|}{|10^{-2^{\,n}}|^{2}} \\
+&= \lim_{n\to\infty}\frac{10^{-2^{\,n+1}}}{\big(10^{-2^{\,n}}\big)^{2}}
+= \lim_{n\to\infty}\frac{10^{-2\cdot 2^{\,n}}}{10^{-2\cdot 2^{\,n}}}
+= 1>0
+\end{align*}
+
+Por lo tanto, $\lambda=1>0$ y la sucesión converge cuadráticamente a $0$.
 
 # Ejercicio 17
 
@@ -858,6 +922,7 @@ $$
 
 b)
 ```{r}
+#| code-fold: true
 ig.espaciado <- function(a, b, tol, n, f) {
   i <- 1
   a.temp <- a
@@ -987,8 +1052,135 @@ Encuentre el mínimo.
 
 ## Solución
 
+Sea $f$ estrictamente unimodal en $[a,b]$. En el **método dicotómico** se evalúa $f$ en los dos puntos a distancia $\varepsilon/2$ del punto medio:
+$$
+x_1=\frac{a+b-\varepsilon}{2},\qquad
+x_2=\frac{a+b+\varepsilon}{2},
+$$
+
+::: {.callout-caution collapse="true"}
+##### Prueba a) 
+Como $f$ es estrictamente unimodal, si $f(x_1)\le f(x_2)$ el mínimo $x^\star$ no puede estar a la derecha de $x_2$; si $f(x_1)>f(x_2)$, $x^\star$ no puede estar a la izquierda de $x_1$. Por ello es válido descartar, respectivamente, los subintervalos indicados.
+
+  **Caso (a)**: $f(x_1)\le f(x_2)$.
+
+  El nuevo intervalo es $[a,\tfrac{a+b+\varepsilon}{2}]$. Su longitud es
+\begin{align*}
+\Bigg(\frac{a+b+\varepsilon}{2}\Bigg)-a
+&= \frac{a+b+\varepsilon-2a}{2}
+= \frac{b-a+\varepsilon}{2}.
+\end{align*}
+
+  **Caso (b)**: $f(x_1)>f(x_2)$.
+
+  El nuevo intervalo es $\left[\,\tfrac{a+b-\varepsilon}{2},\,b\,\right]$. Su longitud es
+\begin{align*}
+b-\Bigg(\frac{a+b-\varepsilon}{2}\Bigg)
+&= \frac{2b-a-b+\varepsilon}{2}
+= \frac{b-a+\varepsilon}{2}.
+\end{align*}
+
+  En ambos casos la longitud pasa de $b-a$ a $\dfrac{b-a+\varepsilon}{2}$.
+
+  Una iteración del método dicotómico reduce el tamaño del intervalo de búsqueda desde $b-a$ hasta
+$$
+\frac{b-a+\varepsilon}{2},
+$$
+  manteniendo dentro del nuevo intervalo al punto de mínimo $x^\star$. Reiterando el procedimiento se obtiene una secuencia de intervalos que contienen $x^\star$ y cuyas longitudes decrecen geométricamente (con corrección $\varepsilon$). $\square$
+
+:::
+
+::: {.callout-caution collapse="true"}
+##### Prueba b) 
+
+Volvemos a tener dos posibilidades:
+
+  Caso 1: $f(x_3)\le f(x_4)$
+
+  Se descarta el subintervalo $\left]\tfrac{3a+b+3\varepsilon}{4},\;\tfrac{a+b+\varepsilon}{2}\right]$
+  y el nuevo intervalo es
+$$
+I_2=\left[a,\;\frac{3a+b+3\varepsilon}{4}\right].
+$$
+
+  **Longitud**:
+\begin{align*}
+|I_2|
+&=\frac{3a+b+3\varepsilon}{4}-a
+ =\frac{3a+b+3\varepsilon-4a}{4}
+ =\frac{b-a+3\varepsilon}{4}.
+\end{align*}
+
+  Caso 2: $f(x_3)> f(x_4)$
+
+  Se descarta el subintervalo $\left[a,\;\tfrac{3a+b-\varepsilon}{4}\right]$ y el nuevo intervalo es
+$$
+I_2=\left[\frac{3a+b-\varepsilon}{4},\;\frac{a+b+\varepsilon}{2}\right].
+$$
+
+  **Longitud**:
+\begin{align*}
+|I_2|
+&=\frac{a+b+\varepsilon}{2}-\frac{3a+b-\varepsilon}{4}
+=\frac{2a+2b+2\varepsilon-3a-b+\varepsilon}{4}
+=\frac{b-a+3\varepsilon}{4}.
+\end{align*}
+
+  Tras la primera evaluación, la longitud había pasado de $b-a$ a $\dfrac{b-a+\varepsilon}{2}$.
+  Después de la segunda evaluación (dentro del mismo caso b) ), **en cualquiera de las dos comparaciones** la longitud del intervalo se reduce a
+$$
+\frac{b-a+3\varepsilon}{4}.
+$$
+
+  La unimodalidad estricta garantiza en ambos casos que el punto de mínimo $x^\star$ permanece dentro del nuevo intervalo.
+
+:::
+
+::: {.callout-caution collapse="true"}
+##### Prueba c) 
+
+Procederemos por inducción
+
+  Caso Base $n=1$. 
+$$
+L_1=\frac{b-a+\varepsilon}{2}=\frac{b-a+(2^1-1)\varepsilon}{2^1}.
+$$
+
+  Paso inductivo. Suponga que
+$$
+L_k=\frac{b-a+(2^k-1)\varepsilon}{2^k}.
+$$
+  Entonces, usando $L_{k+1}=T(L_k)=\dfrac{L_k+\varepsilon}{2}$,
+\begin{align*}
+L_{k+1}
+&=\frac{1}{2}\left(\frac{b-a+(2^k-1)\varepsilon}{2^k}+\varepsilon\right)\\
+&=\frac{b-a+(2^k-1)\varepsilon+2^k\varepsilon}{2^{k+1}}
+=\frac{b-a+(2^{k+1}-1)\varepsilon}{2^{k+1}}.
+\end{align*}
+  Queda demostrada por inducción la expresión
+$$
+\boxed{\,L_n=\dfrac{b-a+(2^n-1)\varepsilon}{2^n}\, }.
+$$
+
+  En cada iteración, el mínimo $x^\star$ permanece dentro del intervalo de búsqueda y la aproximación $x_n$ también se toma dentro de ese intervalo. Por lo tanto, la distancia entre ambos no excede la **longitud** del intervalo vigente:
+$$
+|x^\star-x_n|\le L_n
+=\frac{b-a+(2^n-1)\varepsilon}{2^n}.
+$$
+
+  El método dicotómico reduce la longitud del intervalo según
+$$
+L_n=\frac{b-a+(2^n-1)\varepsilon}{2^n},
+$$
+  y garantiza la cota de error
+$$
+\boxed{\,|x^\star-x_n|\le \dfrac{b-a+(2^n-1)\varepsilon}{2^n}\, } \qquad \square
+$$
+:::
+
 d)
 ```{r}
+#| code-fold: true
 dicotomico <- function(a, b, e, tol, n, f) {
   i <- 1
   a.temp <- a
@@ -1099,6 +1291,59 @@ es cuadráticamente convergente. Sugerencia: Use series de Taylor.
 
 ## Solución
 
+::: {.callout-caution collapse="true"}
+##### Prueba
+
+Como la raíz tiene multiplicidad $m$, existe una función $g$ de clase $C^1$ con $g(\alpha)\ne 0$ tal que
+$$
+f(x)=(x-\alpha)^m\,g(x),\qquad
+f'(x)=m(x-\alpha)^{m-1}g(x)+(x-\alpha)^m g'(x).
+$$
+
+Denotemos el error $e_n:=x_n-\alpha$ y abreviemos $g_n:=g(\alpha+e_n)$, $g_n':=g'(\alpha+e_n)$. Entonces
+$$
+\frac{f(x_n)}{f'(x_n)}
+=\frac{e_n^m g_n}{e_n^{m-1}\big(m g_n+e_n g_n'\big)}
+=e_n\,\frac{g_n}{m g_n+e_n g_n'}.
+$$
+
+El paso de Newton modificado queda
+$$
+e_{n+1}=x_{n+1}-\alpha
+=e_n- m\,e_n\,\frac{g_n}{m g_n+e_n g_n'}
+= e_n\!\left(1-\frac{m g_n}{m g_n+e_n g_n'}\right).
+$$
+
+Escriba el denominador como $m g_n\!\left(1+\dfrac{e_n g_n'}{m g_n}\right)$; usando la expansión
+$$
+\frac{1}{1+z}=1-z+z^2+O(z^3)\quad (z\to 0),
+$$
+se obtiene
+$$
+\frac{m g_n}{m g_n+e_n g_n'}
+= 1-\frac{e_n g_n'}{m g_n}+O(e_n^2).
+$$
+Sustituyendo en la expresión de $e_{n+1}$:
+$$
+e_{n+1}
+= e_n\!\left(1-\Big[1-\frac{e_n g_n'}{m g_n}+O(e_n^2)\Big]\right)
+= \frac{g_n'}{m g_n}\,e_n^2+O(e_n^3).
+$$
+
+Como $g$ es $C^1$ y $g(\alpha)\ne 0$, tenemos $g_n\to g(\alpha)$, $g_n'\to g'(\alpha)$ cuando $e_n\to 0$, y por tanto existe una constante
+$$
+C=\frac{g'(\alpha)}{m\,g(\alpha)}
+$$
+tal que
+$$
+e_{n+1}= C\,e_n^2+O(e_n^3).
+$$
+
+La relación de error $e_{n+1}=C e_n^2+O(e_n^3)$ muestra que el **método de Newton modificado es cuadráticamente convergente** para raíces de multiplicidad $m$.
+
+> **Comentario.** Para $m=1$ (raíz simple) se recupera el Newton clásico con $e_{n+1}=\dfrac{f''(\alpha)}{2f'(\alpha)}e_n^2+O(e_n^3)$. Para $m\ge2$, el factor cuadrático es $C=\dfrac{g'(\alpha)}{m g(\alpha)}$, donde $f(x)=(x-\alpha)^m g(x)$ y $g(\alpha)\ne 0$.
+
+:::
 
 # Ejercicio 22
 
@@ -1108,13 +1353,13 @@ es cuadráticamente convergente. Sugerencia: Use series de Taylor.
 El objetivo de este ejercicio es demostrar la convergencia del método de la **Secante** sin utilizar el Teorema de punto fijo de Banach.
 
 **Teorema:**  
-Sea $f$ una función de clase $C^2[a, b]$, con $a < b$. Si existe un punto $x$ tal que $f(x) = 0$ y $f'(x) \neq 0$, entonces existe un número $\varepsilon > 0$ tal que si $x_0$ y $x_1$ están dentro del intervalo \([x - \varepsilon, x + \varepsilon]\), la sucesión generada por el método de la secante
+Sea $f$ una función de clase $C^2[a, b]$, con $a < b$. Si existe un punto $x$ tal que $f(x) = 0$ y $f'(x) \neq 0$, entonces existe un número $\varepsilon > 0$ tal que si $x_0$ y $x_1$ están dentro del intervalo $[x - \varepsilon, x + \varepsilon]$, la sucesión generada por el método de la secante
 
 $$
 x_{n+1} = x_n - \frac{(x_n - x_{n-1})f(x_n)}{f(x_n) - f(x_{n-1})}
 $$
 
-está bien definida dentro del intervalo \([x - \varepsilon, x + \varepsilon]\) y converge a $x$, cero de la ecuación $f(x) = 0$.
+está bien definida dentro del intervalo $[x - \varepsilon, x + \varepsilon]$ y converge a $x$, cero de la ecuación $f(x) = 0$.
 
 a) Sea $(r_n)$ una sucesión de números reales positivos tales que: $$r_{n+1} \leq r_n r_{n-1}$$ Pruebe que si $r_0 < 1$ y $r_1 < 1$, entonces la sucesión $(r_n)$ está acotada por 1 y converge a 0. Además, pruebe que existe una constante $C$ tal que: $$r_n \leq C r^\rho,$$ donde $r$ es un número estrictamente menor que 1, y $$\rho = \frac{1 + \sqrt{5}}{2} \approx 1.618. $$
 
@@ -1161,6 +1406,44 @@ está bien definida dentro del intervalo $[x - \varepsilon, x + \varepsilon]$ y 
 ::: {.callout-caution collapse="true"}
 ### Prueba
 
+Como $f'(\alpha)\ne 0$ y $f'$ es continua, existe $\varepsilon>0$ tal que $f'(x)\neq 0$ para todo $x\in I:=[\alpha-\varepsilon,\alpha+\varepsilon]$. Luego $f$ es estrictamente monótona en $I$.  
+Si $x_{n-2},x_{n-1}\in I$ y $x_{n-2}\ne x_{n-1}$, entonces $f(x_{n-2})\ne f(x_{n-1})$; por el Teorema del Valor Medio existe $\xi_n$ entre $x_{n-2}$ y $x_{n-1}$ con
+$$
+\frac{f(x_{n-2})-f(x_{n-1})}{x_{n-2}-x_{n-1}} = f'(\xi_n)\ne 0,
+$$
+por lo que $x_n$ queda bien definido. Además, como $f$ es monótona y $f(\alpha)=0$, el punto $x_n$ cae entre $x_{n-2}$ y $x_{n-1}$, de modo que por inducción toda la sucesión permanece en $I$ si $x_0,x_1\in I$.
+
+Sea $e_n:=x_n-\alpha$. La expansión de Taylor alrededor de $\alpha$ da, para $x$ cercano a $\alpha$,
+$$
+f(x)=f'(\alpha)(x-\alpha) + \tfrac12 f''(\eta_x)(x-\alpha)^2,
+$$
+donde $\eta_x$ está entre $x$ y $\alpha$. Aplicando en $x_{n-1}$ y $x_{n-2}$ y sustituyendo en la fórmula de la secante, tras simplificar se obtiene
+$$
+e_n
+= \frac{f''(\alpha)}{2f'(\alpha)}\,e_{n-1}e_{n-2}
+\;+\; O\!\big(e_{n-1}^2 e_{n-2}\big)
+\;+\; O\!\big(e_{n-1} e_{n-2}^2\big).
+$$
+En particular, existen $C>0$ y (reduciendo $\varepsilon$ si fuera necesario) $\delta\in(0,\varepsilon]$ tales que si $|e_0|,|e_1|<\delta$, entonces
+$$
+|e_n|\le C\,|e_{n-1}|\,|e_{n-2}| \qquad (n\ge2).
+$$
+
+Elija $\delta$ tal que $C\delta<1$. Entonces, por inducción,
+$$
+|e_2|\le C|e_1||e_0|<\delta,\qquad
+|e_3|\le C|e_2||e_1|<\delta,\quad \dots
+$$
+por lo que todas las iteraciones permanecen en $I$ y la sucesión $\{e_n\}$ es decreciente a $0$.  
+Además, de la relación asintótica
+$$
+e_n \sim \frac{f''(\alpha)}{2f'(\alpha)}\,e_{n-1}e_{n-2},
+$$
+se deduce la **convergencia superlineal** de orden $\varphi=(1+\sqrt5)/2$. Concluimos que, para $x_0,x_1$ suficientemente cercanos a $\alpha$, la secuencia generada por la secante está bien definida en $I$ y **converge a $\alpha$**.
+
+$\blacksquare$
+
+
 :::
 :::
 
@@ -1176,39 +1459,111 @@ converge a $\tilde{x}$ **con orden de al menos** $\dfrac{1 + \sqrt{5}}{2} \appro
 
 ::: {.callout-caution collapse="true"}
 ### Prueba
-Pruebe que:
-\begin{equation}
-|e_{n+1}| \approx C \cdot |e_n| \cdot |e_{n-1}| \tag{1.10}
-\end{equation}
-con $C := \dfrac{|f'''(\tilde{x})|}{2 |f'(\tilde{x})|}$.
+Denotemos el error $e_n:=x_n-\tilde x$. Por Taylor alrededor de $\tilde x$, para $x$ cercano a $\tilde x$,
+$$
+f(x)=f’(\tilde x)(x-\tilde x) + \tfrac12 f’’(\tilde x)(x-\tilde x)^2 + r(x),
+\qquad r(x)=o\big((x-\tilde x)^2\big).
+$$
+Aplicando esto a $x_{n-1}$ y $x_{n-2}$ y sustituyendo en la fórmula de la secante, usando además el Teorema del Valor Medio para el denominador
+$$
+\frac{f(x_{n-2})-f(x_{n-1})}{x_{n-2}-x_{n-1}}=f’(\xi_n)\quad(\xi_n\ \text{entre }x_{n-2},x_{n-1}),
+$$
+se obtiene, tras álgebra directa (y absorbiendo los restos en $o(\cdot)$),
+$$
+e_{n}
+= \frac{f’’(\tilde x)}{2,f’(\tilde x)},e_{n-1}e_{n-2};+; o\big(e_{n-1}e_{n-2}\big).
+\tag{1}
+$$
+En particular, existe un $C>0$ tal que (para $n$ grande)
+$$
+|e_{n+1}| ;=; C,|e_{n}|,|e_{n-1}| ;+; o\big(|e_{n}|,|e_{n-1}|\big),
+\qquad
+C=\left|\frac{f’’(\tilde x)}{2,f’(\tilde x)}\right|.
+\tag{2}
+$$
+De aquí se deduce que la secuencia es bien definida y converge localmente (si $|e_0|,|e_1|$ son suficientemente pequeños, la relación (2) hace decrecer los errores a cero).
+Buscamos un modelo asintótico de la forma
+$$
+|e_n|\sim \lambda,|e_{n-1}|^{\alpha}, \qquad \lambda>0,\ \alpha>1.
+\tag{3}
+$$
+Sustituyendo (3) en (2) y despreciando términos de orden menor,
+$|e_{n+1}|\sim C\,|e_n|\,|e_{n-1}| \sim C\,\big(\lambda |e_{n-1}|^{\alpha}\big)\,|e_{n-1}| = C\lambda\,|e_{n-1}|^{\alpha+1}.$
+Pero por (3) también
+$|e_{n+1}|\sim \lambda\,|e_n|^{\alpha} \sim \lambda\,(\lambda |e_{n-1}|^{\alpha})^{\alpha} = \lambda^{\alpha+1}\,|e_{n-1}|^{\alpha^2}$
+Igualando exponentes y coeficientes dominantes se obtiene el sistema
+$$
+\alpha^2=\alpha+1,\qquad \lambda^{\alpha}=C.
+$$
+La ecuación cuadrática da
+$$
+\boxed{\ \alpha=\frac{1+\sqrt5}{2}\ } \quad(\text{la otra raíz } <1 \text{ se descarta}).
+$$
+Y el factor asintótico es $\lambda=C^{1/\alpha}$.
 
-Por la definición 1 se busca una solución aproximada a la ecuación:
-\begin{equation}
-|e_n| = \lambda |e_{n-1}|^\alpha \tag{1.11}
-\end{equation}
-con $\lambda > 0$ y $\alpha \geq 1$.
-
-Sustituyendo esta expresión en la anterior, se tiene:
-\begin{equation}
-\lambda |e_n|^\alpha = \lambda \lambda^\alpha |e_{n-1}|^{\alpha^2} = C \lambda |e_{n-1}|^{\alpha + 1}.\tag{1.12}
-\end{equation}
-Por tanto, para que se cumpla esta igualdad para $n$ suficientemente grandes, debe cumplirse:
-
-$$\lambda^\alpha = C\text{ y }\alpha^2 = \alpha + 1$$
-
-De donde se obtiene que:
-
-$$\alpha = \dfrac{1 + \sqrt{5}}{2}\text{ y }\lambda = C^{1/\alpha}\qquad\blacksquare$$
+De (2) y del cálculo precedente se concluye que la secante, cerca de una raíz simple con $f’’(\tilde x)\neq 0$, verifica
+$$
+|e_{n+1}|= \lambda,|e_n|^{\alpha}+o\big(|e_n|^{\alpha}\big),
+\qquad
+\alpha=\frac{1+\sqrt5}{2}>1,
+$$
+por lo que converge localmente y su orden de convergencia es al menos $\alpha$.
+$\blacksquare$
 
 :::
 :::
 
 ::: {.callout-tip}
 ## Teorema 11
+
 Sea $(x_n)$ una sucesión que converge a $x$ con orden lineal con constante asintótica $\lambda < 1$, además se asume que $e_n = x_n - x \ne 0$ para todo $n$. Entonces la sucesión $(\tilde{x}_n)$, definida en (1.14), converge a $x$ más rápido que $(x_n)$.
 
 ::: {.callout-caution collapse="true"}
 ### Prueba
+
+Como la convergencia de $(x_n)$ a $x$ es lineal con constante $\lambda<1$, existe $c\neq 0$ tal que
+$$
+e_n = x_n-x = c\,\lambda^n + r_n,\qquad \frac{r_n}{\lambda^n}\to 0\quad (n\to\infty).
+\tag{2}
+$$
+
+Expresamos las diferencias progresivas usando (2):
+
+\begin{align*}
+\triangle x_n &= x_{n+1}-x_n = e_{n+1}-e_n = c(\lambda^{n+1}-\lambda^n) + o(\lambda^n)
+= c(\lambda-1)\lambda^n + o(\lambda^n),\\[2mm]
+\triangle^2 x_n &= \triangle(\triangle x_n)
+= c(\lambda-1)^2 \lambda^n + o(\lambda^n)\tag{3}
+\end{align*}
+
+
+Inserte (3) en la fórmula de Aitken (1.14):
+
+\begin{align*}
+\tilde{x}_{n+3}-x
+&= (x_n-x) - \frac{(\triangle x_n)^2}{\triangle^2 x_n} \\
+&= \Big[c\lambda^n + o(\lambda^n)\Big]
+ - \frac{\Big[c(\lambda-1)\lambda^n + o(\lambda^n)\Big]^2}
+        {c(\lambda-1)^2\lambda^n + o(\lambda^n)}.
+\end{align*}
+
+Factorizando $c\lambda^n$ arriba y abajo y usando Notación de Landau,
+$$
+\frac{(\triangle x_n)^2}{\triangle^2 x_n}
+= c\lambda^n\;\frac{(1+o(1))}{(1+o(1))}=c\lambda^n+o(\lambda^n).
+$$
+Por tanto,
+$$
+\tilde{e}_{n+3}:=\tilde x_{n+3}-x
+= \big[c\lambda^n + o(\lambda^n)\big] - \big[c\lambda^n + o(\lambda^n)\big]
+= o(\lambda^n).
+\tag{4}
+$$
+
+De (2)–(4) se tiene
+$$\frac{|\tilde e_{n+3}|}{|e_n|} \;\longrightarrow\; 0$$
+es decir, $|\tilde x_{n+3}-x|=o(|x_n-x|)$; por lo tanto, $(\tilde x_n)$ **converge más rápido** que $(x_n)$.\quad$\blacksquare$
+
 
 :::
 :::
@@ -1220,7 +1575,76 @@ Si el método de punto fijo $x_{n+1} = g(x_n)$ converge linealmente, entonces el
 
 ::: {.callout-caution collapse="true"}
 ### Prueba
-Suponga que $g(x)$ es un número suficientemente de veces derivable, luego pruebe que: $$\lim_{n \to \infty} \frac{|x_{n+1} - \tilde{x}|}{|x_n - \tilde{x}|^2} = \frac{1}{2} \left| \frac{g'(\tilde{x}) g''(\tilde{x})}{g'(\tilde{x}) - 1} \right|:= \lambda \ne 0.$$
+
+Sea $e_n:=x_n-\tilde x$. Como $g$ es $C^2$ en un entorno de $\tilde x$ con $g(\tilde x)=\tilde x$,
+por Taylor:
+$$
+g(\tilde x+e)=\tilde x+a e + b e^2+O(e^3),\qquad
+a:=g'(\tilde x),\; b:=\tfrac12 g''(\tilde x).
+$$
+Entonces
+$$
+e_{n+1}=a e_n + b e_n^2 + O(e_n^3). \tag{1}
+$$
+
+Escribamos las diferencias progresivas de la sucesión de punto fijo:
+$$
+\Delta x_n:=x_{n+1}-x_n=e_{n+1}-e_n
+=(a-1)e_n + b e_n^2+O(e_n^3), \tag{2}
+$$
+y
+$$
+\Delta^2 x_n:=x_{n+2}-2x_{n+1}+x_n
+=e_{n+2}-2e_{n+1}+e_n. \tag{3}
+$$
+Usando (1) en $n$ y $n+1$,
+
+\begin{align*}
+e_{n+2}
+&= a e_{n+1}+b e_{n+1}^2 + O(e_{n+1}^3) \\
+&= a(a e_n+b e_n^2)+b (a e_n)^2 + O(e_n^3) \\
+&= a^2 e_n + b(a+a^2)e_n^2 + O(e_n^3)
+\end{align*}
+
+Sustituyendo en (3) y simplificando,
+$$
+\Delta^2 x_n
+=(a-1)^2 e_n + b\,(a^2+a-2)\,e_n^2 + O(e_n^3). \tag{4}
+$$
+
+El paso de **Steffensen** es precisamente la **aceleración $\Delta^2$ de Aitken**:
+$$
+x^{(S)}_{n+1}
+= x_n - \frac{(\Delta x_n)^2}{\Delta^2 x_n},\qquad
+\tilde e_{n+1}:=x^{(S)}_{n+1}-\tilde x
+= e_n - \frac{(\Delta x_n)^2}{\Delta^2 x_n}.
+$$
+Con (2)–(4),
+\begin{align*}
+(\Delta x_n)^2 &= (a-1)^2 e_n^2 + 2(a-1)b e_n^3 + O(e_n^4),\\
+\Delta^2 x_n &= (a-1)^2 e_n \Big[1 + \tfrac{b(a^2+a-2)}{(a-1)^2} e_n + O(e_n^2)\Big].
+\end{align*}
+Dividiendo,
+$$
+\frac{(\Delta x_n)^2}{\Delta^2 x_n}
+= e_n \Big[1 + \tfrac{2b}{(a-1)} e_n - \tfrac{b(a^2+a-2)}{(a-1)^2} e_n + O(e_n^2)\Big]
+= e_n + \frac{ab}{1-a}\,e_n^2 + O(e_n^3).
+$$
+Por lo tanto,
+$$
+\tilde e_{n+1}
+= e_n - \left(e_n + \frac{ab}{1-a}\,e_n^2 + O(e_n^3)\right)
+= \frac{ab}{a-1}\,e_n^2 + O(e_n^3).
+$$
+Finalmente,
+$$
+\lim_{n\to\infty}\frac{|\tilde e_{n+1}|}{|\tilde e_n|^2}
+=\left|\frac{ab}{1-a}\right|
+=\frac12\,\left|\frac{g'(\tilde x)\,g''(\tilde x)}{\,1-g'(\tilde x)\,}\right|
+=:\lambda\neq 0,
+$$
+lo que muestra **convergencia cuadrática** (orden $\ge 2$). \hfill$\blacksquare$
+
 :::
 
 :::
