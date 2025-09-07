@@ -355,27 +355,30 @@ a)
 ```{r}
 #| code-fold: true
 f <- function(x) cos(x)^2 - 2*sin(x)
-biseccion(0, 1, 5*1e-5, 30, f)
+biseccion(0, 1, 1e-5, 30, f)
 
 #Calculo con R
 raiz.a <- uniroot(f, c(0,1))$root
 sprintf("%.20f", raiz.a)  
 
--log(5*10^-5*raiz.a)/log(2)
 ```
+Para que se obtener la precision pedida, se requieren de teoreticamente mas de :
+```{r}
+round(5* log(10) / log(2))
+```
+iteraciones, lo cual es consistente con el resultado del codigo anterior
+
 b)
 ```{r}
 #| code-fold: true
 g <- function(x) -x^3 + x + 1
-biseccion(1, 2, 5 * 1e-5, 30, g)
+biseccion(1, 2, 1e-5, 30, g)
 
 #Calculo con R
 raiz.b <- uniroot(g, c(1,2))$root
 sprintf("%.20f", raiz.b)
-
--log(5*10^-5*raiz.b)/log(2)
-
 ```
+Para obtener la precision pedida, se requieren, teoreticamente, de las mismas iteraciones que el inciso anterior (pues la longitud del intervalo es la misma), lo cual es consistente con lo obtenido ahora.
 
 
 # Ejercicio 3
@@ -467,7 +470,7 @@ f2.f <- function(x) exp(x)/3
 
 a)
 ```{r}
-punto.fijo(0.5, 1e-5, 18, f1.f)
+punto.fijo(0.55, 1e-5, 18, f1.f)
 
 
 #Calculo con R
@@ -719,6 +722,35 @@ b) $x^3 + 2x - 1 = 0$
 f1 <- function(x) log(1 + x) - x^2
 f2 <- function(x) x^3 + 2*x - 1
 ```
+
+```{r}
+x <- seq(-2, 2, length.out = 400)
+
+# Evaluar funciones
+y1 <- f1(x)
+y2 <- f2(x)
+
+# Graficar f1
+plot(x, y1, type = "l", col = "blue", lwd = 2,
+     ylim = c(-10, 10),
+     xlab = "x", ylab = "f(x)",
+     main = "Gráficas de f1(x) y f2(x)")
+
+# Agregar f2
+lines(x, y2, col = "red", lwd = 2)
+
+# Ejes
+abline(h = 0, v = 0, col = "black")
+
+# Leyenda
+legend("topleft",
+       legend = c("f1(x) = log(1+x) - x^2",
+                  "f2(x) = x^3 + 2x - 1"),
+       col = c("blue", "red"), lwd = 2)
+```
+A partir del gráfico se puede observar que f1 interseca con el eje x en dos puntos: uno parece estar entre -0.5 y 0.5, mientras el otro parece estar entre0.5 y 1.
+
+Por otra parte, f2 parece intersecar entre 0 y 1
 a)
 ```{r}
 regula.falsi(-0.5, 0.5, 1e-6, 100, f1)
@@ -945,9 +977,16 @@ ig.espaciado <- function(a, b, tol, n, f) {
   }
   return(NULL)
 }
+
+```
+d)
+
+El valor mínimo de la función se obtiene de la siguiente manera.
+```{r}
 f <- function(x) x^4 - 4*x^3 +3*x^2
 f(ig.espaciado(1, 4, 1e-5, 1000, f)$valor)
 ```
+
 
 # Ejercicio 19
 
