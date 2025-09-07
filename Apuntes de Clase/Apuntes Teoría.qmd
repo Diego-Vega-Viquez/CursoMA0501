@@ -3283,9 +3283,9 @@ Nótese que con esta notación se tiene:
 
 Por lo que el método $\triangle^2$ de Aitken se puede escribir como:
 
-$$
-\tilde{x}_{n+3} := x_n - \frac{(\triangle x_n)^2}{\triangle^2 x_n}.
-$$
+\begin{equation}
+\tilde{x}_{n+3} := x_n - \frac{(\triangle x_n)^2}{\triangle^2 x_n}\tag{1.14}
+\end{equation}
 :::
 
 ::: {.callout-note}

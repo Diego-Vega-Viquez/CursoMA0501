@@ -1897,7 +1897,8 @@ está bien definida dentro del intervalo $[x - \varepsilon, x + \varepsilon]$ y 
 ::: {.callout-caution collapse="true"}
 ### Prueba
 
-Como $f'(\alpha)\ne 0$ y $f'$ es continua, existe $\varepsilon>0$ tal que $f'(x)\neq 0$ para todo $x\in I:=[\alpha-\varepsilon,\alpha+\varepsilon]$. Luego $f$ es estrictamente monótona en $I$.  
+Como $f'(\alpha)\ne 0$ y $f'$ es continua, 
+$$\exists\;\varepsilon>0\;:\;f'(x)\neq 0\;\forall\;x\in I:=[\alpha-\varepsilon,\alpha+\varepsilon]$$Luego $f$ es estrictamente monótona en $I$.  
 Si $x_{n-2},x_{n-1}\in I$ y $x_{n-2}\ne x_{n-1}$, entonces $f(x_{n-2})\ne f(x_{n-1})$; por el Teorema del Valor Medio existe $\xi_n$ entre $x_{n-2}$ y $x_{n-1}$ con
 $$
 \frac{f(x_{n-2})-f(x_{n-1})}{x_{n-2}-x_{n-1}} = f'(\xi_n)\ne 0,
@@ -1925,12 +1926,7 @@ $$
 |e_2|\le C|e_1||e_0|<\delta,\qquad
 |e_3|\le C|e_2||e_1|<\delta,\quad \dots
 $$
-por lo que todas las iteraciones permanecen en $I$ y la sucesión $\{e_n\}$ es decreciente a $0$.  
-Además, de la relación asintótica
-$$
-e_n \sim \frac{f''(\alpha)}{2f'(\alpha)}\,e_{n-1}e_{n-2},
-$$
-se deduce la **convergencia superlineal** de orden $\varphi=(1+\sqrt5)/2$. Concluimos que, para $x_0,x_1$ suficientemente cercanos a $\alpha$, la secuencia generada por la secante está bien definida en $I$ y **converge a $\alpha$**.
+por lo que todas las iteraciones permanecen en $I$ y la sucesión $\{e_n\}$ es decreciente a $0$. Concluya que, para $x_0,x_1$ suficientemente cercanos a $\alpha$, la secuencia generada por la secante está bien definida en $I$ y **converge a $\alpha$**.
 
 $\blacksquare$
 
@@ -1962,14 +1958,14 @@ $$
 se obtiene, tras álgebra directa (y absorbiendo los restos en $o(\cdot)$),
 $$
 e_{n}
-= \frac{f’’(\tilde x)}{2,f’(\tilde x)},e_{n-1}e_{n-2};+; o\big(e_{n-1}e_{n-2}\big).
+= \frac{f’’(\tilde x)}{2\,f’(\tilde x)}\,e_{n-1}e_{n-2}\;+\; o\big(e_{n-1}e_{n-2}\big).
 \tag{1}
 $$
 En particular, existe un $C>0$ tal que (para $n$ grande)
 $$
-|e_{n+1}| ;=; C,|e_{n}|,|e_{n-1}| ;+; o\big(|e_{n}|,|e_{n-1}|\big),
+|e_{n+1}| \;=\; C,|e_{n}|\,|e_{n-1}| \;+\; o\big(|e_{n}|\,|e_{n-1}|\big)
 \qquad
-C=\left|\frac{f’’(\tilde x)}{2,f’(\tilde x)}\right|.
+C=\left|\frac{f’’(\tilde x)}{2\,f’(\tilde x)}\right|.
 \tag{2}
 $$
 De aquí se deduce que la secuencia es bien definida y converge localmente (si $|e_0|,|e_1|$ son suficientemente pequeños, la relación (2) hace decrecer los errores a cero).
@@ -1979,9 +1975,9 @@ $$
 \tag{3}
 $$
 Sustituyendo (3) en (2) y despreciando términos de orden menor,
-$|e_{n+1}|\sim C\,|e_n|\,|e_{n-1}| \sim C\,\big(\lambda |e_{n-1}|^{\alpha}\big)\,|e_{n-1}| = C\lambda\,|e_{n-1}|^{\alpha+1}.$
+$$|e_{n+1}|\sim C\,|e_n|\,|e_{n-1}| \sim C\,\big(\lambda |e_{n-1}|^{\alpha}\big)\,|e_{n-1}| = C\lambda\,|e_{n-1}|^{\alpha+1}$$
 Pero por (3) también
-$|e_{n+1}|\sim \lambda\,|e_n|^{\alpha} \sim \lambda\,(\lambda |e_{n-1}|^{\alpha})^{\alpha} = \lambda^{\alpha+1}\,|e_{n-1}|^{\alpha^2}$
+$$|e_{n+1}|\sim \lambda\,|e_n|^{\alpha} \sim \lambda\,(\lambda |e_{n-1}|^{\alpha})^{\alpha} = \lambda^{\alpha+1}\,|e_{n-1}|^{\alpha^2}$$
 Igualando exponentes y coeficientes dominantes se obtiene el sistema
 $$
 \alpha^2=\alpha+1,\qquad \lambda^{\alpha}=C.
@@ -1994,7 +1990,7 @@ Y el factor asintótico es $\lambda=C^{1/\alpha}$.
 
 De (2) y del cálculo precedente se concluye que la secante, cerca de una raíz simple con $f’’(\tilde x)\neq 0$, verifica
 $$
-|e_{n+1}|= \lambda,|e_n|^{\alpha}+o\big(|e_n|^{\alpha}\big),
+|e_{n+1}|= \lambda\,|e_n|^{\alpha}+o\big(|e_n|^{\alpha}\big),
 \qquad
 \alpha=\frac{1+\sqrt5}{2}>1,
 $$
@@ -2008,6 +2004,16 @@ $\blacksquare$
 ## Teorema 11
 
 Sea $(x_n)$ una sucesión que converge a $x$ con orden lineal con constante asintótica $\lambda < 1$, además se asume que $e_n = x_n - x \ne 0$ para todo $n$. Entonces la sucesión $(\tilde{x}_n)$, definida en (1.14), converge a $x$ más rápido que $(x_n)$.
+
+::: {.callout-important collapse="true"}
+###### Observación
+
+El método $\triangle^2$ de Aitken se puede escribir como:
+
+\begin{equation}
+\tilde{x}_{n+3} := x_n - \frac{(\triangle x_n)^2}{\triangle^2 x_n}\tag{1.14}
+\end{equation}
+:::
 
 ::: {.callout-caution collapse="true"}
 ### Prueba

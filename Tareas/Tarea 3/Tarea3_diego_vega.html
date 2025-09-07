@@ -5418,7 +5418,7 @@ Prueba
 </div>
 <div id="callout-32" class="callout-32-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Como <span class="math inline">f&#39;(\alpha)\ne 0</span> y <span class="math inline">f&#39;</span> es continua, existe <span class="math inline">\varepsilon&gt;0</span> tal que <span class="math inline">f&#39;(x)\neq 0</span> para todo <span class="math inline">x\in I:=[\alpha-\varepsilon,\alpha+\varepsilon]</span>. Luego <span class="math inline">f</span> es estrictamente monótona en <span class="math inline">I</span>.<br>
+<p>Como <span class="math inline">f&#39;(\alpha)\ne 0</span> y <span class="math inline">f&#39;</span> es continua, <span class="math display">\exists\;\varepsilon&gt;0\;:\;f&#39;(x)\neq 0\;\forall\;x\in I:=[\alpha-\varepsilon,\alpha+\varepsilon]</span>Luego <span class="math inline">f</span> es estrictamente monótona en <span class="math inline">I</span>.<br>
 Si <span class="math inline">x_{n-2},x_{n-1}\in I</span> y <span class="math inline">x_{n-2}\ne x_{n-1}</span>, entonces <span class="math inline">f(x_{n-2})\ne f(x_{n-1})</span>; por el Teorema del Valor Medio existe <span class="math inline">\xi_n</span> entre <span class="math inline">x_{n-2}</span> y <span class="math inline">x_{n-1}</span> con <span class="math display">
 \frac{f(x_{n-2})-f(x_{n-1})}{x_{n-2}-x_{n-1}} = f&#39;(\xi_n)\ne 0,
 </span> por lo que <span class="math inline">x_n</span> queda bien definido. Además, como <span class="math inline">f</span> es monótona y <span class="math inline">f(\alpha)=0</span>, el punto <span class="math inline">x_n</span> cae entre <span class="math inline">x_{n-2}</span> y <span class="math inline">x_{n-1}</span>, de modo que por inducción toda la sucesión permanece en <span class="math inline">I</span> si <span class="math inline">x_0,x_1\in I</span>.</p>
@@ -5435,10 +5435,7 @@ e_n
 <p>Elija <span class="math inline">\delta</span> tal que <span class="math inline">C\delta&lt;1</span>. Entonces, por inducción, <span class="math display">
 |e_2|\le C|e_1||e_0|&lt;\delta,\qquad
 |e_3|\le C|e_2||e_1|&lt;\delta,\quad \dots
-</span> por lo que todas las iteraciones permanecen en <span class="math inline">I</span> y la sucesión <span class="math inline">\{e_n\}</span> es decreciente a <span class="math inline">0</span>.<br>
-Además, de la relación asintótica <span class="math display">
-e_n \sim \frac{f&#39;&#39;(\alpha)}{2f&#39;(\alpha)}\,e_{n-1}e_{n-2},
-</span> se deduce la <strong>convergencia superlineal</strong> de orden <span class="math inline">\varphi=(1+\sqrt5)/2</span>. Concluimos que, para <span class="math inline">x_0,x_1</span> suficientemente cercanos a <span class="math inline">\alpha</span>, la secuencia generada por la secante está bien definida en <span class="math inline">I</span> y <strong>converge a <span class="math inline">\alpha</span></strong>.</p>
+</span> por lo que todas las iteraciones permanecen en <span class="math inline">I</span> y la sucesión <span class="math inline">\{e_n\}</span> es decreciente a <span class="math inline">0</span>. Concluya que, para <span class="math inline">x_0,x_1</span> suficientemente cercanos a <span class="math inline">\alpha</span>, la secuencia generada por la secante está bien definida en <span class="math inline">I</span> y <strong>converge a <span class="math inline">\alpha</span></strong>.</p>
 <p><span class="math inline">\blacksquare</span></p>
 </div>
 </div>
@@ -5478,23 +5475,23 @@ f(x)=f’(\tilde x)(x-\tilde x) + \tfrac12 f’’(\tilde x)(x-\tilde x)^2 + r(x
 \frac{f(x_{n-2})-f(x_{n-1})}{x_{n-2}-x_{n-1}}=f’(\xi_n)\quad(\xi_n\ \text{entre }x_{n-2},x_{n-1}),
 </span> se obtiene, tras álgebra directa (y absorbiendo los restos en <span class="math inline">o(\cdot)</span>), <span class="math display">
 e_{n}
-= \frac{f’’(\tilde x)}{2,f’(\tilde x)},e_{n-1}e_{n-2};+; o\big(e_{n-1}e_{n-2}\big).
+= \frac{f’’(\tilde x)}{2\,f’(\tilde x)}\,e_{n-1}e_{n-2}\;+\; o\big(e_{n-1}e_{n-2}\big).
 \tag{1}
 </span> En particular, existe un <span class="math inline">C&gt;0</span> tal que (para <span class="math inline">n</span> grande) <span class="math display">
-|e_{n+1}| ;=; C,|e_{n}|,|e_{n-1}| ;+; o\big(|e_{n}|,|e_{n-1}|\big),
+|e_{n+1}| \;=\; C,|e_{n}|\,|e_{n-1}| \;+\; o\big(|e_{n}|\,|e_{n-1}|\big)
 \qquad
-C=\left|\frac{f’’(\tilde x)}{2,f’(\tilde x)}\right|.
+C=\left|\frac{f’’(\tilde x)}{2\,f’(\tilde x)}\right|.
 \tag{2}
 </span> De aquí se deduce que la secuencia es bien definida y converge localmente (si <span class="math inline">|e_0|,|e_1|</span> son suficientemente pequeños, la relación (2) hace decrecer los errores a cero). Buscamos un modelo asintótico de la forma <span class="math display">
 |e_n|\sim \lambda,|e_{n-1}|^{\alpha}, \qquad \lambda&gt;0,\ \alpha&gt;1.
 \tag{3}
-</span> Sustituyendo (3) en (2) y despreciando términos de orden menor, <span class="math inline">|e_{n+1}|\sim C\,|e_n|\,|e_{n-1}| \sim C\,\big(\lambda |e_{n-1}|^{\alpha}\big)\,|e_{n-1}| = C\lambda\,|e_{n-1}|^{\alpha+1}.</span> Pero por (3) también <span class="math inline">|e_{n+1}|\sim \lambda\,|e_n|^{\alpha} \sim \lambda\,(\lambda |e_{n-1}|^{\alpha})^{\alpha} = \lambda^{\alpha+1}\,|e_{n-1}|^{\alpha^2}</span> Igualando exponentes y coeficientes dominantes se obtiene el sistema <span class="math display">
+</span> Sustituyendo (3) en (2) y despreciando términos de orden menor, <span class="math display">|e_{n+1}|\sim C\,|e_n|\,|e_{n-1}| \sim C\,\big(\lambda |e_{n-1}|^{\alpha}\big)\,|e_{n-1}| = C\lambda\,|e_{n-1}|^{\alpha+1}</span> Pero por (3) también <span class="math display">|e_{n+1}|\sim \lambda\,|e_n|^{\alpha} \sim \lambda\,(\lambda |e_{n-1}|^{\alpha})^{\alpha} = \lambda^{\alpha+1}\,|e_{n-1}|^{\alpha^2}</span> Igualando exponentes y coeficientes dominantes se obtiene el sistema <span class="math display">
 \alpha^2=\alpha+1,\qquad \lambda^{\alpha}=C.
 </span> La ecuación cuadrática da <span class="math display">
 \boxed{\ \alpha=\frac{1+\sqrt5}{2}\ } \quad(\text{la otra raíz } &lt;1 \text{ se descarta}).
 </span> Y el factor asintótico es <span class="math inline">\lambda=C^{1/\alpha}</span>.</p>
 <p>De (2) y del cálculo precedente se concluye que la secante, cerca de una raíz simple con <span class="math inline">f’’(\tilde x)\neq 0</span>, verifica <span class="math display">
-|e_{n+1}|= \lambda,|e_n|^{\alpha}+o\big(|e_n|^{\alpha}\big),
+|e_{n+1}|= \lambda\,|e_n|^{\alpha}+o\big(|e_n|^{\alpha}\big),
 \qquad
 \alpha=\frac{1+\sqrt5}{2}&gt;1,
 </span> por lo que converge localmente y su orden de convergencia es al menos <span class="math inline">\alpha</span>. <span class="math inline">\blacksquare</span></p>
@@ -5514,8 +5511,27 @@ Teorema 11
 </div>
 <div class="callout-body-container callout-body">
 <p>Sea <span class="math inline">(x_n)</span> una sucesión que converge a <span class="math inline">x</span> con orden lineal con constante asintótica <span class="math inline">\lambda &lt; 1</span>, además se asume que <span class="math inline">e_n = x_n - x \ne 0</span> para todo <span class="math inline">n</span>. Entonces la sucesión <span class="math inline">(\tilde{x}_n)</span>, definida en (1.14), converge a <span class="math inline">x</span> más rápido que <span class="math inline">(x_n)</span>.</p>
-<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-36-contents" aria-controls="callout-36" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Observación
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-36" class="callout-36-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>El método <span class="math inline">\triangle^2</span> de Aitken se puede escribir como:</p>
+<p><span class="math display">\begin{equation}
+\tilde{x}_{n+3} := x_n - \frac{(\triangle x_n)^2}{\triangle^2 x_n}\tag{1.14}
+\end{equation}</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-37-contents" aria-controls="callout-37" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -5524,7 +5540,7 @@ Prueba
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-36" class="callout-36-contents callout-collapse collapse">
+<div id="callout-37" class="callout-37-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Como la convergencia de <span class="math inline">(x_n)</span> a <span class="math inline">x</span> es lineal con constante <span class="math inline">\lambda&lt;1</span>, existe <span class="math inline">c\neq 0</span> tal que <span class="math display">
 e_n = x_n-x = c\,\lambda^n + r_n,\qquad \frac{r_n}{\lambda^n}\to 0\quad (n\to\infty).
@@ -5572,7 +5588,7 @@ Teorema 12
 <div class="callout-body-container callout-body">
 <p>Si el método de punto fijo <span class="math inline">x_{n+1} = g(x_n)</span> converge linealmente, entonces el orden de convergencia del método de Steffensen es al menos dos.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-38-contents" aria-controls="callout-38" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-39-contents" aria-controls="callout-39" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -5581,7 +5597,7 @@ Prueba
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-38" class="callout-38-contents callout-collapse collapse">
+<div id="callout-39" class="callout-39-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Sea <span class="math inline">e_n:=x_n-\tilde x</span>. Como <span class="math inline">g</span> es <span class="math inline">C^2</span> en un entorno de <span class="math inline">\tilde x</span> con <span class="math inline">g(\tilde x)=\tilde x</span>, por Taylor: <span class="math display">
 g(\tilde x+e)=\tilde x+a e + b e^2+O(e^3),\qquad
