@@ -468,7 +468,33 @@ f2 <- function(x) exp(x) - 3*x
 f2.f <- function(x) exp(x)/3
 ```
 
-a)
+a) Reescribimos como:
+
+$$
+f(x) = e^{-x}, \quad \Rightarrow f'(x) = -e^{-x}
+$$
+
+  Se desea encontrar un intervalo $[a,b]$ donde $f$ sea contractiva. Como $|f'(x)| = e^{-x}$, se cumple que:
+
+$$
+|f'(x)| < 1 \Rightarrow x > 0
+$$
+
+  Entonces $[0,1]$ es un intervalo que se mapea en sí mismo a través de $f$, y cumple que:
+
+$$
+q := \sup |f'(x)| = e^{-0.5} \approx 0.6065
+$$
+
+  El número de iteraciones necesarias para asegurar un error absoluto menor a $10^{-5}$ es:
+
+\begin{align*}
+n &\geq \ln \left( \frac{10^{-5}(1 - e^{-0.5})}{e^{-0.5}(0.5)} \right) \cdot \frac{1}{\ln(e^{-0.5})} \\
+&\approx 20.71 \\
+\Rightarrow n &\geq 21 \text{ iteraciones}
+\end{align*}
+
+
 ```{r}
 punto.fijo(0.55, 1e-5, 18, f1.f)
 
@@ -478,7 +504,46 @@ pto.fijo.a <- uniroot(f1, c(0,1))$root
 sprintf("%.20f", pto.fijo.a)
 
 ```
-b)
+b)  Entonces:
+
+$$
+f'(x) = \frac{e^x}{3}
+$$
+
+  Se quiere que $|f'(x)| \leq 1$, entonces:
+
+\begin{align*}
+\frac{e^x}{3} &\leq 1 \\
+e^x &\leq 3 \\
+x &\leq \ln(3) \approx 1.09
+\end{align*}
+
+  Entonces el intervalo $[0,1]$ cumple con que:
+
+- Se mapea en sí mismo a través de $f$
+- Se cumple que $q = \dfrac{e^{0.7}}{3} < 1$
+
+  Estimamos el número de iteraciones:
+
+\begin{align*}
+n &\geq \ln\left( \frac{10^{-5}(1 - \frac{e^{0.7}}{3})}{\frac{e^{0.7}}{3}(0.6)} \right) \cdot \frac{1}{\ln(\frac{e^{0.7}}{3})} \\
+&\approx 19.35 \\
+\Rightarrow n &\geq 20 \text{ iteraciones}
+\end{align*}
+
+::: {.callout-note}
+###### Notación
+
+El error en la iteración de punto fijo puede acotarse mediante:
+
+$$
+|x_n - x| \leq \frac{q^n}{1 - q} |x_1 - x_0|
+$$
+
+donde $q$ es la constante de Lipschitz (cota del valor absoluto de la derivada en el intervalo).
+
+:::
+
 ```{r}
 punto.fijo(0.6, 1e-5, 30, f2.f)
 
@@ -674,6 +739,82 @@ Demuestre que el método de Newton aplicado a $x^m - R$ y a $1 - (R/x^m)$ para c
 ## Solución
 
 
+Caso 1: $f(x) = x^m - R$
+
+Tenemos:
+
+$$
+f'(x) = m x^{m-1}
+$$
+
+Aplicando el método de Newton:
+
+$$
+x_{n+1} = x_n - \frac{x_n^m - R}{m x_n^{m-1}} = x_n - \frac{x_n}{m} + \frac{R}{m x_n^{m-1}}
+$$
+
+Por lo tanto:
+
+$$
+x_{n+1} = \left(1 - \frac{1}{m} \right)x_n + \frac{R}{m x_n^{m-1}}
+$$
+
+---
+
+Caso 2: $f(x) = 1 - \dfrac{R}{x^m}$
+
+Calculamos la derivada:
+
+$$
+f'(x) = \frac{mR}{x^{m+1}}
+$$
+
+Aplicando el método de Newton:
+
+$$
+x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)} = x_n - \left(1 - \frac{R}{x_n^m} \right) \cdot \frac{x_n^{m+1}}{mR}
+$$
+
+Observamos que:
+
+\begin{align*}
+x_{n+1} &= x_n - \frac{x_n^{m+1} - x_n R}{mR} \\
+        &= x_n - \frac{x_n^{m+1}}{mR} + \frac{x_n}{m}
+\end{align*}
+
+Por lo tanto:
+
+$$
+x_{n+1} = \left(1 + \frac{1}{m} \right)x_n - \frac{x_n^{m+1}}{m R}
+$$
+
+---
+
+
+::: {.callout-important collapse="true"}
+###### Observación
+
+La diferencia clave entre ambas fórmulas está en el segundo término:
+
+- En la **segunda fórmula** aparece $\dfrac{x^{m+1}}{mR}$, que puede crecer enormemente si $x$ o $m$ son grandes. Esto puede causar **sobreflujo** o pérdida de precisión numérica en las computadoras.
+
+- En cambio, en la **primera fórmula** se usa $\dfrac{R}{m x^{m-1}}$, el cual tiende a hacerse **más pequeño conforme $x$ crece**, lo que ayuda a **estabilizar la iteración**.
+
+Por ello, **la primera opción es mucho más segura numéricamente**.
+:::
+
+**¿Cuál fórmula es mejor?**  
+Para $R > 0$ y $m \geq 1$, la **primera fórmula**:
+
+$$
+x_{n+1} = \left(1 - \frac{1}{m} \right)x_n + \frac{R}{m x_n^{m-1}}
+$$
+
+es generalmente más estable y eficiente, especialmente cuando se parte de una buena aproximación inicial $x_0$ lejos de cero.
+
+$\blacksquare$
+
+
 # Ejercicio 11
 
 ::: {.callout-note}
@@ -796,6 +937,35 @@ converge a $\sqrt[m]{a}$, con $a > 0$.
 ## Solución
 
 
+Note que calcular $\sqrt[m]{a}$ es equivalente a resolver la ecuación:
+
+$$
+x^m - a = 0
+$$
+
+Aplicando el método de Newton–Raphson con $f(x) = x^m - a$, tenemos:
+
+$$
+f'(x) = m x^{m-1}
+$$
+
+Entonces, la fórmula de Newton–Raphson es:
+
+\begin{align*}
+x_{n+1} &= x_n - \frac{x_n^m - a}{m x_n^{m-1}} \\
+        &= \frac{m x_n^m - (x_n^m - a)}{m x_n^{m-1}} \\
+        &= \frac{a + (m - 1)x_n^m}{m x_n^{m-1}}
+\end{align*}
+
+Esto coincide exactamente con la fórmula de recurrencia dada para $n \geq 1$.
+
+Por lo tanto, como la sucesión está construida con el método de Newton–Raphson para una función que cumple las condiciones del teorema de convergencia de Newton, sabemos que esta sucesión converge a la solución de $x^m - a = 0$, la cual es:
+
+$$
+\sqrt[m]{a}
+$$
+
+$\blacksquare$
 
 # Ejercicio 14
 
@@ -948,9 +1118,19 @@ $$
 $$
 
 ¿Qué se puede concluir, respecto al error absoluto?
+
+d) ¿Cuántas iteraciones se requieren teóricamente para minimizar la función $f(x) = x^4 - 4x^3 + 3x^2$ en el intervalo $[1, 4]$ si se desea un error absoluto menor a $10^{-5}$? Encuentre el mínimo.
 :::
 
 ## Solución
+
+a) Sabemos que $a < b$
+\begin{align*}
+&\Rightarrow 2a < b + a \\
+&\Rightarrow 2a + b < 2b + a \\
+&\Rightarrow \frac{2a + b}{3} < \frac{2b + a}{3} \\
+&\Rightarrow x_1 < x_2
+\end{align*}
 
 b)
 ```{r}
@@ -979,7 +1159,44 @@ ig.espaciado <- function(a, b, tol, n, f) {
 }
 
 ```
-d)
+
+c) Queremos probar que el intervalo construido con el algoritmo anterior satisface:
+
+$$
+|b_n - a_n| \leq \left(\frac{2}{3}\right)^{n-1}(b - a)
+$$
+
+\begin{align*}
+|b_1 - a_1| &= |b - a| \\
+|b_2 - a_2| &= \left(\frac{2}{3}\right)|b - a| \\
+|b_3 - a_3| &= \left(\frac{2}{3}\right)^2 |b - a| \\
+&\vdots \\
+|b_n - a_n| &= \left(\frac{2}{3}\right)^{n-1}|b - a|
+\end{align*}
+
+Como $x_n \in ]a_n, b_n[$ y $x_n = \frac{2a_n + b_n}{3}$ o $x_n = \frac{a_n + 2b_n}{3}$
+
+Entonces:
+\begin{align*}
+|x_n - x| &\leq \frac{2}{3}|b_n - a_n| \leq \frac{2}{3} \left(\frac{2}{3}\right)^{n-1} |b - a| \\
+&= \left(\frac{2}{3}\right)^n |b - a|
+\end{align*}
+
+$\blacksquare$
+
+
+
+d) Queremos que:
+
+$$
+|x_n - x| \leq \left(\frac{2}{3}\right)^n \cdot 3 < 10^{-5}
+$$
+
+\begin{align*}
+\left(\frac{2}{3}\right)^n &< 10^{-5} \cdot 3 \\
+n &> \frac{\ln(10^{-5} \cdot 3)}{\ln\left(\frac{2}{3}\right)} \approx 31.10 \\
+\Rightarrow n &\geq 32 \text{ iteraciones}
+\end{align*}
 
 El valor mínimo de la función se obtiene de la siguiente manera.
 ```{r}
@@ -987,6 +1204,7 @@ f <- function(x) x^4 - 4*x^3 +3*x^2
 f(ig.espaciado(1, 4, 1e-5, 1000, f)$valor)
 ```
 
+$\blacksquare$
 
 # Ejercicio 19
 
@@ -1321,6 +1539,232 @@ h) Sea $\epsilon = \min\left(\epsilon_1, \frac{2M}{L} \right)$, pruebe que si $|
 :::
 
 ## Solución
+
+a) Se va a probar por inducción que $r_n \leq (r_0)^{2^n}$.
+
+  **Caso base**: $n = 1$.
+
+  Se tiene que $r_1 \leq r_0^2$, lo cual es cierto porque la sucesión cumple que:
+
+$$
+r_{n+1} \leq r_n^2
+$$
+
+  **Paso inductivo**: Suponga que $r_n \leq (r_0)^{2^n}$. Queremos probar que $r_{n+1} \leq (r_0)^{2^{n+1}}$.
+
+  Por la hipótesis inductiva:
+
+\begin{align*}
+r_n &\leq (r_0)^{2^n} \\
+\Rightarrow r_n^2 &\leq \left( (r_0)^{2^n} \right)^2 = (r_0)^{2^{n+1}}
+\end{align*}
+
+  Y dado que $r_{n+1} \leq r_n^2$, entonces:
+
+$$
+r_{n+1} \leq (r_0)^{2^{n+1}} \quad \blacksquare
+$$
+
+  **Para demostrar convergencia a $0$**, observamos que si $0 < r_0 < 1$, entonces:
+
+$$
+(r_0)^{2^n} \to 0 \quad \text{cuando } n \to \infty
+$$
+
+  y como $0 \leq r_n \leq (r_0)^{2^n}$, se concluye que:
+
+$$
+r_n \to 0 \quad \text{cuando } n \to \infty \quad \blacksquare
+$$
+
+b. Queremos demostrar:
+
+$$
+x_{n+1} - x = \frac{(x_n - x) f'(x_n) - f(x_n) + f(x)}{f'(x_n)}
+$$
+
+  Pero como $f(x) = 0$, se tiene:
+
+\begin{align*}
+x_{n+1} - x &= x_n - \frac{f(x_n)}{f'(x_n)} - x \\
+&= \frac{f'(x_n)x_n - f(x_n)}{f'(x_n)} - x \\
+&= \frac{f'(x_n)x_n - f(x_n) - f'(x_n)x}{f'(x_n)} \\
+&= \frac{f'(x_n)(x_n - x) - f(x_n)}{f'(x_n)} \\
+&= \frac{(x_n - x) f'(x_n) - f(x_n)}{f'(x_n)} \quad \blacksquare
+\end{align*}
+
+c. Queremos probar que existen $\epsilon_1 > 0$ y $M > 0$ tales que:
+
+$$
+\forall y \in [x - \epsilon_1, x + \epsilon_1] \Rightarrow |f'(y)| \geq M
+$$
+
+  Dado que $f'(x) \neq 0$ y $f'$ es continua, existe un $\epsilon_1 > 0$ tal que:
+
+$$
+f'(y) \neq 0 \quad \forall y \in [x - \epsilon_1, x + \epsilon_1]
+$$
+
+  Esto implica que:
+
+$$
+M := \inf_{y \in [x - \epsilon_1, x + \epsilon_1]} |f'(y)| > 0 \quad \blacksquare
+$$
+d) Queremos justificar que:
+
+$$
+\max_{y \in [x - \epsilon_1, x + \epsilon_1]} |f''(y)| := L < \infty
+$$
+
+  Dado que $f''(y)$ es continua en $[x - \epsilon_1, x + \epsilon_1]$, un intervalo cerrado, alcanza un máximo en ese intervalo. Por lo tanto:
+
+$$
+L := \max_{y \in [x - \epsilon_1, x + \epsilon_1]} |f''(y)| < \infty \quad \blacksquare
+$$
+e) Queremos probar que el valor absoluto de la parte derecha del numerador de la ecuación (1) es igual a:
+
+$$
+\left| \int_{x_n}^x f''(t)(x - t) \, dt \right|
+$$
+
+  Notamos que:
+
+\begin{align*}
+f(x) - f(x_n) &= \int_{x_n}^x f'(t) \, dt \\
+\Rightarrow f(x) - f(x_n) - f'(x_n)(x - x_n) &= \int_{x_n}^x f'(t) \, dt - f'(x_n)(x - x_n) \\
+&= \int_{x_n}^x \left(f'(t) - f'(x_n)\right) dt \tag{★}
+\end{align*}
+
+  Por otra parte, usando el teorema fundamental del cálculo:
+
+\begin{align*}
+f'(t) - f'(x_n) = \int_{x_n}^t f''(s) \, ds
+\end{align*}
+
+  Sustituyendo en (★):
+
+\begin{align*}
+\int_{x_n}^x (f'(t) - f'(x_n)) dt &= \int_{x_n}^x \left( \int_{x_n}^t f''(s) \, ds \right) dt
+\end{align*}
+
+  Intercambiamos el orden de integración (ver gráfica triangular en $s$-$t$):
+
+\begin{align*}
+\int_{x_n}^x \left( \int_{x_n}^t f''(s) \, ds \right) dt &= \int_{x_n}^x \left( \int_{s}^x dt \right) f''(s) \, ds \\
+&= \int_{x_n}^x (x - s) f''(s) \, ds
+\end{align*}
+
+  Entonces:
+
+\begin{align*}
+f(x) - f(x_n) - f'(x_n)(x - x_n) &= \int_{x_n}^x (x - s) f''(s) \, ds
+\end{align*}
+
+  Haciendo cambio de variable $t = s$, se concluye:
+
+$$
+\left| f(x) - f(x_n) - f'(x_n)(x - x_n) \right| = \left| \int_{x_n}^x f''(t)(x - t) \, dt \right| \quad \blacksquare
+$$
+
+f) Probar que la expresión:
+
+$$
+\left| \int_{x_n}^x f''(t)(x - t) \, dt \right|
+$$
+
+  está acotada por:
+
+$$
+\frac{L}{2} |x_n - x|^2
+$$
+
+  Dado que:
+
+\begin{align*}
+\left| \int_{x_n}^x f''(t)(x - t) \, dt \right|
+&\leq \int_{x_n}^x |f''(t)| \cdot |x - t| \, dt \\
+&\leq L \int_{x_n}^x |x - t| \, dt
+\end{align*}
+
+  Calculamos:
+
+\begin{align*}
+\int_{x_n}^x |x - t| \, dt &= \int_{x_n}^x (x - t) \, dt \\
+&= \left[ x t - \frac{t^2}{2} \right]_{x_n}^x \\
+&= \left( x^2 - \frac{x^2}{2} \right) - \left( x x_n - \frac{x_n^2}{2} \right) \\
+&= \frac{x^2}{2} - x x_n + \frac{x_n^2}{2} \\
+&= \frac{(x - x_n)^2}{2}
+\end{align*}
+
+  Por tanto:
+
+$$
+\left| \int_{x_n}^x f''(t)(x - t) \, dt \right| \leq \frac{L}{2} |x - x_n|^2 \quad \blacksquare
+$$
+
+g) Probar que si se define:
+
+$$
+r_n := \frac{L}{2M} |x_n - x|
+$$
+
+  entonces se cumple:
+
+$$
+|x_{n+1} - x| \leq r_n^2
+$$
+
+  Sabemos que:
+
+$$
+x_{n+1} - x = \frac{\int_{x_n}^x f''(t)(x - t) \, dt}{f'(x_n)}
+$$
+
+  Aplicando el resultado del ítem **(f)**:
+
+\begin{align*}
+|x_{n+1} - x| &\leq \frac{1}{|f'(x_n)|} \left| \int_{x_n}^x f''(t)(x - t) \, dt \right| \\
+&\leq \frac{L}{2M} |x_n - x|^2
+\end{align*}
+
+  Luego, si definimos $r_n = \dfrac{L}{2M} |x_n - x|$, entonces:
+
+$$
+|x_{n+1} - x| \leq r_n^2 \quad \blacksquare
+$$
+
+h) 
+$$
+\varepsilon < \min\left\{ \varepsilon_1, \frac{2M}{L} \right\}
+$$
+
+  Probar que si $|x_n - x| < \varepsilon$, entonces $|x_{n+1} - x| < \varepsilon$, y concluir que la sucesión converge.
+
+  Sabemos que:
+
+$$
+|x_{n+1} - x| \leq r_n^2 = \left( \frac{L}{2M} |x_n - x| \right)^2
+$$
+
+  Si $|x_n - x| < \varepsilon$, se tiene:
+
+\begin{align*}
+|x_{n+1} - x| &\leq \left( \frac{L}{2M} \right)^2 \varepsilon^2 \\
+&< \left( \frac{L}{2M} \cdot \varepsilon \right) \\
+&< \varepsilon
+\end{align*}
+
+  Ya que $\varepsilon < \dfrac{2M}{L}$, entonces $\dfrac{L}{2M} \cdot \varepsilon < 1$, y por tanto $\left( \dfrac{L}{2M} \cdot \varepsilon \right)^2 < \varepsilon$.
+
+  Por lo tanto:
+
+$$
+|x_{n+1} - x| < \varepsilon \quad \blacksquare
+$$
+
+  Esto demuestra que la sucesión generada por el método de Newton-Raphson converge.
+
+
 
 # Ejercicio 21
 
