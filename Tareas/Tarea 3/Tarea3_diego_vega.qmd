@@ -79,7 +79,7 @@ punto.fijo <- function(p0, tol, n, g) {
   while (i <= n) {
     p <- g(p0_temp)
     if (abs(p - p0_temp) < tol) {
-      return(p)
+      return(list("valor" = p, "iteraciones" = i))
     }
     i <- i + 1
     p0_temp <- p
@@ -477,7 +477,7 @@ sprintf("%.20f", pto.fijo.a)
 ```
 b)
 ```{r}
-punto.fijo(0.5, 1e-5, 30, f2.f)
+punto.fijo(0.6, 1e-5, 30, f2.f)
 
 #Calculo con R
 pto.fijo.b <- uniroot(f2, c(0,1))$root
@@ -1209,8 +1209,16 @@ e)
 ```{r}
 f <- function(x) x^4 -4*x^3 + 3*x^2
 
-dicotomico(1, 4, 0, 1e-8, 1000, f)
+min.x <- dicotomico(1, 4, 1e-6, 1e-5, 100, f)
+min.x
 ```
+Para encontrar el valor minimo de la funcion en [1,4], esta se evalua en el punto encontrado recientemente:
+```{r}
+f(min.x$valor)
+```
+
+
+
 
 
 
