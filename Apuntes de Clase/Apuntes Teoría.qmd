@@ -237,10 +237,10 @@ $$
 
 \begin{align*}
 \left| \frac{x - fl(x)}{x} \right|
-&= \left| \frac{0.d_1 d_2 \cdots \times 10^n - 0.d_1 d_2 \cdots d_k \times 10^n}{0.d_1 d_2 \cdots \times 10^n} \right| \\[1ex]
-&= \left| \frac{0.d_{k+1} d_{k+2} \cdots \times 10^{n-k}}{0.d_1 d_2 \cdots \times 10^n} \right| \\[1ex]
-&= \left| \frac{0.d_{k+1} d_{k+2} \cdots}{0.d_1 d_2 \cdots} \right| \times 10^{-k} \\[1ex]
-&\le \frac{1}{0.1} \times 10^{-k} \\[1ex]
+&= \left| \frac{0.d_1 d_2 \cdots \times 10^n - 0.d_1 d_2 \cdots d_k \times 10^n}{0.d_1 d_2 \cdots \times 10^n} \right| \$$1ex]
+&= \left| \frac{0.d_{k+1} d_{k+2} \cdots \times 10^{n-k}}{0.d_1 d_2 \cdots \times 10^n} \right| \$$1ex]
+&= \left| \frac{0.d_{k+1} d_{k+2} \cdots}{0.d_1 d_2 \cdots} \right| \times 10^{-k} \$$1ex]
+&\le \frac{1}{0.1} \times 10^{-k} \$$1ex]
 &= 10^{-k+1}.
 \end{align*}
 
@@ -261,9 +261,9 @@ De esta forma
 
 \begin{align*}
 \left| \frac{x - fl(x)}{x} \right|
-&= \left| \frac{0.d_1 d_2 \cdots \times 10^n - 0.d_1 d_2 \cdots d_k \times 10^n}{0.d_1 d_2 \cdots \times 10^n} \right| \\[1ex]
-&= \left| \frac{0.d_{k+1} d_{k+2} \cdots \times 10^{n-k}}{0.d_1 d_2 \cdots \times 10^n} \right| \\[1ex]
-&= \left| \frac{0.d_{k+1} d_{k+2} \cdots}{0.d_1 d_2 \cdots} \right| \times 10^{-k} \\[1ex]
+&= \left| \frac{0.d_1 d_2 \cdots \times 10^n - 0.d_1 d_2 \cdots d_k \times 10^n}{0.d_1 d_2 \cdots \times 10^n} \right| \$$1ex]
+&= \left| \frac{0.d_{k+1} d_{k+2} \cdots \times 10^{n-k}}{0.d_1 d_2 \cdots \times 10^n} \right| \$$1ex]
+&= \left| \frac{0.d_{k+1} d_{k+2} \cdots}{0.d_1 d_2 \cdots} \right| \times 10^{-k} \$$1ex]
 \end{align*}
 
 Aquí hay que analizar por casos:
@@ -274,8 +274,8 @@ En este caso basta con cortar en $d_k$ así:
 
 \begin{align*}
 \left| \frac{x - fl(x)}{x} \right|
-&= \left| \frac{0.d_{k+1} d_{k+2} \cdots}{0.d_1 d_2 \cdots} \right| \times 10^{-k} \\[1ex]
-&\leq 0.5\cdot\left| \frac{1}{0.1} \right| \times 10^{-k} \\[1ex]
+&= \left| \frac{0.d_{k+1} d_{k+2} \cdots}{0.d_1 d_2 \cdots} \right| \times 10^{-k} \$$1ex]
+&\leq 0.5\cdot\left| \frac{1}{0.1} \right| \times 10^{-k} \$$1ex]
 &= 0.5\times 10^{-k+1}
 \end{align*}
 
@@ -424,15 +424,15 @@ Si $x = x_1 + x_2 + \cdots + x_n$ y $x^* = x_1^* + x_2^* + \cdots + x_n^*$ con $
 \text{Sabemos que } \quad
 \delta_x &= \frac{\Delta_x}{|x|}
 \leq \frac{\Delta_{x_1} + \Delta_{x_2} + \cdots + \Delta_{x_n}}
-{|x_1 + x_2 + \cdots + x_n|},\\[1ex]
+{|x_1 + x_2 + \cdots + x_n|},\$$1ex]
 \delta_{x_i} &= \frac{\Delta_{x_i}}{|x_i|}
-\;\Rightarrow\; \Delta_{x_i} = \delta_{x_i}\,|x_i|,\\[2ex]
+\;\Rightarrow\; \Delta_{x_i} = \delta_{x_i}\,|x_i|,\$$2ex]
 \Rightarrow \quad
 \delta_x &\leq \frac{|x_1|\delta_{x_1} + |x_2|\delta_{x_2} + \cdots + |x_n|\delta_{x_n}}
-{|x_1 + x_2 + \cdots + x_n|}\\[2ex]
+{|x_1 + x_2 + \cdots + x_n|}\$$2ex]
 &\leq
 \frac{\max\{\delta_{x_1}, \delta_{x_2}, \ldots, \delta_{x_n}\}\, (|x_1| + |x_2| + \cdots + |x_n|)}
-{|x_1 + x_2 + \cdots + x_n|}\\[2ex]
+{|x_1 + x_2 + \cdots + x_n|}\$$2ex]
 &\leq \max\{\delta_{x_1}, \delta_{x_2}, \ldots, \delta_{x_n}\},
 \qquad \text{pues } x_i \ge 0 \ \forall i .
 \end{align*}
@@ -1328,9 +1328,9 @@ Para todo $m > n$ se tiene que:
 
 \begin{align*}
 \| f_n - f_m \|_1
-&= \left( \int_0^2 |f_n(x) - f_m(x)|^2 \, dx \right)^2\\[1ex]
-&= \left( \int_0^1 |x^n - x^m|^2 \, dx \right)^2\\[1ex]
-&= \left( \int_0^1 \big(x^{2n} - 2x^{n+m} + x^{2m}\big) \, dx \right)^2\\[1ex]
+&= \left( \int_0^2 |f_n(x) - f_m(x)|^2 \, dx \right)^2\$$1ex]
+&= \left( \int_0^1 |x^n - x^m|^2 \, dx \right)^2\$$1ex]
+&= \left( \int_0^1 \big(x^{2n} - 2x^{n+m} + x^{2m}\big) \, dx \right)^2\$$1ex]
 &= \left( \frac{1}{2n+1} - \frac{2}{n+m+1} + \frac{1}{2m+1} \right)^2 \to 0
 \quad \text{cuando } n,m \to \infty,
 \end{align*}
@@ -1365,7 +1365,7 @@ Vea además que
 \begin{align*}
 \Biggl(\int_{1}^{2}\!\bigl|f(x)-1\bigr|^{2}\,dx\Biggr)^{2} 
 &= \Biggl(\int_{1}^{2}\!\bigl|f(x)-f_n(x)\bigr|^{2}\,dx\Biggr)^{2} 
-\qquad\text{(pues $f_n(x)=1$ en $(1,2]$)}\\[4ex]
+\qquad\text{(pues $f_n(x)=1$ en $(1,2]$)}\$$4ex]
 &\le \Biggl(\int_{0}^{2}\!\bigl|f(x)-f_n(x)\bigr|^{2}\,dx\Biggr)^{2} 
 = \,\|f-f_n\|_{1}\;\xrightarrow[n\to\infty]{}\;0 .
 \end{align*}
@@ -2038,10 +2038,10 @@ Para probar la cota del error (1.4) note que:
 
 \begin{align*}
 |x_n - x|
-&= |g(x_{n-1}) - g(x)| = |g'(\xi_1)| \cdot |x_{n-1} - x| \leq q |x_{n-1} - x| \\[1ex]
-&= q |g(x_{n-2}) - g(x)| = q |g'(\xi_2)| \cdot |x_{n-2} - x| \leq q^2 |x_{n-2} - x| \\[1ex]
-&\leq \dots \\[1ex]
-&\leq q^n |x_0 - x| \\[1ex]
+&= |g(x_{n-1}) - g(x)| = |g'(\xi_1)| \cdot |x_{n-1} - x| \leq q |x_{n-1} - x| \$$1ex]
+&= q |g(x_{n-2}) - g(x)| = q |g'(\xi_2)| \cdot |x_{n-2} - x| \leq q^2 |x_{n-2} - x| \$$1ex]
+&\leq \dots \$$1ex]
+&\leq q^n |x_0 - x| \$$1ex]
 &\leq q^n \max\{x_0 - a, \; b - x_0\}.
 \end{align*}
 
@@ -2198,10 +2198,34 @@ punto.fijo <- function(p0, tol, n, g) {
 ::: {.callout-tip collapse="true"}
 ###### Ejemplo
 
-Sea $$f(x) = e^{-x}$$, es fácil probar que $$f(x)$$ mapea  
-$$A = [0.5, 0.69]$$ en sí mismo (ejercicio).  
+Sea $f(x) = e^{-x}$, es fácil probar que $f(x)$ mapea  $A = [0.5, 0.69]$ en sí mismo.
 
-Como $$f$$ es continuamente diferenciable, tome:
+::: {.callout-caution collapse="true"}
+##### Prueba
+
+Como $f(x)$ es estrictamente decreciente y continua en $\mathbb{R}$, en particular lo es en el intervalo $A$, por lo que su imagen sobre $A$ es:
+$$
+f([0.5, 0.69]) = [f(0.69), f(0.5)]
+$$
+Calculamos:
+$$
+f(0.5) = e^{-0.5} \approx 0.6065, \quad f(0.69) = e^{-0.69} \approx 0.5016
+$$
+Por lo tanto:
+$$
+f([0.5, 0.69]) = [0.5016, 0.6065]
+$$
+Observamos que:
+$$
+[0.5016, 0.6065] \subseteq [0.5, 0.69]
+$$
+La función $f(x) = e^{-x}$ mapea el intervalo $A = [0.5, 0.69]$ en sí mismo, es decir:
+$$
+f(A) \subseteq A
+$$
+:::
+
+Como $f$ es continuamente diferenciable, tome:
 
 $$
 q = \max_{x \in A} \, \big| f'(x) \big| 
@@ -2477,7 +2501,7 @@ La idea es encontrar una sucesión $(x_n)$ tal que $x_n \to x$ cuando $n \to \in
   y así sucesivamente hasta que $f(x_i) \approx 0$ o hasta superar el número máximo de iteraciones. El pseudocódigo se puede escribir como sigue:
 
 
-#### Algoritmo [Método de la Bisección]
+#### Algoritmo Método de la Bisección
 
 **Entrada:** $a, b, Tol$ (tolerancia), $N$, $f$  
 **Salida:** Aproximación de $x$ (cero de la ecuación) o mensaje de error
