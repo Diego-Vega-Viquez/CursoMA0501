@@ -237,10 +237,10 @@ $$
 
 \begin{align*}
 \left| \frac{x - fl(x)}{x} \right|
-&= \left| \frac{0.d_1 d_2 \cdots \times 10^n - 0.d_1 d_2 \cdots d_k \times 10^n}{0.d_1 d_2 \cdots \times 10^n} \right| \$$1ex]
-&= \left| \frac{0.d_{k+1} d_{k+2} \cdots \times 10^{n-k}}{0.d_1 d_2 \cdots \times 10^n} \right| \$$1ex]
-&= \left| \frac{0.d_{k+1} d_{k+2} \cdots}{0.d_1 d_2 \cdots} \right| \times 10^{-k} \$$1ex]
-&\le \frac{1}{0.1} \times 10^{-k} \$$1ex]
+&= \left| \frac{0.d_1 d_2 \cdots \times 10^n - 0.d_1 d_2 \cdots d_k \times 10^n}{0.d_1 d_2 \cdots \times 10^n} \right| \\[1ex]
+&= \left| \frac{0.d_{k+1} d_{k+2} \cdots \times 10^{n-k}}{0.d_1 d_2 \cdots \times 10^n} \right| \\[1ex]
+&= \left| \frac{0.d_{k+1} d_{k+2} \cdots}{0.d_1 d_2 \cdots} \right| \times 10^{-k} \\[1ex]
+&\le \frac{1}{0.1} \times 10^{-k} \\[1ex]
 &= 10^{-k+1}.
 \end{align*}
 
@@ -261,9 +261,9 @@ De esta forma
 
 \begin{align*}
 \left| \frac{x - fl(x)}{x} \right|
-&= \left| \frac{0.d_1 d_2 \cdots \times 10^n - 0.d_1 d_2 \cdots d_k \times 10^n}{0.d_1 d_2 \cdots \times 10^n} \right| \$$1ex]
-&= \left| \frac{0.d_{k+1} d_{k+2} \cdots \times 10^{n-k}}{0.d_1 d_2 \cdots \times 10^n} \right| \$$1ex]
-&= \left| \frac{0.d_{k+1} d_{k+2} \cdots}{0.d_1 d_2 \cdots} \right| \times 10^{-k} \$$1ex]
+&= \left| \frac{0.d_1 d_2 \cdots \times 10^n - 0.d_1 d_2 \cdots d_k \times 10^n}{0.d_1 d_2 \cdots \times 10^n} \right| \\[1ex]
+&= \left| \frac{0.d_{k+1} d_{k+2} \cdots \times 10^{n-k}}{0.d_1 d_2 \cdots \times 10^n} \right| \\[1ex]
+&= \left| \frac{0.d_{k+1} d_{k+2} \cdots}{0.d_1 d_2 \cdots} \right| \times 10^{-k} \\[1ex]
 \end{align*}
 
 Aquí hay que analizar por casos:
@@ -274,8 +274,8 @@ En este caso basta con cortar en $d_k$ así:
 
 \begin{align*}
 \left| \frac{x - fl(x)}{x} \right|
-&= \left| \frac{0.d_{k+1} d_{k+2} \cdots}{0.d_1 d_2 \cdots} \right| \times 10^{-k} \$$1ex]
-&\leq 0.5\cdot\left| \frac{1}{0.1} \right| \times 10^{-k} \$$1ex]
+&= \left| \frac{0.d_{k+1} d_{k+2} \cdots}{0.d_1 d_2 \cdots} \right| \times 10^{-k} \\[1ex]
+&\leq 0.5\cdot\left| \frac{1}{0.1} \right| \times 10^{-k} \\[1ex]
 &= 0.5\times 10^{-k+1}
 \end{align*}
 
@@ -424,15 +424,15 @@ Si $x = x_1 + x_2 + \cdots + x_n$ y $x^* = x_1^* + x_2^* + \cdots + x_n^*$ con $
 \text{Sabemos que } \quad
 \delta_x &= \frac{\Delta_x}{|x|}
 \leq \frac{\Delta_{x_1} + \Delta_{x_2} + \cdots + \Delta_{x_n}}
-{|x_1 + x_2 + \cdots + x_n|},\$$1ex]
+{|x_1 + x_2 + \cdots + x_n|},\\[1ex]
 \delta_{x_i} &= \frac{\Delta_{x_i}}{|x_i|}
-\;\Rightarrow\; \Delta_{x_i} = \delta_{x_i}\,|x_i|,\$$2ex]
+\;\Rightarrow\; \Delta_{x_i} = \delta_{x_i}\,|x_i|,\\[2ex]
 \Rightarrow \quad
 \delta_x &\leq \frac{|x_1|\delta_{x_1} + |x_2|\delta_{x_2} + \cdots + |x_n|\delta_{x_n}}
-{|x_1 + x_2 + \cdots + x_n|}\$$2ex]
+{|x_1 + x_2 + \cdots + x_n|}\\[2ex]
 &\leq
 \frac{\max\{\delta_{x_1}, \delta_{x_2}, \ldots, \delta_{x_n}\}\, (|x_1| + |x_2| + \cdots + |x_n|)}
-{|x_1 + x_2 + \cdots + x_n|}\$$2ex]
+{|x_1 + x_2 + \cdots + x_n|}\\[2ex]
 &\leq \max\{\delta_{x_1}, \delta_{x_2}, \ldots, \delta_{x_n}\},
 \qquad \text{pues } x_i \ge 0 \ \forall i .
 \end{align*}
@@ -625,13 +625,13 @@ $$
 ::: {.callout-note}
 ##### Observación: Velocidad de convergencia de los ciclos  
 
-1\. $\texttt{For[i=1, i++, i<=N, \dots]}$
+1\. $\texttt{For[i=1, i++, i<=N, \ldots]}$
 
 tiene una velocidad de convergencia $\mathcal{O}(N)$.  
 
 2\. $\texttt{For[i=1, i++, i<=N,} \quad$
 
-  $\quad\texttt{For[j=1, j++, j<=M, \dots]]}$
+  $\quad\texttt{For[j=1, j++, j<=M, \ldots]]}$
    
 tiene una velocidad de convergencia $\mathcal{O}(N^2)$.  
 
@@ -639,7 +639,7 @@ tiene una velocidad de convergencia $\mathcal{O}(N^2)$.
 
   $\qquad\texttt{For[j=1, j++, j<=M,} \quad$
    
-  $\qquad\qquad\texttt{For[k=1, k++, k<=L, \dots]]]}$
+  $\qquad\qquad\texttt{For[k=1, k++, k<=L, \ldots]]]}$
       
 tiene una velocidad de convergencia $\mathcal{O}(N^3)$.  
 :::
@@ -786,10 +786,10 @@ $$
 \qquad
 \|x\|_2 := \left( \sum_{i=1}^n |x_i|^2 \right)^{1/2}, 
 \qquad
-\|x\|_\infty := \max_{i=1,2,\dots,n} |x_i|,
+\|x\|_\infty := \max_{i=1,2,\ldots,n} |x_i|,
 $$
 
-para $x = (x_1, x_2, \dots, x_n)^t$.
+para $x = (x_1, x_2, \ldots, x_n)^t$.
 
 Las normas anteriores son conocidas como las normas $\ell_1$, $\ell_2$ y $\ell_\infty$ respectivamente.  
 Las tres son casos particulares de la **norma $\ell_p$**:
@@ -1328,9 +1328,9 @@ Para todo $m > n$ se tiene que:
 
 \begin{align*}
 \| f_n - f_m \|_1
-&= \left( \int_0^2 |f_n(x) - f_m(x)|^2 \, dx \right)^2\$$1ex]
-&= \left( \int_0^1 |x^n - x^m|^2 \, dx \right)^2\$$1ex]
-&= \left( \int_0^1 \big(x^{2n} - 2x^{n+m} + x^{2m}\big) \, dx \right)^2\$$1ex]
+&= \left( \int_0^2 |f_n(x) - f_m(x)|^2 \, dx \right)^2\\[1ex]
+&= \left( \int_0^1 |x^n - x^m|^2 \, dx \right)^2\\[1ex]
+&= \left( \int_0^1 \big(x^{2n} - 2x^{n+m} + x^{2m}\big) \, dx \right)^2\\[1ex]
 &= \left( \frac{1}{2n+1} - \frac{2}{n+m+1} + \frac{1}{2m+1} \right)^2 \to 0
 \quad \text{cuando } n,m \to \infty,
 \end{align*}
@@ -1365,7 +1365,7 @@ Vea además que
 \begin{align*}
 \Biggl(\int_{1}^{2}\!\bigl|f(x)-1\bigr|^{2}\,dx\Biggr)^{2} 
 &= \Biggl(\int_{1}^{2}\!\bigl|f(x)-f_n(x)\bigr|^{2}\,dx\Biggr)^{2} 
-\qquad\text{(pues $f_n(x)=1$ en $(1,2]$)}\$$4ex]
+\qquad\text{(pues $f_n(x)=1$ en $(1,2]$)}\\[4ex]
 &\le \Biggl(\int_{0}^{2}\!\bigl|f(x)-f_n(x)\bigr|^{2}\,dx\Biggr)^{2} 
 = \,\|f-f_n\|_{1}\;\xrightarrow[n\to\infty]{}\;0 .
 \end{align*}
@@ -1382,7 +1382,7 @@ Todo espacio normado de dimensión finita es un espacio de Banach.
 
 ::: {.callout-caution collapse="true"}
 ###### Prueba
-Sea $X$ un espacio normado con base $u_1, u_2, \dots, u_n$ y sea $(x_\nu)$ una sucesión de Cauchy en $X$.  
+Sea $X$ un espacio normado con base $u_1, u_2, \ldots, u_n$ y sea $(x_\nu)$ una sucesión de Cauchy en $X$.  
 Se puede escribir:  
 
 $$
@@ -1392,12 +1392,12 @@ $$
 usando el Teorema 1 se tiene que existe un $C > 0$ tal que:  
 
 $$
-\max_{j=1,2,\dots,n} |\alpha_{j\nu} - \alpha_{j\mu}| \leq C \, \| x_\nu - x_\mu \|
+\max_{j=1,2,\ldots,n} |\alpha_{j\nu} - \alpha_{j\mu}| \leq C \, \| x_\nu - x_\mu \|
 $$
 
 para todo $\nu, \mu \in \mathbb{N}$.
 
-Por lo tanto $(\alpha_{j\nu})$ es una sucesión de Cauchy en $\mathbb{C}$, entonces existen $\alpha_1, \alpha_2, \dots, \alpha_n$ tales que $\alpha_{j\nu} \to \alpha_j$ cuando $\nu \to \infty$ para cada $j = 1,2,\dots,n$.  
+Por lo tanto $(\alpha_{j\nu})$ es una sucesión de Cauchy en $\mathbb{C}$, entonces existen $\alpha_1, \alpha_2, \ldots, \alpha_n$ tales que $\alpha_{j\nu} \to \alpha_j$ cuando $\nu \to \infty$ para cada $j = 1,2,\ldots,n$.  
 Por lo tanto $(x_\nu)$ converge a:  
 
 $$
@@ -1529,7 +1529,7 @@ Sea $U$ un subconjunto completo de un espacio normado $X$ y sea $A : U \to U$ un
 ###### Prueba
 Sea $x_0 \in U$ entonces definimos recursivamente la siguiente sucesión en $U$:
 $$
-x_{n+1} := A x_n, \quad \text{para } n = 0,1,2,\dots
+x_{n+1} := A x_n, \quad \text{para } n = 0,1,2,\ldots
 $$
 
 De donde se tiene que:
@@ -1539,7 +1539,7 @@ $$
 
 luego, por inducción se deduce que:
 $$
-\|x_{n+1} - x_n\| \leq q^n \|x_1 - x_0\|, \quad \text{para } n = 0,1,2,\dots
+\|x_{n+1} - x_n\| \leq q^n \|x_1 - x_0\|, \quad \text{para } n = 0,1,2,\ldots
 $$
 
 Por lo tanto para $m > n$ se tiene que:
@@ -1734,18 +1734,18 @@ $$
 ::: {.callout-note}
 ##### Corolario  
 
-Sea $U$ un subespacio vectorial de dimensión finita de un espacio pre-Hilbert $X$ con base $u_{1}, u_{2}, \dots, u_{n}$.  
+Sea $U$ un subespacio vectorial de dimensión finita de un espacio pre-Hilbert $X$ con base $u_{1}, u_{2}, \ldots, u_{n}$.  
 Entonces la combinación lineal  
 
 $$
 v = \sum_{k=1}^{n} \alpha_{k} u_{k}
 $$  
 
-es la mejor aproximación para $w \in X$ con respecto a $U$ si y solamente si los coeficientes $\alpha_{1}, \alpha_{2}, \dots, \alpha_{n}$ satisfacen las *ecuaciones normales*:  
+es la mejor aproximación para $w \in X$ con respecto a $U$ si y solamente si los coeficientes $\alpha_{1}, \alpha_{2}, \ldots, \alpha_{n}$ satisfacen las *ecuaciones normales*:  
 
 $$
 \sum_{k=1}^{n} \alpha_{k} \langle u_{k}, u_{j} \rangle = \langle w, u_{j} \rangle, 
-\quad \text{para } j = 1, 2, \dots, n.
+\quad \text{para } j = 1, 2, \ldots, n.
 $$
 :::
 
@@ -1759,7 +1759,7 @@ $\blacksquare$
 ::: {.callout-note}
 ##### Corolario  
 
-Sea $U$ un subespacio vectorial de dimensión finita de un espacio pre-Hilbert $X$ con base ortonormal $u_{1}, u_{2}, \dots, u_{n}$.  
+Sea $U$ un subespacio vectorial de dimensión finita de un espacio pre-Hilbert $X$ con base ortonormal $u_{1}, u_{2}, \ldots, u_{n}$.  
 Entonces la proyección ortogonal está dada por:  
 
 $$
@@ -1780,7 +1780,7 @@ $$
 \end{cases}
 $$  
 
-luego $\alpha_{k} = \langle w, u_{k} \rangle$ para $k = 1, 2, \dots, n$.  
+luego $\alpha_{k} = \langle w, u_{k} \rangle$ para $k = 1, 2, \ldots, n$.  
 $\blacksquare$
 :::
 
@@ -2038,10 +2038,10 @@ Para probar la cota del error (1.4) note que:
 
 \begin{align*}
 |x_n - x|
-&= |g(x_{n-1}) - g(x)| = |g'(\xi_1)| \cdot |x_{n-1} - x| \leq q |x_{n-1} - x| \$$1ex]
-&= q |g(x_{n-2}) - g(x)| = q |g'(\xi_2)| \cdot |x_{n-2} - x| \leq q^2 |x_{n-2} - x| \$$1ex]
-&\leq \dots \$$1ex]
-&\leq q^n |x_0 - x| \$$1ex]
+&= |g(x_{n-1}) - g(x)| = |g'(\xi_1)| \cdot |x_{n-1} - x| \leq q |x_{n-1} - x| \\[1ex]
+&= q |g(x_{n-2}) - g(x)| = q |g'(\xi_2)| \cdot |x_{n-2} - x| \leq q^2 |x_{n-2} - x| \\[1ex]
+&\leq \ldots \\[1ex]
+&\leq q^n |x_0 - x| \\[1ex]
 &\leq q^n \max\{x_0 - a, \; b - x_0\}.
 \end{align*}
 
@@ -2133,7 +2133,7 @@ $\blacksquare$
 Sea $x$ un punto fijo de una función continuamente diferenciable $g$ tal que $|g'(x)|<1$.  
 Entonces el método de las aproximaciones sucesivas 
 $$
-x_{n+1} := g(x_n), \quad \text{para } n=0,1,2,\dots
+x_{n+1} := g(x_n), \quad \text{para } n=0,1,2,\ldots
 $$
 es localmente convergente, es decir, existe un vecindario $\mathcal{B}$ del punto fijo $x$ de $g$ tal que el método de aproximaciones sucesivas converge a $x$, para $x_0 \in \mathcal{B}$.
 
@@ -2467,6 +2467,7 @@ esto implica que $n \geq 17.28$, por lo que se puede tomar $n = 18$. $\blacksqua
 **Observación 2** En la práctica el programa requirió solamente 9 iteraciones.
 :::
 :::
+
 
 
 ## Método de bisección, método regula falsi y método de la secante.
@@ -3326,12 +3327,12 @@ $$
 ##### Teorema
 
 Sea $(x_n)$ una sucesión que converge a $x$ con orden lineal con constante asintótica $\lambda < 1$, además se asume que $e_n = x_n - x \ne 0$ para todo $n$. Entonces la sucesión $(\tilde{x}_n)$, definida como en (1.14), converge a $x$ más rápido que $(x_n)$.
-:::
 
 ::: {.callout-caution collapse="true"}
 ##### Prueba
 
 Ejercicio. $\blacksquare$
+:::
 :::
 
 ### El método de Steffensen
@@ -3390,7 +3391,6 @@ Resolver la ecuación $x^3 - x - 1 = 0$ en el intervalo $[1, 2]$ con $\epsilon =
 ##### Teorema
 
 Si el método de punto fijo $x_{n+1} = g(x_n)$ converge linealmente, entonces el orden de convergencia del método de Steffensen es al menos dos.
-:::
 
 ::: {.callout-caution collapse="true"}
 ##### Prueba
@@ -3404,3 +3404,1574 @@ $$
 
 $\blacksquare$
 :::
+:::
+
+# Interpolación
+
+## Interpolación y aproximaciones polinómicas
+
+### Polinomios de Bernstein
+
+::: {.callout-note}
+##### Teorema: [Weierstrass]
+
+Sea $f$ continua en $[a, b]$; entonces dado $\varepsilon > 0$, existe $n \in \mathbb{N}$ y $P_n(x) \in P_n$ tal que
+
+$$
+\left| f(x) - P_n(x) \right| < \varepsilon, \quad \forall x \in [a, b].
+$$
+
+
+![Polinomio de Bernstein](Imagenes/Polinomio de Bernstein.png){width=400px fig-align="center"}
+
+::: {.callout-caution collapse="true"}
+##### Prueba
+
+Sin pérdida de generalidad, suponga que $a = 0$ y $b = 1$. Sea:
+
+
+$$
+B_n(x) = \sum_{k=0}^n \binom{n}{k} x^k (1 - x)^{n-k} f\left( \frac{k}{n} \right),
+$$
+
+se puede probar que $B_n(x) \to f(x)$ uniformemente en $[0,1]$ (ejercicio). $\blacksquare$
+:::
+:::
+
+::: {.callout-tip collapse="true"}
+###### Ejemplo
+
+Sea $f(x) = e^x$ en $[0, 1]$, entonces:
+
+\begin{align*}
+B_2(x) 
+&= \sum_{k=0}^2 \binom{2}{k} x^k (1 - x)^{2-k} e^{\frac{k}{2}} \\
+&= \binom{2}{0} x^0 (1 - x)^2 e^0 
+   + \binom{2}{1} x^1 (1 - x)^1 e^{\frac{1}{2}} 
+   + \binom{2}{2} x^2 (1 - x)^0 e^1 \\
+&= (1 - x)^2 + 2x(1 - x) e^{\frac{1}{2}} + x^2 e.
+\end{align*}
+
+:::
+
+```{r}
+#| code-fold: true
+
+# Polinomio de Bernstein en [0,1]
+bernstein <- function(n, F, x) {
+  resultado <- numeric(length(x))
+  for (i in seq_along(x)) {
+    xi <- x[i]
+    suma <- 0
+    for (k in 0:n) {
+      coef <- choose(n, k) * (xi^k) * ((1 - xi)^(n - k))
+      suma <- suma + coef * F(k / n)
+    }
+    resultado[i] <- suma
+  }
+  return(resultado)
+}
+
+# Ejemplo: F(x) = exp(x) en [0,1]
+F <- function(x) exp(x)
+xs <- seq(0, 1, length.out = 400)
+
+# Aproximación con n = 10
+vals <- bernstein(10, F, xs)
+
+# Graficar
+plot(xs, F(xs), type = "l", col = "red", lwd = 2,
+     main = "Aproximación de Bernstein de exp(x) en [0,1]",
+     ylab = "f(x)", xlab = "x")
+lines(xs, vals, col = "blue", lwd = 2)
+legend("topleft", legend = c("exp(x)", "Bernstein n=10"),
+       col = c("red", "blue"), lwd = 2)
+```
+
+**Observación.** El polinomio de Bernstein tiene solo valor teórico y no práctico.
+
+### Existencia y unicidad del polinomio de interpolación
+
+::: {.callout-note}
+##### Problema
+
+Sean $(x_i, y_i)$, para $i = 0, 1, 2, \ldots, n$, una secuencia de $n + 1$ puntos (nodos). Se busca un polinomio de grado $n$:
+
+$$
+P_n(x) = a_0 + a_1 x + a_2 x^2 + \cdots + a_n x^n,
+$$
+
+tal que satisfaga las condiciones de interpolación:
+
+$$
+P_n(x_i) = y_i \qquad i = 0, 1, 2, \ldots, n.
+$$
+:::
+
+```{r}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 7
+
+# Paquetes necesarios
+library(ggplot2)
+
+# Datos de los nodos
+x <- c(-2, -1, 0, 1, 2)
+y <- c(-1.2, 0.5, 1, 2.8, 3.5)
+
+# Ajuste del polinomio interpolante de grado 4
+modelo <- lm(y ~ poly(x, 4, raw = TRUE))
+
+# Datos para graficar el polinomio
+x_vals <- seq(min(x) - 0.5, max(x) + 0.5, length.out = 500)
+y_vals <- predict(modelo, newdata = data.frame(x = x_vals))
+
+# Crear un data frame con los nodos para etiquetas
+df_nodos <- data.frame(x = x, y = y,
+                       etiqueta = paste0("(", x, ", ", y, ")"))
+
+# Gráfico
+ggplot() +
+  geom_line(aes(x = x_vals, y = y_vals), color = "darkred", linewidth = 1.3) +
+  geom_point(data = df_nodos, aes(x = x, y = y), size = 3, shape = 21, fill = "white") +
+  geom_text(data = df_nodos, aes(x = x, y = y, label = etiqueta),
+            vjust = -1.2, size = 3.5) +
+  labs(
+    title = "Interpolación polinómica con nodos: (-2,-1.2), (-1,0.5), (0,1), (1,2.8), (2,3.5)",
+    subtitle = "Polinomio P[n](x) tal que  P_n(xᵢ) = yᵢ",
+    x = "x",
+    y = "y"
+  ) +
+  theme_minimal(base_size = 14)
+```
+
+::: {.callout-note}
+##### Teorema
+
+Sean $(x_i, y_i)$ una secuencia de $n + 1$ puntos, con $i = 0, 1, 2, \ldots, n$, tal que $x_i \ne x_j$, $\forall i \ne j$, entonces existe un único polinomio (de interpolación) que satisface la condición de interpolación:
+
+$$
+P_n(x_i) = y_i, \qquad i = 0, 1, \ldots, n,
+$$
+
+el cual tiene a lo más grado $n$.
+
+::: {.callout-caution collapse="true"}
+##### Prueba
+
+**Existencia:**
+
+Sea
+
+$$
+L_i(x) := \prod_{\substack{j = 0 \\ j \ne i}}^n \frac{x - x_j}{x_i - x_j}
+= \frac{(x - x_0)\cdots(x - x_{i-1})(x - x_{i+1})\cdots(x - x_n)}
+{(x_i - x_0)\cdots(x_i - x_{i-1})(x_i - x_{i+1})\cdots(x_i - x_n)}.
+$$
+
+Note que:
+
+$$
+L_i(x_k) =
+\begin{cases}
+1 & \text{si } i = k \\
+0 & \text{si } i \ne k
+\end{cases}
+= \delta_{ik}.
+$$
+
+Entonces el polinomio
+
+$$
+P_n(x) := \sum_{i = 0}^n y_i L_i(x),
+$$
+
+tiene la propiedad de interpolación, pues:
+
+$$
+P_n(x_k) = \sum_{i = 0}^n y_i L_i(x_k) = \sum_{i = 0}^n y_i \delta_{ik} = y_k, \qquad \text{para } k = 0, 1, \ldots, n.
+$$
+
+Además, el grado de $P_n(x)$ es menor o igual a $n$, pues es combinación lineal de polinomios de grado $n$.
+
+**Unicidad:**
+
+Sean $P_n(x)$ y $Q_n(x)$ dos polinomios de grado $n$ que satisfacen las condiciones de interpolación,
+
+$$
+P_n(x_k) = Q_n(x_k) = y_k, \qquad k = 0, 1, \ldots, n.
+$$
+
+Sea $D(x) := P_n(x) - Q_n(x)$, note que $D(x)$ es un polinomio de grado a lo más $n$ y tiene $n + 1$ raíces $x_0, x_1, \ldots, x_n$, por lo que de acuerdo al Teorema Fundamental del Álgebra se tiene que:
+
+$$
+D(x) \equiv 0 \Rightarrow P_n(x) - Q_n(x) = 0 \Rightarrow P_n(x) = Q_n(x). \quad \blacksquare
+$$
+:::
+:::
+
+### Interpolación de Lagrange
+
+
+::: {.callout-note}
+##### Definición: Polinomio de interpolación de Lagrange
+
+El polinomio:
+
+$$
+P_n(x) = \sum_{i=0}^n y_i L_i(x),
+$$
+
+con $y_i = f(x_i)$ y $L_i(x)$ definido por:
+
+$$
+L_i(x) = \frac{(x - x_0)(x - x_1)\cdots(x - x_{i-1})(x - x_{i+1})\cdots(x - x_n)}
+{(x_i - x_0)(x_i - x_1)\cdots(x_i - x_{i-1})(x_i - x_{i+1})\cdots(x_i - x_n)},
+$$
+
+se llama el **polinomio de interpolación de Lagrange**.
+:::
+
+::: {.callout-tip collapse="true"}
+###### Ejemplo
+
+Sea $f(x) = e^x$, $0 \leq x \leq 2$. Calcule $P_2(x)$ con $x_0 = 0$, $x_1 = 1$, y $x_2 = 2$.
+
+**Solución:**
+
+\begin{align*}
+P_2(x) &= \frac{(x - 1)(x - 2)}{(0 - 1)(0 - 2)} e^0 + \frac{(x - 0)(x - 2)}{(1 - 0)(1 - 2)} e^1 + \frac{(x - 1)(x - 0)}{(2 - 0)(2 - 1)} e^2 \\
+&= \frac{(x - 1)(x - 2)}{2} - x(x - 2)e + \frac{(x - 1)x}{2}e^2.
+\end{align*}
+
+$\blacksquare$
+:::
+
+![Polinomio de interpolación de Lagrange](Imagenes/Polinomio de interpolación de Lagrange.png){width=400px fig-align="center"}
+
+#### Estudio del error
+
+Recordemos el Teorema de Rolle Generalizado:
+
+::: {.callout-note}
+##### Teorema
+
+Sea $f \in C[a, b]$ y $f \in C^n[a, b]$, si $f$ se anula en $n + 1$ puntos distintos $x_0, x_1, \ldots, x_n$ en $[a, b]$, entonces $\exists\, c \in ]a, b[$ tal que $f^{(n)}(c) = 0$.
+
+::: {.callout-caution collapse="true"}
+##### Prueba
+
+Se omite. $\blacksquare$
+:::
+:::
+
+::: {.callout-note}
+##### Teorema: Error en el método de Lagrange
+
+Sean $x_0, x_1, \ldots, x_n \in [a, b]$ y sea $f \in C^{n+1}[a, b]$. Entonces $\forall\, x \in [a, b]$, $\exists\, \xi_x \in ]a, b[$ tal que:
+
+$$
+f(x) = P_n(x) + \frac{f^{(n+1)}(\xi_x)}{(n+1)!}(x - x_0)(x - x_1) \cdots (x - x_n).
+$$
+
+Es decir, el error absoluto es:
+
+$$
+\left|f(x) - P_n(x)\right| = \left| \frac{f^{(n+1)}(\xi_x)}{(n+1)!}(x - x_0)(x - x_1) \cdots (x - x_n) \right|.
+$$
+
+::: {.callout-caution collapse="true"}
+##### Prueba
+
+**I caso**  
+Si $x = x_k$, entonces $f(x_k) = P_n(x_k)$ y el error es cero, por lo tanto cualquier $\xi_x$ funciona.
+
+**II caso**  
+Si $x \ne x_k$, se define:
+
+$$
+g(t) = f(t) - P_n(t) - \left[ f(x) - P_n(x) \right] \frac{(t - x_0)(t - x_1)\cdots(t - x_n)}{(x - x_0)(x - x_1)\cdots(x - x_n)}.
+$$
+
+Vamos a probar que $g(t)$ cumple las hipótesis del Teorema Generalizado de Rolle para $n + 1$.
+
+- $g$ es $n + 1$ veces derivable pues $f \in C^{n+1}[a, b]$ y $P \in C^\infty[a, b]$.
+- $g$ se anula en $n + 2$ puntos, a saber: $t = x_0, x_1, \ldots, x_n$ y $t = x$.
+
+
+Como $g$ cumple las hipótesis del Teorema Generalizado del Rolle, entonces:
+
+$$
+\exists \, \xi_x \in ]a, b[ \text{ tal que } g^{(n+1)}(\xi_x) = 0.
+$$
+
+Vamos a calcular $g^{(n+1)}(t)$:
+
+\begin{align*}
+\frac{d^{n+1}}{dt^{n+1}} g(t) 
+&= f^{(n+1)}(t) - 0 - [f(x) - P_n(x)] \cdot \frac{d^{n+1}}{dt^{n+1}} \prod_{i=0}^n \frac{t - x_i}{x - x_i} \\
+&= f^{(n+1)}(t) - [f(x) - P_n(x)] \cdot \frac{1}{\prod_{i=0}^n (x - x_i)} \cdot \frac{d^{n+1}}{dt^{n+1}} \prod_{i=0}^n (t - x_i) \\
+&= f^{(n+1)}(t) - [f(x) - P_n(x)] \cdot \frac{1}{\prod_{i=0}^n (x - x_i)} \cdot \frac{d^{n+1}}{dt^{n+1}} \left( t^{n+1} + \text{términos de grado } \leq n \right) \\
+&= f^{(n+1)}(t) - [f(x) - P_n(x)] \cdot \frac{(n+1)!}{\prod_{i=0}^n (x - x_i)}.
+\end{align*}
+
+De donde se concluye que:
+
+$$
+g^{(n+1)}(\xi_x) = f^{(n+1)}(\xi_x) - [f(x) - P_n(x)] \cdot \frac{(n+1)!}{\prod_{i=0}^n (x - x_i)} = 0,
+$$
+
+por lo tanto:
+
+$$
+f(x) = P_n(x) + \frac{f^{(n+1)}(\xi_x)}{(n+1)!} \prod_{i=0}^n (x - x_i).
+$$
+
+$\blacksquare$
+:::
+:::
+
+::: {.callout-tip collapse="true"}
+###### Ejemplo
+
+Sea $f(x) = e^x$, con $x \in [0, 2]$ y sean $x_0 = 0$, $x_1 = 1$, $x_2 = 2$, tenemos que:
+
+$$
+P_2(x) = \frac{(x - 1)(x - 2)}{2} - x(x - 2)e + \frac{(x - 1)x}{2}e^2,
+$$
+
+así el error absoluto de aproximar $f(0.25)$ por $P_2(0.25)$ es:
+
+$$
+\text{Error Absoluto} = |f(0.25) - P_2(0.25)| = 0.1312511.
+$$
+
+Mientras que el error teórico es:
+
+$$
+\text{Error Teórico} = \left| \frac{e^{\xi_x}}{3!}(x - 0)(x - 1)(x - 2) \right| 
+\leq \left| \frac{e^2}{3!}x(x - 1)(x - 2) \right|,
+$$
+
+luego con $x = 0.25$:
+
+$$
+\text{Error Teórico} = \left| \frac{e^2}{3!}(0.25)(0.25 - 1)(0.25 - 2) \right| = 0.404089.
+$$
+
+$\blacksquare$
+:::
+
+::: {.callout-note}
+##### Método 1: Calcula el Polinomio de Lagrange retornando una función para ser evaluada en un $x$.
+```{r}
+#| code-fold: true
+
+PLagrange <- function(nodos, f, tol = 1e-12) {
+  n  <- length(nodos)
+  yi <- vapply(nodos, f, numeric(1))
+  #  w_i = 1 / ∏_{j≠i} (x_i - x_j)
+  pesos <- numeric(n)
+  for (i in seq_len(n)) {
+    pesos[i] <- 1 / prod(nodos[i] - nodos[-i])
+  }
+  # Función que evalúa el polinomio de interpolación
+  polinomio <- function(x) {
+    x <- as.numeric(x)
+    salida <- numeric(length(x))
+    for (k in seq_along(x)) {
+      diferencias <- abs(x[k] - nodos)
+      j <- which.min(diferencias)
+      if (diferencias[j] < tol) {
+        # Caso: x coincide con un nodo
+        salida[k] <- yi[j]
+      } else {
+        denominador <- sum(pesos / (x[k] - nodos))
+        numerador   <- sum((pesos * yi) / (x[k] - nodos))
+        salida[k]   <- numerador / denominador
+      }
+    }
+    salida
+  }
+  return(polinomio)
+}
+```
+:::
+::: {.callout-note}
+##### Método 2: Calcula los coeficientes del Polinomio de Lagrange
+Salida: $c(a_1, a_2,\ldots, a_{n-1})$ donde $$P_n(x) = \sum_{k=0}^{n-1}a_kx^k$$
+```{r}
+#| code-fold: true
+PLagrangeCoeficientes <- function(nodos, f) {
+  n     <- length(nodos)
+  valores <- vapply(nodos, f, numeric(1))
+  # Multiplicación de polinomios: coeficientes en orden ascendente
+  multiplicar_polinomios <- function(a, b) {
+    resultado <- numeric(length(a) + length(b) - 1)
+    for (i in seq_along(a)) {
+      for (j in seq_along(b)) {
+        resultado[i + j - 1] <- resultado[i + j - 1] + a[i] * b[j]
+      }
+    }
+    resultado
+  }
+  # ∏ (x - r_j), devuelve vector de coeficientes
+  polinomio_desde_raices <- function(raices) {
+    polinomio <- 1
+    for (r in raices) {
+      polinomio <- multiplicar_polinomios(polinomio, c(-r, 1))
+    }
+    polinomio
+  }
+  coeficientes <- numeric(n)  # grado ≤ n-1 → longitud n
+  for (i in seq_len(n)) {
+    raices_i     <- nodos[-i]
+    numerador    <- polinomio_desde_raices(raices_i)   # longitud n
+    denominador  <- prod(nodos[i] - raices_i)
+    coeficientes <- coeficientes + valores[i] * (numerador / denominador)
+  }
+  return(coeficientes)
+}
+```
+
+:::
+
+::: {.callout-tip collapse="true"}
+###### Ejemplo 1
+1) Polinomio de Lagrange
+```{r}
+#| code-fold: true
+## Nodos y función
+nodos <- c(0, 1, 2)
+f     <- function(x) exp(x)
+
+## 1) Polinomio de Lagrange
+P <- PLagrange(nodos, f)
+
+## Evalua en algunos puntos
+x_vals <- seq(0, 2, length.out = 5)
+data.frame(x = x_vals,
+           exp_x = exp(x_vals),
+           P_x   = P(x_vals))
+```
+2) Obtener coeficientes del polinomio de Lagrange
+```{r}
+#| echo: false
+## 2) Obtener coeficientes del polinomio de Lagrange
+coefs <- PLagrangeCoeficientes(nodos, f)
+coefs
+```
+3) Graficar
+```{r}
+#| echo: false
+
+# --- Preparar datos para graficar ---
+xi <- seq(-1, 3, length.out = 400)
+df <- data.frame(
+  x   = xi,
+  expx = exp(xi),
+  Lx   = P(xi)
+)
+
+# Nodos para marcar los puntos de interpolación
+df_nodes <- data.frame(x = nodos, y = f(nodos))
+
+# --- Gráfico ---
+ggplot(df, aes(x = x)) +
+  geom_line(aes(y = expx, color = "exp(x)"), linewidth = 1) +
+  geom_line(aes(y = Lx,   color = "L(x)"),  linewidth = 1, linetype = "dashed") +
+  geom_point(data = df_nodes, aes(x = x, y = y), shape = 21, size = 3, fill = "white") +
+  scale_color_manual(values = c("exp(x)" = "blue", "L(x)" = "red")) +
+  labs(title = "Interpolación de Lagrange",
+       subtitle = "Nodos {0,1,2}, f(x) = exp(x)",
+       y = "Valor", color = "Función") +
+  theme_minimal(base_size = 14)
+```
+:::
+::: {.callout-tip collapse="true"}
+###### Ejemplo 2
+1) Polinomio de Lagrange
+```{r}
+# --- Nodos y función ---
+nodos <- c(0, 3, 6, 9, 12, 15)
+f     <- function(x) exp(x)
+
+# Polinomio de Lagrange
+P <- PLagrange(nodos, f)
+
+# --- Datos para graficar ---
+xi <- seq(0, 15, length.out = 600)   # intervalo que cubre todos los nodos
+df <- data.frame(
+  x    = xi,
+  expx = exp(xi),
+  Lx   = P(xi)
+)
+df_nodes <- data.frame(x = nodos, y = f(nodos))
+```
+2) Obtener coeficientes del polinomio de Lagrange
+```{r}
+#| code-fold: true
+## 2) Obtener coeficientes del polinomio de Lagrange
+coefs <- PLagrangeCoeficientes(nodos, f)
+coefs
+```
+3) Grafico
+```{r}
+# --- Gráfico ---
+
+ggplot(df, aes(x = x)) +
+  geom_line(aes(y = expx, color = "exp(x)"), linewidth = 1) +
+  geom_line(aes(y = Lx,   color = "L(x)"),  linewidth = 1, linetype = "dashed") +
+  geom_point(data = df_nodes, aes(x = x, y = y), shape = 21, size = 3, fill = "white") +
+  scale_color_manual(values = c("exp(x)" = "blue", "L(x)" = "red")) +
+  labs(title = "Interpolación de Lagrange",
+       subtitle = "Nodos {0, 3, 6, 9, 12, 15},  f(x) = exp(x)",
+       y = "Valor", color = "Función") +
+  theme_minimal(base_size = 14)
+```
+:::
+
+#### Interpolación iterada
+
+::: {.callout-note}
+##### Definición: Polinomio de Lagrange en subconjuntos de nodos
+
+Sea $f$ una función definida en $x_0, x_1, \ldots, x_n$ y sean $0 \le m_i \le n$, para $i = 1, 2, \ldots, k$, entonces el polinomio de Lagrange de grado $\le (k - 1)$ que coincide con $f$ en $x_{m_1}, x_{m_2}, \ldots, x_{m_k}$ se denota por:
+$$
+P_{m_1, m_2, \ldots, m_k}(x).
+$$
+:::
+
+::: {.callout-tip collapse="true"}
+###### Ejemplo
+
+Sea $f(x) = x^3$, $x_0 = 1$, $x_1 = 2$, $x_2 = 3$, $x_3 = 4$, $x_4 = 6$, calcule $P_{0,3,4}(x)$.
+
+**Solución:** $P_{0,3,4}(x)$ es el polinomio que coincide con $f$ en $x_0 =  = 1$, $x_3 = 4$, $x_4 = 6$, de donde:
+\begin{align*}
+P_{0,3,4}(x) &= \frac{(x - 4)(x - 6)}{(1 - 4)(1 - 6)} 1^3 + \frac{(x - 1)(x - 6)}{(4 - 1)(4 - 6)} 4^3 + \frac{(x - 1)(x - 4)}{(6 - 1)(6 - 4)} 6^3 \\
+&= 11x^2 - 34x + 24.
+\end{align*}
+$\blacksquare$
+:::
+::: {.callout-tip collapse="true"}
+###### Ejemplo
+
+Calcule $P_{1,2,4}(x)$:
+
+**Solución:**
+
+\begin{align*}
+P_{1,2,4}(x) &= \frac{(x - 3)(x - 6)}{(2 - 4)(2 - 6)} 2^3 
++ \frac{(x - 2)(x - 6)}{(3 - 2)(3 - 6)} 3^3 
++ \frac{(x - 2)(x - 3)}{(6 - 2)(6 - 3)} 6^3 \\
+&= 10x^2 - 27x + 18.
+\end{align*}
+$\blacksquare$
+
+:::
+
+Los siguientes párrafos se dedican a encontrar un método para calcular los polinomios de Lagrange en forma recursiva.
+
+::: {.callout-note}
+##### Teorema
+
+Sea $f$ una función definida en $x_0, x_1, \ldots, x_k$ y sea $x_i \ne x_j$ con $i,j \in \{0, 1, 2, \ldots, k\}$. Entonces el polinomio de Lagrange que coincide con $f$ en $x_0, x_1, \ldots, x_k$ se puede escribir como:
+
+\begin{align*}
+P(x) = \frac{(x - x_j) P_{0,1,\ldots,(j-1),(j+1),\ldots,k}(x) - (x - x_i) P_{0,1,\ldots,(i-1),(i+1),\ldots,k}(x)}{x_i - x_j}.
+\end{align*}
+
+::: {.callout-caution collapse="true"}
+##### Prueba
+
+Hay que probar que $P(x_s) = f(x_s)$, $\ \forall \ s = 0, 1, 2, \ldots, k$.
+
+**Primer caso:**  
+Sea $x_r \ne x_i$ y $x_r \ne x_j$ un nodo:
+
+\begin{align*}
+P(x_r) &= \frac{(x_r - x_j) P_{0,1,\ldots,(j-1),(j+1),\ldots,k}(x_r) - (x_r - x_i) P_{0,1,\ldots,(i-1),(i+1),\ldots,k}(x_r)}{x_i - x_j} \\
+&= \frac{(x_r - x_j) f(x_r) - (x_r - x_i) f(x_r)}{x_i - x_j} \\
+&= \frac{(-x_j + x_i) f(x_r)}{x_i - x_j} \\
+&= f(x_r).
+\end{align*}
+
+**Segundo caso:**  
+Sea $x_r = x_i$:
+
+\begin{align*}
+P(x_r) &= \frac{(x_i - x_j) P_{0,1,\ldots,(j-1),(j+1),\ldots,k}(x_i) - 0}{x_i - x_j} \\
+&= \frac{(x_i - x_j)}{(x_i - x_j)} f(x_i) \\
+&= f(x_i).
+\end{align*}
+
+Es análogo si $x_r = x_j$, por lo tanto $P(x)$ es el polinomio de Lagrange que coincide con $f$ en $x_0, x_1, \ldots, x_k$ pues este es único. $\blacksquare$
+:::
+:::
+
+#### Método de Neville
+
+Se desea aproximar $f(x^*)$ dada la siguiente tabla de valores para $f$:
+
+\begin{align*}
+\begin{array}{c|c}
+x & f(x) \\
+\hline
+x_0 & f(x_0) \\
+x_1 & f(x_1) \\
+\vdots & \vdots \\
+x_n & f(x_n)
+\end{array}
+\end{align*}
+
+Se genera la tabla de $f(x^*)$:
+
+$$
+\begin{array}{ccccccc}
+x_0 & P_0 \\
+x_1 & P_1 & P_{0,1} \\
+x_2 & P_2 & P_{1,2} & P_{0,1,2} \\
+x_3 & P_3 & P_{2,3} & P_{1,2,3} & P_{0,1,2,3} \\
+x_4 & P_4 & P_{3,4} & P_{2,3,4} & P_{1,2,3,4} & P_{0,1,2,3,4} \\
+\vdots & \vdots & \vdots & \vdots & \vdots & \ddots \\
+x_n & P_n & P_{n-1,n} & P_{n-2,n-1,n} & P_{n-3,n-2,n-1,n} & \cdots & P_{0,1,\ldots,n}
+\end{array}
+$$
+
+Con $P_i(x) = f(x_i)$ una función constante, polinomio de Lagrange de grado 0.  
+Esta tabla puede ser calculada usando el Teorema anterior, veamos algunos ejemplos:
+
+
+\begin{align*}
+P_{0,1}(x) &= \frac{(x - x_0)P_1 - (x - x_1)P_0}{x_1 - x_0} \\
+P_{1,2}(x) &= \frac{(x - x_1)P_2 - (x - x_2)P_1}{x_2 - x_1} \\
+&\vdots \\
+P_{n-1,n}(x) &= \frac{(x - x_{n-1})P_n - (x - x_n)P_{n-1}}{x_n - x_{n-1}} \\
+P_{0,1,2}(x) &= \frac{(x - x_0)P_{1,2} - (x - x_2)P_{0,1}}{x_2 - x_0} \\
+P_{1,2,3}(x) &= \frac{(x - x_1)P_{2,3} - (x - x_3)P_{1,2}}{x_3 - x_1} \\
+&\vdots \\
+P_{n-2,n-1,n}(x) &= \frac{(x - x_{n-2})P_{n-1,n} - (x - x_n)P_{n-2,n-1}}{x_n - x_{n-2}} \\
+P_{0,1,2,3}(x) &= \frac{(x - x_0)P_{1,2,3} - (x - x_3)P_{0,1,2}}{x_3 - x_0} \\
+P_{1,2,3,4}(x) &= \frac{(x - x_1)P_{2,3,4} - (x - x_4)P_{1,2,3}}{x_4 - x_1} \\
+&\vdots
+\end{align*}
+
+::: {.callout-tip collapse="true"}
+###### Ejemplo
+
+Aproxime $f(2.5)$ dada la siguiente tabla:
+
+$$
+\begin{array}{c|c}
+x & f(x) \\
+\hline
+x_0 = 2.0 & 0.5103757 \\
+x_1 = 2.2 & 0.5207843 \\
+x_2 = 2.4 & 0.5104147 \\
+x_3 = 2.6 & 0.4813306 \\
+x_4 = 2.8 & 0.4359160
+\end{array}
+$$
+
+**Solución:**
+
+Construimos la tabla de Neville:
+
+\begin{align*}
+x_0 &: P_0 \\
+x_1 &: P_1 \quad P_{0,1} \\
+x_2 &: P_2 \quad P_{1,2} \quad P_{0,1,2} \quad f(2.5) \\
+x_3 &: P_3 \quad P_{2,3} \quad P_{1,2,3} \quad P_{0,1,2,3} \\
+x_4 &: P_4 \quad P_{3,4} \quad P_{2,3,4} \quad P_{1,2,3,4} \quad P_{0,1,2,3,4}
+\end{align*}
+
+La tabla de Neville es:
+
+$$
+\begin{array}{cccccc}
+x_0 & 0.5103757 \\
+x_1 & 0.5207843 & \boxed{0.5363972} & \hookleftarrow P_{0,1}\\
+x_2 & 0.5104147 & 0.5052299 & 0.4974380 \\
+x_3 & 0.4813306 & 0.4958726 & 0.4982119 & 0.4980829 \\
+x_4 & 0.4359160 & 0.5040379 & 0.4979139 & 0.4980629 & 0.49807047 \\
+\vdots & \vdots & \vdots & \vdots & \vdots & \ddots
+\end{array}
+$$
+
+De donde $f(2.5) \approx 0.49807047$. Un ejemplo del cálculo en la matriz anterior es:
+
+\begin{align*}
+P_{0,1}(x) 
+&= \frac{(x - x_0)P_1 - (x - x_1)P_0}{x_1 - x_0} \\
+&= \frac{(2.5 - 2.0) \cdot 0.5207843 - (2.5 - 2.2) \cdot 0.5103757}{2.2 - 2.0} \\
+&= 0.5363972.
+\end{align*}
+
+$\blacksquare$
+
+:::
+
+
+::: {.callout-note}
+###### Notación
+
+Se denota por $Q_{ij}$ el polinomio interpolante de Lagrange de grado $j$ que pasa por los $j + 1$ nodos siguientes:
+
+$$
+x_{i-j},\ x_{i-j+1},\ \ldots,\ x_{i-1},\ x_i
+$$
+
+es decir,
+
+$$
+Q_{ij} = P_{i-j,i-j+1,\ldots,i-1,i}(x).
+$$
+
+Ahora, usando el método de Neville (teorema anterior):
+
+\begin{align*}
+Q_{ij} 
+&= \frac{(x - x_i)P_{i-j,i-j+1,\ldots,i-1}(x) - (x - x_{i-j})P_{i-j+1,\ldots,i}(x)}{x_i - x_{i-j}} \\
+&= \frac{(x - x_{i-j})P_{i-j+1,\ldots,i}(x) - (x - x_i)P_{i-j,\ldots,i-1}(x)}{x_i - x_{i-j}} \\
+&= \frac{(x - x_{i-j})Q_{i,j-1} - (x - x_i)Q_{i-1,j-1}}{x_i - x_{i-j}}.
+\end{align*}
+
+Pues:
+
+$$
+P_{i-j+1,i-j+2,\ldots,i-1,i} = Q_{i,j-1} \quad \text{dado que } (i - (j - 1)) = i - j + 1,
+$$
+
+$$
+P_{i-j,i-j+1,\ldots,i-1} = Q_{i-1,j-1} \quad \text{dado que } (i - 1 - (j - 1)) = i - j.
+$$
+
+Note que:
+
+$$
+Q_{i0} = P_i = f(x_i), \quad \forall i = 0,1,\ldots,n.
+$$
+
+Con esta nueva notación, la tabla de Neville se puede escribir como:
+
+$$
+\begin{array}{cccccccc}
+x_0 & Q_{00} \\
+x_1 & Q_{10} & Q_{11} \\
+x_2 & Q_{20} & Q_{21} & Q_{22} \\
+x_3 & Q_{30} & Q_{31} & Q_{32} & Q_{33} \\
+x_4 & Q_{40} & Q_{41} & Q_{42} & Q_{43} & Q_{44} \\
+\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \ddots \\
+x_n & Q_{n0} & Q_{n1} & Q_{n2} & Q_{n3} & \cdots & Q_{nn}
+\end{array}
+$$
+
+$$
+Q_{22} = P_{0,1,2}, \quad Q_{nn} = P_{0,1,\ldots,n}
+$$
+:::
+
+::: {.callout-note}
+##### Algoritmo: Para calcular la tabla de Neville y aproximar $f(x^*) \approx P_n(x^*)$
+
+**Entrada:**  
+Los nodos $x_0, x_1, \ldots, x_n$.  
+Sus imágenes $f(x_0), f(x_1), \ldots, f(x_n)$ como primera columna de la matriz $Q$, es decir $Q_{00}, Q_{10}, Q_{n0}$.
+
+**Salida:**  
+La tabla o matriz $Q$, donde $f(x^*) \approx Q_{nn}$.
+
+**Paso 1:** Para $i = 1$ hasta $n$  
+\quad Para $j = 1, 2, \ldots, i$
+$$
+Q_{ij} = \frac{(x - x_{i-j})Q_{i,j-1} - (x - x_i)Q_{i-1,j-1}}{x_i - x_{i-j}}.
+$$
+
+**Paso 2:** Salida $Q_{nn}$, parar.  
+FIN
+:::
+
+#### Diferencias divididas de Newton
+
+La ventaja de este método es que permite calcular el polinomio de Lagrange en cualquier punto $x$.
+
+::: {.callout-note}
+###### Notación: Recursiva
+\begin{align*}
+f[x_i] &:= f(x_i) \\
+f[x_i, x_{i+1}] &:= \frac{f[x_{i+1}] - f[x_i]}{x_{i+1} - x_i} \\
+f[x_i, x_{i+1}, x_{i+2}] &:= \frac{f[x_{i+1}, x_{i+2}] - f[x_i, x_{i+1}]}{x_{i+2} - x_i} \\
+&\vdots \\
+f[x_i, x_{i+1}, \ldots, x_{i+k}] &:= \frac{f[x_{i+1}, x_{i+2}, \ldots, x_{i+k}] - f[x_i, x_{i+1}, \ldots, x_{i+k-1}]}{x_{i+k} - x_i}
+\end{align*}
+:::
+
+::: {.callout-note}
+##### Teorema
+
+Si $P_n(x)$ es el polinomio de Lagrange que coincide con $f(x)$ en $x_0, x_1, \ldots, x_n$, entonces:
+
+\begin{align*}
+P_n(x) &= f[x_0] + f[x_0, x_1](x - x_0) + f[x_0, x_1, x_2](x - x_0)(x - x_1) \\
+&\quad + \cdots + f[x_0, x_1, \ldots, x_n](x - x_0)(x - x_1) \cdots (x - x_{n-1}) \\
+&= f[x_0] + \sum_{k=1}^n f[x_0, \ldots, x_k](x - x_0) \cdots (x - x_{k-1}).
+\end{align*}
+
+::: {.callout-caution collapse="true"}
+##### Prueba
+
+Si $P_n(x)$ se escribe de la forma
+
+\begin{align*}
+P_n(x) &= a_0 + a_1(x - x_0) + a_2(x - x_0)(x - x_1) + \cdots + \\
+&\quad a_n(x - x_0)(x - x_1)\cdots(x - x_{n-1}),
+\end{align*}
+
+entonces:
+
+$$
+P_n(x_0) = a_0, \quad \text{como } P_n(x_0) = f(x_0) \Rightarrow a_0 = f(x_0) = f[x_0].
+$$
+
+Además:
+
+$$
+P_n(x_1) = a_0 + a_1(x_1 - x_0), \quad \text{como } P_n(x_1) = f(x_1) \text{ y } a_0 = f[x_0]
+\Rightarrow f[x_0] + a_1(x_1 - x_0) = f(x_1)
+$$
+
+$$
+\Rightarrow a_1 = \frac{f[x_1] - f[x_0]}{x_1 - x_0} = f[x_0, x_1].
+$$
+
+Luego, por inducción se puede probar fácilmente que $a_k = f[x_0, x_1, \ldots, x_k]$ (ejercicio). $\blacksquare$
+:::
+:::
+
+La **Tabla de diferencias divididas de Newton** es la siguiente:
+
+$$
+\begin{array}{cccccc}
+x_0 & f[x_0] \\
+x_1 & f[x_1] & f[x_0, x_1] \\
+x_2 & f[x_2] & f[x_1, x_2] & f[x_0, x_1, x_2] \\
+\vdots & \vdots & \vdots & \vdots & \ddots \\
+x_n & f[x_n] & f[x_{n-1}, x_n] & f[x_{n-2}, x_{n-1}, x_n] & \cdots & f[x_0, x_1, \ldots, x_n]
+\end{array}
+$$
+
+En la diagonal de la matriz anterior están los coeficientes del polinomio de Lagrange $P_n(x)$, según la forma presentada en el teorema anterior. El siguiente algoritmo calcula el polinomio de Lagrange usando la Tabla de diferencias divididas de Newton.
+
+::: {.callout-note}
+##### Algoritmo
+
+**Objetivo**: Calcular el polinomio de Lagrange usando la Tabla de diferencias divididas de Newton.
+
+**Entrada**: Los nodos $x_0, x_1, \ldots, x_n$ y los valores $f(x_0), f(x_1), \ldots, f(x_n)$ como primera columna de la matriz $F$.
+
+**Salida**: $F_{00}, F_{11}, \ldots, F_{nn}$, los coeficientes de $P_n(x)$, donde:  
+$$
+P_n(x) = \sum_{i=0}^n F_{ii} \prod_{k=0}^{i-1} (x - x_k)
+$$
+
+
+**Paso 1**: Para $i = 1, \ldots, n$
+
+\quad\quad Para $j = 1, 2, \ldots, i$
+
+$$
+F_{ij} = \frac{F_{i,j-1} - F_{i-1,j-1}}{x_i - x_{i-j}}
+$$
+
+**Paso 2**: Salida $(F_{00}, F_{11}, \ldots, F_{nn})$  
+Parar.
+:::
+
+
+### Interpolación de Hermite
+
+
+Los *Polinomios Osculantes* generalizan a los Polinomios de Taylor y a los Polinomios de Lagrange como veremos más adelante. 
+La idea del polinomio de Hermite (que es un caso particular de los polinomios osculantes) es que si se tienen $x_0, x_1, \ldots, x_n$, $n+1$ nodos, entonces $f$ y $f'$ coincidan con $P(x)$ y $P'(x)$ en los nodos respectivamente.
+
+::: {.callout-note}
+##### Definición: Polinomio osculante
+
+- Sean $x_0, x_1, \ldots, x_n$, $n + 1$ nodos distintos en $[a,b]$.
+- Sea $m_i$ un entero no negativo, con $m_i$ asociado a $x_i$; para $i = 0,1,\ldots,n$.
+- Sea $m = \max_{0 \leq i \leq n} m_i$.
+- Sea $f \in C^m[a,b]$.
+
+Entonces el **Polinomio Osculante** que aproxima a $f$ es el polinomio de grado menor tal que:
+
+$$
+\frac{d^k P(x_i)}{dx^k} = \frac{d^k f(x_i)}{dx^k},
+$$
+
+para $i = 0,1,\ldots,n$ y $k = 1,\ldots,m_i$. Es decir, en el $i$-ésimo nodo el polinomio y la función $f$ coinciden hasta la derivada $m_i$.
+:::
+
+::: {.callout-important collapse="true"}
+###### Observación
+
+1. Si $n = 0$, el polinomio osculante es el polinomio de Taylor de grado $m_0$ para $f$ en $x_0$.
+
+Para ver esto, sea $P(x)$ polinomio de Taylor de grado $m_0$ para $f$ en $x_0$, entonces:
+
+$$
+P(x) = f(x_0) + f'(x_0)(x - x_0) + f''(x_0) \frac{(x - x_0)^2}{2!} + \cdots + f^{(m_0)}(x_0) \frac{(x - x_0)^{m_0}}{m_0!}
+$$
+
+De donde se deduce que: $P(x_0) = f(x_0)$.
+
+Además:
+
+$$
+P'(x) = f'(x_0) + 2f''(x_0) \frac{(x - x_0)}{2!} + \cdots + m_0 f^{(m_0)}(x_0) \frac{(x - x_0)^{m_0 - 1}}{m_0!},
+$$
+
+lo cual implica que: $P'(x_0) = f'(x_0)$ y así sucesivamente se puede probar que $P^{(k)}(x_0) = f^{(k)}(x_0)$ para todo $k \leq m_0$.
+
+2. Si $m_i = 0$, e $i = 0,1,\ldots,n$, entonces el polinomio osculante es el polinomio de Lagrange que interpola a $f$ en $x_0, x_1, \ldots, x_n$.  
+Pues se está pidiendo que solamente coincida con $f$ en $x_0, x_1, \ldots, x_n$ (no en sus derivadas) y se probó que el polinomio de menor grado que hace esto es el de Lagrange, además se probó que es único.
+:::
+
+Cuando $P(x)$ coincide con $f$ y $f'$ en $x_0, x_1, \ldots, x_n$, se dice que $P(x)$ tiene "la misma apariencia" que $f$ en los nodos y se denomina el **Polinomio de Hermite**.
+
+El siguiente Teorema da un método para calcular el Polinomio de Hermite.
+
+::: {.callout-note}
+##### Teorema: Polinomio de Hermite (osculante con derivadas)
+
+- Sea $f \in C[a,b]$.
+- Sean $x_0, x_1, \ldots, x_n$, $(n+1)$ nodos distintos en $[a,b]$.
+
+Entonces el polinomio de grado menor que coincide con $f$ y $f'$ en $x_0, x_1, \ldots, x_n$:
+
+- Tiene grado $2n+1$.
+- Está dado por
+
+$$
+H_{2n+1}(x) = \sum_{j=0}^{n} f(x_j) H_{nj}(x) + \sum_{j=0}^{n} f'(x_j) \widetilde{H}_{nj}(x),
+$$
+
+donde
+
+$$
+H_{nj}(x) = \big[1 - 2(x - x_j)L'_{nj}(x_j)\big]L_{nj}^2(x),
+$$
+
+y
+
+$$
+\widetilde{H}_{nj}(x) = (x - x_j) L_{nj}^2(x).
+$$
+
+- Además, el error absoluto es:
+
+$$
+\left| f(x) - H_{2n+1}(x) \right| = \left| \frac{(x - x_0)^2 \cdots (x - x_n)^2}{(2n+2)!} f^{(2n+2)}(\xi) \right|, \quad \text{con } \xi \in ]a, b[.
+$$
+
+::: {.callout-caution collapse="true"}
+##### Prueba
+
+- Se debe demostrar que $H_{2n+1}(x_i) = f(x_i)$ para todo $i = 0, 1, \ldots, n$. Para ver esto, recordemos que:
+
+$$
+L_{nj}(x_i) =
+\begin{cases}
+0 & \text{si } i \ne j \\
+1 & \text{si } i = j
+\end{cases}
+$$
+
+de donde, cuando $i \ne j$:
+
+$$
+H_{nj}(x_i) = 0 \quad \text{y} \quad \widetilde{H}_{nj}(x_i) = 0.
+$$
+
+Mientras que:
+
+$$
+H_{ni}(x_i) = [1 - 2(x_i - x_i)L'_{ni}(x_i)] \cdot 1 = 1,
+$$
+
+$$
+\widetilde{H}_{ni}(x_i) = (x_i - x_i) \cdot 1^2 
+$$
+
+Luego:
+
+$$
+H_{2n+1}(x_i) = \sum_{\substack{j = 0 \\ j \ne i}}^n f(x_j) \cdot 0 + f(x_i) \cdot 1 + \sum_{j=0}^n f'(x_j) \cdot 0 = f(x_i).
+$$
+
+Por lo tanto:
+
+- $H_{2n+1}(x_i) = f(x_i)$ para $i = 0, 1, 2, \ldots, n$.
+
+- Se debe demostrar que $H'_{2n+1}(x_i) = f'(x_i)$ para todo $i = 0, 1, \ldots, n$.
+
+Nótese que $L_{nj}(x)$ es un factor de $H'_{nj}(x)$, lo cual implica que $H'_{nj}(x_i) = 0$ cuando $i \ne j$.
+
+Además, si $i = j$:
+
+\begin{align*}
+H'_{ni}(x_i) &= -2L'_{ni}(x_i)L^2_{ni}(x_i) + [1 - 2(x_i - x_i)L'_{ni}(x_i)] \cdot 2 \cdot L_{ni}(x_i)L'_{ni}(x_i) \\
+&= -2L'_{ni}(x_i) + 2L'_{ni}(x_i) \\
+&= 0.
+\end{align*}
+
+Por lo tanto, $H'_{nj}(x_i) = 0$ para todo $i = 0, 1, 2, \ldots, n$ y para todo $j = 0, 1, 2, \ldots, n$.
+
+Además:
+
+$$
+\widetilde{H}_{nj}(x_i) = L^2_{nj}(x_i) + (x_i - x_j)L'_{nj}(x_j) \cdot 2 \cdot L_{nj}(x_i)L'_{nj}(x_i),
+$$
+
+de donde:
+
+$$
+\widetilde{H}'_{nj}(x_i) =
+\begin{cases}
+0 & \text{si } i \ne j \\
+1 & \text{si } i = j
+\end{cases}
+$$
+
+por lo tanto:
+
+$$
+\widetilde{H}'_{2n+1}(x_i) = \sum_{j=0}^n f(x_j) \cdot 0 + \sum_{\substack{j = 0 \\ j \ne i}}^n f'(x_j) \cdot 0 + f'(x_i) \cdot 1 = f'(x_i).
+$$
+
+es decir:
+
+$$
+H'_{2n+1}(x_i) = f'(x_i) \quad \text{para } i = 0, 1, 2, \ldots, n.
+$$
+
+- La unicidad queda de ejercicio al lector.
+
+$\blacksquare$
+
+:::
+:::
+
+::: {.callout-tip collapse="true"}
+###### Ejemplo
+
+Calcule $H_5(x)$ que aproxima a $f(x) = e^x$ en $x_0 = 0$, $x_1 = 1$, $x_2 = 2$.
+
+**Solución:**
+
+| $k$ | $x_k$ | $f(x_k)$     | $f'(x_k)$     |
+|----:|:-----:|:------------:|:-------------:|
+|  0  |   0   | 1            | 1             |
+|  1  |   1   | 2.7182818    | 2.7182818     |
+|  2  |   2   | 7.3890561    | 7.3890561     |
+
+$$
+H_5 = \sum_{j=0}^{2} f(x_j) H_{nj}(x) + \sum_{j=0}^{2} f'(x_j) \widetilde{H}_{nj}(x).
+$$
+
+Calculemos cada uno de los términos:
+
+$$
+H_{20} = [1 - 2(x - x_0) L'_{20}(x_0)] L_{20}^2(x),
+$$
+
+con
+
+\begin{align*}
+L_{20}(x) &= \frac{(x - 1)(x - 2)}{(0 - 1)(0 - 2)} \\
+          &= \frac{x^2 - x - 2x + 2}{2} \\
+          &= \frac{x^2 - 3x + 2}{2},
+\end{align*}
+
+esto implica que:
+
+$$
+L'_{20}(x) = \frac{2x - 3}{2},
+$$
+
+de donde:
+
+$$
+L'_{n0}(0) = -\frac{3}{2},
+$$
+
+luego:
+
+$$
+H_{20} = (1 - 3x) \left( \frac{x^2 - 3x + 2}{2} \right)^2.
+$$
+
+
+\begin{align*}
+L_{21}(x) &= \frac{x(x - 2)}{(1 - 0)(1 - 2)} \\
+         &= \frac{x(x - 2)}{-1} \\
+         &= -x(x - 2) \\
+         &= -x^2 + 2x.
+\end{align*}
+
+Esto implica que:
+
+$$
+L'_{21}(x) = -2x + 2,
+$$
+
+de donde:
+
+$$
+L'_{21}(x_1) = 0,
+$$
+
+por lo que:
+
+\begin{align*}
+H_{21} &= (1 - 2(x - 1) \cdot 0)(-x(x - 2))^2 \\
+      &= x^2 (x - 2)^2.
+\end{align*}
+
+\begin{align*}
+L_{22}(x) &= \frac{x(x - 1)}{(2 - 0)(2 - 1)} \\
+         &= \frac{x(x - 1)}{2} \\
+         &= \frac{x^2 - x}{2},
+\end{align*}
+
+de donde:
+
+$$
+L'_{22}(x) = \frac{2x - 1}{2},
+$$
+
+luego:
+
+$$
+L'_{22}(x_2) = \frac{3}{2},
+$$
+
+por lo que:
+
+
+\begin{align*}
+H_{22}(x) &= \left(1 - 2(x - 2) \cdot \frac{3}{2} \right) \left( \frac{x^2 - x}{2} \right)^2 \\
+         &= (1 - 3(x - 2)) \left( \frac{x^2 - x}{2} \right)^2.
+\end{align*}
+
+Por otra parte,
+
+\begin{align*}
+\widehat{H}_{20}(x) &= (x - x_0) L_{20}^2(x) \\
+                    &= x \left( \frac{x^2 - 3x + 2}{2} \right)^2.
+\end{align*}
+
+Análogamente:
+
+$$
+\widehat{H}_{21}(x) = (x - 1)x^2(x - 2)^2,
+$$
+
+$$
+\widehat{H}_{22}(x) = (x - 2) \left( \frac{x^2 - x}{2} \right)^2.
+$$
+
+Finalmente:
+
+\begin{align*}
+H_5(x) =\; & (1 - 3x) \left( \frac{x^2 - 3x + 2}{2} \right)^2 + 2.7182818\,x^2(x - 2)^2 \\
+          & +\; 7.3890561 (1 - 3(x - 2)) \left( \frac{x^2 - x}{2} \right)^2 \\
+          & +\; x \left( \frac{x^2 - 3x + 2}{2} \right)^2 + 2.7182818 (x - 1)x^2(x - 2)^2 \\
+          & +\; 7.3890561 (x - 2) \left( \frac{x^2 - x}{2} \right)^2.
+\end{align*}
+
+$\blacksquare$
+
+---
+
+2. Aproximando $f(0.25) \cong H(0.25)$ se tiene que:
+
+$$
+H_5(0.25) = 1.28364
+$$
+
+con el siguiente error absoluto:
+
+Aproximando $e^{0.25} - H_5(0.25)$:
+
+\begin{align*}
+\left| e^{0.25} - H_5(0.25) \right| &= \left| 1.28402 - 1.28364 \right| \\
+                                   &= 3.8 \times 10^{-5} \\
+                                   &\cong 0.3 \times 10^{-4},
+\end{align*}
+
+mientras que utilizando el polinomio de Lagrange el error fue:
+
+$$
+\left| P(0.25) - e^{0.25} \right| \cong 0.1312511,
+$$
+
+que es mucho mayor.
+
+---
+
+3. Calculando una cota para el error teórico se tiene que:
+
+$$
+|e^x - H_5(x)| = \left| \frac{x^2(x - 1)^2(x - 2)^2}{(2 \cdot 2 + 2)!} e^{\xi} \right|, \quad \text{con } \xi \in [0, 2],
+$$
+
+esto implica que:
+
+\begin{align*}
+|e^{0.25} - H_5(0.25)| &\leq \frac{(0.25)^2 (0.75)^2 (1.75)^2}{6!} e^2 \\
+                       &= \frac{0.7955}{720} \\
+                       &= 1.1 \times 10^{-3} \\
+                       &= 0.1 \times 10^{-2}.
+\end{align*}
+
+Como se ha visto, el cálculo del polinomio de Hermite es sumamente tedioso, por esto en la siguiente sección se propone un algoritmo que facilite dicho cálculo.
+:::
+
+#### Algoritmo para el polinomio de Hermite
+
+Sabemos que:
+
+\begin{align*}
+P_n(x) = f[x_0] + \sum_{k=1}^{n} f[x_0, x_1, \dots, x_k](x - x_0) \cdots (x - x_{k-1}),
+\end{align*}
+
+además utilizaremos el siguiente lema.
+
+::: {.callout-note}
+##### Lema: Generalización del Teorema del valor medio
+
+Si $f \in C^n[a, b]$ y $x_0, x_1, \dots, x_n$ son los $(n+1)$ nodos distintos en $[a,b]$, entonces:  
+existe $\xi \in ]a, b[$ tal que:
+
+$$
+f[x_0, x_1, \dots, x_n] = \frac{f^{(n)}(\xi)}{n!}.
+$$
+
+::: {.callout-caution collapse="true"}
+##### Prueba
+
+Ejercicio al lector. $\blacksquare$
+:::
+:::
+
+Suponga que se conocen
+
+\begin{align*}
+\begin{array}{ccc}
+x_0 & f(x_0) & f'(x_0) \\
+x_1 & f(x_1) & f'(x_1) \\
+\vdots & \vdots & \vdots \\
+x_n & f(x_n) & f'(x_n)
+\end{array}
+\end{align*}
+
+Definimos la sucesión
+
+$$
+\{z_n\}_{n \in \mathbb{N}}, \; z_{2i} = z_{2i+1} = x_i, \quad \text{para } i = 0, 1, \dots, n.
+$$
+
+Luego se forma la tabla de Hermite como sigue:
+
+\begin{align*}
+\begin{array}{lllll}
+z_0 = x_0 & f[z_0] = f(x_0) \\
+z_1 = x_0 & f[z_1] = f(x_0) & f[z_0,z_1] \approx f'(z_0) \\
+z_2 = x_1 & f[z_2] = f(x_1) & f[z_1,z_2] & f[z_0, z_1, z_2] \\
+z_3 = x_1 & f[z_3] = f(x_1) & f[z_2,z_3] \approx f'(z_1) & f[z_1,z_2,z_3] & f[z_0,z_1,z_2,z_3] \\
+z_4 = x_2 & f[z_4] = f(x_2) & f[z_3,z_4] & f[z_2,z_3,z_4] & f[z_1,z_2,z_3,z_4] \\
+z_5 = x_2 & f[z_5] = f(x_2) & f[z_4,z_5] \approx f'(z_2) & f[z_3,z_4,z_5] & \cdots \\
+\quad\;\vdots & \quad\;\vdots & \quad\;\vdots & \quad\;\vdots & \quad\;\vdots \\
+\end{array}
+\end{align*}
+
+A partir de la tercera columna de la matriz anterior el cálculo se hace exactamente igual que en el método de Neville.  
+Además, nótese que $f[z_0, z_1]$ no se puede calcular usando la definición, pues daría $\frac{0}{0}$, pero resulta “razonable” tomar $f[z_0, z_1] \approx f'(x_0)$. ¿Por qué?
+
+Luego:
+
+\begin{align*}
+H_{2n+1}(x) 
+&= f[z_0] + f[z_0, z_1]\overbrace{(x - z_0)}^{(z-z_0)} + f[z_0, z_1, z_2]\overbrace{(x - z_0)^2}^{(z-z_0)(z-z_1)} \\
+&\quad + f[z_0, z_1, z_2, z_3](x - z_0)^2(x - z_1) \\
+&\quad + f[z_0, z_1, z_2, z_3, z_4](x - z_0)^2(x - z_1)^2 + \cdots
+\end{align*}
+
+::: {.callout-note}
+##### Algoritmo: Para obtener los coeficientes del polinomio de Hermite
+
+**Entrada:** $x_0, x_1, \dots, x_n;\; f(x_0), f(x_1), \dots, f(x_n)\;$ y $\;f'(x_0), f'(x_1), \dots, f'(x_n)$  
+**Salida:** Los números $Q_{0,0}, Q_{1,1}, \dots, Q_{(2n+1),(2n+1)}$ coeficientes de:
+
+\begin{align*}
+H_{2n+1}(x) &= Q_{0,0} + \\
+&\quad Q_{1,1}(x - x_0) + \\
+&\quad Q_{2,2}(x - x_0)^2 + \\
+&\quad Q_{3,3}(x - x_0)^2(x - x_1) + \\
+&\quad Q_{4,4}(x - x_0)^2(x - x_1)^2 + \cdots + \\
+&\quad Q_{(2n+1),(2n+1)}(x - x_0)^2 \cdots (x - x_{n-1})^2(x - x_n)
+\end{align*}
+
+**Paso 1**: Para $i = 1, \dots, n$ siga pasos 2–3
+
+**Paso 2**: Tomar  
+\begin{align*}
+z_{2i} &= x_i \\
+z_{2i+1} &= x_i \\
+Q_{2i,0} &= f(x_i) \\
+Q_{2i+1,0} &= f(x_i) \\
+Q_{2i+1,1} &= f'(x_i)
+\end{align*}
+
+**Paso 3**: Si $i \ne 0$, tome  
+$$
+Q_{2i,1} = \frac{Q_{2i,0} - Q_{2i-1,0}}{z_{2i} - z_{2i-1}}
+$$
+
+**Paso 4**: Para $i = 2,3,\dots, 2n+1$  
+\quad Para $j = 2,3,\dots,i$ tomar  
+$$
+Q_{i,j} = \frac{Q_{i,j-1} - Q_{i-1,j-1}}{z_i - z_{i-j}}
+$$
+
+**Paso 5**: Salida $\big(Q_{0,0}, Q_{1,1}, \dots, Q_{(2n+1),(2n+1)}\big)$.  
+**Parar**
+:::
+
+::: {.callout-tip collapse="true"}
+###### Ejemplo
+
+Si se corre el algoritmo con $f(x) = e^x$, $f'(x) = e^x$, $x_0 = 0$, $x_1 = 1$, $x_2 = 2$, entonces:
+
+\begin{align*}
+Q_{0,0} &= 1 \\
+Q_{1,1} &= 1 \\
+Q_{2,2} &= 0.71828183 \\
+Q_{3,3} &= 0.28171817 \\
+Q_{4,4} &= 0.09726402 \\
+Q_{5,5} &= 0.02375378
+\end{align*}
+
+Así se obtiene el siguiente polinomio:
+
+\begin{align*}
+H_5(x) &= 1 + x + 0.71828183x^2 + 0.28171817x^2(x - 1) \\
+&\quad + 0.09726402x^2(x - 1)^2 + 0.02375378x^2(x - 1)^2(x - 2)
+\end{align*}
+:::
+
+::: {.callout-important}
+##### NOTA
+
+Ver `hermite.nb`.
+:::
+
+### Interpolación por Splines Cúbicos
+
+#### Presentación geométrica
+
+![](Imagenes/Interpolación por Splines Cúbicos.png)
+
+Es encontrar polinomios cúbicos tales que:
+
+- Coincidan con $f(x)$ en los nodos y $P(x)$ sea continuo.
+- $P(x)$ tenga primera derivada en los nodos internos.
+- $P(x)$ tenga segunda derivada en los nodos internos.
+
+Así, se deben encontrar $n$ polinomios con cuatro coeficientes cada uno. Por lo tanto, se tienen $4n$ incógnitas. Para encontrarlas, se deben establecer $4n$ ecuaciones.
+
+¿Cómo se encuentran tales ecuaciones?
+
+1. Condición de continuidad en los nodos internos
+
+ Como $P(x)$ debe coincidir con $f$ en los nodos internos y $P(x)$ debe ser continuo, se tienen las siguientes ecuaciones:
+
+$$
+\left\{
+\begin{aligned}
+a_{i-1}x_{i-1}^3 + b_{i-1}x_{i-1}^2 + c_{i-1}x_{i-1} + d_{i-1} &= f(x_{i-1}) \\
+a_i x_{i-1}^3 + b_i x_{i-1}^2 + c_i x_{i-1} + d_i &= f(x_{i-1})
+\end{aligned}
+\right\}
+\quad \text{para } i = 2, \dots, n
+$$
+
+ De aquí se tienen $2(n - 1) = 2n - 2$ ecuaciones.
+
+2. Condición en los extremos
+
+ Como $P(x)$ debe coincidir con $f$ en los extremos, se tienen las siguientes ecuaciones:
+
+$$
+\left\{
+\begin{aligned}
+a_1 x_0^3 + b_1 x_0^2 + c_1 x_0 + d_1 &= f(x_0) \\
+a_n x_n^3 + b_n x_n^2 + c_n x_n + d_n &= f(x_n)
+\end{aligned}
+\right.
+$$
+
+ De aquí se tienen 2 ecuaciones.
+
+3. Como las primeras derivadas de $P(x)$ en los nodos internos deben ser iguales, se tienen las siguientes ecuaciones:
+
+\begin{align*}
+3a_{i-1}x_{i-1}^2 + 2b_{i-1}x_{i-1} + c_{i-1} &= 3a_i x_{i-1}^2 + 2b_i x_{i-1} + c_i,
+\quad \text{con } i = 2, \ldots, n.
+\end{align*}
+
+ De aquí se tienen $(n - 1)$ ecuaciones.
+
+4. Como las segundas derivadas de $P(x)$ en los nodos internos deben ser iguales, se tienen las siguientes ecuaciones:
+
+\begin{align*}
+6a_{i-1}x_{i-1} + 2b_{i-1} &= 6a_i x_{i-1} + 2b_i,
+\quad \text{con } i = 2, \ldots, n.
+\end{align*}
+
+ De aquí se tienen $(n - 1)$ ecuaciones.
+
+En total tenemos: $2n - 2 + 2 + (n - 1) + (n - 1) = 4n - 2$ por lo que faltan todavía 2 ecuaciones.
+
+5. Asumiendo que las segundas derivadas en los nodos extremos deben ser 0, se obtienen 2 ecuaciones más:
+
+\begin{align*}
+\left\{
+\begin{aligned}
+6a_1 x_0 + 2b_1 &= 0 \\
+6a_{n-1} x_n + 2b_{n-1} &= 0
+\end{aligned}
+\right.
+\end{align*}
+
+::: {.callout-tip collapse="true"}
+#### Ejemplo
+
+Para $f(x)$ dada por la siguiente tabla:
+
+$$
+\begin{array}{c|c}
+x & f(x) \\
+\hline
+3.0 & 2.5 \\
+4.5 & 1.0 \\
+7.0 & 2.5 \\
+9.0 & 0.5
+\end{array}
+$$
+
+Calcule el polinomio de interpolación usando Splines Cúbicos.
+
+
+**Solución:** Se requieren $3 \cdot 4 = 12$ ecuaciones, las cuales se obtienen como sigue:
+
+1. Como $P(x)$ debe coincidir con $f$ en los nodos internos y $P(x)$ debe ser continuo, se tienen las siguientes ecuaciones:
+
+\begin{align*}
+91.125a_1 + 20.25b_1 + 4.5c_1 + d_1 &= 1 \\
+91.125a_2 + 20.25b_2 + 4.5c_2 + d_2 &= 1 \\
+343a_2 + 49b_2 + 7c_2 + d_2 &= 2.5 \\
+343a_3 + 49b_3 + 7c_3 + d_3 &= 2.5
+\end{align*}
+
+2. Como $P(x)$ debe coincidir con $f$ en los extremos, se tienen las siguientes ecuaciones:
+
+\begin{align*}
+27a_1 + 9b_1 + 3c_1 + d_1 &= 2.5 \\
+729a_3 + 81b_3 + 9c_3 + d_3 &= 0.5
+\end{align*}
+
+ Igualdad de derivadas en nodos internos
+
+ Como las primeras derivadas de $P(x)$ en los nodos internos deben ser iguales, se tienen las siguientes ecuaciones:
+	- con $x = 4.5$:
+
+\begin{align*}
+60.75a_1 + 9b_1 + 3c_1 - 60.75a_2 - 9b_2 - c_2 &= 0,
+\end{align*}
+	- con $x = 7$:
+
+\begin{align*}
+147a_2 + 14b_2 + c_2 - 147a_3 - 14b_3 - c_3 &= 0,
+\end{align*}
+	- con $x = 4.5$:
+
+\begin{align*}
+27a_1 + 2b_1 - 27a_2 - 2b_2 &= 0,
+\end{align*}
+	- con $x = 7$:
+
+\begin{align*}
+42a_2 + 2b_2 - 42a_3 - 2b_3 &= 0.
+\end{align*}
+
+Condición de derivadas segundas nulas en extremos
+
+Asumiendo que las segundas derivadas en los nodos extremos deben ser $0$, se obtienen 2 ecuaciones más:
+	- con $x = 3$:
+
+\begin{align*}
+18a_1 + 2b_1 &= 0,
+\end{align*}
+	- con $x = 9$:
+
+\begin{align*}
+54a_3 + 2b_3 &= 0.
+\end{align*}
+
+Sistema completo de ecuaciones
+
+De donde, resolviendo el siguiente sistema de ecuaciones:
+
+\begin{align*}
+&91.125a_1 + 20.25b_1 + 4.5c_1 + d_1 &&= 1 \\
+&91.125a_2 + 20.25b_2 + 4.5c_2 + d_2 &&= 1 \\
+&343a_2 + 49b_2 + 7c_2 + d_2 &&= 2.5 \\
+&343a_3 + 49b_3 + 7c_3 + d_3 &&= 2.5 \\
+&27a_1 + 9b_1 + 3c_1 + d_1 &&= 2.5 \\
+&729a_3 + 81b_3 + 9c_3 + d_3 &&= 0.5 \\
+&60.75a_1 + 9b_1 + 3c_1 - 60.75a_2 - 9b_2 - c_2 &&= 0 \\
+&147a_2 + 14b_2 + c_2 - 147a_3 - 14b_3 - c_3 &&= 0 \\
+&27a_1 + 2b_1 - 27a_2 - 2b_2 &&= 0 \\
+&42a_2 + 2b_2 - 42a_3 - 2b_3 &&= 0 \\
+&18a_1 + 2b_1 &&= 0 \\
+&54a_3 + 2b_3 &&= 0
+\end{align*}
+
+se obtiene la siguiente solución: 
+
+\begin{align*}
+a_1 &= 0.187 & a_2 &= -0.214 & a_3 &= 0.128 \\
+b_1 &= -1.679 & b_2 &= 3.73 & b_3 &= -3.449 \\
+c_1 &= 3.617 & c_2 &= -20.726 & c_3 &= 29.534 \\
+d_1 &= 1.722 & d_2 &= 38.237 & d_3 &= -79.035
+\end{align*}
+
+por lo que el spline cúbico es:
+
+$$
+P(x) =
+\begin{cases}
+0.183x^3 - 1.679x^2 + 3.617x + 1.722 & \text{si } 3 \leq x \leq 4.5, \\
+-0.214x^3 + 3.73x^2 - 20.726x + 38.237 & \text{si } 4.5 \leq x \leq 7, \\
+0.128x^3 - 3.499x^2 + 29.53x - 79.035 & \text{si } 7 \leq x \leq 9.
+\end{cases}
+$$
+
+$\blacksquare$
+
+:::
+
+#### Presentación algorítmica

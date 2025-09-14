@@ -602,7 +602,27 @@ g2 <- function(x) x - cos(x)
 g2.g <- function(x) cos(x)
 ```
 
-a)
+a)La ecuación se puede escribir como:
+$$
+x = g(x) = \left(\frac{\sqrt{3}}{3}\right) e^{x/2}
+$$
+
+  Derivada:
+$$
+g'(x) = \left(\frac{\sqrt{3}}{6}\right) e^{x/2}
+$$
+
+  En el intervalo $[0,1]$:
+$$
+\sup_{x \in [0,1]} |g'(x)| \approx \frac{1.732}{6} \cdot e^{0.5} \approx 0.475 < 1
+$$
+
+  Evaluamos extremos:
+- $g(0) \approx 0.577$
+- $g(1) \approx 0.950$
+
+  Por tanto, $g([0,1]) \subseteq [0.577, 0.950] \subseteq [0,1]$
+$$\therefore \text{Se cumple el teorema de Banach}$$
 ```{r}
 punto.fijo(0.5, 1e-8, 30, g1.g)
 
@@ -611,7 +631,34 @@ pto.fijo.a <- uniroot(g1, c(0,1))$root
 sprintf("%.20f", pto.fijo.a)
 ```
 
-b)
+b)La ecuación puede reescribirse como:
+$$
+x = g(x) = \cos(x)
+$$
+
+  Derivada:
+$$
+g'(x) = -\sin(x)
+$$
+
+  En el intervalo $[0,1]$, se tiene:
+$$
+\sup_{x \in [0,1]} |g'(x)| = \max_{x \in [0,1]} |\sin(x)| = \sin(1) \approx 0.841 < 1
+$$
+
+  Además, evaluamos extremos:
+
+- $g(0) = \cos(0) = 1$
+- $g(1) = \cos(1) \approx 0.5403$
+
+  Entonces:
+$$
+g([0,1]) \subseteq [0.5403, 1] \subseteq [0,1]
+$$
+
+  Se cumple que $g$ es una contracción y $g([0,1]) \subseteq [0,1]$.  
+  Por tanto, por el teorema de Banach, la función tiene un único punto fijo en $[0,1]$, y la iteración converge.
+
 ```{r}
 punto.fijo(0.5, 1e-8, 60, g2.g)
 
@@ -619,11 +666,103 @@ punto.fijo(0.5, 1e-8, 60, g2.g)
 pto.fijo.b <- uniroot(g2, c(0,1))$root
 sprintf("%.20f", pto.fijo.b)
 ```
-c)
-```{r}
-g <- function(x) sqrt(x + 2)
 
-punto.fijo(3.5,1e-8, 60,g)
+::: {.callout-note}
+##### Ejercicio
+
+Considere la ecuación $x^2 - x - 2 = 0$.
+
+a) Encuentre una función $g(x)$ que permita resolver esta ecuación en el intervalo $[0, 7]$ utilizando el algoritmo del **Punto Fijo**. Debe probarse que $g(x)$ cumple la hipótesis del teorema visto en clase.
+
+b) Determine usando el estimado del error a priori y a posteriori cuántas iteraciones se requieren para que el error absoluto sea menor a $\epsilon = 10^{-6}$ si se toma $p_0 = 0$.
+
+:::
+
+## Solución
+
+a) 
+La ecuación original es:
+
+$$
+x^2 - x - 2 = 0
+$$
+
+  Una posible reescritura para usar punto fijo es:
+
+$$
+x = g(x) = \sqrt{x + 2}
+$$
+
+  Esta forma es válida porque:
+
+$$
+x = \sqrt{x + 2} \Rightarrow x^2 = x + 2 \Rightarrow x^2 - x - 2 = 0
+$$
+
+  Derivada:
+
+$$
+g'(x) = \frac{1}{2 \sqrt{x + 2}}
+$$
+
+  En el intervalo $[2, 3]$, se tiene:
+
+- $\sqrt{2 + 2} = 2$ ⇒ $g'(x) \leq \frac{1}{4} = 0.25 < 1$
+
+  Evaluación:
+
+- $g(2) = \sqrt{4} = 2$
+- $g(3) = \sqrt{5} \approx 2.236$
+
+  Entonces:
+$$
+g([2, 3]) \subseteq [2, 2.236] \subseteq [2, 3]
+$$
+
+$g$ es continua, contractiva y mapea el intervalo sobre sí mismo. Se cumple el teorema de Banach.
+```{r}
+# Definición de g(x)
+g <- function(x) sqrt(x + 2)
+# Ejecución con p0 = 2.0
+punto.fijo(0, 1e-6, 100, g)
+```
+
+b) Sabemos que el error a priori está acotado por:
+
+$$
+|p_n - p| \leq \frac{L^n}{1 - L} |p_1 - p_0|
+$$
+
+Donde $L = \sup |g’(x)|$ en el intervalo $[2, 3]$:
+
+$$
+g’(x) \leq \frac{1}{2 \sqrt{4}} = \frac{1}{4} = 0.25
+$$
+```{r}
+# Estimación a priori
+
+L <- 0.25
+p0 <- 0
+p1 <- g(p0)
+epsilon <- 1e-6
+
+# Fórmula del error a priori
+n_apriori <- ceiling(log((epsilon * (1 - L)) / abs(p1 - p0)) / log(L))
+n_apriori
+
+# Estimación a posteriori
+
+# Usando última iteración:
+# p_n = último valor aproximado
+# p_{n-1} = valor anterior
+
+# Supongamos:
+p_n <- g(g(g(g(g(p0)))))       # aproximación tras 5 iteraciones
+p_n1 <- g(g(g(g(p0))))         # aproximación tras 4 iteraciones
+
+# Cota a posteriori:
+error_post <- (L / (1 - L)) * abs(p_n - p_n1)
+error_post
 ```
 
 # Ejercicio 7
@@ -726,6 +865,77 @@ cumple que $g'(p) = 0$.
 
 ## Solución
 
+
+Dado que $p$ es un cero de multiplicidad $m$, entonces podemos escribir:
+
+$$
+f(x) = (x - p)^m q(x)
+$$
+
+donde $q(x)$ es una función continua y $q(p) \ne 0$.
+
+Ahora derivamos $f(x)$ usando la regla del producto:
+
+\begin{align*}
+f'(x) &= \frac{d}{dx}\left[ (x - p)^m q(x) \right] \\
+&= m(x - p)^{m-1} q(x) + (x - p)^m q'(x)
+\end{align*}
+
+Sustituimos $f(x)$ y $f'(x)$ en $g(x)$:
+
+\begin{align*}
+g(x) &= x - m \frac{(x - p)^m q(x)}{m(x - p)^{m-1} q(x) + (x - p)^m q'(x)} \\
+&= x - m \cdot \frac{(x - p)^m q(x)}{(x - p)^{m-1} \left[ m q(x) + (x - p) q'(x) \right]} \\
+&= x - \frac{(x - p)^m q(x)}{(x - p)^{m-1} \left[ q(x) m + (x - p) q'(x) \right]} \\
+&= x - \frac{(x - p) q(x)}{q(x) m + (x - p) q'(x)}
+\end{align*}
+
+Llamemos a la última expresión $g(x) = x - h(x)$, con:
+
+$$
+h(x) = \frac{(x - p) q(x)}{q(x) m + (x - p) q'(x)}
+$$
+
+Ahora derivamos $g(x)$:
+
+\begin{align*}
+g'(x) &= 1 - h'(x)
+\end{align*}
+
+Para calcular $h'(x)$, usamos la regla del cociente:
+
+\begin{align*}
+h'(x) &= \frac{[(x - p) q(x)]' \cdot [q(x)m + (x - p) q'(x)] - (x - p) q(x) \cdot [q(x)m + (x - p) q'(x)]'}{[q(x)m + (x - p) q'(x)]^2}
+\end{align*}
+
+Pero en realidad no necesitamos derivar todo: evaluamos directamente $g'(x)$ en $x = p$.
+
+Como $x \to p$:
+
+\begin{align*}
+h(x) &= \frac{(x - p) q(x)}{q(x) m + (x - p) q'(x)} \to \frac{0}{q(p)m + 0} = 0
+\end{align*}
+
+Y usando L’Hôpital:
+
+\begin{align*}
+\lim_{x \to p} h(x) &= \lim_{x \to p} \frac{(x - p) q(x)}{q(x) m + (x - p) q'(x)} \\
+&= \frac{0}{m q(p)} = 0 \\
+\Rightarrow h(p) &= 0 \\
+\Rightarrow g(p) &= p
+\end{align*}
+
+Y ahora derivamos:
+
+\begin{align*}
+g'(x) &= 1 - h'(x) \Rightarrow g'(p) = 1 - h'(p)
+\end{align*}
+
+Pero, como $h(x) \sim (x - p)$ para $x$ cercano a $p$, entonces $h'(p) = 1$ y por tanto:
+
+\begin{align*}
+g'(p) &= 1 - 1 = 0
+\end{align*}
 
 
 # Ejercicio 10
@@ -843,6 +1053,110 @@ Suponiendo que el intervalo $[a_i, b_i]$ contiene una raíz de $f(x) = 0$, calcu
   e) Escriba una función en R para este algoritmo.
 :::
 
+## Solución
+
+**a.** El método **Regula Falsi** consiste en **trazar una línea recta entre los puntos extremos del intervalo $[a_i, b_i]$ sobre la curva de $f$** y hallar el punto en que esta recta intersecta el eje $x$. Ese punto se usa como una mejor aproximación a la raíz.
+
+- Geométricamente, se asemeja al método de la **secante**, pero manteniendo la propiedad de que la raíz siempre queda contenida entre los extremos del intervalo.
+- Luego se actualiza el intervalo según el signo de $f(p_i)$.
+
+**b.** Ecuación de la recta que pasa por $(a_i, f(a_i))$ y $(b_i, f(b_i))$
+
+La recta que pasa por dos puntos $(x_1, y_1)$ y $(x_2, y_2)$ tiene la forma:
+
+$$
+y - y_1 = \frac{y_2 - y_1}{x_2 - x_1}(x - x_1)
+$$
+
+Aplicando esto con:
+
+- $x_1 = a_i$, $y_1 = f(a_i)$
+- $x_2 = b_i$, $y_2 = f(b_i)$
+
+La ecuación de la recta es:
+
+$$
+y - f(a_i) = \frac{f(b_i) - f(a_i)}{b_i - a_i}(x - a_i)
+$$
+
+
+**c.** Buscamos el punto de intersección con el eje $x$ (i.e., donde $y = 0$):
+
+\begin{align*}
+0 - f(a_i) &= \frac{f(b_i) - f(a_i)}{b_i - a_i}(p_i - a_i) \\
+\Rightarrow -f(a_i)(b_i - a_i) &= (f(b_i) - f(a_i))(p_i - a_i) \\
+\Rightarrow p_i - a_i &= \frac{-f(a_i)(b_i - a_i)}{f(b_i) - f(a_i)} \\
+\Rightarrow p_i &= a_i - \frac{f(a_i)(b_i - a_i)}{f(b_i) - f(a_i)}
+\end{align*}
+
+Multiplicando y dividiendo, obtenemos una forma simétrica:
+
+$$
+p_i = \frac{a_i f(b_i) - b_i f(a_i)}{f(b_i) - f(a_i)}
+$$
+
+**d)** Pseudocódigo del método Regula Falsi
+
+```{pseudo}
+Entrada: f, a, b, tol, Nmax
+
+Si f(a) * f(b) ≥ 0 entonces
+    Detener: no se garantiza una raíz en [a, b]
+Fin si
+
+Para i desde 1 hasta Nmax hacer:
+    Calcular:
+        p ← (a * f(b) - b * f(a)) / (f(b) - f(a))
+
+    Si |f(p)| < tol entonces
+        Retornar p
+    Fin si
+
+    Si f(p) * f(a) < 0 entonces
+        b ← p
+    Sino
+        a ← p
+    Fin si
+Fin para
+
+Retornar error: no se alcanzó la tolerancia deseada
+```
+
+**e)** Implementación en R
+
+```{r}
+#| code-fold: true
+regula_falsi <- function(f, a, b, tol = 1e-6, Nmax = 100) {
+  if (f(a) * f(b) >= 0) {
+    stop("No se garantiza una raíz en el intervalo [a, b].")
+  }
+
+  for (i in 1:Nmax) {
+    fa <- f(a)
+    fb <- f(b)
+    p <- (a * fb - b * fa) / (fb - fa)
+
+    if (abs(f(p)) < tol) {
+      cat("Iteraciones:", i, "\n")
+      return(p)
+    }
+
+    if (f(p) * fa < 0) {
+      b <- p
+    } else {
+      a <- p
+    }
+  }
+
+  stop("No se alcanzó la tolerancia deseada en el número máximo de iteraciones.")
+}
+```
+Ejemplo de uso 
+```{r}
+f <- function(x) x^3 - x - 2
+raiz <- regula_falsi(f, 1, 2, tol = 1e-6)
+print(raiz)
+```
 
 
 # Ejercicio 12
@@ -1031,6 +1345,38 @@ Demuestre que la sucesión definida por $x_n = 1/n^k$, $n \geq 1$, para cualquie
 
 ## Solución
 
+Sea $x_n = \dfrac{1}{n^k}$ para $k \in \mathbb{Z}^+$.
+
+Queremos verificar si la sucesión converge **linealmente** a $x = 0$.
+
+Calculamos:
+
+$$
+\lim_{n \to \infty} \frac{|x_{n+1} - x|}{|x_n - x|} = \lim_{n \to \infty} \frac{\frac{1}{(n+1)^k}}{\frac{1}{n^k}} = \lim_{n \to \infty} \left(\frac{n}{n+1}\right)^k = 1
+$$
+
+Por lo tanto, $x_n$ converge linealmente a $0$ con constante asintótica $\lambda = 1$ (o más estrictamente, con $\lambda \lesssim 1$ pero **no estrictamente menor** que 1).
+
+Como el cociente tiende a 1, se puede decir que la convergencia es **sub-lineal** si se requiere $\lambda < 1$, pero para fines prácticos de velocidad de convergencia, se considera **lineal lenta**.
+
+Sean $k, m \in \mathbb{Z}^+$, queremos:
+
+$$
+\frac{1}{N^k} < 10^{-m}
+\quad \Leftrightarrow \quad
+N^k > 10^m
+\quad \Leftrightarrow \quad
+N > \sqrt[k]{10^m} = 10^{\frac{m}{k}}
+$$
+
+Por lo tanto, basta tomar:
+
+$$
+N = \left\lceil 10^{\frac{m}{k}} \right\rceil
+$$
+
+donde $\lceil \cdot \rceil$ denota el **techo entero** (menor entero mayor o igual que el número).
+
 
 
 # Ejercicio 16
@@ -1071,6 +1417,53 @@ b) $x_n = \dfrac{1}{n^2}$, $n \geq 0$
 :::
 
 ## Solución
+
+**Caso a)** $$x_n = \tfrac{1}{n}$$
+
+Empezamos por los términos de la sucesión: $$
+x_n = \frac{1}{n}, \quad x_{n+1} = \frac{1}{n+1}, \quad x_{n+2} = \frac{1}{n+2}
+$$
+
+Calculamos sus diferencias: $$
+\Delta x_n = -\frac{1}{n(n+1)}, 
+\qquad
+\Delta^2 x_n = \frac{2}{n(n+1)(n+2)}
+$$
+
+La Transformada resulta en: $$
+\bar{x}_n 
+= \frac{1}{n} - \frac{\left(-\tfrac{1}{n(n+1)}\right)^2}{\tfrac{2}{n(n+1)(n+2)}}
+= \frac{1}{2(n+1)}
+$$
+
+Verificando la condición del error: $$
+\left|\bar{x}_n\right| = \frac{1}{2(n+1)} \leq 0.05
+\quad \Rightarrow \quad n \geq 9
+$$
+
+Se cumple desde $n=9$.
+
+**Caso b)**
+
+$$ x_n = \tfrac{1}{n^2} $$
+
+Empezamos por los términos de la sucesión: $$
+x_n = \frac{1}{n^2}, \quad x_{n+1} = \frac{1}{(n+1)^2}, \quad x_{n+2} = \frac{1}{(n+2)^2}
+$$
+
+Tras un proceso similar al ejercicio anterior, la simplificación para $\bar{x}$: $$
+\bar{x}_n = \frac{1}{(n+1)(n+2)}.
+$$
+
+Verificando la condición: $$
+\left|\bar{x}_n\right| = \frac{1}{(n+1)(n+2)} \leq 0.05.
+$$
+
+Si evaluamos en $n=3$: $$
+\bar{x}_3 = \frac{1}{4 \cdot 5} = 0.05.
+$$
+
+Por lo que cumple desde $n=3$.
 
 # Ejercicio 18
 
@@ -1873,6 +2266,109 @@ h) Tome: $$ r_n := \frac{L}{2M} |x_n - x|, \quad \text{y} \quad \varepsilon < \m
 :::
 
 ## Solución
+
+a) Sea $(r_n)$ una sucesión de números reales positivos tales que
+
+$$
+r_{n+1} \le r_n r_{n-1}.
+$$
+
+  **Prueba.**
+
+    1.  Si $r_0<1$ y $r_1<1$, entonces por inducción $r_n\le 1$ para todo $n$.\
+    2.  Usando los números de Fibonacci $F_n$, se obtiene:
+
+$$
+r_n \le r_0^{F_{n-1}} r_1^{F_n}.
+$$
+
+  Como $F_n \sim \tfrac{1}{\sqrt{5}} \rho^n$ con $\rho=\tfrac{1+\sqrt{5}}{2}\approx 1.618$, resulta que
+
+$$
+r_n \le C \,\tilde r^{\rho^n}, \qquad 0<\tilde r<1.
+$$
+
+  En particular, $r_n\to 0$ por comparación.
+
+b) Definimos:
+
+$$
+f[x_n,x_{n-1}] := \frac{f(x_n)-f(x_{n-1})}{x_n-x_{n-1}}.
+$$
+
+  Como $x$ es raíz de f, $f(x)=0$ y:
+
+$$
+f[x_n,x] = \frac{f(x_n)-f(x)}{x_n-x} = \frac{f(x_n)}{x_n-x}.
+$$
+
+  Por lo tanto:
+
+$$
+f(x_n)=(x_n-x)\,f[x_n,x].
+$$
+c) De la fórmula del método de la secante:
+
+$$
+x_{n+1}=x_n-\frac{f(x_n)}{f[x_n,x_{n-1}]},
+$$
+
+  restando $x$ y usando (b):
+
+$$
+x_{n+1}-x = (x_n-x)\,\frac{f[x_n,x_{n-1}]-f[x_n,x]}{f[x_n,x_{n-1}]}.
+$$
+d) Por definición del cociente dividido de orden 2:
+
+$$
+f[x_n,x_{n-1},x] = \frac{f[x_n,x_{n-1}] - f[x_{n-1},x]}{x_n-x}.
+$$
+
+  Entonces:
+
+$$
+f[x_n,x_{n-1}]-f[x_n,x] = (x-x_{n-1})\,f[x_n,x_{n-1},x].
+$$
+
+  Sustituyendo en (c):
+
+$$
+x_{n+1}-x=\frac{(x_n-x)(x-x_{n-1})\,f[x_n,x_{n-1},x]}{f[x_n,x_{n-1}]}.
+$$
+e) Sea $[x-\varepsilon_1,x+\varepsilon_1]$ un intervalo sobre el cual $|f'(t)|\ge M>0$ para todo $t$ en el intervalo. Supongamos que $x_n$ y $x_{n-1}$ están en $[x-\varepsilon_1,x+\varepsilon_1]$. Por el teorema del valor medio existe $\xi$ entre $x_n$ y $x_{n-1}$ tal que: $$ f[x_n,x\_{n-1}] = \frac{f(x_n)-f(x_{n-1})}{x_n-x_{n-1}} = f'(\xi)$$ Como $|f'(\xi)|\ge M$ obtenemos: $$|f[x_n,x_{n-1}]|\ge M $$
+
+f) Sea $L$ la cota superior de $|f''|$ en $[x-\varepsilon_1,x+\varepsilon_1]$, es decir $|f''(t)|\le L$ para todo $t$ en ese intervalo. Supongamos nuevamente que $x_n$ y $x_{n-1}$ están en $[x-\varepsilon_1,x+\varepsilon_1]$. Usando la fórmula del cociente dividido de segundo orden y la representación con derivadas (o la forma simétrica de la expansión de Taylor), existe $\eta$ entre los tres puntos $x_n,x_{n-1},x$ tal que: $$ f[x_n,x_{n-1},x] = \frac{f''(\eta)}{2} $$
+
+  Por tanto, tomando módulo: $$ |f[x_n,x_{n-1},x]|\le \frac{L}{2} $$ 
+  De aquí, usando la definición de $f[x_n,x_{n-1},x]$ se obtiene la cota buscada: $$ |f[x_n,x_{n-1},x]|\le \frac{L}{2}. $$
+
+g) Partiendo de la identidad de la parte (d) $$ x_{n+1}-x=\frac{(x_n-x)(x-x_{n-1})\,f[x_n,x_{n-1},x]}{f[x_n,x_{n-1}]} $$
+  tomando módulos y aplicando las cotas $|f[x_n,x_{n-1},x]|\le L/2$ y $|f[x_n,x_{n-1}]|\ge M$ (obtenidas en e) y f)) obtenemos:
+$$ |x_{n+1}-x| \le \frac{L/2}{M},|x_n-x|,|x-x\_{n-1}| = \frac{L}{2M},|x_n-x|,|x_{n-1}-x| $$
+
+  Así se demuestra la desigualdad buscada: $$ |x_{n+1}-x| \le \frac{L}{2M},|x_n-x|,|x_{n-1}-x|$$
+
+h) Defina la sucesión $$ r_n := \frac{L}{2M},|x_n-x|.$$ Fije además $$\varepsilon < \min\big(\varepsilon*1,;* \tfrac{2M}{L}\big)$$
+
+  Si $|x_0-x|<\varepsilon$ y $|x_1-x|<\varepsilon$, entonces por la elección de $\varepsilon$ se tiene $r_0<1$ y $r_1<1$. De la desigualdad de la parte (g) se obtiene, multiplicando por $L/(2M)$:
+
+$$ r{n+1} = \frac{L}{2M}|x_{n+1}-x| \le \frac{L}{2M}\cdot\frac{L}{2M}\cdot|x_n-x|\cdot |x_{n-1}-x| = r_n r\_{n-1} $$
+
+  Por tanto la sucesión $(r_n)$ satisface la hipótesis de la parte (a):
+
+$$ r\_{n+1}\le r_n r\_{n-1}$$
+
+  Como $r_0<1$ y $r_1<1$, por la parte (a) concluimos que $(r_n)$ está acotada por $1$ y $r_n\to 0$ cuando $n\to\infty$. De la definición de $r_n$ esto implica
+
+$$ |x_n-x| = \frac{2M}{L} r_n \longrightarrow 0$$
+
+  es decir $x_n\to x$. Además, por la cota exponencial (parte a) existe $C>0$ y $0<\tilde r<1$ tales que
+
+$$ r_n \le C\cdot\tilde r^{\rho^n};\qquad \rho=\frac{1+\sqrt5}{2}$$
+
+  Despejando $|x_n-x|$ se obtiene una cota: $$ |x_n-x| \le \frac{2M}{L}\cdot C\cdot\tilde r^{\rho^n}$$
+
+  lo que muestra que la convergencia es superlineal con orden $\rho\approx1.618$ (orden de la secante).
 
 # Ejercicio 23
 
