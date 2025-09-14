@@ -1,0 +1,479 @@
+---
+title: "MA0501 – Tarea 3"
+author: 
+  - name: "Diego Alberto Vega Víquez - C38367" 
+    email: "diegovv13@gmail.com"
+  - name: "José Carlos Quintero Cedeño - C26152" 
+    email: "jose.quinterocedeno@ucr.ac.cr"
+  - name: "Gabriel Valverde Guzmán - C38060"
+    email: "GABRIEL.VALVERDEGUZMAN@ucr.ac.cr"
+date: today
+lang: es
+format:
+  pdf:
+    documentclass: article
+    fontsize: 11pt
+    linestretch: 1.3
+    geometry:
+      - top=2.5cm
+      - bottom=2.5cm
+      - left=2.5cm
+      - right=2.5cm
+      - headheight=15pt
+      - footskip=1.25cm
+    toc: true
+    toc-depth: 1
+    number-sections: false
+    classoption:
+      - oneside
+      - titlepage 
+    openany: true
+    colorlinks: false   
+    top-level-division: section
+    include-in-header: 
+      text: |
+        \usepackage[most]{tcolorbox}
+        \usepackage[hidelinks]{hyperref}
+        \usepackage{setspace}
+        \AtBeginDocument{\setstretch{1.0}} % ← interlineado
+  html:
+    code-annotations: hover
+    toc: true
+    toc-depth: 1
+    toc-location: left
+    toc_float: yes
+    html-math-method: katex
+    css: styles.css
+    df_print: paged
+    theme: flatly
+    highlight: tango
+    embed-resources: true
+---
+
+\newpage
+
+# Ejercicio 1
+
+::: {.callout-note title="Instrucción del ejercicio 1"}
+
+Complete las demostraciones que quedaron pendientes en la clase.
+
+:::
+
+**Solución**
+
+
+
+# Ejercicio 2
+
+::: {.callout-note title="Instrucción del ejercicio 2"}
+
+Implemente en R los algoritmos de interpolación polinómica vistos en clase.  
+Los métodos que se deben implementar son:
+
+a) Interpolar $f(x)$ usando el polinomio de Lagrange con el algoritmo de Neville.  
+
+b) Interpolar $f(x)$ usando el polinomio de Lagrange con el algoritmo de diferencias divididas de Newton.  
+
+c) Interpolar $f(x)$ usando el polinomio de Hermite con el algoritmo de diferencias divididas de Newton.  
+
+d) Interpolar $f(x)$ usando el “Splines” cúbicos naturales y sujetos.  
+
+Luego en general programe una función que permita graficar el polinomio de interpolación y la función correspondiente (si la hay).
+
+:::
+
+**Solución**
+
+
+
+# Ejercicio 3
+
+::: {.callout-note title="Instrucción del ejercicio 3"}
+
+Para el polinomio de Bernstein $B_n(x)$ hacer lo siguiente:
+
+a) Demostrar que para $k \leq n$ se tiene  
+
+$$
+\binom{n-1}{k-1} = \frac{k}{n}\binom{n}{k}.
+$$
+
+b) Pruebe que, para todo $n \in \mathbb{N}$  
+
+$$
+1 = \sum_{k=0}^n \binom{n}{k} x^k (1-x)^{n-k}.
+$$
+
+c) Use (b) y (c) para probar que para $f(x) = x^2$  
+
+$$
+B_n(x) = \binom{n-1}{n} x^2 + \frac{1}{n}x.
+$$
+
+:::
+
+**Solución**
+
+
+
+# Ejercicio 4
+
+::: {.callout-note title="Instrucción del ejercicio 4"}
+
+Dada la siguiente tabla de datos para $f(x)$:
+
+| $x$  | $f(x)$     |
+|||
+| 0.2  | 0.9798652  |
+| 0.4  | 0.9177710  |
+| 0.6  | 0.8080348  |
+| 0.8  | 0.6386093  |
+| 1.0  | 0.3843735  |
+
+Aproxime $f(0.5)$ usando el procedimiento **Neville**.
+
+:::
+
+**Solución**
+
+
+
+# Ejercicio 5
+
+::: {.callout-note title="Instrucción del ejercicio 5"}
+
+a) Use el algoritmo de Neville para aproximar $f(1.03)$ con $P_{0,1,2}$ para la función  
+$$f(x) = 3x e^x - e^{2x}$$  
+usando $x_0 = 1$, $x_1 = 1.05$ y $x_2 = 1.07$.
+
+b) Suponga que la aproximación en (a) no es suficientemente exacta. Calcule $P_{0,1,2,3}$ donde $x_3 = 1.04$.
+
+c) Compare el error real en (a) y (b) con la cota del error teórica según los teoremas vistos en clase.
+
+:::
+
+**Solución**
+
+
+
+# Ejercicio 6
+
+::: {.callout-note title="Instrucción del ejercicio 6"}
+
+Repita el ejercicio anterior usando el polinomio de interpolación de Hermite, compare resultados.
+
+:::
+
+**Solución**
+
+# Ejercicio 7
+
+::: {.callout-note title="Instrucción del ejercicio 7"}
+
+Use el algoritmo de Diferencias Divididas para construir el polinomio interpolante de grado 4 según la siguiente tabla:
+
+| $x$  | $f(x)$     |
+|||
+| 0.0  | $-7.00000$ |
+| 0.1  | $-5.89483$ |
+| 0.3  | $-5.65014$ |
+| 0.6  | $-5.17788$ |
+| 1.0  | $-4.28172$ |
+
+Grafique este polinomio.
+
+:::
+
+**Solución**
+
+
+
+# Ejercicio 8
+
+::: {.callout-note title="Instrucción del ejercicio 8"}
+
+Use el algoritmo de Hermite para construir el polinomio interpolante de Hermite dada la siguiente tabla:
+
+| $x$  | $f(x)$     | $f'(x)$    |
+||||
+| 0.2  | 0.9798652  | 0.20271    |
+| 0.4  | 0.9177710  | 0.42279    |
+| 0.6  | 0.8080348  | 0.68414    |
+| 0.8  | 0.6386093  | 1.02964    |
+| 1.0  | 0.3843735  | 1.55741    |
+
+Grafique este polinomio.
+
+:::
+
+**Solución**
+
+
+
+# Ejercicio 9
+
+::: {.callout-note title="Instrucción del ejercicio 9"}
+
+Use el algoritmo de Diferencias Divididas para calcular el polinomio de interpolación de Lagrange $p(x)$ de cuarto grado para:
+
+$$
+f(x) = x^3 \sin(x)
+$$
+
+con nodos $x_0 = 1$, $x_1 = 2$, $x_2 = 3$, $x_3 = 4$ y $x_4 = 5$.
+
+Grafique en un mismo plano $f(x)$ y $p(x)$ y luego imprima.
+
+:::
+
+**Solución**
+
+
+
+# Ejercicio 10
+
+::: {.callout-note title="Instrucción del ejercicio 10"}
+
+Probar que los polinomios $L_k(x)$ vistos en clase se pueden expresar de la forma:
+
+$$
+L_k(x) = \frac{\psi(x)}{(x - x_k)\psi'(x_k)}
+$$
+
+donde:
+
+$$
+\psi(x) = \prod_{j=0}^n (x - x_j)
+$$
+
+y que por lo tanto el polinomio interpolante de Lagrange se puede expresar como:
+
+$$
+p(x) = \psi(x) \sum_{k=0}^n \frac{f(x_k)}{(x - x_k)\psi'(x_k)}.
+$$
+
+:::
+
+**Solución**
+
+
+
+# Ejercicio 11
+
+::: {.callout-note title="Instrucción del ejercicio 11"}
+
+Demostrar que si $f(x)$ es un polinomio de grado menor o igual a $n$, entonces el polinomio de grado menor o igual a $n$ que interpola $f(x)$ en $x_0, x_1, \ldots, x_n$ es el mismo $f(x)$.
+
+:::
+
+**Solución**
+
+
+
+# Ejercicio 12
+
+::: {.callout-note title="Instrucción del ejercicio 12"}
+
+Usar el ejercicio anterior para probar que:
+
+$$
+\sum_{i=0}^n L_i(x) = 1
+$$
+
+:::
+
+**Solución**
+
+# Ejercicio 13
+
+::: {.callout-note title="Instrucción del ejercicio 13"}
+
+Para las siguientes funciones:
+
+- $f(x)=3x^2\ln(x)+2x$ con nodos $x_0=1$, $x_1=1.5$, $x_2=2$, $x_3=2.5$ y $x_4=3$.
+- $f(x)=x^2\sin(x)-3\cos(x)$ con nodos $x_0=1$, $x_1=2$, $x_2=3$, $x_3=4$ y $x_4=5$.
+- $f(x)=x\cos(x)-2x^2+3x-1$ con nodos $x_0=1$, $x_1=2$, $x_2=3$, $x_3=4$ y $x_4=5$.
+
+a) Encuentre el polinomio de interpolación de Lagrange $P^\star(x)$ en los nodos indicados, grafique $f(x)$ y $P^\star(x)$ en el mismo plano.
+
+b) Encuentre el polinomio de interpolación usando Splines cúbicos $P^{\star\star}(x)$ en los nodos indicados, grafique $f(x)$ y $P^{\star\star}(x)$ en el mismo plano, luego imprima.
+
+c) Encuentre el polinomio de interpolación de Hermite $P^{\star\star\star}(x)$ en los nodos indicados, grafique $f(x)$ y $P^{\star\star\star}(x)$ en el mismo plano.
+
+d) Grafique $f(x)$, $P^\star(x)$, $P^{\star\star}(x)$ y $P^{\star\star\star}(x)$ en el mismo plano. ¿Qué se puede concluir?
+
+:::
+
+**Solución**
+
+
+
+# Ejercicio 14
+
+::: {.callout-note title="Instrucción del ejercicio 14"}
+
+¿Existen $a,b,c,d$ y $e$ tal que la función:
+
+$$
+S(x)=
+\begin{cases}
+ax^3+x^2+cx, & -1\le x\le 0,\\[4pt]
+bx^3+x^2+dx, & \ \ 0\le x\le 1
+\end{cases}
+$$
+
+sea el spline cúbico natural que coincide con la función $f(x)=|x|$ en los nodos $-1,0,1$?
+
+:::
+
+**Solución**
+
+
+
+# Ejercicio 15
+
+::: {.callout-note title="Instrucción del ejercicio 15"}
+
+Encuentre los valores de $a,b,c,d$ y $e$ tal que la función $S(x)$ es un spline cúbico natural:
+
+$$
+S(x)=
+\begin{cases}
+a+b(x-1)+c(x-1)^2+d(x-1)^3, & 0\le x\le 1,\\[4pt]
+(x-1)^3+ex^2-1, & 1\le x\le 2.
+\end{cases}
+$$
+
+:::
+
+**Solución**
+
+
+
+# Ejercicio 16
+
+::: {.callout-note title="Instrucción del ejercicio 16"}
+
+Encuentre los valores de $a,b,c$ y $d$ tal que la función $S(x)$ es un spline cúbico y cumple que
+$\displaystyle \int_{0}^{2}\!\big[S''(x)\big]^2\,dx$ es mínimo (esta condición sustituye a la condición para ser spline natural o sujeto):
+
+$$
+S(x)=
+\begin{cases}
+3+x-9x^3, & 0\le x\le 1,\\[4pt]
+a+b(x-1)+c(x-1)^2+d(x-1)^3, & 1\le x\le 2.
+\end{cases}
+$$
+
+:::
+
+**Solución**
+
+
+
+# Ejercicio 17
+
+::: {.callout-note title="Instrucción del ejercicio 17"}
+
+El objetivo de este ejercicio es estudiar e implementar un algoritmo para **Aproximación discreta por mínimos cuadrados**. Para esto:
+
+a) El problema en general es aproximar una tabla de datos $\{(x_i,y_i)\mid i=1,2,\ldots,m\}$ por un polinomio de grado $n<m-1$ denotado por
+$$
+P_n(x)=\sum_{k=0}^{n} a_k x^k.
+$$
+La idea es encontrar constantes $\{a_k\}_{k=0}^{n}$ tal que se minimice el error:
+$$
+E=\sum_{i=1}^{m}\big(y_i-P_n(x_i)\big)^2.
+$$
+Pruebe que este mínimo se alcanza en la solución del sistema de **ecuaciones normales** (n+1)×(n+1) para las incógnitas $\{a_k\}_{k=0}^{n}$ dado por:
+$$
+\sum_{k=0}^{n} a_k \sum_{i=1}^{m} x_i^{\,j+k}
+\;=\;
+\sum_{i=1}^{m} y_i x_i^{\,j},
+\qquad j=0,1,2,\ldots,n.
+$$
+
+b) Dada una tabla de datos para $f$, escriba una función en **R** que permita generar el sistema de ecuaciones normales del inciso (a).
+
+c) Luego escriba una función en **R** que encuentre los coeficientes del polinomio de mínimos cuadrados y luego lo grafique.
+
+d) Construir la **aproximación de mínimos cuadrados de grado 3** para la siguiente tabla y **construir el gráfico**.
+
+| $x_i$ | $y_i$   |
+|:-----:|:-------:|
+| 4.0   | 102.56  |
+| 4.2   | 113.18  |
+| 4.5   | 130.11  |
+| 4.7   | 142.05  |
+| 5.1   | 167.53  |
+| 5.5   | 195.14  |
+| 5.9   | 224.87  |
+| 6.3   | 256.73  |
+| 6.8   | 299.50  |
+| 7.1   | 326.72  |
+
+:::
+
+**Solución**
+
+
+
+
+# Ejercicio 18
+
+::: {.callout-note title="Instrucción del ejercicio 18"}
+
+El objetivo de este ejercicio es **generalizar la aproximación discreta por mínimos cuadrados**.  
+Dada una función $f\in C[a,b]$, se requiere un polinomio $\tilde P_n(x)=\sum_{k=0}^{n} a_k x^k$ de manera tal que las constantes $\{a_k\}_{k=0}^{n}$ minimicen el error:
+
+$$
+E=\int_a^b \big(f(x)-\tilde P_n(x)\big)^2\,dx.
+$$
+
+Pruebe que este mínimo se alcanza en la solución del sistema de **$(n+1)$ ecuaciones normales** y $(n+1)$ incógnitas $\{a_k\}_{k=0}^{n}$ dado por:
+
+$$
+\sum_{k=0}^{n} a_k \int_a^b x^{j+k}\,dx \;=\; \int_a^b x^{j} f(x)\,dx,
+\qquad j=0,1,2,\ldots,n.
+\tag{2}
+$$
+
+a) Dada una función $f$ escriba una función en **R** que permita **generar el sistema de ecuaciones (2)**.
+
+b) Luego escriba una función en **R** que **encuentre los coeficientes** del polinomio $\tilde P_n(x)$ y luego lo grafique.
+
+c) Encuentre la **aproximación polinómica** $\tilde P_n(x)$ de grado $2$, $4$ y $6$ para $f(x)=\cos(\pi x)$ en el intervalo $[-1,1]$. Además, **construya los gráficos**.
+
+:::
+
+**Solución**
+
+
+
+# Ejercicio 19
+
+::: {.callout-note title="Instrucción del ejercicio 19"}
+
+a) Demuestre que el **Polinomio de Hermite** visto en clase $H_{2n+1}(x)$ es **único**.  
+*Sugerencia:* Suponga que existe otro polinomio $P(x)$ que cumple las condiciones de interpolación de Hermite y considere $D=H_{2n+1}(x)-P(x)$ y $D'$ en $x_0,x_1,\ldots,x_n$.
+
+b) Demuestre que el **error absoluto** en este caso está dado por:
+
+$$
+\big|f(x)-H_{2n+1}(x)\big| \;=\;
+\left|\frac{(x-x_0)^2\cdots(x-x_n)^2}{(2n+2)!}\, f^{(2n+2)}(\xi)\right|,
+\quad \text{con } \xi\in(a,b) .
+$$
+
+**Sugerencia:** Use el mismo método que usamos para demostrar la fórmula del error absoluto en el caso de Lagrange, pero con:
+
+$$
+g(t)=f(t)-H_{2n+1}(t)\;-\;
+\frac{(t-x_0)^2\cdots(t-x_n)^2}{(x-x_0)^2\cdots(x-x_n)^2}
+\Big[f(x)-H_{2n+1}(x)\Big].
+$$
+
+:::
+
+**Solución**
