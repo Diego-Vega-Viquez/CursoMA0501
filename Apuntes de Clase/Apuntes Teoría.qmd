@@ -118,8 +118,7 @@ norma1(vec0)
 
 #### Punto flotante
 
-::: {.callout-note}
-##### Definición: Forma Punto Flotante
+::: {.callout-note title="Definición: Forma Punto Flotante"}
 
 Un número real $x$ está en **forma punto flotante** si se escribe de la forma
 
@@ -130,16 +129,14 @@ $$
 donde $0 \le d_i \le 9$, $d_1 \ne 0$, $i = 1,2,\ldots,k$.
 :::
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
 
 $$
 \pi = 0.31415 \times 10^{1}.
 $$
 :::
 
-::: {.callout-important collapse="true"}
-###### Observación
+::: {.callout-important collapse="true" title="Observación"}
 
 - En análisis numérico todas las respuestas deben darse en **notación de punto flotante**.
 - Si $x \in \mathbb{R}$, entonces se escribe como  
@@ -157,8 +154,7 @@ Por lo tanto, quedan **dos posibilidades**:
    - Si no, **solamente corte**.
 :::
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
 
 $$
 \pi = 3.14159265\cdots, \quad \text{con } k = 5 \text{ tenemos:}
@@ -173,16 +169,14 @@ fl(\pi) = 0.31416 \times 10^{1} \quad (\textbf{Redondeando})
 $$
 :::
 
-::: {.callout-note}
-##### Definición: Error de Redondeo
+::: {.callout-note title="Definición: Error de Redondeo"}
 
 El error que resulta de reemplazar $x$ por $fl(x)$ se denomina **Error de Redondeo.**
 :::
 
 #### ¿Cómo medir, controlar, la propagación del error?
 
-::: {.callout-note}
-##### Definición: Error absoluto & Error relativo
+::: {.callout-note title="Definición: Error absoluto & Error relativo"}
 
 Si $P^*$ es una aproximación de $P$ se llama:
 
@@ -195,8 +189,7 @@ $$
 $$
 :::
 
-::: {.callout-note}
-##### Teorema
+::: {.callout-note title="Teorema"}
 
 Sea $x \in \mathbb{R}$, $x \neq 0$, entonces:
 
@@ -212,8 +205,7 @@ $$
 \left| \frac{x - fl(x)}{x} \right| \leq 0.5 \times 10^{-k+1} \;=\; 5 \times 10^{-k}.
 $$
 :::
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
 
 Si $P = 0.3000 \times 10^{1}$ y $P^* = 0.3100 \times 10^{1}$ entonces:
 
@@ -230,8 +222,7 @@ $$
 $$
 :::
 
-::: {.callout-caution collapse="true"}
-###### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
 
 **1.**
 
@@ -305,8 +296,7 @@ $$
 $$
 :::
 
-::: {.callout-note}
-##### Definición: Dígitos significativos
+::: {.callout-note title="Definición: Dígitos significativos"}
 
 Se dice que un número $P^*$ aproxima a $P$ con $t$ **dígitos significativos** si $t \in \mathbb{N}$ es el número más grande tal que:
 
@@ -315,8 +305,8 @@ $$
 $$
 :::
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
 
 $$
 x \;=\; \pi \;=\; 0.\underbrace{3141}_{\text{4 dígitos}}59265 \cdots \times 10^{1}.
@@ -333,8 +323,8 @@ $$
 Por lo que $x^*$ aproxima $x$ con **4 dígitos significativos**.
 :::
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
 
 ¿Qué valores puede tomar $x^*$ para aproximar 1000 con **4 dígitos significativos**?  
 
@@ -386,8 +376,7 @@ $(*)$: Nuevo error enorme
 
 $(**)$: Podría ser basura.
 
-::: {.callout-note}
-###### Notación
+::: {.callout-note title="Notación"}
 
 \begin{align*}
 \Delta_x \;&=\; |x - x^*|.\\
@@ -397,8 +386,8 @@ $(**)$: Podría ser basura.
 
 ---
 
-::: {.callout-note}
-##### Teorema
+::: {.callout-note title="Teorema"}
+
 
 Si $x = x_1 + x_2 + \cdots + x_n$ y $x^* = x_1^* + x_2^* + \cdots + x_n^*$ con $x_i \geq 0$ entonces:
 
@@ -408,9 +397,7 @@ Si $x = x_1 + x_2 + \cdots + x_n$ y $x^* = x_1^* + x_2^* + \cdots + x_n^*$ con $
 \end{align*}
 :::
 
-::: {.callout-caution collapse="true"}
-###### Prueba
-
+::: {.callout-caution collapse="true" title="Prueba"}
 
 \begin{align*}
 \Delta_x &= |x - x^*|
@@ -439,8 +426,8 @@ Si $x = x_1 + x_2 + \cdots + x_n$ y $x^* = x_1^* + x_2^* + \cdots + x_n^*$ con $
 
 :::
 
-::: {.callout-important collapse="true"}
-##### Observación
+::: {.callout-important collapse="true" title="Observación"}
+
 
 Se debe evitar la pérdida de dígitos significativos:
 
@@ -463,8 +450,7 @@ $$
 
 #### ¿Qué es un algoritmo?
 
-::: {.callout-note}
-##### Definición: Algoritmo
+::: {.callout-note title="Definición: Algoritmo"}
 
 Un algoritmo es un procedimiento que describe, sin ninguna ambigüedad, una sucesión finita de pasos a realizar en orden específico, con el propósito de resolver un problema.
 
@@ -481,8 +467,8 @@ Un algoritmo es un procedimiento que describe, sin ninguna ambigüedad, una suce
 
 Para representar las instrucciones utilizaremos pseudocódigo.
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
 
 Para calcular  
 $$
@@ -514,15 +500,13 @@ return s
 ```
 :::
 
-::: {.callout-note}
-##### Definición: Algoritmos Estables
+::: {.callout-note title="Definición: Algoritmos Estables"}
 
 Un algoritmo se dice **estable** si pequeños cambios en la entrada producen pequeños cambios en la salida.  
 En caso contrario, es decir, pequeños cambios en la entrada producen grandes cambios en la salida, entonces el algoritmo se dice **inestable (caótico)**.
 :::
 
-::: {.callout-note}
-##### Notación  
+::: {.callout-note title="Notación"}
 
 \begin{align*}
 E \;&=\; \text{Error inicial.}\\
@@ -530,31 +514,26 @@ E_n \;&=\; \text{Error luego de }n\text{ pasos.}
 \end{align*}
 :::
 
-::: {.callout-note}
-##### Definición: Crecimiento lineal del error  
+::: {.callout-note title="Definición: Crecimiento lineal del error "}
 
 Si  
 $$|E_n| = CnE,$$  
 con $C$ constante, entonces el crecimiento del error es **lineal**.  
 :::
 
-::: {.callout-note}
-##### Definición: Crecimiento exponencial del error  
+::: {.callout-note title="Definición: Crecimiento exponencial del error  "}
 
 Si  
 $$|E_n| = K^n E, \quad K > 1,$$  
 entonces el crecimiento del error es **exponencial**.  
 :::
 
-::: {.callout-important collapse="true"}
-###### Observación 
-
+::: {.callout-important collapse="true" title="Observación"}
 - Crecimiento del error lineal $\;\Leftrightarrow\;$ estable.  
 - Crecimiento del error exponencial $\;\Leftrightarrow\;$ inestable.  
 :::
 
-::: {.callout-note}
-##### Definición: Rapidez de convergencia  
+::: {.callout-note title="Definición: Rapidez de convergencia"}
 
 Sea $\{ \alpha_n \}_{n \in \mathbb{N}}$ una sucesión que converge a $\alpha$, se dice que $\{ \alpha_n \}_{n \in \mathbb{N}}$ converge con una rapidez $\mathcal{O}(\beta_n)$, donde $\{ \beta_n \}_{n \in \mathbb{N}}$ es otra sucesión ($\beta_n \neq 0 \ \forall n$) si:  
 
@@ -565,8 +544,7 @@ $$
 para $n$ suficientemente grande y $K$ constante que no depende de $n$.  
 :::
 
-::: {.callout-note}
-##### Notación  
+::: {.callout-note title="Notación"}
 
 $$
 \alpha_n = \alpha + \mathcal{O}(\beta_n).
@@ -577,9 +555,7 @@ $$
 $$  
 :::
 
-::: {.callout-note}
-##### Observación  
-
+::: {.callout-note title="Observación"}
 $$
 \frac{|\alpha_n - \alpha|}{|\beta_n|} < K 
 \;\;\;\Longleftrightarrow\;\;\;
@@ -587,8 +563,7 @@ $$
 $$
 :::
 
-::: {.callout-tip collapse="true"}
-##### Ejemplo  
+::: {.callout-tip collapse="true" title="Ejemplo"}
 
 Si $\alpha_n = \dfrac{n+3}{n^3}$, entonces  
 
@@ -609,8 +584,7 @@ $$
 Es decir, $\dfrac{n+3}{n^3}$ converge a $0$ tan rápido como $\dfrac{1}{n^2}$ converge a $0$.  
 :::
 
-::: {.callout-tip collapse="true"}
-##### Ejemplo  
+::: {.callout-tip collapse="true" title="Ejemplo"}
 
 Si 
 $$
@@ -622,8 +596,7 @@ $$
 $$
 :::
 
-::: {.callout-note}
-##### Observación: Velocidad de convergencia de los ciclos  
+::: {.callout-note title="Observación: Velocidad de convergencia de los ciclos  "}
 
 1\. $\texttt{For[i=1, i++, i<=N, \ldots]}$
 
@@ -652,8 +625,7 @@ Existen dos tipos de error: El error en los datos y el error computacional
 
 ![Tipos de Error](Imagenes/Grafico Error.png){width=400px fig-align="center"}
 
-::: {.callout-note}
-##### Definición: Propagación del error
+::: {.callout-note title="Definición: Propagación del error"}
 
 Sea $a \in \mathbb{R}$ y sea $\hat{a}$ una aproximación de $a$ y $f$ una función o procedimiento,  
 entonces 
@@ -668,8 +640,8 @@ Esto se ilustra en el siguiente gráfico
 
 AGRAGAR GRAFICO ANDREY
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
 
 Suponga que se desea calcular $c$ en el siguiente triángulo:
 
@@ -692,8 +664,8 @@ Entonces el error se propaga como se muestra en la siguiente tabla:
 
 :::
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo: Inestabilidad Numérica
+::: {.callout-tip collapse="true" title="Ejemplo: Inestabilidad Numérica"}
+
 
 Suponga que se desea calcular  
 
@@ -718,8 +690,7 @@ Calcule primero $y := x - 1.208$ y luego $z := \dfrac{y}{x}$
 
 Si es posible, evite operaciones sensibles con operandos contaminados por la propagación del error.
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo: Raíces cuadráticas y propagación del error
+::: {.callout-tip collapse="true" title="Ejemplo: Raíces cuadráticas y propagación del error"}
 
 Usualmente, para calcular las raíces de una ecuación cuadrática se usa:
 
@@ -740,8 +711,7 @@ x_2 = \frac{2c}{-b + \sqrt{b^2 - 4ac}}.
 $$
 :::
 
-::: {.callout-tip collapse="true"}
-###### Ejemplos: Evitar cancelación numérica
+::: {.callout-tip collapse="true" title="Ejemplo: Evitar cancelación numérica"}
 
 Otros ejemplos que evitan problemas de cancelación cuando $x \approx y$ son:
 
@@ -759,8 +729,7 @@ e^x - e^y \;\;&\longrightarrow\;\; 2 \sinh\!\left(\tfrac{x-y}{2}\right) e^{\tfra
 
 ### Espacios Normados  
 
-::: {.callout-note}
-##### Definición: Espacio normado
+::: {.callout-note title="Definición: Espacio normado"}
 
 Sea $X$ un espacio vectorial complejo (o real).  
 Una función $\|\cdot\| : X \to \mathbb{R}$ con las siguientes propiedades:
@@ -776,8 +745,7 @@ se llama **norma** en $X$.
 El espacio vectorial $X$ provisto de una norma se llama **espacio normado**.
 :::
 
-::: {.callout-tip collapse="true" collapsed="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
 
 Algunas normas de $\mathbb{R}^n$ y $\mathbb{C}^n$ son:
 
@@ -802,8 +770,7 @@ $$
 La norma $\ell_\infty$ es el límite de $\ell_p$ cuando $p \to \infty$.
 :::
 
-::: {.callout-note}
-##### Proposición
+::: {.callout-note title="Proposición"}
 
 Para toda norma se tiene la **segunda desigualdad triangular**:
 
@@ -814,8 +781,7 @@ $$
 para todo $x, y \in X$.
 :::
 
-::: {.callout-caution collapse="true" collapsed="true"}
-###### Prueba
+::: {.callout-caution collapse="true" collapsed="true" title="Prueba"}
 
 De la desigualdad triangular se tiene que
 
@@ -838,14 +804,12 @@ $$
 y por lo tanto se cumple la desigualdad.
 :::
 
-::: {.callout-note}
-##### Definición: Norma
+::: {.callout-note title="Definición: Norma"}
 
 Para dos elementos $x,y$ en un espacio normado $X$ la norma $\|x-y\|$ se llama **distancia** entre $x$ y $y$.
 :::
 
-::: {.callout-note}
-##### Definición: Sucesión Convergente
+::: {.callout-note title="Definición: Sucesión Convergente"}
 
 Una sucesión $(x_n)$ de elementos en un espacio normado $X$ se llama **convergente** si existe un elemento $x \in X$ tal que:
 
@@ -864,31 +828,30 @@ $$
 Si una sucesión no converge se llama **divergente**.
 :::
 
-::: {.callout-note}
-##### Proposición
+::: {.callout-note title="Proposición"}
+
 El límite de una sucesión convergente es **único**.
 :::
 
-::: {.callout-caution collapse="true"}
-###### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 *(Ejercicio)* $\blacksquare$
 :::
 
-::: {.callout-note}
-##### Definición: Normas Equivalentes
+::: {.callout-note title="Definición: Normas Equivalentes"}
 Dos normas en un espacio vectorial se llaman **equivalentes** si tienen el mismo conjunto de sucesiones convergentes.
 :::
 
-::: {.callout-note}
-##### Teorema
+::: {.callout-note title="Teorema"}
+
 Dos normas $\|\cdot\|_{a}$ y $\|\cdot\|_{b}$ en un espacio vectorial $X$ son equivalentes si y solamente si existen números positivos $c$ y $C$ tal que:
 $$
 c \|x\|_{a} \;\leq\; \|x\|_{b} \;\leq\; C \|x\|_{a}, \quad \forall x \in X.
 $$
 :::
 
-::: {.callout-caution collapse="true"}
-###### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 Sean las normas $\|\cdot\|_{a}$ y $\|\cdot\|_{b}$ equivalentes. Suponga que no existe $C>0$ tal que 
 $\|x\|_{b} \leq C \|x\|_{a}$ para todo $x \in X$, entonces existe una sucesión $(x_{n})$ con $\|x_{n}\|_{a} = 1$ y $\|x_{n}\|_{b} \geq n^{2}$.  
 Luego la sucesión $y_{n} := x_{n}/n$ converge a cero con respecto a $\|\cdot\|_{a}$ pero no con respecto a $\|\cdot\|_{b}$, porque $\|y_{n}\|_{b} \geq n$.  
@@ -897,18 +860,17 @@ Recíprocamente, si se tiene (2), entonces si $\|x_{n}-x\|_{a}\to 0$ es claro qu
 $\blacksquare$
 :::
 
-::: {.callout-note}
-##### Teorema
+::: {.callout-note title="Teorema"}
+
 En un espacio vectorial de dimensión finita todas las normas son equivalentes.
 :::
 
-::: {.callout-caution collapse="true"}
-###### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 Ejercicio. $\blacksquare$
 :::
 
-::: {.callout-note}
-##### Definición: Subconjunto cerrado
+::: {.callout-note title="Definición: Subconjunto cerrado"}
 - Un subconjunto $U$ de un espacio normado se llama **cerrado** si este contiene el límite de todas las sucesiones convergentes de $U$.  
 
 - La **clausura** $\overline{U}$ de un conjunto $U$ de un espacio normado $X$ es el conjunto de todos los límites de sucesiones convergentes de $U$.  
@@ -930,8 +892,7 @@ Ejercicio. $\blacksquare$
   es abierto y se llama la **bola abierta** de radio $r$ y centro $x_{0}$.
 :::
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
 
 - **Cerrado.** $[0,1] \subset \mathbb{R}$ es cerrado: toda sucesión convergente de puntos en $[0,1]$ converge a un punto en $[0,1]$.
 
@@ -962,21 +923,20 @@ Ejercicio. $\blacksquare$
   $$
 :::
 
-::: {.callout-note}
-##### Definición
+::: {.callout-note title="Definición"}
 Un conjunto $U$ se llama **acotado** si existe un número positivo $C$ tal que  
 $$
 \|x\| < C \quad \text{para todo } x \in U.
 $$
 :::
 
-::: {.callout-note}
-##### Teorema
+::: {.callout-note title="Teorema"}
+
 Toda sucesión acotada en un espacio normado de dimensión finita $X$ contiene una subsucesión convergente.
 :::
 
-::: {.callout-caution collapse="true"}
-###### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 Sea $u_{1}, u_{2}, \ldots, u_{n}$ una base de $X$ y sea $(x_{\nu})$ una sucesión acotada. Entonces se puede escribir:
 $$
 x_{\nu} = \sum_{j=1}^{n} \alpha_{j\nu} u_{j}.
@@ -999,8 +959,7 @@ $\blacksquare$
 
 ### Productos escalares  
 
-::: {.callout-note}
-##### Definición: Producto interno y espacio pre-Hilbert
+::: {.callout-note title="Definición: Producto interno y espacio pre-Hilbert"}
 
 Sea $X$ un espacio vectorial complejo (o real).  
 Una función $\langle \cdot,\cdot \rangle : X \times X \to \mathbb{C}$ (o $\mathbb{R}$) con las siguientes propiedades:
@@ -1014,16 +973,16 @@ se llama **producto interno** en $X$.
 Un espacio vectorial $X$ provisto de un producto interno se llama **espacio pre-Hilbert**.
 :::
 
-::: {.callout-important collapse="true"}
-###### Observación
+::: {.callout-important collapse="true" title="Observación"}
+
 Una consecuencia inmediata de 3. y 4. es la **antilinealidad**:
 $$
 \langle x, \alpha y + \beta z \rangle = \overline{\alpha} \langle x, y \rangle + \overline{\beta} \langle x, z \rangle.
 $$
 :::
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
 Un ejemplo de producto interno en $\mathbb{C}^n$ (o $\mathbb{R}^n$) está dado por:
 $$
 \langle x, y \rangle := \sum_{i=1}^{n} x_i \overline{y_i},
@@ -1031,8 +990,8 @@ $$
 donde $x := (x_1, x_2, \ldots, x_n)^t$ y $y := (y_1, y_2, \ldots, y_n)^t$.
 :::
 
-::: {.callout-note}
-##### Teorema
+::: {.callout-note title="Teorema"}
+
 Para todo producto interno se tiene la desigualdad de Cauchy–Schwarz:
 $$
 |\langle x, y \rangle|^2 \leq \langle x, x \rangle \langle y, y \rangle,
@@ -1040,8 +999,8 @@ $$
 para todo $x, y \in X$. Además se tiene igualdad si para todo $x, y$ son linealmente dependientes.
 :::
 
-::: {.callout-caution collapse="true"}
-###### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 Si $x = 0$ la desigualdad es trivial.  
 Si $x \neq 0$, tome
 $$
@@ -1058,8 +1017,8 @@ de donde se tiene la desigualdad. Además se tiene igualdad si para todo $x, y$ 
 $\blacksquare$
 :::
 
-::: {.callout-note}
-##### Teorema
+::: {.callout-note title="Teorema"}
+
 Sea $X$ un espacio vectorial complejo (o real).  
 Entonces la función:
 $$
@@ -1068,14 +1027,14 @@ $$
 define una norma en $X$, es decir, un espacio pre–Hilbert es siempre un espacio normado.
 :::
 
-::: {.callout-caution collapse="true"}
-###### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 Ejercicio (use la desigualdad de Cauchy–Schwarz para probar la desigualdad triangular).  
 $\blacksquare$
 :::
 
-::: {.callout-note}
-##### Definición: Elementos Ortogonales
+::: {.callout-note title="Definición: Elementos Ortogonales"}
+
 - Dos elementos $x$ y $y$ de un espacio pre–Hilbert se llaman **ortogonales** si:
 $$
 \langle x, y \rangle = 0.
@@ -1090,13 +1049,13 @@ $$
 - Un sistema ortogonal $U$ de $X$ se llama **ortonormal** si $\|x\| = 1$ para todo $x \in U$.
 :::
 
-::: {.callout-note}
-##### Teorema
+::: {.callout-note title="Teorema"}
+
 Los elementos de un sistema ortogonal son linealmente independientes.
 :::
 
-::: {.callout-caution collapse="true"}
-###### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 
 Sea $\{q_{1},q_{2},\ldots,q_{n}\}$ un sistema ortogonal.  
 Si 
@@ -1107,8 +1066,7 @@ y se multiplica a ambos lados por $q_{j}$, es inmediato que $\alpha_{j} = 0$ par
 $\blacksquare$
 :::
 
-::: {.callout-note}
-##### Teorema  [Gram–Schmidt]
+::: {.callout-note title="Teorema  [Gram–Schmidt]"}
 
 Sea $\{u_{0},u_{1},\ldots\}$ un conjunto finito o numerable de elementos linealmente independientes de un espacio de pre–Hilbert.  
 Entonces existe un sistema ortogonal único $\{q_{0},q_{1},\ldots\}$ de la forma:
@@ -1130,8 +1088,8 @@ $$
 $$
 :::
 
-::: {.callout-caution collapse="true"}
-###### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 
 Asumamos que hemos construido elementos de la forma (3) con la propiedad (4) hasta $q_{n-1}$.  
 Por la propiedad (4) los elementos $\{q_{0},q_{1},\ldots,q_{n-1}\}$ son linealmente independientes y por lo tanto $\|q_{k}\|\neq 0$ para $k=0,1,\ldots,n-1$.  
@@ -1163,8 +1121,7 @@ La unicidad queda de ejercicio al lector. $\blacksquare$
 ### Completitud  
 
 
-::: {.callout-note}
-##### Definición: Sucesión de Cauchy
+::: {.callout-note title="Definición: Sucesión de Cauchy"}
 
 Una sucesión de elementos en un espacio normado $X$ se llama **sucesión de Cauchy** si para todo $\varepsilon > 0$ existe un $N(\varepsilon) \in \mathbb{N}$ tal que:
 
@@ -1179,13 +1136,13 @@ $$
 $$
 :::
 
-::: {.callout-note}
-##### Teorema
+::: {.callout-note title="Teorema"}
+
 Toda sucesión convergente es de Cauchy
 :::
 
-::: {.callout-caution collapse="true"}
-###### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 
 Sea $x_n \to x$ cuando $n \to \infty$. Entonces, para todo $\varepsilon > 0$ existe un $N(\varepsilon) \in \mathbb{N}$ tal que  
 
@@ -1204,13 +1161,12 @@ $$
 para todo $n, m \geq N(\varepsilon)$. $\;\blacksquare$
 :::
 
-::: {.callout-important collapse="true"}
-###### Observación
+::: {.callout-important collapse="true" title="Observación"}
+
 El recíproco del teorema anterior no es válido en general, por esto tiene sentido dar la siguiente definición.
 :::
 
-::: {.callout-note}
-##### Definición: Subconjunto Completo
+::: {.callout-note title="Definición: Subconjunto Completo"}
 Un subconjunto $U$ de un espacio normado $X$ se llama **completo** si toda sucesión de Cauchy de elementos de $U$ converge a un elemento en $U$.  
 
 Un espacio normado completo se llama **espacio de Banach**.  
@@ -1218,8 +1174,8 @@ Un espacio normado completo se llama **espacio de Banach**.
 Un espacio pre–Hilbert se llama **espacio de Hilbert** si este es un espacio completo.
 :::
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
 El espacio vectorial $C[a,b]$ provisto con la norma:
 
 $$
@@ -1228,15 +1184,15 @@ $$
 
 es un espacio de Banach.
 
-::: {.callout-caution collapse="true"}
-###### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 (Ejercicio) $\blacksquare$
 :::
 
 :::
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
 El espacio vectorial $C[a,b]$ provisto con la norma $L_1$:
 
 $$
@@ -1245,8 +1201,8 @@ $$
 
 NO es un espacio de Banach.
 
-::: {.callout-caution collapse="true"}
-###### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 Es evidente que $\|f\|_1$ es una norma.  
 Sin pérdida de generalidad se toma $[a,b] = [0,2]$ y se escoge:
 
@@ -1299,8 +1255,8 @@ Por lo tanto $f$ no es continua, lo cual es una contradicción. $\blacksquare$
 
 :::
 
-::: {.callout-tip collapse="true"}
-##### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
 El espacio vectorial $C[a,b]$ provisto con la norma $L_2$:
 
 $$
@@ -1309,8 +1265,8 @@ $$
 
 NO es un espacio de Banach.
 
-::: {.callout-caution collapse="true"}
-###### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 Hay que probar que el espacio vectorial $C[a,b]$ normado provisto con la norma $L_2$ **NO** es completo. Es decir,
 hay que encontrar una sucesión de Cauchy de elementos de $U$ que **NO** converge a un elemento en $U$, siendo $U$ un subconjunto del espacio vectorial $C[a,b]$
 
@@ -1375,13 +1331,13 @@ Por lo tanto $f$ no es continua, lo cual es una contradicción. $\qquad\blacksqu
 :::
 :::
 
-::: {.callout-note}
-##### Teorema
+::: {.callout-note title="Teorema"}
+
 Todo espacio normado de dimensión finita es un espacio de Banach.
 :::
 
-::: {.callout-caution collapse="true"}
-###### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 Sea $X$ un espacio normado con base $u_1, u_2, \ldots, u_n$ y sea $(x_\nu)$ una sucesión de Cauchy en $X$.  
 Se puede escribir:  
 
@@ -1408,8 +1364,7 @@ $\blacksquare$
 
 ### El teorema de punto fijo de Banach  
 
-::: {.callout-note}
-##### Definición: Contracción  
+::: {.callout-note title="Definición: Contracción  "}
 
 Sea $U$ un subconjunto de un espacio normado $X$.  
 Un operador (una función) $A: U \to X$ se llama **una contracción** si existe una constante $q \in [0,1[$ tal que:  
@@ -1420,8 +1375,7 @@ $$
 
 :::
 
-::: {.callout-note}
-##### Definición: Continuidad de un operador  
+::: {.callout-note title="Definición: Continuidad de un operador"}
 
 Sea $U$ un subconjunto de un espacio normado $X$, y sea $Y$ un espacio normado.  
 
@@ -1434,13 +1388,13 @@ $$
 - Un operador $A: U \to Y$ se llama **continuo** si es continuo en $x$ para todo $x \in U$.
 :::
 
-::: {.callout-note}
-##### Proposición
+::: {.callout-note title="Proposición"}
+
 Toda contracción es un operador continuo.
 :::
 
-::: {.callout-caution collapse="true"}
-###### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 La prueba es evidente, puesto que si $\|x_n - x\| \to 0$ cuando $n \to \infty$ entonces  
 $\|Ax_n - Ax\| \to 0$ cuando $n \to \infty$ ya que  
 
@@ -1451,8 +1405,7 @@ $$
 $\blacksquare$
 :::
 
-::: {.callout-note}
-##### Definición: Operador Lipschitz
+::: {.callout-note title="Definición: Operador Lipschitz"}
 Un operador $A : U \to X$ se llama *Lipschitz* con constante de Lipschitz $L$ si existe una constante positiva $L$ tal que:  
 
 $$
@@ -1463,8 +1416,7 @@ para todo $x, y \in U$.
 Es decir, una contracción es un operador *Lipschitz* con constante menor que uno.
 :::
 
-::: {.callout-note}
-##### Definición: Operador lineal
+::: {.callout-note title="Definición: Operador lineal"}
 Un operador $A : X \to Y$ donde $X$ y $Y$ son espacios normados se llama **lineal** si:  
 
 $$
@@ -1474,13 +1426,13 @@ $$
 para todo $x, y \in X$ y $\alpha, \beta \in \mathbb{C}$ (o $\mathbb{R}$).
 :::
 
-::: {.callout-note}
-##### Teorema
+::: {.callout-note title="Teorema"}
+
 Un operador lineal es continuo si y solo si es continuo en un elemento.
 :::
 
-::: {.callout-caution collapse="true"}
-###### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 Sea $A : X \to Y$ un operador lineal continuo en $x_0 \in X$.  
 Entonces, para todo $x \in X$ y para toda sucesión $(x_n) \to x$ cuando $n \to \infty$, se tiene que:
 
@@ -1489,16 +1441,16 @@ Ax_n = A(x_n - x + x_0) + A(x - x_0) \;\to\; A(x_0) + A(x - x_0) = Ax,
 \quad \text{cuando } n \to \infty.
 $$  
 
-::: {.callout-important collapse="true"}
-###### Observación
+::: {.callout-important collapse="true" title="Observación"}
+
 Como $x_n - x + x_0 \to x_0$, entonces se puede aplicar el límite dentro de la expresión.
 :::
 
 $\blacksquare$
 :::
 
-::: {.callout-note}
-##### Definición: Punto fijo
+::: {.callout-note title="Definición: Punto fijo"}
+
 Un elemento $x \in X$ (espacio normado) se llama **punto fijo** de un operador 
 $A : U \subseteq X \to X$ si:
 $$
@@ -1506,13 +1458,12 @@ Ax = x.
 $$
 :::
 
-::: {.callout-note}
-##### Teorema
+::: {.callout-note title="Teorema"}
+
 Toda contracción tiene a lo más un único punto fijo.
 :::
 
-::: {.callout-caution collapse="true"}
-###### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
 Supongamos que $x$ y $y$ son puntos fijos de una contracción $A$, entonces
 $$
 0 \neq \|x - y\| = \|Ax - Ay\| \leq q \|x - y\|,
@@ -1520,13 +1471,13 @@ $$
 lo que implica que $q \geq 1$, lo cual es una contradicción. $\blacksquare$
 :::
 
-::: {.callout-note}
-##### Teorema: (Banach) 
+::: {.callout-note title="Teorema: (Banach)"}
+
 Sea $U$ un subconjunto completo de un espacio normado $X$ y sea $A : U \to U$ una contracción. Entonces $A$ tiene un punto fijo único.
 :::
 
-::: {.callout-caution collapse="true"}
-###### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 Sea $x_0 \in U$ entonces definimos recursivamente la siguiente sucesión en $U$:
 $$
 x_{n+1} := A x_n, \quad \text{para } n = 0,1,2,\ldots
@@ -1561,8 +1512,8 @@ $$
 La unicidad se tiene por el teorema anterior. $\blacksquare$
 :::
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
 Pruebe que la función $f(x) = \dfrac{x^2 - 2x}{6}, \; x \in [-1,1]$ tiene un punto fijo único en $[-1,1]$.
 
 **Solución:** Como $\mathbb{R}$ es un espacio de Banach con la norma valor absoluto, se debe probar que $f(x) \in [-1,1] \quad \forall x \in [-1,1]$.
@@ -1593,8 +1544,7 @@ Por lo tanto $f$ es una contracción en $[-1,1]$, luego la unicidad se tiene por
 
 ### El teorema de la mejor aproximación  
 
-::: {.callout-note}
-##### Definición: Mejor aproximación
+::: {.callout-note title="Definición: Mejor aproximación"}
 
 Sea $U$ un subconjunto de un espacio normado $X$ y sea $w \in X$.  
 Un elemento $v \in U$ se llama **la mejor aproximación a $w$ con respecto a $U$** si:
@@ -1606,15 +1556,14 @@ $$
 es decir, $v$ es el elemento en $U$ más cercano a $w$.
 :::
 
-::: {.callout-note}
-##### Teorema
+::: {.callout-note title="Teorema"}
 
 Sea $U$ un subespacio de dimensión finita de un espacio normado $X$.  
 Entonces, para todo elemento $w \in X$, existe una mejor aproximación con respecto a $U$.
 :::
 
-::: {.callout-caution collapse="true"}
-###### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 
 Sea $w \in X$ y escojamos una sucesión $(u_n)$ tal que $u_n \in U$ y satisfaga lo siguiente:
 
@@ -1639,8 +1588,7 @@ $$
 con lo que se prueba el teorema. $\blacksquare$
 :::
 
-::: {.callout-note}
-##### Teorema
+::: {.callout-note title="Teorema"}
 
 Sea $U$ un subespacio vectorial de un espacio de pre-Hilbert $X$.  
 Un elemento $v$ es la mejor aproximación a $w \in X$ con respecto a $U$ si y solo si:  
@@ -1655,14 +1603,13 @@ Es decir, si y solamente si $w - v \perp U$.
 Además, para cada $w \in X$ existe a lo más una única mejor aproximación con respecto a $U$.
 :::
 
-::: {.callout-caution collapse="true"}
-###### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 
 (Ejercicio) $\blacksquare$
 :::
 
-::: {.callout-note}
-##### Definición: Operador Acotado
+::: {.callout-note title="Definición: Operador Acotado"}
 
 Un operador $A : X \to Y$ donde $X$ y $Y$ son espacios normados, se llama **acotado** si existe un número positivo $C$ tal que:  
 
@@ -1673,8 +1620,7 @@ $$
 para todo $x \in X$.
 :::
 
-::: {.callout-note}
-##### Teorema  
+::: {.callout-note title="Teorema"}
 
 Un operador lineal $A : X \to Y$ es acotado si y solamente si:  
 
@@ -1685,8 +1631,8 @@ $$
 El número $\lVert A \rVert$ es la más pequeña cota para $A$ y se llama la **norma de $A$**.
 :::
 
-::: {.callout-caution collapse="true"}
-###### Prueba  
+::: {.callout-caution collapse="true" title="Prueba"}
+  
 
 Asuma $A$ es acotado con una cota $C$. Entonces  
 
@@ -1709,8 +1655,7 @@ para todo $x \neq 0$, por lo tanto $A$ es acotado con cota $C = \lVert A \rVert$
 $\blacksquare$
 :::
 
-::: {.callout-note}
-##### Teorema  
+::: {.callout-note title="Teorema"}
 
 Sea $U$ un subespacio vectorial completo de un espacio pre-Hilbert $X$. Entonces para cada elemento $w \in X$ existe una única mejor aproximación con respecto a $U$.  
 
@@ -1725,14 +1670,13 @@ $$
 - Este operador se conoce como la **proyección ortogonal** de $X$ sobre $U$.
 :::
 
-::: {.callout-caution collapse="true"}
-###### Prueba  
+::: {.callout-caution collapse="true" title="Prueba"}
+  
 
 (ejercicio) $\blacksquare$
 :::
 
-::: {.callout-note}
-##### Corolario  
+::: {.callout-note title="Corolario"}
 
 Sea $U$ un subespacio vectorial de dimensión finita de un espacio pre-Hilbert $X$ con base $u_{1}, u_{2}, \ldots, u_{n}$.  
 Entonces la combinación lineal  
@@ -1749,15 +1693,14 @@ $$
 $$
 :::
 
-::: {.callout-caution collapse="true"}
-###### Prueba  
+::: {.callout-caution collapse="true" title="Prueba"}
+  
 
 Es evidente que la ecuación (8) es equivalente a la ecuación (7).  
 $\blacksquare$
 :::
 
-::: {.callout-note}
-##### Corolario  
+::: {.callout-note title="Corolario"}
 
 Sea $U$ un subespacio vectorial de dimensión finita de un espacio pre-Hilbert $X$ con base ortonormal $u_{1}, u_{2}, \ldots, u_{n}$.  
 Entonces la proyección ortogonal está dada por:  
@@ -1767,8 +1710,8 @@ Pw = \sum_{k=1}^{n} \langle w, u_{k} \rangle u_{k}, \quad \text{con } w \in X.
 $$
 :::
 
-::: {.callout-caution collapse="true"}
-###### Prueba  
+::: {.callout-caution collapse="true" title="Prueba"}
+  
 
 Es evidente de (8) puesto que  
 
@@ -1784,8 +1727,8 @@ luego $\alpha_{k} = \langle w, u_{k} \rangle$ para $k = 1, 2, \ldots, n$.
 $\blacksquare$
 :::
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo  
+::: {.callout-tip collapse="true" title="Ejemplo"}
+  
 
 Sea $P_{2}[0,1]$ un subespacio de dimensión finita del espacio pre–Hilbert $C[0,1]$ dotado del producto interno  
 
@@ -1857,8 +1800,7 @@ legend("topleft",
 
 :::
 
-::: {.callout-note}
-##### Teorema
+::: {.callout-note title="Teorema"}
 
 En una Regresión Múltiple, encontrar los parámetros $\beta_1, \beta_2, \ldots, \beta_p$ de tal manera que:
 
@@ -1888,8 +1830,8 @@ $$
 
 <!--   -->
 
-::: {.callout-caution collapse="true"}
-##### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 
 Es claro, pues este teorema es nada más otra forma de calcular la proyección $P$ de la variable a predecir sobre el subespacio generado por las variables predictoras. $\blacksquare$
 
@@ -1903,8 +1845,8 @@ Es claro, pues este teorema es nada más otra forma de calcular la proyección $
 
 ### Teoremas de convergencia y del error
 
-::: {.callout-note}
-##### Teorema
+::: {.callout-note title="Teorema"}
+
 Sea $U$ un subconjunto completo de un espacio normado $X$ y $A:U \to U$ una contracción. Entonces las **aproximaciones sucesivas**:
 
 $$
@@ -1914,8 +1856,8 @@ $$
 con $x_0$ arbitrario en $U$, convergen al punto fijo único $x$ de $A$.
 :::
 
-::: {.callout-caution collapse="true"}
-##### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 
 Sea $x_0 \in U$ entonces definimos recursivamente la siguiente sucesión en $U$:
 
@@ -1948,41 +1890,39 @@ Como $q^n \to 0$ cuando $n \to \infty$, entonces $(x_n)$ es una sucesión de Cau
 $\blacksquare$
 :::
 
-::: {.callout-note}
-##### Corolario: Cota del Error a Priori
+::: {.callout-note title="Corolario: Cota del Error a Priori"}
+
 Con las mismas hipótesis del teorema anterior se tiene el siguiente *estimado para el error a priori*:
 
 $$
 \|x_n - x\| \leq \frac{q^n}{1-q} \, \|x_1 - x_0\|.
 $$
 
-::: {.callout-caution collapse="true"}
-##### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 Es evidente de la desigualdad (1.1).  
 
 $\blacksquare$
 :::
 :::
 
-::: {.callout-note}
-##### Corolario: Cota del Error a Posteriori
+::: {.callout-note title = "Corolario: Cota del Error a Posteriori"}
 Con las mismas hipótesis del teorema anterior se tiene el siguiente *estimado para el error a posteriori*:
 
 $$
 \|x_n - x\| \leq \frac{q}{1-q} \, \|x_n - x_{n-1}\|.
 $$
 
-::: {.callout-caution collapse="true"}
-##### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 Se deduce del error a priori iniciando con $x_0 = x_{n-1}$.  
 
 $\blacksquare$
 :::
 :::
 
+::: {.callout-note title="Teorema [Versión 1]"}
 
-::: {.callout-note}
-##### Teorema [Versión 1]
 Sea $D \subset \mathbb{R}$ un cerrado y sea $g: D \to D$ una función continuamente diferenciable con la siguiente propiedad:
 
 $$
@@ -2013,8 +1953,8 @@ $$
 |x_n - x| \leq q^n \max\{x_0 - a, b - x_0\}.
 $$
 
-::: {.callout-caution collapse="true"}
-##### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 
 El espacio $\mathbb{R}$ equipado de la norma valor absoluto $|\cdot|$ es un espacio de Banach.  
 Por el teorema del valor medio, para todo $x, y \in D$ con $x < y$ se tiene que:
@@ -2050,16 +1990,15 @@ $\blacksquare$
 :::
 :::
 
-::: {.callout-note}
-##### Teorema [Versión 2]
+::: {.callout-note title="Teorema [Versión 2]"}
+
 Sea $g \in C[a,b]$, con $g:[a,b] \to [a,b]$. Entonces:
 
 1. $g$ tiene un punto fijo en $[a,b]$.
 
 2. Además, si $g'(x)$ existe en $]a,b[$ y $|g'(x)| \leq q < 1$, para todo $x \in ]a,b[$, entonces $g$ tiene un punto fijo único en $[a,b]$.
 
-::: {.callout-caution collapse="true"}
-##### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
 
 **I Caso**: Si $g(a) = a$ o $g(b) = b$ se tiene la prueba.  
 
@@ -2086,8 +2025,8 @@ $\blacksquare$
 :::
 
 
-::: {.callout-tip collapse="true"}
-##### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
 Pruebe que 
 
 $$
@@ -2096,8 +2035,7 @@ $$
 
 tiene un punto fijo en $[-1,1]$.
 
-::: {.callout-caution collapse="true"}
-##### Solución
+::: {.callout-caution collapse="true" title="Solución"}
 
 Se debe probar que $f(x) \in [-1,1]$ para todo $x \in [-1,1]$.  
 Como 
@@ -2127,8 +2065,8 @@ $\blacksquare$
 
 
 
-::: {.callout-note}
-##### Teorema
+::: {.callout-note title="Teorema"}
+
 
 Sea $x$ un punto fijo de una función continuamente diferenciable $g$ tal que $|g'(x)|<1$.  
 Entonces el método de las aproximaciones sucesivas 
@@ -2137,8 +2075,8 @@ x_{n+1} := g(x_n), \quad \text{para } n=0,1,2,\ldots
 $$
 es localmente convergente, es decir, existe un vecindario $\mathcal{B}$ del punto fijo $x$ de $g$ tal que el método de aproximaciones sucesivas converge a $x$, para $x_0 \in \mathcal{B}$.
 
-::: {.callout-caution collapse="true"}
-##### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 
 Como $g'$ es continua y $|g'(x)|<1$ entonces existe una constante $0<q<1$ y $\delta>0$ tal que $|g'(y)|<q$ para todo $y\in \mathcal{B}:=[x-\delta,x+\delta]$.  
 
@@ -2195,13 +2133,13 @@ punto.fijo <- function(p0, tol, n, g) {
 }
 ```
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
 
 Sea $f(x) = e^{-x}$, es fácil probar que $f(x)$ mapea  $A = [0.5, 0.69]$ en sí mismo.
 
-::: {.callout-caution collapse="true"}
-##### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 
 Como $f(x)$ es estrictamente decreciente y continua en $\mathbb{R}$, en particular lo es en el intervalo $A$, por lo que su imagen sobre $A$ es:
 $$
@@ -2327,8 +2265,8 @@ cat("Solución punto.fijo.recursivo:", sol3, "\n")
 :::
 
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
 
 Resuelva la ecuación $x^3 - x - 1 = 0$ en el intervalo $[1,2]$.
 
@@ -2400,8 +2338,8 @@ $\blacksquare$
 
 :::
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
 
 Dada la ecuación del ejemplo anterior $x^3 - x - 1 = 0$ en el intervalo $[1,2]$,  ¿cuántas iteraciones se requieren para obtener un error absoluto menor que $10^{-5}$?
 
@@ -2424,15 +2362,15 @@ Luego:
 
 Tome $n = 17$. $\blacksquare$
 
-::: {.callout-important collapse="true"}
-###### Observación
+::: {.callout-important collapse="true" title="Observación"}
+
 
 **Observación 1** En la práctica el programa requirió solamente 9 iteraciones.
 :::
 :::
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
 
 Para la ecuación $x^3 - x - 1 = 0$ en el intervalo $[1,2]$, con $x_0 = 2$, estime usando el error a priori (1.2) ¿Cuántas iteraciones se requieren para obtener un error absoluto menor que $10^{-5}$?
 
@@ -2461,8 +2399,8 @@ entonces:
 
 esto implica que $n \geq 17.28$, por lo que se puede tomar $n = 18$. $\blacksquare$
 
-::: {.callout-important collapse="true"}
-###### Observación
+::: {.callout-important collapse="true" title="Observación"}
+
 
 **Observación 2** En la práctica el programa requirió solamente 9 iteraciones.
 :::
@@ -2553,8 +2491,8 @@ biseccion <- function(a, b, tol, n, G) {
 ```
 
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
 
 Resuelva la ecuación $x^3 + 4x^2 - 10 = 0$ en el intervalo $[1,2]$ con una tolerancia de $\varepsilon = 10^{-6}$.
 
@@ -2577,8 +2515,8 @@ $\blacksquare$
 
 #### Estudio del error en el método de la bisección
 
-::: {.callout-note}
-##### Teorema
+::: {.callout-note title="Teorema"}
+
 
 Sea $f \in C[a,b]$, con $f(a)f(b) < 0$. Entonces el algoritmo de la bisección produce una sucesión $(x_n)$ que aproxima a $x$, el cero de la ecuación $f(x) = 0$, con un error absoluto tal que:
 
@@ -2586,8 +2524,8 @@ $$
 |x_n - x| < \frac{b - a}{2^n} \quad \text{para } n \geq 1.
 $$
 
-::: {.callout-caution collapse="true"}
-##### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 
 \begin{align*}
 |b_1 - a_1| &= |b - a| \\
@@ -2606,16 +2544,16 @@ Como $x \in \, ]a_n, b_n[$ y $x_n = \dfrac{a_n + b_n}{2}$, se tiene que:
 $\blacksquare$
 :::
 :::
-::: {.callout-important collapse="true"}
-###### Observación
+::: {.callout-important collapse="true" title="Observación"}
+
 
 Sea $|x_n - x| < \dfrac{b - a}{2^n} \Rightarrow \dfrac{|x_n - x|}{\frac{1}{2^n}} < b - a = k$,  
 esto implica que la sucesión $(x_n)$ es $\mathcal{O}\left( \dfrac{1}{2^n} \right)$,  
 es decir, $x_n \to x$ con rapidez $\dfrac{1}{2^n}$, lo cual es bastante rápido.
 :::
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
 
 Para $f(x) = x^3 + 4x^2 - 10$, con $a = 1$ y $b = 2$; usando (1.5), hallar el $n \in \mathbb{N}$ necesario para tener un error absoluto menor a $\varepsilon = 10^{-6}$.
 
@@ -2632,8 +2570,8 @@ Para $f(x) = x^3 + 4x^2 - 10$, con $a = 1$ y $b = 2$; usando (1.5), hallar el $n
 Entonces se puede escoger $n = 20$. $\blacksquare$
 :::
 
-::: {.callout-important collapse="true"}
-###### Observación
+::: {.callout-important collapse="true" title="Observación"}
+
 
 $n = 20$ fue exactamente lo que requirió el programa.
 :::
@@ -2686,8 +2624,8 @@ $$
 
 que es la sucesión del método de Newton–Raphson.
 
-::: {.callout-important collapse="true"}
-###### Observación
+::: {.callout-important collapse="true" title="Observación"}
+
 
 El método de Newton–Raphson consiste en diseñar un algoritmo que calcule la sucesión:
 
@@ -2700,8 +2638,7 @@ x_{n-1} - \dfrac{f(x_{n-1})}{f'(x_{n-1})} & \text{si } n > 0
 $$
 :::
 
-::: {.callout-note}
-##### Algoritmo 3 – Método de Newton–Raphson
+::: {.callout-note title = "Algoritmo 3 – Método de Newton–Raphson"}
 
 **Entrada:** $x_0$, $N$, $Tol$, $f$  
 **Salida:** La solución $x$ aproximada de la ecuación $f(x) = 0$ o mensaje de error.
@@ -2723,16 +2660,16 @@ $$
 El método de Newton–Raphson se puede implementar iterativamente en **R**.  
 Ver el archivo `Newton_Raphson.html`.
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
 
 **Ejemplo 8.** Ejecutando el programa iterativo para resolver la ecuación  
 $e^{-x} - x = 0$ con $x_0 = 1$ como aproximación inicial y una tolerancia de $\varepsilon = 10^{-6}$,  
 se obtiene la siguiente solución en el archivo `Newton_Raphson.html`.
 :::
 
-::: {.callout-note}
-##### Teorema
+::: {.callout-note title="Teorema"}
+
 
 Sea $f \in C^2[a,b]$. Si $x \in [a,b]$ con $f(x) = 0$ y $f'(x) \ne 0$, entonces existe $\varepsilon > 0$ tal que el método de Newton–Raphson:
 
@@ -2742,8 +2679,8 @@ $$
 
 genera una sucesión que está bien definida y converge a $x$ cuando $n \to \infty$, para todo $x_0 \in [x - \varepsilon, x + \varepsilon]$.
 
-::: {.callout-caution collapse="true"}
-##### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 
 Sea
 
@@ -2814,8 +2751,8 @@ $\blacksquare$
 :::
 :::
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
 
 **Ejemplo 9.** Hallar un método para calcular $\sqrt{A}$, con $A \geq 0$.
 
@@ -2880,8 +2817,7 @@ x_{n-1} - \dfrac{(x_{n-2} - x_{n-1}) f(x_{n-1})}{f(x_{n-2}) - f(x_{n-1})} & \tex
 \end{cases}
 $$
 
-::: {.callout-note}
-##### Algoritmo 4 – Método de la Secante
+::: {.callout-note title="Algoritmo 4 – Método de la Secante"}
 
 **Entrada:** $N$, $Tol$, $x_0$, $x_1$  
 **Salida:** Aproximación de $x$, con $f(x) = 0$, o mensaje de error.
@@ -2908,8 +2844,8 @@ $$
 
 Una implementación iterativa y otra recursiva en **R** se pueden ver en el archivo `secante.html`.
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
 
 **Ejemplo 10.** Ejecutando el programa iterativo para resolver la ecuación  
 $e^{-x} - x = 0$ con $x_0 = 1$ y $x_1 = \dfrac{1}{2}$ como aproximaciones iniciales  
@@ -2917,8 +2853,8 @@ y con una tolerancia de $\varepsilon = 10^{-6}$, se obtienen las siguientes solu
 en el archivo `secante.html`.
 :::
 
-::: {.callout-note}
-##### Teorema
+::: {.callout-note title="Teorema"}
+
 
 Sea $f$ una función de clase $C^2[a,b]$ con $a < b$.  
 Si existe un punto $x$ tal que $f(x) = 0$ y $f'(x) \ne 0$,  
@@ -2933,16 +2869,15 @@ está bien definida dentro del intervalo $[x - \varepsilon, x + \varepsilon]$
 y converge a $x$ (cero de la ecuación $f(x) = 0$).
 :::
 
-::: {.callout-caution collapse="true"}
-##### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 
 Ejercicio. $\blacksquare$
 :::
 
 ### Orden de convergencia
 
-::: {.callout-note}
-##### Definición
+::: {.callout-note title="Definición"}
 
 Sea $(x_n)$ una sucesión que converge a $x$, se denota $e_n := x_n - x$ para $n \geq 0$.  
 Si existen constantes $\alpha$ y $\lambda$ positivas, tal que:
@@ -2956,16 +2891,16 @@ entonces se dice que la sucesión $(x_n)$ converge a $x$ con **orden $\alpha$**
 y con **constante asintótica** $\lambda$.
 :::
 
-::: {.callout-important collapse="true"}
-###### Observación
+::: {.callout-important collapse="true" title="Observación"}
+
 
 - Entre mayor sea el orden de convergencia, o sea entre mayor sea $\alpha$, mayor será la “velocidad” de convergencia.
 - Si $\alpha = 1$, se dice que el método tiene **orden lineal**.
 - Si $\alpha = 2$, se dice que el método tiene **orden cuadrático**.
 :::
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
 
 Suponga que tenemos dos esquemas (sucesiones) $x_n$ y $\tilde{x}_n$ tal que:
 
@@ -3020,8 +2955,8 @@ $\blacksquare$
 
 :::
 
-::: {.callout-note}
-##### Teorema
+::: {.callout-note title="Teorema"}
+
 
 Sea $x_n = \begin{cases}
 x_0 & \text{si } n = 0 \\
@@ -3038,8 +2973,8 @@ Si además se supone que:
 Entonces $(x_n)$ converge al menos **linealmente a $x$**, cuando $n \to \infty$.
 :::
 
-::: {.callout-caution collapse="true"}
-##### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 
 \begin{align*}
 |e_{n+1}| &= |x_{n+1} - x| = |g(x_n) - g(x)| = |g'(\xi_n)(x_n - x)| = |g'(\xi_n)||e_n|
@@ -3066,8 +3001,8 @@ de donde la convergencia es lineal.
 $\blacksquare$
 :::
 
-::: {.callout-note}
-##### Teorema
+::: {.callout-note title="Teorema"}
+
 
 Sea $\tilde{x}$ un punto fijo de $g$, además $g'(\tilde{x}) = 0$, $g''$ es continua en un intervalo abierto $I$ que contiene a $x$ y $g''(\tilde{x}) \ne 0$.  
 Entonces existe $\epsilon > 0$ tal que para $x_0 \in [\tilde{x} - \epsilon, \tilde{x} + \epsilon]$ la sucesión  
@@ -3077,8 +3012,8 @@ g(x_{n-1}) & \text{si } n \geq 1
 \end{cases}$  
 converge al menos **cuadráticamente** a $\tilde{x}$.
 
-::: {.callout-caution collapse="true"}
-##### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 
 Escoja $\epsilon$ tal que el intervalo $[\tilde{x} - \epsilon, \tilde{x} + \epsilon]$ esté contenido en $I$,  
 $|g'(x)| \leq q < 1$ y $g''$ sea continua.  
@@ -3124,8 +3059,7 @@ $\blacksquare$
 :::
 
 
-::: {.callout-note}
-##### Corolario
+::: {.callout-note title="Corolario"}
 
 Sea $f \in C^3[a,b]$. Si $\tilde{x} \in [a,b]$ con $f(\tilde{x}) = 0$, $f'(\tilde{x}) \ne 0$ y $f''(\tilde{x}) \ne 0$,  
 entonces existe $\epsilon > 0$ tal que el método de Newton–Raphson:
@@ -3138,8 +3072,7 @@ genera una sucesión que **converge al menos cuadráticamente a $\tilde{x}$** cu
 para todo $x_0 \in [\tilde{x} - \epsilon, \tilde{x} + \epsilon]$.
 :::
 
-::: {.callout-note}
-##### Corolario
+::: {.callout-note title="Corolario"}
 
 Sea $f \in C^3[a,b]$.  
 Si $\tilde{x} \in [a,b]$ con $f(\tilde{x}) = 0$, $f'(\tilde{x}) \ne 0$ y $f''(\tilde{x}) \ne 0$,  
@@ -3153,8 +3086,8 @@ genera una sucesión que converge al menos cuadráticamente a $\tilde{x}$
 cuando $n \to \infty$, para todo $x_0 \in [\tilde{x} - \epsilon, \tilde{x} + \epsilon]$.
 
 
-::: {.callout-caution collapse="true"}
-##### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 
 La convergencia de $(x_n)$ se demostró en el teorema anterior.  
 Usando el teorema anterior se concluye el corolario, pues si se toma $g(x) := x - \frac{f(x)}{f'(x)}$  
@@ -3190,8 +3123,8 @@ $\blacksquare$
 :::
 :::
 
-::: {.callout-note}
-##### Teorema
+::: {.callout-note title="Teorema"}
+
 
 Sea $f$ una función de clase $C^2[a,b]$.  
 Si existe un punto $\tilde{x}$ tal que $f(\tilde{x}) = 0$, $f'(\tilde{x}) \ne 0$ y $f''(\tilde{x}) \ne 0$  
@@ -3209,8 +3142,8 @@ $$
 $$
 
 
-::: {.callout-caution collapse="true"}
-##### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 
 (Ejercicio)  
 Sugerencias: Pruebe que
@@ -3250,7 +3183,6 @@ $\blacksquare$
 :::
 ## Aceleración de la convergencia y método de Steﬀensen.
 
-
 ### Método $\triangle^2$ de Aitken
 
 El método $\triangle^2$ de *Aitken* tiene las siguientes hipótesis:
@@ -3288,14 +3220,13 @@ $$
 bajo ciertas condiciones, converge “más rápidamente” a $x$ que la sucesión $(x_n)$.
 
 
-::: {.callout-note}
-###### Notación: Diferencia Progresiva
+::: {.callout-note title="Notación: Diferencia Progresiva"}
+
 
 - $\triangle(x_n) := x_{n+1} - x_n$ para $n \ge 0$.
 - $\triangle^k(x_n) := \triangle^{k-1}(\triangle x_n)$ para $k \ge 2$.
 :::
-::: {.callout-important collapse="true"}
-###### Observación
+::: {.callout-important collapse="true" title="Observación"}
 
 Nótese que con esta notación se tiene:
 
@@ -3313,8 +3244,7 @@ Por lo que el método $\triangle^2$ de Aitken se puede escribir como:
 \end{equation}
 :::
 
-::: {.callout-note}
-##### Definición
+::: {.callout-note title="Definición"}
 
 Sean $(x_n)$ y $(\tilde{x}_n)$ dos sucesiones que convergen a $x$, se dice que la sucesión $(\tilde{x}_n)$ **converge más rápido a** $x$ que la sucesión $(x_n)$ si:
 
@@ -3323,13 +3253,13 @@ $$
 $$
 :::
 
-::: {.callout-note}
-##### Teorema
+::: {.callout-note title="Teorema"}
+
 
 Sea $(x_n)$ una sucesión que converge a $x$ con orden lineal con constante asintótica $\lambda < 1$, además se asume que $e_n = x_n - x \ne 0$ para todo $n$. Entonces la sucesión $(\tilde{x}_n)$, definida como en (1.14), converge a $x$ más rápido que $(x_n)$.
 
-::: {.callout-caution collapse="true"}
-##### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 
 Ejercicio. $\blacksquare$
 :::
@@ -3357,8 +3287,7 @@ x_0^{(2)} &= \Delta^2\left(x_0^{(1)}\right) = x_0^{(1)} - \frac{\left(x_1^{(1)} 
 \end{align*}
 
 
-::: {.callout-note}
-##### Algoritmo [Método de Steffensen]
+::: {.callout-note title="Algoritmo [Método de Steffensen]"}
 
 **Entrada**: $N$, $Tol$, $x_0$, $g$  
 **Salida**: Aproximación de $x$ o mensaje de error
@@ -3380,20 +3309,20 @@ x_0^{(2)} &= \Delta^2\left(x_0^{(1)}\right) = x_0^{(1)} - \frac{\left(x_1^{(1)} 
 Este algoritmo se puede programar iterativamente y recursivamente en **R**, como se muestra en el archivo `steffensen.html`.
 :::
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
 
 Resolver la ecuación $x^3 - x - 1 = 0$ en el intervalo $[1, 2]$ con $\epsilon = 10^{-5}$.
 
 **Solución**: Como se mostró en el ejemplo 3, utilizando $g(x) = \sqrt{1 + \frac{1}{x}}$, el método de punto fijo requirió de 9 iteraciones, con $x_0 = 2$, para resolver esta ecuación, con una tolerancia de $\epsilon = 10^{-5}$, mientras que el Método de Steffensen requiere solamente de 3 iteraciones, como se muestra en el archivo `steffensen.html`. $\blacksquare$
 :::
-::: {.callout-note}
-##### Teorema
+::: {.callout-note title="Teorema"}
+
 
 Si el método de punto fijo $x_{n+1} = g(x_n)$ converge linealmente, entonces el orden de convergencia del método de Steffensen es al menos dos.
 
-::: {.callout-caution collapse="true"}
-##### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 
 (Ejercicio) Suponga que $g(x)$ es un número suficientemente de veces derivable, luego pruebe que:
 
@@ -3412,8 +3341,7 @@ $\blacksquare$
 
 ### Polinomios de Bernstein
 
-::: {.callout-note}
-##### Teorema: [Weierstrass]
+::: {.callout-note title="Teorema: [Weierstrass]"}
 
 Sea $f$ continua en $[a, b]$; entonces dado $\varepsilon > 0$, existe $n \in \mathbb{N}$ y $P_n(x) \in P_n$ tal que
 
@@ -3424,8 +3352,8 @@ $$
 
 ![Polinomio de Bernstein](Imagenes/Polinomio de Bernstein.png){width=400px fig-align="center"}
 
-::: {.callout-caution collapse="true"}
-##### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 
 Sin pérdida de generalidad, suponga que $a = 0$ y $b = 1$. Sea:
 
@@ -3438,8 +3366,8 @@ se puede probar que $B_n(x) \to f(x)$ uniformemente en $[0,1]$ (ejercicio). $\bl
 :::
 :::
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
 
 Sea $f(x) = e^x$ en $[0, 1]$, entonces:
 
@@ -3492,8 +3420,7 @@ legend("topleft", legend = c("exp(x)", "Bernstein n=10"),
 
 ### Existencia y unicidad del polinomio de interpolación
 
-::: {.callout-note}
-##### Problema
+::: {.callout-note title="Problema"}
 
 Sean $(x_i, y_i)$, para $i = 0, 1, 2, \ldots, n$, una secuencia de $n + 1$ puntos (nodos). Se busca un polinomio de grado $n$:
 
@@ -3546,8 +3473,8 @@ ggplot() +
   theme_minimal(base_size = 14)
 ```
 
-::: {.callout-note}
-##### Teorema
+::: {.callout-note title="Teorema"}
+
 
 Sean $(x_i, y_i)$ una secuencia de $n + 1$ puntos, con $i = 0, 1, 2, \ldots, n$, tal que $x_i \ne x_j$, $\forall i \ne j$, entonces existe un único polinomio (de interpolación) que satisface la condición de interpolación:
 
@@ -3557,8 +3484,8 @@ $$
 
 el cual tiene a lo más grado $n$.
 
-::: {.callout-caution collapse="true"}
-##### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 
 **Existencia:**
 
@@ -3614,8 +3541,7 @@ $$
 ### Interpolación de Lagrange
 
 
-::: {.callout-note}
-##### Definición: Polinomio de interpolación de Lagrange
+::: {.callout-note title="Definición: Polinomio de interpolación de Lagrange"}
 
 El polinomio:
 
@@ -3633,8 +3559,8 @@ $$
 se llama el **polinomio de interpolación de Lagrange**.
 :::
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
 
 Sea $f(x) = e^x$, $0 \leq x \leq 2$. Calcule $P_2(x)$ con $x_0 = 0$, $x_1 = 1$, y $x_2 = 2$.
 
@@ -3654,20 +3580,19 @@ $\blacksquare$
 
 Recordemos el Teorema de Rolle Generalizado:
 
-::: {.callout-note}
-##### Teorema
+::: {.callout-note title="Teorema"}
+
 
 Sea $f \in C[a, b]$ y $f \in C^n[a, b]$, si $f$ se anula en $n + 1$ puntos distintos $x_0, x_1, \ldots, x_n$ en $[a, b]$, entonces $\exists\, c \in ]a, b[$ tal que $f^{(n)}(c) = 0$.
 
-::: {.callout-caution collapse="true"}
-##### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 
 Se omite. $\blacksquare$
 :::
 :::
 
-::: {.callout-note}
-##### Teorema: Error en el método de Lagrange
+::: {.callout-note title="Teorema: Error en el método de Lagrange"}
 
 Sean $x_0, x_1, \ldots, x_n \in [a, b]$ y sea $f \in C^{n+1}[a, b]$. Entonces $\forall\, x \in [a, b]$, $\exists\, \xi_x \in ]a, b[$ tal que:
 
@@ -3681,8 +3606,8 @@ $$
 \left|f(x) - P_n(x)\right| = \left| \frac{f^{(n+1)}(\xi_x)}{(n+1)!}(x - x_0)(x - x_1) \cdots (x - x_n) \right|.
 $$
 
-::: {.callout-caution collapse="true"}
-##### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 
 **I caso**  
 Si $x = x_k$, entonces $f(x_k) = P_n(x_k)$ y el error es cero, por lo tanto cualquier $\xi_x$ funciona.
@@ -3732,8 +3657,8 @@ $\blacksquare$
 :::
 :::
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
 
 Sea $f(x) = e^x$, con $x \in [0, 2]$ y sean $x_0 = 0$, $x_1 = 1$, $x_2 = 2$, tenemos que:
 
@@ -3763,8 +3688,7 @@ $$
 $\blacksquare$
 :::
 
-::: {.callout-note}
-##### Método 1: Calcula el Polinomio de Lagrange retornando una función para ser evaluada en un $x$.
+::: {.callout-note title="Método 1: Calcula el Polinomio de Lagrange retornando una función para ser evaluada en un $x$."}
 ```{r}
 #| code-fold: true
 
@@ -3798,8 +3722,8 @@ PLagrange <- function(nodos, f, tol = 1e-12) {
 }
 ```
 :::
-::: {.callout-note}
-##### Método 2: Calcula los coeficientes del Polinomio de Lagrange
+::: {.callout-note title="Método 2: Calcula los coeficientes del Polinomio de Lagrange"}
+
 Salida: $c(a_1, a_2,\ldots, a_{n-1})$ donde $$P_n(x) = \sum_{k=0}^{n-1}a_kx^k$$
 ```{r}
 #| code-fold: true
@@ -3837,8 +3761,8 @@ PLagrangeCoeficientes <- function(nodos, f) {
 
 :::
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo 1
+::: {.callout-tip collapse="true" title="Ejemplo"}
+ 
 1) Polinomio de Lagrange
 ```{r}
 #| code-fold: true
@@ -3889,8 +3813,8 @@ ggplot(df, aes(x = x)) +
   theme_minimal(base_size = 14)
 ```
 :::
-::: {.callout-tip collapse="true"}
-###### Ejemplo 2
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
 1) Polinomio de Lagrange
 ```{r}
 # --- Nodos y función ---
@@ -3934,8 +3858,7 @@ ggplot(df, aes(x = x)) +
 
 #### Interpolación iterada
 
-::: {.callout-note}
-##### Definición: Polinomio de Lagrange en subconjuntos de nodos
+::: {.callout-note title="Definición: Polinomio de Lagrange en subconjuntos de nodos"}
 
 Sea $f$ una función definida en $x_0, x_1, \ldots, x_n$ y sean $0 \le m_i \le n$, para $i = 1, 2, \ldots, k$, entonces el polinomio de Lagrange de grado $\le (k - 1)$ que coincide con $f$ en $x_{m_1}, x_{m_2}, \ldots, x_{m_k}$ se denota por:
 $$
@@ -3943,8 +3866,8 @@ P_{m_1, m_2, \ldots, m_k}(x).
 $$
 :::
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
 
 Sea $f(x) = x^3$, $x_0 = 1$, $x_1 = 2$, $x_2 = 3$, $x_3 = 4$, $x_4 = 6$, calcule $P_{0,3,4}(x)$.
 
@@ -3955,8 +3878,8 @@ P_{0,3,4}(x) &= \frac{(x - 4)(x - 6)}{(1 - 4)(1 - 6)} 1^3 + \frac{(x - 1)(x - 6)
 \end{align*}
 $\blacksquare$
 :::
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
 
 Calcule $P_{1,2,4}(x)$:
 
@@ -3974,8 +3897,8 @@ $\blacksquare$
 
 Los siguientes párrafos se dedican a encontrar un método para calcular los polinomios de Lagrange en forma recursiva.
 
-::: {.callout-note}
-##### Teorema
+::: {.callout-note title="Teorema"}
+
 
 Sea $f$ una función definida en $x_0, x_1, \ldots, x_k$ y sea $x_i \ne x_j$ con $i,j \in \{0, 1, 2, \ldots, k\}$. Entonces el polinomio de Lagrange que coincide con $f$ en $x_0, x_1, \ldots, x_k$ se puede escribir como:
 
@@ -3983,8 +3906,8 @@ Sea $f$ una función definida en $x_0, x_1, \ldots, x_k$ y sea $x_i \ne x_j$ con
 P(x) = \frac{(x - x_j) P_{0,1,\ldots,(j-1),(j+1),\ldots,k}(x) - (x - x_i) P_{0,1,\ldots,(i-1),(i+1),\ldots,k}(x)}{x_i - x_j}.
 \end{align*}
 
-::: {.callout-caution collapse="true"}
-##### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 
 Hay que probar que $P(x_s) = f(x_s)$, $\ \forall \ s = 0, 1, 2, \ldots, k$.
 
@@ -4058,8 +3981,8 @@ P_{1,2,3,4}(x) &= \frac{(x - x_1)P_{2,3,4} - (x - x_4)P_{1,2,3}}{x_4 - x_1} \\
 &\vdots
 \end{align*}
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
 
 Aproxime $f(2.5)$ dada la siguiente tabla:
 
@@ -4114,8 +4037,7 @@ $\blacksquare$
 :::
 
 
-::: {.callout-note}
-###### Notación
+::: {.callout-note title="Notación"}
 
 Se denota por $Q_{ij}$ el polinomio interpolante de Lagrange de grado $j$ que pasa por los $j + 1$ nodos siguientes:
 
@@ -4173,8 +4095,7 @@ Q_{22} = P_{0,1,2}, \quad Q_{nn} = P_{0,1,\ldots,n}
 $$
 :::
 
-::: {.callout-note}
-##### Algoritmo: Para calcular la tabla de Neville y aproximar $f(x^*) \approx P_n(x^*)$
+::: {.callout-note title="Algoritmo: Para calcular la tabla de Neville y aproximar $f(x^*) \approx P_n(x^*)$"}
 
 **Entrada:**  
 Los nodos $x_0, x_1, \ldots, x_n$.  
@@ -4197,8 +4118,8 @@ FIN
 
 La ventaja de este método es que permite calcular el polinomio de Lagrange en cualquier punto $x$.
 
-::: {.callout-note}
-###### Notación: Recursiva
+::: {.callout-note title="Notación: Recursiva"}
+
 \begin{align*}
 f[x_i] &:= f(x_i) \\
 f[x_i, x_{i+1}] &:= \frac{f[x_{i+1}] - f[x_i]}{x_{i+1} - x_i} \\
@@ -4208,8 +4129,8 @@ f[x_i, x_{i+1}, \ldots, x_{i+k}] &:= \frac{f[x_{i+1}, x_{i+2}, \ldots, x_{i+k}] 
 \end{align*}
 :::
 
-::: {.callout-note}
-##### Teorema
+::: {.callout-note title="Teorema"}
+
 
 Si $P_n(x)$ es el polinomio de Lagrange que coincide con $f(x)$ en $x_0, x_1, \ldots, x_n$, entonces:
 
@@ -4219,8 +4140,8 @@ P_n(x) &= f[x_0] + f[x_0, x_1](x - x_0) + f[x_0, x_1, x_2](x - x_0)(x - x_1) \\
 &= f[x_0] + \sum_{k=1}^n f[x_0, \ldots, x_k](x - x_0) \cdots (x - x_{k-1}).
 \end{align*}
 
-::: {.callout-caution collapse="true"}
-##### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 
 Si $P_n(x)$ se escribe de la forma
 
@@ -4264,8 +4185,7 @@ $$
 
 En la diagonal de la matriz anterior están los coeficientes del polinomio de Lagrange $P_n(x)$, según la forma presentada en el teorema anterior. El siguiente algoritmo calcula el polinomio de Lagrange usando la Tabla de diferencias divididas de Newton.
 
-::: {.callout-note}
-##### Algoritmo
+::: {.callout-note title="Algoritmo"}
 
 **Objetivo**: Calcular el polinomio de Lagrange usando la Tabla de diferencias divididas de Newton.
 
@@ -4296,8 +4216,7 @@ Parar.
 Los *Polinomios Osculantes* generalizan a los Polinomios de Taylor y a los Polinomios de Lagrange como veremos más adelante. 
 La idea del polinomio de Hermite (que es un caso particular de los polinomios osculantes) es que si se tienen $x_0, x_1, \ldots, x_n$, $n+1$ nodos, entonces $f$ y $f'$ coincidan con $P(x)$ y $P'(x)$ en los nodos respectivamente.
 
-::: {.callout-note}
-##### Definición: Polinomio osculante
+::: {.callout-note title="Definición: Polinomio osculante"}
 
 - Sean $x_0, x_1, \ldots, x_n$, $n + 1$ nodos distintos en $[a,b]$.
 - Sea $m_i$ un entero no negativo, con $m_i$ asociado a $x_i$; para $i = 0,1,\ldots,n$.
@@ -4313,8 +4232,8 @@ $$
 para $i = 0,1,\ldots,n$ y $k = 1,\ldots,m_i$. Es decir, en el $i$-ésimo nodo el polinomio y la función $f$ coinciden hasta la derivada $m_i$.
 :::
 
-::: {.callout-important collapse="true"}
-###### Observación
+::: {.callout-important collapse="true" title="Observación"}
+
 
 1. Si $n = 0$, el polinomio osculante es el polinomio de Taylor de grado $m_0$ para $f$ en $x_0$.
 
@@ -4342,8 +4261,7 @@ Cuando $P(x)$ coincide con $f$ y $f'$ en $x_0, x_1, \ldots, x_n$, se dice que $P
 
 El siguiente Teorema da un método para calcular el Polinomio de Hermite.
 
-::: {.callout-note}
-##### Teorema: Polinomio de Hermite (osculante con derivadas)
+::: {.callout-note title="Teorema: Polinomio de Hermite (osculante con derivadas)"}
 
 - Sea $f \in C[a,b]$.
 - Sean $x_0, x_1, \ldots, x_n$, $(n+1)$ nodos distintos en $[a,b]$.
@@ -4375,8 +4293,8 @@ $$
 \left| f(x) - H_{2n+1}(x) \right| = \left| \frac{(x - x_0)^2 \cdots (x - x_n)^2}{(2n+2)!} f^{(2n+2)}(\xi) \right|, \quad \text{con } \xi \in ]a, b[.
 $$
 
-::: {.callout-caution collapse="true"}
-##### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 
 - Se debe demostrar que $H_{2n+1}(x_i) = f(x_i)$ para todo $i = 0, 1, \ldots, n$. Para ver esto, recordemos que:
 
@@ -4463,8 +4381,7 @@ $\blacksquare$
 :::
 :::
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
 
 Calcule $H_5(x)$ que aproxima a $f(x) = e^x$ en $x_0 = 0$, $x_1 = 1$, $x_2 = 2$.
 
@@ -4649,8 +4566,7 @@ P_n(x) = f[x_0] + \sum_{k=1}^{n} f[x_0, x_1, \dots, x_k](x - x_0) \cdots (x - x_
 
 además utilizaremos el siguiente lema.
 
-::: {.callout-note}
-##### Lema: Generalización del Teorema del valor medio
+::: {.callout-note title="Lema: Generalización del Teorema del valor medio"}
 
 Si $f \in C^n[a, b]$ y $x_0, x_1, \dots, x_n$ son los $(n+1)$ nodos distintos en $[a,b]$, entonces:  
 existe $\xi \in ]a, b[$ tal que:
@@ -4659,8 +4575,8 @@ $$
 f[x_0, x_1, \dots, x_n] = \frac{f^{(n)}(\xi)}{n!}.
 $$
 
-::: {.callout-caution collapse="true"}
-##### Prueba
+::: {.callout-caution collapse="true" title="Prueba"}
+
 
 Ejercicio al lector. $\blacksquare$
 :::
@@ -4709,8 +4625,7 @@ H_{2n+1}(x)
 &\quad + f[z_0, z_1, z_2, z_3, z_4](x - z_0)^2(x - z_1)^2 + \cdots
 \end{align*}
 
-::: {.callout-note}
-##### Algoritmo: Para obtener los coeficientes del polinomio de Hermite
+::: {.callout-note title="Algoritmo: Para obtener los coeficientes del polinomio de Hermite"}
 
 **Entrada:** $x_0, x_1, \dots, x_n;\; f(x_0), f(x_1), \dots, f(x_n)\;$ y $\;f'(x_0), f'(x_1), \dots, f'(x_n)$  
 **Salida:** Los números $Q_{0,0}, Q_{1,1}, \dots, Q_{(2n+1),(2n+1)}$ coeficientes de:
@@ -4750,8 +4665,8 @@ $$
 **Parar**
 :::
 
-::: {.callout-tip collapse="true"}
-###### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
 
 Si se corre el algoritmo con $f(x) = e^x$, $f'(x) = e^x$, $x_0 = 0$, $x_1 = 1$, $x_2 = 2$, entonces:
 
@@ -4772,8 +4687,7 @@ H_5(x) &= 1 + x + 0.71828183x^2 + 0.28171817x^2(x - 1) \\
 \end{align*}
 :::
 
-::: {.callout-important}
-##### NOTA
+::: {.callout-important title="NOTA"}
 
 Ver `hermite.nb`.
 :::
@@ -4856,8 +4770,7 @@ En total tenemos: $2n - 2 + 2 + (n - 1) + (n - 1) = 4n - 2$ por lo que faltan to
 \right.
 \end{align*}
 
-::: {.callout-tip collapse="true"}
-#### Ejemplo
+::: {.callout-tip collapse="true" title="Ejemplo"}
 
 Para $f(x)$ dada por la siguiente tabla:
 

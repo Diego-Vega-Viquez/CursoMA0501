@@ -86,6 +86,7 @@ Luego en general programe una función que permita graficar el polinomio de inte
 **Solución**
 **Neville**
 ```{r}
+#| code-fold: true
 # Neville: interpolacion en un punto x a partir de un vector de nodos (xi) y otro de valores (f(xi))
 
 # Retorna una lista con el valor interpolado y la matriz completa Q (la que posee todos los polinomios utilizados para la construccion del polinomio completo)
@@ -114,6 +115,8 @@ neville <- function(nodos, valores, x) {
 ```
 **Lagrange por diferencias divididas de Newton**
 ```{r}
+#| code-fold: true
+
 # Lagrange.Newton: interpolacion en un punto x function# Lagrange.Newton: interpolacion en un punto x a partir de un vector de nodos y otro de valores
 
 # Retorna una lista con el valor interpolado, la matriz para la construccion de los coeficientes, y un vector de los coeficientes del polinomio de lagrange
@@ -153,6 +156,8 @@ lagrange.newton <- function(nodos, valores, x) {
 ```
 **Hermite por diferencias divididas de Newton**
 ```{r}
+#| code-fold: true
+
 # Hermite.newton: interpolacion en un punto x a partir de un vector de nodos, otro de valores y otro de derivadas
 
 # Retorna una lista con el valor interpolado, la matriz para la construccion de los  y un vector de los coeficientes
@@ -209,6 +214,8 @@ hermite.newton <- function(nodos, valores, derivadas, x) {
 ```
 **Splines cubicos naturales**
 ```{r}
+#| code-fold: true
+
 # spline.natural: funcion que calcula la interpolacion por splines a partir de unos nodos y sus valores
 
 # Retorna los valores de los coeficientes a, b, c, d de cada una de las n-1 ecuaciones generadas
@@ -290,6 +297,8 @@ spline.natural <- function(nodos, valores, x) {
 ```
 **Splines cubicos sujetos**
 ```{r}
+#| code-fold: true
+
 # spline.sujeto: funcion que calcula la interpolacion por splines a partir de unos nodos y sus valores
 
 # Retorna los valores de los coeficientes a, b, c, d de cada una de las n-1 ecuaciones generadas
@@ -375,6 +384,8 @@ spline.sujeto <- function(nodos, valores, derivadas, x) {
 ```{r}
 #| message: false
 #| warning: false
+#| code-fold: true
+
 library(tidyverse)
 graficar.polinomio <- function(nodos,
                                a,
@@ -469,6 +480,8 @@ graficar.polinomio <- function(nodos,
 ```
 **Pruebas**
 ```{r}
+#| code-fold: true
+
 f <- function(x) log(x)
 df <- function(x) 1/x
 nodos <- c(0.1, 0.5, 1, 1.5, 2)
@@ -521,7 +534,7 @@ $$
 Dada la siguiente tabla de datos para $f(x)$:
 
 | $x$  | $f(x)$     |
-|||
+|------|------------|
 | 0.2  | 0.9798652  |
 | 0.4  | 0.9177710  |
 | 0.6  | 0.8080348  |
@@ -571,7 +584,7 @@ Repita el ejercicio anterior usando el polinomio de interpolación de Hermite, c
 Use el algoritmo de Diferencias Divididas para construir el polinomio interpolante de grado 4 según la siguiente tabla:
 
 | $x$  | $f(x)$     |
-|||
+|------|------------|
 | 0.0  | $-7.00000$ |
 | 0.1  | $-5.89483$ |
 | 0.3  | $-5.65014$ |
@@ -593,7 +606,7 @@ Grafique este polinomio.
 Use el algoritmo de Hermite para construir el polinomio interpolante de Hermite dada la siguiente tabla:
 
 | $x$  | $f(x)$     | $f'(x)$    |
-||||
+|------|------------|------------|
 | 0.2  | 0.9798652  | 0.20271    |
 | 0.4  | 0.9177710  | 0.42279    |
 | 0.6  | 0.8080348  | 0.68414    |
