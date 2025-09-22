@@ -333,7 +333,7 @@ spline.sujeto <- function(nodos, valores, derivadas, x) {
   n <- length(nodos)
   
   h <- numeric(n - 1)
-  alfa <- numeric(n - 1)
+  alfa <- numeric(n)
   
   # Paso 1 y 2: definir los h's y alfas
   for (i in 1:(n - 1)) {
