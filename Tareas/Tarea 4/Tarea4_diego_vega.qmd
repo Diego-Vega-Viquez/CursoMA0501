@@ -598,6 +598,7 @@ spline.sujeto <- function(nodos, valores, derivadas, x) {
 #| code-fold: true
 
 library(tidyverse)
+
 graficar.polinomio <- function(nodos,
                                a,
                                b,
@@ -605,13 +606,17 @@ graficar.polinomio <- function(nodos,
                                f = NULL,
                                valores = NULL,
                                df = NULL,
+                               derivadas = NULL,          
                                derivadas.clamped = NULL) {
+
   stopifnot(is.numeric(nodos), length(nodos) >= 2)
+
   # Validación: exactamente uno de f o valores
   if (is.null(f) == is.null(valores)) {
     stop("Debe proveer exactamente uno: 'f' (función) o 'valores' (numérico).")
   }
-  # Obtener valores en nodos según el caso
+
+  # Valores en nodos
   if (!is.null(f)) {
     stopifnot(is.function(f))
     valores_nodos <- f(nodos)
@@ -619,10 +624,19 @@ graficar.polinomio <- function(nodos,
     stopifnot(is.numeric(valores), length(valores) == length(nodos))
     valores_nodos <- valores
   }
-  
-  # Derivadas (opcional). Acepta función o vector numérico.
+
+  # ---- Derivadas en nodos (si aplica) ----
   derivadas_nodos <- NULL
-  if (!is.null(df)) {
+
+  # Si llegan ambos, priorizamos 'derivadas' y avisamos
+  if (!is.null(df) && !is.null(derivadas)) {
+    warning("Se pasaron 'df' y 'derivadas'; se usará 'derivadas'.")
+  }
+
+  if (!is.null(derivadas)) {
+    stopifnot(is.numeric(derivadas), length(derivadas) == length(nodos))
+    derivadas_nodos <- derivadas
+  } else if (!is.null(df)) {
     if (is.function(df)) {
       derivadas_nodos <- df(nodos)
     } else if (is.numeric(df)) {
@@ -632,62 +646,55 @@ graficar.polinomio <- function(nodos,
       stop("`df` debe ser función o vector numérico de derivadas en los nodos.")
     }
   }
-  
+
   # Wrapper vectorizado para el método (con o sin derivadas)
   if (!is.null(derivadas_nodos)) {
     H <- function(x)
       vapply(x, function(xx)
         metodo(nodos, valores_nodos, derivadas_nodos, xx)$valor, numeric(1))
   } else {
-    if(is.null(derivadas.clamped)){
+    if (is.null(derivadas.clamped)) {
       H <- function(x)
         vapply(x, function(xx)
           metodo(nodos, valores_nodos, xx)$valor, numeric(1))
-    } else{
+    } else {
       H <- function(x)
         vapply(x, function(xx)
           spline.sujeto(nodos, valores_nodos, derivadas.clamped, xx)$valor, numeric(1))
     }
   }
-  
+
   # Malla y data frames
   xi <- seq(a, b, length.out = 400)
-  df_plot <- data.frame(x  = xi,
-                        Hx = H(xi),
-                        fx = if (!is.null(f))
-                          f(xi)
-                        else
-                          NA_real_)
+  df_plot <- data.frame(
+    x  = xi,
+    Hx = H(xi),
+    fx = if (!is.null(f)) f(xi) else NA_real_
+  )
   df_nodos <- data.frame(x = nodos, y = valores_nodos)
-  
-  # Gráfico: con f (dos curvas) o solo interpolación
+
+  # Gráfico
   p <- ggplot(df_plot, aes(x = x))
   if (!is.null(f)) {
     p <- p +
       geom_line(aes(y = fx, color = "Original"), linewidth = 1) +
       geom_line(aes(y = Hx, color = "Interpolación"),
-                linewidth = 1,
-                linetype = "dashed") +
-      scale_color_manual(values = c(
-        "Original" = "blue",
-        "Interpolación" = "red"
-      ))
+                linewidth = 1, linetype = "dashed") +
+      scale_color_manual(values = c("Original" = "blue", "Interpolación" = "red"))
   } else {
     p <- p +
       geom_line(aes(y = Hx, color = "Interpolación"), linewidth = 1) +
       scale_color_manual(values = c("Interpolación" = "red"))
   }
+
   p +
-    geom_point(
-      data = df_nodos,
-      aes(x = x, y = y),
-      shape = 21,
-      size = 3,
-      fill = "white"
-    ) +
-    labs(title = paste0("Interpolación por ", deparse(substitute(metodo))), y = "Valor", color = "Serie") +
+    geom_point(data = df_nodos, aes(x = x, y = y),
+               shape = 21, size = 3, fill = "white") +
+    labs(title = paste0("Interpolación por ", deparse(substitute(metodo))),
+         y = "Valor", color = "Serie") +
     theme_minimal(base_size = 14)
 }
+
 ```
 **Pruebas**
 ```{r}
@@ -758,6 +765,9 @@ Aproxime $f(0.5)$ usando el procedimiento **Neville**.
 
 **Solución**
 
+```{r}
+neville(c(0.2, 0.4, 0.6, 0.8, 1.0), c(0.9798652, 0.9177710, 0.8080348, 0.6386093, 0.3843735), 0.5)
+```
 
 
 # Ejercicio 5
@@ -776,6 +786,36 @@ c) Compare el error real en (a) y (b) con la cota del error teórica según los 
 
 **Solución**
 
+a)
+```{r}
+f <- function(x) 3*x*exp(x) - exp(2*x)
+nodos <- c(1, 1.05, 1.07)
+valores <- f(nodos)
+
+valor.a <- neville(nodos, valores, 1.03)$valor
+valor.a
+```
+b)
+```{r}
+nodos <- c(nodos, 1.04)
+valores <- f(nodos)
+
+valor.b <- neville(nodos, valores, 1.03)$valor
+valor.b
+```
+c) **FALTA METER ERROR TEORICO**
+```{r}
+error.real.a <- abs(valor.a-f(1.03))
+error.real.a
+
+error.real.b <- abs(valor.b-f(1.03))
+error.real.b
+
+# FALTA METER ERROR TEORICO
+```
+
+
+
 
 
 # Ejercicio 6
@@ -788,6 +828,37 @@ Repita el ejercicio anterior usando el polinomio de interpolación de Hermite, c
 
 **Solución**
 
+a)
+```{r}
+f <- function(x) 3*x*exp(x) - exp(2*x)
+df <- function(x) 3*x*exp(x) + 3*exp(x) -2*exp(2*x)
+nodos <- c(1, 1.05, 1.07)
+valores <- f(nodos)
+derivadas <- df(nodos)
+
+valor.a <- hermite.newton(nodos, valores, derivadas, 1.03)$valor
+valor.a
+```
+b)
+```{r}
+nodos <- c(nodos, 1.04)
+valores <- f(nodos)
+derivadas <- df(nodos)
+
+valor.b <- hermite.newton(nodos, valores, derivadas, 1.03)$valor
+valor.b
+```
+c) **FALTA METER ERROR TEORICO**
+```{r}
+error.real.a <- abs(valor.a-f(1.03))
+error.real.a
+
+error.real.b <- abs(valor.b-f(1.03))
+error.real.b
+
+# FALTA METER ERROR TEORICO
+```
+**FALTA COMPARAR RESULTADOS**
 # Ejercicio 7
 
 ::: {.callout-note title="Instrucción del ejercicio 7"}
@@ -807,7 +878,20 @@ Grafique este polinomio.
 :::
 
 **Solución**
+```{r}
+nodos <- c(0, 0.1, 0.3, 0.6, 1)
+valores <- c(-7, -5.89483, -5.65014, -5.17788, -4.28172)
 
+lagrange.newton(nodos, valores, 1)
+```
+
+A partir de lo obtenido por el algoritmo de diferencias divididas de Newton, se obtiene que el polinomio de grado 4 que interpola a f(x) es:
+
+$P_4(x) = -7 + 11.05170x - 32.76083x(x-0.1) + 55.77056x(x-0.1)(x-0.3) - 55.49254x(x-0.1)(x-0.3)(x - 0.6)$
+
+```{r}
+graficar.polinomio(nodos, 0, 1, lagrange.newton, valores = valores)
+```
 
 
 # Ejercicio 8
@@ -830,6 +914,16 @@ Grafique este polinomio.
 
 **Solución**
 
+```{r}
+nodos     <- c(0.2, 0.4, 0.6, 0.8, 1.0)
+valores   <- c(0.9798652, 0.9177710, 0.8080348, 0.6386093, 0.3843735)
+derivadas <- c(0.20271,   0.42279,   0.68414,   1.02964,   1.55741)
+
+hermite.newton(nodos, valores, derivadas, 0.2)
+```
+```{r}
+graficar.polinomio(nodos, 0.2, 1, hermite.newton, valores = valores, derivadas = derivadas)
+```
 
 
 # Ejercicio 9
