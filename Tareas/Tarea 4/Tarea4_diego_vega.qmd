@@ -1,5 +1,5 @@
 ---
-title: "MA0501 – Tarea 3"
+title: "MA0501 – Tarea 4"
 author: 
   - name: "Diego Alberto Vega Víquez - C38367" 
     email: "diegovv13@gmail.com"
@@ -62,6 +62,217 @@ Complete las demostraciones que quedaron pendientes en la clase.
 
 **Solución**
 
+
+::: {.callout-note title="Teorema 1 [Weierstrass]"}
+
+Sea $f$ continua en $[a, b]$; entonces dado $\varepsilon > 0$, existe $n \in \mathbb{N}$ y $P_n(x) \in P_n$ tal que
+
+$$
+\left| f(x) - P_n(x) \right| < \varepsilon, \quad \forall x \in [a, b].
+$$
+
+
+![Polinomio de Bernstein](Imagenes/Polinomio de Bernstein.png){width=400px fig-align="center"}
+
+::: {.callout-caution collapse="true" title="Prueba"}
+
+
+Sin pérdida de generalidad, suponga que $a = 0$ y $b = 1$. Sea:
+
+
+$$
+B_n(x) = \sum_{k=0}^n \binom{n}{k} x^k (1 - x)^{n-k} f\left( \frac{k}{n} \right),
+$$
+
+se puede probar que $B_n(x) \to f(x)$ uniformemente en $[0,1]$ (ejercicio). $\blacksquare$
+:::
+:::
+
+::: {.callout-note title="Teorema 3"}
+
+Sea $f \in C[a,b]$ y $f \in C^n]a,b[$, si $f$ se anula en $n+1$ puntos distintos,  
+$x_0, x_1, \ldots, x_n$ en $[a,b]$. Entonces $\exists \, c \in ]a,b[$ tal que $f^{(n)}(c) = 0$.
+
+
+::: {.callout-caution collapse="true" title="Prueba"}
+
+Se omite. $\blacksquare$
+
+:::
+:::
+
+::: {.callout-note title="Teorema 6"}
+
+Si $P_n(x)$ es el polinomio de Lagrange que coincide con $f(x)$ en  
+$x_0, x_1, \ldots, x_n$, entonces:
+
+\begin{align*}
+P_n(x) &= f[x_0] + f[x_0,x_1](x-x_0) + f[x_0,x_1,x_2](x-x_0)(x-x_1) \\
+&\quad + \cdots + f[x_0,x_1,\ldots,x_n](x-x_0)(x-x_1)\cdots(x-x_{n-1}) \\
+&= f[x_0] + \sum_{k=1}^n f[x_0,\ldots,x_k](x-x_0)\cdots(x-x_{k-1}).
+\end{align*}
+
+::: {.callout-caution collapse="true" title="Prueba"}
+
+Si $P_n(x)$ se escribe de la forma
+
+\begin{align*}
+P_n(x) &= a_0 + a_1(x-x_0) + a_2(x-x_0)(x-x_1) + \cdots \\
+&\quad + a_n(x-x_0)(x-x_1)\cdots(x-x_{n-1}),
+\end{align*}
+
+entonces $P_n(x_0) = a_0$. Como $P_n(x_0)=f(x_0)$ se sigue que  
+$a_0 = f(x_0) = f[x_0]$.
+
+Además:
+
+\begin{align*}
+P_n(x_1) &= a_0 + a_1(x_1-x_0), \\
+f(x_1) &= f[x_0] + a_1(x_1-x_0) \quad \Rightarrow \quad a_1 = \frac{f[x_1]-f[x_0]}{x_1-x_0} = f[x_0,x_1].
+\end{align*}
+
+Luego, por inducción se puede probar fácilmente que  
+$a_k = f[x_0, x_1, \ldots, x_k]$.
+
+$\blacksquare$
+
+:::
+:::
+
+
+::: {.callout-note title="Teorema 7"}
+
+- Sea $f \in C[a,b]$.
+- Sean $x_0, x_1, \ldots, x_n$, $(n+1)$ nodos distintos en $[a,b]$.
+
+Entonces el polinomio de grado menor que coincide con $f$ y $f'$ en $x_0, x_1, \ldots, x_n$:
+
+- Tiene grado $2n+1$.
+- Está dado por
+
+$$
+H_{2n+1}(x) = \sum_{j=0}^{n} f(x_j) H_{nj}(x) + \sum_{j=0}^{n} f'(x_j) \widetilde{H}_{nj}(x),
+$$
+
+donde
+
+$$
+H_{nj}(x) = \big[1 - 2(x - x_j)L'_{nj}(x_j)\big]L_{nj}^2(x),
+$$
+
+y
+
+$$
+\widetilde{H}_{nj}(x) = (x - x_j) L_{nj}^2(x).
+$$
+
+- Además, el error absoluto es:
+
+$$
+\left| f(x) - H_{2n+1}(x) \right| = \left| \frac{(x - x_0)^2 \cdots (x - x_n)^2}{(2n+2)!} f^{(2n+2)}(\xi) \right|, \quad \text{con } \xi \in ]a, b[.
+$$
+
+::: {.callout-caution collapse="true" title="Prueba"}
+
+
+- Se debe demostrar que $H_{2n+1}(x_i) = f(x_i)$ para todo $i = 0, 1, \ldots, n$. Para ver esto, recordemos que:
+
+$$
+L_{nj}(x_i) =
+\begin{cases}
+0 & \text{si } i \ne j \\
+1 & \text{si } i = j
+\end{cases}
+$$
+
+de donde, cuando $i \ne j$:
+
+$$
+H_{nj}(x_i) = 0 \quad \text{y} \quad \widetilde{H}_{nj}(x_i) = 0.
+$$
+
+Mientras que:
+
+$$
+H_{ni}(x_i) = [1 - 2(x_i - x_i)L'_{ni}(x_i)] \cdot 1 = 1,
+$$
+
+$$
+\widetilde{H}_{ni}(x_i) = (x_i - x_i) \cdot 1^2 
+$$
+
+Luego:
+
+$$
+H_{2n+1}(x_i) = \sum_{\substack{j = 0 \\ j \ne i}}^n f(x_j) \cdot 0 + f(x_i) \cdot 1 + \sum_{j=0}^n f'(x_j) \cdot 0 = f(x_i).
+$$
+
+Por lo tanto:
+
+- $H_{2n+1}(x_i) = f(x_i)$ para $i = 0, 1, 2, \ldots, n$.
+
+- Se debe demostrar que $H'_{2n+1}(x_i) = f'(x_i)$ para todo $i = 0, 1, \ldots, n$.
+
+Nótese que $L_{nj}(x)$ es un factor de $H'_{nj}(x)$, lo cual implica que $H'_{nj}(x_i) = 0$ cuando $i \ne j$.
+
+Además, si $i = j$:
+
+\begin{align*}
+H'_{ni}(x_i) &= -2L'_{ni}(x_i)L^2_{ni}(x_i) + [1 - 2(x_i - x_i)L'_{ni}(x_i)] \cdot 2 \cdot L_{ni}(x_i)L'_{ni}(x_i) \\
+&= -2L'_{ni}(x_i) + 2L'_{ni}(x_i) \\
+&= 0.
+\end{align*}
+
+Por lo tanto, $H'_{nj}(x_i) = 0$ para todo $i = 0, 1, 2, \ldots, n$ y para todo $j = 0, 1, 2, \ldots, n$.
+
+Además:
+
+$$
+\widetilde{H}_{nj}(x_i) = L^2_{nj}(x_i) + (x_i - x_j)L'_{nj}(x_j) \cdot 2 \cdot L_{nj}(x_i)L'_{nj}(x_i),
+$$
+
+de donde:
+
+$$
+\widetilde{H}'_{nj}(x_i) =
+\begin{cases}
+0 & \text{si } i \ne j \\
+1 & \text{si } i = j
+\end{cases}
+$$
+
+por lo tanto:
+
+$$
+\widetilde{H}'_{2n+1}(x_i) = \sum_{j=0}^n f(x_j) \cdot 0 + \sum_{\substack{j = 0 \\ j \ne i}}^n f'(x_j) \cdot 0 + f'(x_i) \cdot 1 = f'(x_i).
+$$
+
+es decir:
+
+$$
+H'_{2n+1}(x_i) = f'(x_i) \quad \text{para } i = 0, 1, 2, \ldots, n.
+$$
+
+- La unicidad queda de ejercicio al lector.
+
+$\blacksquare$
+:::
+:::
+
+::: {.callout-note title="Lema 1"}
+
+Si $f \in C^n[a, b]$ y $x_0, x_1, \dots, x_n$ son los $(n+1)$ nodos distintos en $[a,b]$, entonces:  
+existe $\xi \in ]a, b[$ tal que:
+
+$$
+f[x_0, x_1, \dots, x_n] = \frac{f^{(n)}(\xi)}{n!}.
+$$
+
+::: {.callout-caution collapse="true" title="Prueba"}
+
+Ejercicio al lector. $\blacksquare$
+:::
+:::
 
 
 # Ejercicio 2
@@ -835,7 +1046,7 @@ d) Construir la **aproximación de mínimos cuadrados de grado 3** para la sigui
 ::: {.callout-note title="Instrucción del ejercicio 18"}
 
 El objetivo de este ejercicio es **generalizar la aproximación discreta por mínimos cuadrados**.  
-Dada una función $f\in C[a,b]$, se requiere un polinomio $\tilde P_n(x)=\sum_{k=0}^{n} a_k x^k$ de manera tal que las constantes $\{a_k\}_{k=0}^{n}$ minimicen el error:
+Dada una función $f\in C[a,b]$, se requiere un polinomio $\tilde P_n(x)=\sum\limits_{k=0}^{n} a_k x^k$ de manera tal que las constantes $\{a_k\}_{k=0}^{n}$ minimicen el error:
 
 $$
 E=\int_a^b \big(f(x)-\tilde P_n(x)\big)^2\,dx.
