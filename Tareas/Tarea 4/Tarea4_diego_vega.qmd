@@ -84,7 +84,51 @@ $$
 B_n(x) = \sum_{k=0}^n \binom{n}{k} x^k (1 - x)^{n-k} f\left( \frac{k}{n} \right),
 $$
 
-se puede probar que $B_n(x) \to f(x)$ uniformemente en $[0,1]$ (ejercicio). $\blacksquare$
+se puede probar que $B_n(x) \to f(x)$ uniformemente en $[0,1]$:
+
+Vea que 
+
+$$|B_n(x)-f(x)| \le \sum_{k=0}^n \binom{n}{k} x^k (1 - x)^{n-k} \Big|f\left( \frac{k}{n} \right) - f(x)\Big|$$
+Note que se tiene una esperanza con respecto a una distribución binomial $\operatorname{Bin}(n,x)$
+
+$$X_n\sim\operatorname{Bin}(n,x) \implies \mathbb{E}\left[f\left(\frac{X_n}{n}\right)\right] = B_n(x)$$
+
+Entonces:
+
+$$
+\lvert B_n(x) - f(x) \rvert = \left\lvert \mathbb{E}\left[f\!\left(\tfrac{X_n}{n}\right)\right] - f(x) \right\rvert
+$$
+Dado que $f$ es continua en $[0,1]$, por el Teorema de Heine–Cantor, también es uniformemente continua.  
+Entonces, para todo $\varepsilon > 0$, existe $\delta > 0$ tal que:
+
+$$
+|x-y| < \delta \;\;\Rightarrow\;\; |f(x) - f(y)| < \varepsilon
+$$
+Considere dividir el dominio del índice $k$ en dos regiones:
+
+- Cuando $\left|\tfrac{k}{n} - x\right| < \delta$  
+- Cuando $\left|\tfrac{k}{n} - x\right| \geq \delta$
+
+Entonces:
+
+$$
+\lvert B_n(x) - f(x) \rvert
+\le
+\varepsilon \cdot P\!\left(\left|\tfrac{X_n}{n} - x\right| < \delta\right)
++ 2\lVert f\rVert_\infty \cdot P\!\left(\left|\tfrac{X_n}{n} - x\right| \ge \delta\right)
+$$
+
+Usando la *desigualdad de Chebyshev* aplicada a $\tfrac{X_n}{n}$, cuya varianza es $\tfrac{x(1-x)}{n}$, el segundo término tiende a $0$ uniformemente en $x\in[0,1]$.
+
+
+Como el error puede hacerse arbitrariamente pequeño uniformemente en $x$, se concluye:
+
+$$
+\sup_{x\in[0,1]} \lvert B_n(x) - f(x) \rvert \;\longrightarrow\; 0
+\qquad \text{cuando } n \to \infty.
+$$
+
+$\blacksquare$
 :::
 :::
 
@@ -96,7 +140,36 @@ $x_0, x_1, \ldots, x_n$ en $[a,b]$. Entonces $\exists \, c \in ]a,b[$ tal que $f
 
 ::: {.callout-caution collapse="true" title="Prueba"}
 
-Se omite. $\blacksquare$
+**Por inducción sobre $n$**
+
+**Caso base: $n = 1$.**
+
+Si $f(x_0) = f(x_1) = 0$ con $x_0 < x_1$, entonces por el Teorema de Rolle clásico, existe $c \in (x_0, x_1)$ tal que:
+
+$$
+f'(c) = 0.
+$$
+
+**Hipótesis de inducción:**
+
+Supongamos que el resultado es cierto para $n = k$, es decir, si $f \in C^{k}]a,b[$ y se anula en $k+1$ puntos distintos en $[a,b]$, entonces existe $c \in (a,b)$ tal que $f^{(k)}(c) = 0$.
+
+**Paso inductivo:**
+
+Sea ahora $f \in C^{k+1}]a,b[$ y supongamos que $f(x_0) = f(x_1) = \dots = f(x_{k+1}) = 0$, con $x_0 < x_1 < \dots < x_{k+1}$.
+
+Por el Teorema de Rolle, para cada par consecutivo $(x_i, x_{i+1})$, existe $c_i \in (x_i, x_{i+1})$ tal que:
+
+$$
+f'(c_i) = 0.
+$$
+
+Eso da una nueva colección de $k+1$ puntos $c_0 < c_1 < \dots < c_k$ donde $f'$ se anula. Entonces, por la hipótesis de inducción aplicada a $f'$, existe un punto $c \in (a,b)$ tal que:
+
+$$
+f^{(k+1)}(c) = 0.
+$$
+$\blacksquare$
 
 :::
 :::
@@ -131,8 +204,65 @@ P_n(x_1) &= a_0 + a_1(x_1-x_0), \\
 f(x_1) &= f[x_0] + a_1(x_1-x_0) \quad \Rightarrow \quad a_1 = \frac{f[x_1]-f[x_0]}{x_1-x_0} = f[x_0,x_1].
 \end{align*}
 
-Luego, por inducción se puede probar fácilmente que  
-$a_k = f[x_0, x_1, \ldots, x_k]$.
+Luego, por inducción se puede probar fácilmente que  $a_k = f[x_0, x_1, \ldots, x_k]$.
+
+
+**Paso base:**
+
+Para $k = 0$, se tiene:
+
+$$
+P_n(x_0) = a_0 = f(x_0),
+$$
+
+por lo tanto:
+
+$$
+a_0 = f[x_0].
+$$
+
+**Hipótesis de inducción:**
+
+Supongamos que para algún $k \geq 1$ se cumple que:
+
+$$
+a_j = f[x_0, x_1, \dots, x_j] \quad \text{para todo } j = 0, 1, \dots, k-1.
+$$
+
+**Paso inductivo:**
+
+Queremos probar que:
+
+$$
+a_k = f[x_0, x_1, \dots, x_k].
+$$
+
+Evaluamos el polinomio $P_n(x)$ en $x = x_k$. Por construcción, se cumple:
+
+\begin{align*}
+P_n(x_k) &= a_0 + a_1(x_k - x_0) + a_2(x_k - x_0)(x_k - x_1) + \cdots \\
+&\quad + a_k(x_k - x_0)(x_k - x_1)\cdots(x_k - x_{k-1}).
+\end{align*}
+
+Pero también sabemos que $P_n(x_k) = f(x_k)$, y por la hipótesis de inducción:
+
+\begin{align*}
+f(x_k) &= f[x_0] + f[x_0, x_1](x_k - x_0) + \cdots \\
+&\quad + f[x_0, \dots, x_{k-1}](x_k - x_0)\cdots(x_k - x_{k-2}) \\
+&\quad + a_k(x_k - x_0)\cdots(x_k - x_{k-1}).
+\end{align*}
+
+Entonces, restando ambos lados, obtenemos:
+
+$$
+a_k = \frac{f(x_k) - P_{k-1}(x_k)}{(x_k - x_0)(x_k - x_1)\cdots(x_k - x_{k-1})},
+$$
+
+pero esta fracción es exactamente la definición de la **diferencia dividida**:
+
+$$
+a_k = f[x_0, x_1, \dots, x_k].
+$$
 
 $\blacksquare$
 
@@ -253,7 +383,41 @@ $$
 H'_{2n+1}(x_i) = f'(x_i) \quad \text{para } i = 0, 1, 2, \ldots, n.
 $$
 
-- La unicidad queda de ejercicio al lector.
+- 
+Sea $H(x)$ y $\widetilde{H}(x)$ dos polinomios de grado a lo sumo $2n+1$ que satisfacen:
+
+$$
+H(x_i) = \widetilde{H}(x_i) = f(x_i), \quad H'(x_i) = \widetilde{H}'(x_i) = f'(x_i), \quad \text{para } i = 0, 1, \ldots, n.
+$$
+
+Definamos el polinomio:
+
+$$
+R(x) = H(x) - \widetilde{H}(x).
+$$
+
+Entonces $R(x)$ es un polinomio de grado a lo sumo $2n+1$, y:
+
+- $R(x_i) = H(x_i) - \widetilde{H}(x_i) = 0$,
+- $R'(x_i) = H'(x_i) - \widetilde{H}'(x_i) = 0$,
+
+para todos $i = 0, 1, \ldots, n$.
+
+Es decir, $R(x)$ tiene **$2(n+1)$ ceros** (porque cada condición en un punto $x_i$ impone dos condiciones linealmente independientes: una en valor y otra en derivada).
+
+Pero el grado de $R(x)$ es como máximo $2n+1$, y un polinomio no nulo de grado $d$ no puede tener más de $d$ ceros (contando multiplicidades).
+
+Como $R(x)$ tiene más ceros que su grado, se concluye que:
+
+$$
+R(x) \equiv 0,
+$$
+
+es decir:
+
+$$
+H(x) = \widetilde{H}(x) \quad \text{para todo } x.
+$$
 
 $\blacksquare$
 :::
@@ -270,7 +434,67 @@ $$
 
 ::: {.callout-caution collapse="true" title="Prueba"}
 
-Ejercicio al lector. $\blacksquare$
+
+Consideremos el polinomio interpolador de Newton de grado $n$, que interpola a $f$ en los nodos $x_0, \dots, x_n$:
+
+$$
+P_n(x) = \sum_{k=0}^n f[x_0, \dots, x_k] \prod_{j=0}^{k-1}(x - x_j).
+$$
+
+Sea el **polinomio del error**:
+
+$$
+R_n(x) = f(x) - P_n(x).
+$$
+
+Sabemos por teoría del error de interpolación que:
+
+$$
+R_n(x) = \frac{f^{(n+1)}(\xi_x)}{(n+1)!} \prod_{j=0}^n (x - x_j),
+$$
+
+para algún $\xi_x$ entre el menor y el mayor de los puntos $x_j$ y $x$.
+
+Ahora consideremos la función:
+
+$$
+F(x) = f(x) - Q(x),
+$$
+
+donde $Q(x)$ es el polinomio de grado $n-1$ tal que $Q(x_i) = f(x_i)$ para $i = 0, \dots, n-1$. Entonces $F(x)$ es una función que coincide con $f$ en los primeros $n$ nodos, pero no necesariamente en el último.
+
+Aplicamos el **Teorema de Rolle generalizado** a la función:
+
+$$
+g(x) = f(x) - P_n(x),
+$$
+
+la cual se anula en los puntos $x_0, \dots, x_n$, ya que $P_n(x_j) = f(x_j)$. Como $f \in C^n[a,b]$, entonces $g \in C^n[a,b]$ y se anula en $n+1$ puntos.
+
+Por el teorema, existe $\xi \in (a,b)$ tal que:
+
+$$
+g^{(n)}(\xi) = 0.
+$$
+
+Pero como $P_n(x)$ es de grado $n$, su derivada de orden $n$ es constante:
+
+$$
+P_n^{(n)}(x) = n! \cdot f[x_0, x_1, \dots, x_n],
+$$
+
+y:
+
+$$
+g^{(n)}(x) = f^{(n)}(x) - P_n^{(n)}(x) = f^{(n)}(x) - n! \cdot f[x_0, \dots, x_n].
+$$
+
+Entonces, si $g^{(n)}(\xi) = 0$:
+
+$$
+f^{(n)}(\xi) = n! \cdot f[x_0, \dots, x_n] \quad \Rightarrow \quad f[x_0, \dots, x_n] = \frac{f^{(n)}(\xi)}{n!}.
+$$
+$\blacksquare$
 :::
 :::
 

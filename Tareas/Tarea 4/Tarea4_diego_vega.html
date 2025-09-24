@@ -3195,7 +3195,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Fecha de publicación</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">22 de septiembre de 2025</p>
+      <p class="date">23 de septiembre de 2025</p>
     </div>
   </div>
   
@@ -3260,7 +3260,37 @@ Prueba
 <p><span class="math display">
 B_n(x) = \sum_{k=0}^n \binom{n}{k} x^k (1 - x)^{n-k} f\left( \frac{k}{n} \right),
 </span></p>
-<p>se puede probar que <span class="math inline">B_n(x) \to f(x)</span> uniformemente en <span class="math inline">[0,1]</span> (ejercicio). <span class="math inline">\blacksquare</span></p>
+<p>se puede probar que <span class="math inline">B_n(x) \to f(x)</span> uniformemente en <span class="math inline">[0,1]</span>:</p>
+<p>Vea que</p>
+<p><span class="math display">|B_n(x)-f(x)| \le \sum_{k=0}^n \binom{n}{k} x^k (1 - x)^{n-k} \Big|f\left( \frac{k}{n} \right) - f(x)\Big|</span> Note que se tiene una esperanza con respecto a una distribución binomial <span class="math inline">\operatorname{Bin}(n,x)</span></p>
+<p><span class="math display">X_n\sim\operatorname{Bin}(n,x) \implies \mathbb{E}\left[f\left(\frac{X_n}{n}\right)\right] = B_n(x)</span></p>
+<p>Entonces:</p>
+<p><span class="math display">
+\lvert B_n(x) - f(x) \rvert = \left\lvert \mathbb{E}\left[f\!\left(\tfrac{X_n}{n}\right)\right] - f(x) \right\rvert
+</span> Dado que <span class="math inline">f</span> es continua en <span class="math inline">[0,1]</span>, por el Teorema de Heine–Cantor, también es uniformemente continua.<br>
+Entonces, para todo <span class="math inline">\varepsilon &gt; 0</span>, existe <span class="math inline">\delta &gt; 0</span> tal que:</p>
+<p><span class="math display">
+|x-y| &lt; \delta \;\;\Rightarrow\;\; |f(x) - f(y)| &lt; \varepsilon
+</span> Considere dividir el dominio del índice <span class="math inline">k</span> en dos regiones:</p>
+<ul>
+<li>Cuando <span class="math inline">\left|\tfrac{k}{n} - x\right| &lt; \delta</span><br>
+</li>
+<li>Cuando <span class="math inline">\left|\tfrac{k}{n} - x\right| \geq \delta</span></li>
+</ul>
+<p>Entonces:</p>
+<p><span class="math display">
+\lvert B_n(x) - f(x) \rvert
+\le
+\varepsilon \cdot P\!\left(\left|\tfrac{X_n}{n} - x\right| &lt; \delta\right)
++ 2\lVert f\rVert_\infty \cdot P\!\left(\left|\tfrac{X_n}{n} - x\right| \ge \delta\right)
+</span></p>
+<p>Usando la <em>desigualdad de Chebyshev</em> aplicada a <span class="math inline">\tfrac{X_n}{n}</span>, cuya varianza es <span class="math inline">\tfrac{x(1-x)}{n}</span>, el segundo término tiende a <span class="math inline">0</span> uniformemente en <span class="math inline">x\in[0,1]</span>.</p>
+<p>Como el error puede hacerse arbitrariamente pequeño uniformemente en <span class="math inline">x</span>, se concluye:</p>
+<p><span class="math display">
+\sup_{x\in[0,1]} \lvert B_n(x) - f(x) \rvert \;\longrightarrow\; 0
+\qquad \text{cuando } n \to \infty.
+</span></p>
+<p><span class="math inline">\blacksquare</span></p>
 </div>
 </div>
 </div>
@@ -3290,7 +3320,24 @@ Prueba
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Se omite. <span class="math inline">\blacksquare</span></p>
+<p><strong>Por inducción sobre <span class="math inline">n</span></strong></p>
+<p><strong>Caso base: <span class="math inline">n = 1</span>.</strong></p>
+<p>Si <span class="math inline">f(x_0) = f(x_1) = 0</span> con <span class="math inline">x_0 &lt; x_1</span>, entonces por el Teorema de Rolle clásico, existe <span class="math inline">c \in (x_0, x_1)</span> tal que:</p>
+<p><span class="math display">
+f&#39;(c) = 0.
+</span></p>
+<p><strong>Hipótesis de inducción:</strong></p>
+<p>Supongamos que el resultado es cierto para <span class="math inline">n = k</span>, es decir, si <span class="math inline">f \in C^{k}]a,b[</span> y se anula en <span class="math inline">k+1</span> puntos distintos en <span class="math inline">[a,b]</span>, entonces existe <span class="math inline">c \in (a,b)</span> tal que <span class="math inline">f^{(k)}(c) = 0</span>.</p>
+<p><strong>Paso inductivo:</strong></p>
+<p>Sea ahora <span class="math inline">f \in C^{k+1}]a,b[</span> y supongamos que <span class="math inline">f(x_0) = f(x_1) = \dots = f(x_{k+1}) = 0</span>, con <span class="math inline">x_0 &lt; x_1 &lt; \dots &lt; x_{k+1}</span>.</p>
+<p>Por el Teorema de Rolle, para cada par consecutivo <span class="math inline">(x_i, x_{i+1})</span>, existe <span class="math inline">c_i \in (x_i, x_{i+1})</span> tal que:</p>
+<p><span class="math display">
+f&#39;(c_i) = 0.
+</span></p>
+<p>Eso da una nueva colección de <span class="math inline">k+1</span> puntos <span class="math inline">c_0 &lt; c_1 &lt; \dots &lt; c_k</span> donde <span class="math inline">f&#39;</span> se anula. Entonces, por la hipótesis de inducción aplicada a <span class="math inline">f&#39;</span>, existe un punto <span class="math inline">c \in (a,b)</span> tal que:</p>
+<p><span class="math display">
+f^{(k+1)}(c) = 0.
+</span> <span class="math inline">\blacksquare</span></p>
 </div>
 </div>
 </div>
@@ -3337,8 +3384,45 @@ P_n(x) &amp;= a_0 + a_1(x-x_0) + a_2(x-x_0)(x-x_1) + \cdots \\
 P_n(x_1) &amp;= a_0 + a_1(x_1-x_0), \\
 f(x_1) &amp;= f[x_0] + a_1(x_1-x_0) \quad \Rightarrow \quad a_1 = \frac{f[x_1]-f[x_0]}{x_1-x_0} = f[x_0,x_1].
 \end{align*}</span></p>
-<p>Luego, por inducción se puede probar fácilmente que<br>
-<span class="math inline">a_k = f[x_0, x_1, \ldots, x_k]</span>.</p>
+<p>Luego, por inducción se puede probar fácilmente que <span class="math inline">a_k = f[x_0, x_1, \ldots, x_k]</span>.</p>
+<p><strong>Paso base:</strong></p>
+<p>Para <span class="math inline">k = 0</span>, se tiene:</p>
+<p><span class="math display">
+P_n(x_0) = a_0 = f(x_0),
+</span></p>
+<p>por lo tanto:</p>
+<p><span class="math display">
+a_0 = f[x_0].
+</span></p>
+<p><strong>Hipótesis de inducción:</strong></p>
+<p>Supongamos que para algún <span class="math inline">k \geq 1</span> se cumple que:</p>
+<p><span class="math display">
+a_j = f[x_0, x_1, \dots, x_j] \quad \text{para todo } j = 0, 1, \dots, k-1.
+</span></p>
+<p><strong>Paso inductivo:</strong></p>
+<p>Queremos probar que:</p>
+<p><span class="math display">
+a_k = f[x_0, x_1, \dots, x_k].
+</span></p>
+<p>Evaluamos el polinomio <span class="math inline">P_n(x)</span> en <span class="math inline">x = x_k</span>. Por construcción, se cumple:</p>
+<p><span class="math display">\begin{align*}
+P_n(x_k) &amp;= a_0 + a_1(x_k - x_0) + a_2(x_k - x_0)(x_k - x_1) + \cdots \\
+&amp;\quad + a_k(x_k - x_0)(x_k - x_1)\cdots(x_k - x_{k-1}).
+\end{align*}</span></p>
+<p>Pero también sabemos que <span class="math inline">P_n(x_k) = f(x_k)</span>, y por la hipótesis de inducción:</p>
+<p><span class="math display">\begin{align*}
+f(x_k) &amp;= f[x_0] + f[x_0, x_1](x_k - x_0) + \cdots \\
+&amp;\quad + f[x_0, \dots, x_{k-1}](x_k - x_0)\cdots(x_k - x_{k-2}) \\
+&amp;\quad + a_k(x_k - x_0)\cdots(x_k - x_{k-1}).
+\end{align*}</span></p>
+<p>Entonces, restando ambos lados, obtenemos:</p>
+<p><span class="math display">
+a_k = \frac{f(x_k) - P_{k-1}(x_k)}{(x_k - x_0)(x_k - x_1)\cdots(x_k - x_{k-1})},
+</span></p>
+<p>pero esta fracción es exactamente la definición de la <strong>diferencia dividida</strong>:</p>
+<p><span class="math display">
+a_k = f[x_0, x_1, \dots, x_k].
+</span></p>
 <p><span class="math inline">\blacksquare</span></p>
 </div>
 </div>
@@ -3452,8 +3536,31 @@ H&#39;_{ni}(x_i) &amp;= -2L&#39;_{ni}(x_i)L^2_{ni}(x_i) + [1 - 2(x_i - x_i)L&#39
 H&#39;_{2n+1}(x_i) = f&#39;(x_i) \quad \text{para } i = 0, 1, 2, \ldots, n.
 </span></p>
 <ul>
-<li>La unicidad queda de ejercicio al lector.</li>
+<li>Sea <span class="math inline">H(x)</span> y <span class="math inline">\widetilde{H}(x)</span> dos polinomios de grado a lo sumo <span class="math inline">2n+1</span> que satisfacen:</li>
 </ul>
+<p><span class="math display">
+H(x_i) = \widetilde{H}(x_i) = f(x_i), \quad H&#39;(x_i) = \widetilde{H}&#39;(x_i) = f&#39;(x_i), \quad \text{para } i = 0, 1, \ldots, n.
+</span></p>
+<p>Definamos el polinomio:</p>
+<p><span class="math display">
+R(x) = H(x) - \widetilde{H}(x).
+</span></p>
+<p>Entonces <span class="math inline">R(x)</span> es un polinomio de grado a lo sumo <span class="math inline">2n+1</span>, y:</p>
+<ul>
+<li><span class="math inline">R(x_i) = H(x_i) - \widetilde{H}(x_i) = 0</span>,</li>
+<li><span class="math inline">R&#39;(x_i) = H&#39;(x_i) - \widetilde{H}&#39;(x_i) = 0</span>,</li>
+</ul>
+<p>para todos <span class="math inline">i = 0, 1, \ldots, n</span>.</p>
+<p>Es decir, <span class="math inline">R(x)</span> tiene <strong><span class="math inline">2(n+1)</span> ceros</strong> (porque cada condición en un punto <span class="math inline">x_i</span> impone dos condiciones linealmente independientes: una en valor y otra en derivada).</p>
+<p>Pero el grado de <span class="math inline">R(x)</span> es como máximo <span class="math inline">2n+1</span>, y un polinomio no nulo de grado <span class="math inline">d</span> no puede tener más de <span class="math inline">d</span> ceros (contando multiplicidades).</p>
+<p>Como <span class="math inline">R(x)</span> tiene más ceros que su grado, se concluye que:</p>
+<p><span class="math display">
+R(x) \equiv 0,
+</span></p>
+<p>es decir:</p>
+<p><span class="math display">
+H(x) = \widetilde{H}(x) \quad \text{para todo } x.
+</span></p>
 <p><span class="math inline">\blacksquare</span></p>
 </div>
 </div>
@@ -3487,7 +3594,45 @@ Prueba
 </div>
 <div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Ejercicio al lector. <span class="math inline">\blacksquare</span></p>
+<p>Consideremos el polinomio interpolador de Newton de grado <span class="math inline">n</span>, que interpola a <span class="math inline">f</span> en los nodos <span class="math inline">x_0, \dots, x_n</span>:</p>
+<p><span class="math display">
+P_n(x) = \sum_{k=0}^n f[x_0, \dots, x_k] \prod_{j=0}^{k-1}(x - x_j).
+</span></p>
+<p>Sea el <strong>polinomio del error</strong>:</p>
+<p><span class="math display">
+R_n(x) = f(x) - P_n(x).
+</span></p>
+<p>Sabemos por teoría del error de interpolación que:</p>
+<p><span class="math display">
+R_n(x) = \frac{f^{(n+1)}(\xi_x)}{(n+1)!} \prod_{j=0}^n (x - x_j),
+</span></p>
+<p>para algún <span class="math inline">\xi_x</span> entre el menor y el mayor de los puntos <span class="math inline">x_j</span> y <span class="math inline">x</span>.</p>
+<p>Ahora consideremos la función:</p>
+<p><span class="math display">
+F(x) = f(x) - Q(x),
+</span></p>
+<p>donde <span class="math inline">Q(x)</span> es el polinomio de grado <span class="math inline">n-1</span> tal que <span class="math inline">Q(x_i) = f(x_i)</span> para <span class="math inline">i = 0, \dots, n-1</span>. Entonces <span class="math inline">F(x)</span> es una función que coincide con <span class="math inline">f</span> en los primeros <span class="math inline">n</span> nodos, pero no necesariamente en el último.</p>
+<p>Aplicamos el <strong>Teorema de Rolle generalizado</strong> a la función:</p>
+<p><span class="math display">
+g(x) = f(x) - P_n(x),
+</span></p>
+<p>la cual se anula en los puntos <span class="math inline">x_0, \dots, x_n</span>, ya que <span class="math inline">P_n(x_j) = f(x_j)</span>. Como <span class="math inline">f \in C^n[a,b]</span>, entonces <span class="math inline">g \in C^n[a,b]</span> y se anula en <span class="math inline">n+1</span> puntos.</p>
+<p>Por el teorema, existe <span class="math inline">\xi \in (a,b)</span> tal que:</p>
+<p><span class="math display">
+g^{(n)}(\xi) = 0.
+</span></p>
+<p>Pero como <span class="math inline">P_n(x)</span> es de grado <span class="math inline">n</span>, su derivada de orden <span class="math inline">n</span> es constante:</p>
+<p><span class="math display">
+P_n^{(n)}(x) = n! \cdot f[x_0, x_1, \dots, x_n],
+</span></p>
+<p>y:</p>
+<p><span class="math display">
+g^{(n)}(x) = f^{(n)}(x) - P_n^{(n)}(x) = f^{(n)}(x) - n! \cdot f[x_0, \dots, x_n].
+</span></p>
+<p>Entonces, si <span class="math inline">g^{(n)}(\xi) = 0</span>:</p>
+<p><span class="math display">
+f^{(n)}(\xi) = n! \cdot f[x_0, \dots, x_n] \quad \Rightarrow \quad f[x_0, \dots, x_n] = \frac{f^{(n)}(\xi)}{n!}.
+</span> <span class="math inline">\blacksquare</span></p>
 </div>
 </div>
 </div>
