@@ -1208,7 +1208,16 @@ Demostrar que si $f(x)$ es un polinomio de grado menor o igual a $n$, entonces e
 
 **Solución**
 
+Sea $f(x)$ un polinomio de grado menor o igual a $n$ y $P_n(x)$ el polinomio que lo interpola en $x_0, x_1,..., x_n$. 
 
+Note que $f^{(n+1)}(x) = 0$, pues es un polinomio de grado menor o igual a n. 
+
+Además, se sabe que el error absoluto entre $f(x)$ y su interpolacion viene dado por:
+
+$|f(x) - P_n(x)| = |\dfrac{f^{(n+1)}(\psi_x)}{(n+1)!}(x - x_0)(x - x_1)\cdot\cdot\cdot(x-x_n)|$, con $\psi_x \in [a,b]$, donde $[a,b]$ es el intervalo donde estamos interpolando. 
+
+Juntando estas dos cosas, se concluye que $|f(x) - P_n(x)| = 0 \Rightarrow f(x) = P_n(x)$
+# Ejercicio 13
 
 # Ejercicio 12
 
@@ -1223,8 +1232,6 @@ $$
 :::
 
 **Solución**
-
-# Ejercicio 13
 
 ::: {.callout-note title="Instrucción del ejercicio 13"}
 
@@ -1252,7 +1259,7 @@ d) Grafique $f(x)$, $P^\star(x)$, $P^{\star\star}(x)$ y $P^{\star\star\star}(x)$
 
 ::: {.callout-note title="Instrucción del ejercicio 14"}
 
-¿Existen $a,b,c,d$ y $e$ tal que la función:
+¿Existen $a,b,c,d$ tal que la función:
 
 $$
 S(x)=
@@ -1268,7 +1275,47 @@ sea el spline cúbico natural que coincide con la función $f(x)=|x|$ en los nod
 
 **Solución**
 
+Una de las primeras condiciones que deben ocurrir es que $S_{-1}(-1) = 1$ y $S_0(1) = 1$
 
+$$
+\begin{cases}
+  S_{-1}(-1) =-a + 1 - c = 1\\
+  S_0(1) = b + 1 + d = 1
+\end{cases}
+
+\Longrightarrow
+
+\begin{cases}
+  a = -c \\
+  b = -d
+\end{cases}
+$$
+
+Por otra parte, debe suceder que $S'_{-1}(0) = S'_0(0)$
+
+$$
+3ax^2 +2x +c = 3bx^2 +2x +d \text{ en $x = 0$}\Rightarrow c = d \Rightarrow a = -c = -d = b \Rightarrow a = b
+$$
+
+Finalmente, se debe cumplir la condicion natural: $S''_{-1}(-1) = 0$ y $S''_0(1) = 0$
+
+$$
+\begin{cases}
+  6a(-1) + 2 = 0\\
+  6b(1) + 2 = 0
+\end{cases}
+
+
+\Longrightarrow
+
+\begin{cases}
+  a = 1/3\\
+  b = -1/3
+\end{cases}
+
+\Longrightarrow a = -b \Rightarrow \Leftarrow
+$$
+Por lo tanto, no existen $a,b,c,d$ tal que $S(x)$ sea el spline cubico natural de $|x|$ en los nodos $-1, 0, 1$
 
 # Ejercicio 15
 
@@ -1355,8 +1402,87 @@ d) Construir la **aproximación de mínimos cuadrados de grado 3** para la sigui
 :::
 
 **Solución**
+a)
 
+Para encontrar el minimo de $E$, hay que derivarlo con respecto a cada uno de los $a_j$, con $j = 0, 1, ..., n$
 
+$$
+\dfrac{\partial E}{\partial a_j} = 2 \sum_{i = 1}^{m}{(y_i - \sum_{k = 0}^{n}{a_kx_i^k})\cdot \dfrac{-\partial}{\partial a_k}(\sum_{k = 0}^n{a_kx_i^k})}=0
+$$
+Note que $\dfrac{\partial}{\partial a_j}(\sum_{k = 0}^n{a_kx_i^k}) = x_i^j$
+
+$$
+
+\Rightarrow \dfrac{\partial E}{\partial a_j} = -2\cdot \sum_{i = 1}^m{(y_i - \sum_{k = 0}^n{a_kx_i^k})\cdot x_i^j} = 0 \\
+\Rightarrow -\sum_{i = 1}^m{y_ix_i^j} + \sum_{i = 1}^m \sum_{k = 0}^n {a_kx_i^{k+j}} = 0 \\
+\Rightarrow \sum_{k = 0}^n{a_k\sum_{i = 1}^m{x_i^{j+k}}} = \sum_{i = 1}^m{y_ix_i^j}
+$$
+
+b)
+```{r}
+# Funcion para plantear el sistema de ecuaciones asociado al ajuste de minimos cuadrados
+# Retorna matriz asociada a los coeficientes (A) y vector de solucion (B)
+sistema.minimos <- function(nodos, valores, n){
+  stopifnot(is.numeric(nodos), is.numeric(valores),
+            length(nodos) == length(valores),
+            is.numeric(n), n >= 0, n < length(nodos))
+  m <- length(nodos)
+  A <- matrix(NA_real_, nrow = n + 1, ncol = n + 1)
+  B <- numeric(n + 1)
+  for (j in 0:n){
+    for (k in 0:n) {
+      A[j + 1, k + 1] <- sum(nodos^(j + k)) 
+    }
+    B[j + 1] <- sum(nodos^(j) * valores)
+  }
+  return(list(A = A, B = B))
+}
+```
+c)
+```{r}
+# Funcion para encontrar coeficientes del polinomio que surge del ajuste de minimos cuadrados y hacer el grafico del mismo
+ajuste.minimos.cuadrados <- function(nodos, valores, n, a, b){
+  stopifnot(is.numeric(nodos), is.numeric(valores),
+            length(nodos) == length(valores),
+            is.numeric(a), is.numeric(b), a < b,
+            is.numeric(n), n >= 0)
+  sistema <- sistema.minimos(nodos, valores, n)
+  
+  coef <- as.numeric(solve(sistema$A, sistema$B))
+  
+  # Polinomio ajustado
+  f_hat <- function(z) vapply(z, function(zz) sum(coef * zz^(0:n)), numeric(1))
+  
+  # Datos para el gráfico
+  xi <- seq(a, b, length.out = 400)
+  df_plot <- data.frame(x = xi, Hx = f_hat(xi))
+  df_pts  <- data.frame(x = nodos, y = valores)
+  
+  # Gráfico 
+  p <- ggplot(df_plot, aes(x = x)) +
+    geom_line(aes(y = Hx, color = "Ajuste (MC)"),
+              linewidth = 1, linetype = "dashed") +
+    scale_color_manual(values = c("Ajuste (MC)" = "red")) +
+    geom_point(data = df_pts, aes(x = x, y = y),
+               shape = 21, size = 3, fill = "white") +
+    labs(title = paste0("Interpolación por ajuste de\nmínimos cuadrados (grado ", n, ")"),
+         y = "Valor", color = "Serie") +
+    theme_minimal(base_size = 14)
+  
+  return(list(coeficientes = coef, f.ajuste = f_hat, grafico = p))
+}
+```
+d)
+```{r}
+nodos   <- c(4.0, 4.2, 4.5, 4.7, 5.1, 5.5, 5.9, 6.3, 6.8, 7.1)
+valores <- c(102.56, 113.18, 130.11, 142.05, 167.53, 195.14, 224.87, 256.73, 299.50, 326.72)
+n <- 3
+a <- min(nodos)
+b <- max(nodos)
+
+x <- ajuste.minimos.cuadrados(nodos, valores, n, a, b)
+x
+```
 
 
 # Ejercicio 18

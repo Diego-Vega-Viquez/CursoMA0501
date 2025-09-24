@@ -416,3 +416,51 @@ graficar.polinomio(c(-2, -1, 0, 1, 2), -2, 2, spline.natural, function(x) tanh(x
 graficar.polinomio(c(-2, -1, 0, 1, 2), -2, 2, spline.sujeto, f = function(x) tanh(x), derivadas.clamped = c(1/cosh(-2), 1/cosh(2)))
 
 
+sistema.minimos <- function(nodos, valores, n){
+  stopifnot(is.numeric(nodos), is.numeric(valores),
+            length(nodos) == length(valores),
+            is.numeric(n), n >= 0, n < length(nodos))
+  m <- length(nodos)
+  A <- matrix(NA_real_, nrow = n + 1, ncol = n + 1)
+  B <- numeric(n + 1)
+  for (j in 0:n){
+    for (k in 0:n) {
+      A[j + 1, k + 1] <- sum(nodos^(j + k)) 
+    }
+    B[j + 1] <- sum(nodos^(j) * valores)
+  }
+  return(list(A = A, B = B))
+}
+
+ajuste.minimos.cuadrados <- function(nodos, valores, n, a, b){
+  stopifnot(is.numeric(nodos), is.numeric(valores),
+            length(nodos) == length(valores),
+            is.numeric(a), is.numeric(b), a < b,
+            is.numeric(n), n >= 0)
+  sistema <- sistema.minimos(nodos, valores, n)
+  
+  coef <- as.numeric(solve(sistema$A, sistema$B))
+  
+  # Polinomio ajustado
+  f_hat <- function(z) vapply(z, function(zz) sum(coef * zz^(0:n)), numeric(1))
+  
+  # Datos para el gráfico
+  xi <- seq(a, b, length.out = 400)
+  df_plot <- data.frame(x = xi, Hx = f_hat(xi))
+  df_pts  <- data.frame(x = nodos, y = valores)
+  
+  # Gráfico 
+  p <- ggplot(df_plot, aes(x = x)) +
+    geom_line(aes(y = Hx, color = "Ajuste (MC)"),
+              linewidth = 1, linetype = "dashed") +
+    scale_color_manual(values = c("Ajuste (MC)" = "red")) +
+    geom_point(data = df_pts, aes(x = x, y = y),
+               shape = 21, size = 3, fill = "white") +
+    labs(title = paste0("Interpolación por ajuste de\nmínimos cuadrados (grado ", n, ")"),
+         y = "Valor", color = "Serie") +
+    theme_minimal(base_size = 14)
+  
+  print(p)
+  invisible(list(coeficientes = coef, f_ajuste = f_hat, grafico = p))
+}
+
