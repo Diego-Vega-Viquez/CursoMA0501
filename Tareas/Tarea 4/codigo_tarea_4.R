@@ -464,3 +464,43 @@ ajuste.minimos.cuadrados <- function(nodos, valores, n, a, b){
   invisible(list(coeficientes = coef, f_ajuste = f_hat, grafico = p))
 }
 
+
+sistema.minimos.integrados <- function(a, b, f, n){
+  A <- matrix(NA_real_, nrow = n + 1, ncol = n + 1)
+  B <- numeric(n + 1)
+  
+  for (j in 0:n) {
+    for (k in 0:n) {
+      A[j + 1, k + 1] <- integrate(function(x) x^(j + k), a, b)$value
+    }
+    B[j + 1] <- integrate(function(x) f(x) * x^j, a, b)$value
+  }
+  return(list(A = A, B = B))
+}
+
+ajuste.minimos.cuadrados.integrados <- function(a, b, f, n){
+  sistema <- sistema.minimos.integrados(a, b, f, n)
+  
+  coef <- as.numeric(solve(sistema$A, sistema$B))
+  
+  # Polinomio ajustado
+  f_hat <- function(z) vapply(z, function(zz) sum(coef * zz^(0:n)), numeric(1))
+  
+  # Datos para el gráfico
+  xi <- seq(a, b, length.out = 400)
+  df_plot <- data.frame(x = xi, Hx = f_hat(xi), fx = f(xi))
+
+  # Gráfico 
+  p <- ggplot(df_plot, aes(x = x)) +
+    geom_line(aes(y = fx, color = "Original"), linewidth = 1) +
+    geom_line(aes(y = Hx, color = "Ajuste (MC)"),
+              linewidth = 1, linetype = "dashed") +
+    scale_color_manual(values = c("Ajuste (MC)" = "red", "Original" = "blue")) +
+    labs(title = paste0("Interpolación por ajuste de\nmínimos cuadrados (grado ", n, ")"),
+         y = "Valor", color = "Serie") +
+    theme_minimal(base_size = 14)
+  
+  invisible(list(coeficientes = coef, f_ajuste = f_hat, grafico = p))
+}
+
+ajuste.minimos.cuadrados.integrados(-1,1, function(x) cos(pi * x),2)

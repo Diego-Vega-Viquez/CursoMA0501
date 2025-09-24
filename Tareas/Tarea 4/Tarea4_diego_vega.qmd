@@ -1514,6 +1514,71 @@ c) Encuentre la **aproximación polinómica** $\tilde P_n(x)$ de grado $2$, $4$ 
 
 **Solución**
 
+a)
+
+```{r}
+sistema.minimos.integrados <- function(a, b, f, n){
+  A <- matrix(NA_real_, nrow = n + 1, ncol = n + 1)
+  B <- numeric(n + 1)
+  
+  for (j in 0:n) {
+    for (k in 0:n) {
+      A[j + 1, k + 1] <- integrate(function(x) x^(j + k), a, b)$value
+    }
+    B[j + 1] <- integrate(function(x) f(x) * x^j, a, b)$value
+  }
+  return(list(A = A, B = B))
+}
+```
+b)
+```{r}
+ajuste.minimos.cuadrados.integrados <- function(a, b, f, n){
+  sistema <- sistema.minimos.integrados(a, b, f, n)
+  
+  coef <- as.numeric(solve(sistema$A, sistema$B))
+  
+  # Polinomio ajustado
+  f_hat <- function(z) vapply(z, function(zz) sum(coef * zz^(0:n)), numeric(1))
+  
+  # Datos para el gráfico
+  xi <- seq(a, b, length.out = 400)
+  df_plot <- data.frame(x = xi, Hx = f_hat(xi), fx = f(xi))
+
+  # Gráfico 
+  p <- ggplot(df_plot, aes(x = x)) +
+    geom_line(aes(y = fx, color = "Original"), linewidth = 1) +
+    geom_line(aes(y = Hx, color = "Ajuste (MC)"),
+              linewidth = 1, linetype = "dashed") +
+    scale_color_manual(values = c("Ajuste (MC)" = "red", "Original" = "blue")) +
+    labs(title = paste0("Interpolación por ajuste de\nmínimos cuadrados (grado ", n, ")"),
+         y = "Valor", color = "Serie") +
+    theme_minimal(base_size = 14)
+  
+  invisible(list(coeficientes = coef, f_ajuste = f_hat, grafico = p))
+}
+```
+c)
+
+```{r}
+grado.2 <- ajuste.minimos.cuadrados.integrados(-1,1, function(x) cos(pi * x),2)
+grado.4 <- ajuste.minimos.cuadrados.integrados(-1,1, function(x) cos(pi * x),4)
+grado.6 <- ajuste.minimos.cuadrados.integrados(-1,1, function(x) cos(pi * x),6)
+```
+```{r}
+# Coeficientes de P2
+print(grado.2$coeficientes)
+print(grado.2$grafico)
+
+# Coeficientes de P4
+print(grado.4$coeficientes)
+print(grado.4$grafico)
+
+# Coeficientes de P6
+print(grado.6$coeficientes)
+print(grado.6$grafico)
+```
+
+
 
 
 # Ejercicio 19
