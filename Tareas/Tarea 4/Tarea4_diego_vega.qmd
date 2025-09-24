@@ -1277,19 +1277,17 @@ sea el spline cúbico natural que coincide con la función $f(x)=|x|$ en los nod
 
 Una de las primeras condiciones que deben ocurrir es que $S_{-1}(-1) = 1$ y $S_0(1) = 1$
 
-$$
+\begin{equation*}
 \begin{cases}
   S_{-1}(-1) =-a + 1 - c = 1\\
   S_0(1) = b + 1 + d = 1
 \end{cases}
-
 \Longrightarrow
-
 \begin{cases}
   a = -c \\
   b = -d
 \end{cases}
-$$
+\end{equation*}
 
 Por otra parte, debe suceder que $S'_{-1}(0) = S'_0(0)$
 
@@ -1299,22 +1297,17 @@ $$
 
 Finalmente, se debe cumplir la condicion natural: $S''_{-1}(-1) = 0$ y $S''_0(1) = 0$
 
-$$
-\begin{cases}
+\begin{equation*}\begin{cases}
   6a(-1) + 2 = 0\\
   6b(1) + 2 = 0
 \end{cases}
-
-
 \Longrightarrow
-
 \begin{cases}
   a = 1/3\\
   b = -1/3
 \end{cases}
+\Longrightarrow a = -b \Rightarrow \Leftarrow\end{equation*}
 
-\Longrightarrow a = -b \Rightarrow \Leftarrow
-$$
 Por lo tanto, no existen $a,b,c,d$ tal que $S(x)$ sea el spline cubico natural de $|x|$ en los nodos $-1, 0, 1$
 
 # Ejercicio 15
@@ -1357,6 +1350,53 @@ $$
 **Solución**
 
 
+1) Condiciones de continuidad en $x=1$ (de $S$ y $S'$) y de empalme de $S''$:
+
+- Para $x\le 1$:  
+  $S_0(x)=3+x-9x^3,\;\; S_0'(x)=1-27x^2,\;\; S_0''(x)=-54x.$
+
+- Para $x\ge 1$:  
+  $S_1(x)=a+b(x-1)+c(x-1)^2+d(x-1)^3,$  
+  $S_1'(x)=b+2c(x-1)+3d(x-1)^2,$  
+  $S_1''(x)=2c+6d(x-1).$
+
+En $x=1$:
+\begin{align*}
+S_0(1)=3+1-9=-5 &\Rightarrow a=-5,\\
+S_0'(1)=1-27=-26 &\Rightarrow b=-26,\\
+S_0''(1)=-54 = 2c &\Rightarrow c=-27.
+\end{align*}
+
+2) Minimización de la energía de curvatura:
+$$
+J(d)=\int_{0}^{1}\!\big[S_0''(x)\big]^2 dx+\int_{1}^{2}\!\big[S_1''(x)\big]^2 dx.
+$$
+
+El primer término no depende de $d$:
+$$
+\int_{0}^{1}\!\big(-54x\big)^2 dx=\frac{54^2}{3}.
+$$
+
+Para el segundo, ponga $y=x-1\in[0,1]$, con $A=-54$ y $B=6d$:
+\begin{align*}
+\int_{1}^{2}\!\big(-54+6d(x-1)\big)^2 dx
+&=\int_{0}^{1} (A+By)^2 dy \\
+&= A^2 + AB + \frac{B^2}{3}
+= 2916 - 324d + 12d^2.
+\end{align*}
+
+Luego
+$$
+J(d)=\text{cte} + 12d^2 - 324d,
+\qquad
+J'(d)=24d-324=0 \Rightarrow d=\frac{324}{24}=13.5.
+$$
+
+**Resultado final:**  
+$$
+\boxed{\,a=-5,\quad b=-26,\quad c=-27,\quad d=13.5\,}
+$$
+$\blacksquare$
 
 # Ejercicio 17
 
@@ -1409,10 +1449,10 @@ Para encontrar el minimo de $E$, hay que derivarlo con respecto a cada uno de lo
 $$
 \dfrac{\partial E}{\partial a_j} = 2 \sum_{i = 1}^{m}{(y_i - \sum_{k = 0}^{n}{a_kx_i^k})\cdot \dfrac{-\partial}{\partial a_k}(\sum_{k = 0}^n{a_kx_i^k})}=0
 $$
+
 Note que $\dfrac{\partial}{\partial a_j}(\sum_{k = 0}^n{a_kx_i^k}) = x_i^j$
 
 $$
-
 \Rightarrow \dfrac{\partial E}{\partial a_j} = -2\cdot \sum_{i = 1}^m{(y_i - \sum_{k = 0}^n{a_kx_i^k})\cdot x_i^j} = 0 \\
 \Rightarrow -\sum_{i = 1}^m{y_ix_i^j} + \sum_{i = 1}^m \sum_{k = 0}^n {a_kx_i^{k+j}} = 0 \\
 \Rightarrow \sum_{k = 0}^n{a_k\sum_{i = 1}^m{x_i^{j+k}}} = \sum_{i = 1}^m{y_ix_i^j}
