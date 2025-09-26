@@ -1197,6 +1197,170 @@ $$
 **Solución**
 
 
+Partimos de la definición vista en clase del polinomio de Lagrange:
+
+$$
+L_k(x) = \prod_{\substack{j = 0 \\ j \ne k}}^n \frac{x - x_j}{x_k - x_j}
+$$
+
+Ahora definimos el polinomio:
+
+$$
+\psi(x) = \prod_{j=0}^n (x - x_j)
+$$
+
+Este se puede factorizar como:
+
+$$
+\psi(x) = (x - x_k) \prod_{\substack{j=0 \\ j \ne k}}^n (x - x_j)
+\quad \Rightarrow \quad
+\prod_{\substack{j=0 \\ j \ne k}}^n (x - x_j) = \frac{\psi(x)}{x - x_k}
+$$
+
+También observamos que la derivada de $\psi(x)$ evaluada en $x_k$ es:
+
+$$
+\psi'(x_k) = \prod_{\substack{j = 0 \\ j \ne k}}^n (x_k - x_j)
+$$
+
+::: {.callout-caution collapse="true" title="Demostración de $\psi'(x)$ por inducción"}
+
+Queremos probar que si definimos el polinomio:
+
+$$
+\psi(x) = \prod_{j=0}^n (x - x_j)
+$$
+
+entonces, para cualquier $k \in \{0, 1, \dots, n\}$, se cumple:
+
+$$
+\psi'(x_k) = \prod_{\substack{j=0 \\ j \ne k}}^n (x_k - x_j)
+$$
+
+Esta es la derivada del producto evaluada en uno de los nodos $x_k$. Usaremos **inducción matemática sobre $n$**.
+
+---
+
+**Paso base: $n = 1$**
+
+$$
+\psi(x) = (x - x_0)(x - x_1)
+$$
+
+Entonces su derivada es:
+
+$$
+\psi'(x) = (x - x_0)'(x - x_1) + (x - x_0)(x - x_1)' = (x - x_1) + (x - x_0)
+$$
+
+Evaluamos en $x = x_0$:
+
+$$
+\psi'(x_0) = (x_0 - x_1) + 0 = x_0 - x_1 = \prod_{\substack{j=0 \\ j \ne 0}}^1 (x_0 - x_j)
+$$
+
+Y en $x = x_1$:
+
+$$
+\psi'(x_1) = 0 + (x_1 - x_0) = x_1 - x_0 = \prod_{\substack{j=0 \\ j \ne 1}}^1 (x_1 - x_j)
+$$
+
+Por tanto, el paso base se cumple.
+
+---
+
+**Paso inductivo: suponer cierto para $n$, probar para $n+1$**
+
+Supongamos que para:
+
+$$
+\psi_n(x) = \prod_{j=0}^n (x - x_j)
+$$
+
+se cumple:
+
+$$
+\psi_n'(x_k) = \prod_{\substack{j=0 \\ j \ne k}}^n (x_k - x_j)
+$$
+
+Queremos probar que para:
+
+$$
+\psi_{n+1}(x) = \psi_n(x)(x - x_{n+1})
+$$
+
+se cumple:
+
+$$
+\psi_{n+1}'(x_k) = \prod_{\substack{j=0 \\ j \ne k}}^{n+1} (x_k - x_j)
+$$
+
+Aplicamos la derivada del producto:
+
+$$
+\psi_{n+1}'(x) = \psi_n'(x)(x - x_{n+1}) + \psi_n(x)
+$$
+
+Evaluamos en $x = x_k$ con $k \le n$. Como $\psi_n(x_k) = 0$ (por definición de raíz), el segundo término desaparece:
+
+$$
+\psi_{n+1}'(x_k) = \psi_n'(x_k)(x_k - x_{n+1})
+$$
+
+Por hipótesis inductiva:
+
+$$
+\psi_n'(x_k) = \prod_{\substack{j=0 \\ j \ne k}}^n (x_k - x_j)
+$$
+
+Entonces:
+
+$$
+\psi_{n+1}'(x_k) = \left( \prod_{\substack{j=0 \\ j \ne k}}^n (x_k - x_j) \right)(x_k - x_{n+1}) 
+= \prod_{\substack{j=0 \\ j \ne k}}^{n+1} (x_k - x_j)
+$$
+
+Lo cual demuestra que la fórmula también es válida para $n+1$.
+
+---
+
+**Conclusión:**
+
+Por el principio de inducción matemática, se cumple que:
+
+$$
+\boxed{
+\psi'(x_k) = \prod_{\substack{j=0 \\ j \ne k}}^n (x_k - x_j)
+}
+$$
+
+para todo $k \in \{0, 1, \dots, n\}$.
+
+:::
+
+ya que al derivar el producto total y evaluar en $x_k$, solo sobrevive el término en el que se deriva $(x - x_k)$.
+
+Sustituyendo todo en la fórmula original de $L_k(x)$:
+
+$$
+L_k(x) = \frac{\prod_{\substack{j = 0 \\ j \ne k}}^n (x - x_j)}{\prod_{\substack{j = 0 \\ j \ne k}}^n (x_k - x_j)}
+= \frac{\psi(x)}{(x - x_k)\psi'(x_k)}
+$$
+
+Esto completa la prueba de la fórmula para $L_k(x)$.
+
+Finalmente, como el polinomio interpolante de Lagrange se define como:
+
+$$
+p(x) = \sum_{k=0}^n f(x_k) L_k(x)
+$$
+
+entonces sustituyendo la expresión obtenida para $L_k(x)$:
+
+$$
+p(x) = \sum_{k=0}^n f(x_k) \frac{\psi(x)}{(x - x_k)\psi'(x_k)}
+= \psi(x) \sum_{k=0}^n \frac{f(x_k)}{(x - x_k)\psi'(x_k)}
+$$
 
 # Ejercicio 11
 
@@ -1217,7 +1381,6 @@ Además, se sabe que el error absoluto entre $f(x)$ y su interpolacion viene dad
 $|f(x) - P_n(x)| = |\dfrac{f^{(n+1)}(\psi_x)}{(n+1)!}(x - x_0)(x - x_1)\cdot\cdot\cdot(x-x_n)|$, con $\psi_x \in [a,b]$, donde $[a,b]$ es el intervalo donde estamos interpolando. 
 
 Juntando estas dos cosas, se concluye que $|f(x) - P_n(x)| = 0 \Rightarrow f(x) = P_n(x)$
-# Ejercicio 13
 
 # Ejercicio 12
 
@@ -1253,6 +1416,27 @@ d) Grafique $f(x)$, $P^\star(x)$, $P^{\star\star}(x)$ y $P^{\star\star\star}(x)$
 
 **Solución**
 
+# Ejercicio 13
+
+::: {.callout-note title="Instrucción del ejercicio 13"}
+
+Para las siguientes funciones:
+
+- $f(x)=3x^{2}\ln(x)+2x$ con nodos $x_{0}=1$, $x_{1}=1.5$, $x_{2}=2$, $x_{3}=2.5$ y $x_{4}=3$.
+- $f(x)=x^{2}\sin(x)-3\cos(x)$ con nodos $x_{0}=1$, $x_{1}=2$, $x_{2}=3$, $x_{3}=4$ y $x_{4}=5$.
+- $f(x)=x\cos(x)-2x^{2}+3x-1$ con nodos $x_{0}=1$, $x_{1}=2$, $x_{2}=3$, $x_{3}=4$ y $x_{4}=5$.
+
+a) Encuentre el polinomio de interpolación de Lagrange $P^\star(x)$ en los nodos indicados, grafique $f(x)$ y $P^\star(x)$ en el mismo plano.
+
+b) Encuentre el polinomio de interpolación usando Splines cúbicos $P^{\star\star}(x)$ en los nodos indicados, grafique $f(x)$ y $P^{\star\star}(x)$ en el mismo plano; luego imprima.
+
+c) Encuentre el polinomio de interpolación de Hermite $P^{\star\star\star}(x)$ en los nodos indicados, grafique $f(x)$ y $P^{\star\star\star}(x)$ en el mismo plano.
+
+d) Grafique $f(x)$, $P^\star(x)$, $P^{\star\star}(x)$ y $P^{\star\star\star}(x)$ en el mismo plano. ¿Qué se puede concluir?
+
+:::
+
+**Solución**
 
 
 # Ejercicio 14

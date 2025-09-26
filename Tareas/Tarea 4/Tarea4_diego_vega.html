@@ -3159,6 +3159,7 @@ window.Quarto = {
   <li><a href="#ejercicio-10" id="toc-ejercicio-10" class="nav-link" data-scroll-target="#ejercicio-10">Ejercicio 10</a></li>
   <li><a href="#ejercicio-11" id="toc-ejercicio-11" class="nav-link" data-scroll-target="#ejercicio-11">Ejercicio 11</a></li>
   <li><a href="#ejercicio-12" id="toc-ejercicio-12" class="nav-link" data-scroll-target="#ejercicio-12">Ejercicio 12</a></li>
+  <li><a href="#ejercicio-13" id="toc-ejercicio-13" class="nav-link" data-scroll-target="#ejercicio-13">Ejercicio 13</a></li>
   <li><a href="#ejercicio-14" id="toc-ejercicio-14" class="nav-link" data-scroll-target="#ejercicio-14">Ejercicio 14</a></li>
   <li><a href="#ejercicio-15" id="toc-ejercicio-15" class="nav-link" data-scroll-target="#ejercicio-15">Ejercicio 15</a></li>
   <li><a href="#ejercicio-16" id="toc-ejercicio-16" class="nav-link" data-scroll-target="#ejercicio-16">Ejercicio 16</a></li>
@@ -3193,7 +3194,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Fecha de publicación</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">24 de septiembre de 2025</p>
+      <p class="date">25 de septiembre de 2025</p>
     </div>
   </div>
   
@@ -4585,6 +4586,127 @@ p(x) = \psi(x) \sum_{k=0}^n \frac{f(x_k)}{(x - x_k)\psi&#39;(x_k)}.
 </div>
 </div>
 <p><strong>Solución</strong></p>
+<p>Partimos de la definición vista en clase del polinomio de Lagrange:</p>
+<p><span class="math display">
+L_k(x) = \prod_{\substack{j = 0 \\ j \ne k}}^n \frac{x - x_j}{x_k - x_j}
+</span></p>
+<p>Ahora definimos el polinomio:</p>
+<p><span class="math display">
+\psi(x) = \prod_{j=0}^n (x - x_j)
+</span></p>
+<p>Este se puede factorizar como:</p>
+<p><span class="math display">
+\psi(x) = (x - x_k) \prod_{\substack{j=0 \\ j \ne k}}^n (x - x_j)
+\quad \Rightarrow \quad
+\prod_{\substack{j=0 \\ j \ne k}}^n (x - x_j) = \frac{\psi(x)}{x - x_k}
+</span></p>
+<p>También observamos que la derivada de <span class="math inline">\psi(x)</span> evaluada en <span class="math inline">x_k</span> es:</p>
+<p><span class="math display">
+\psi&#39;(x_k) = \prod_{\substack{j = 0 \\ j \ne k}}^n (x_k - x_j)
+</span></p>
+<div class="callout callout-style-default callout-caution callout-titled" title="Demostración de $\psi&#39;(x)$ por inducción">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Demostración de <span class="math inline">\psi&#39;(x)</span> por inducción
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Queremos probar que si definimos el polinomio:</p>
+<p><span class="math display">
+\psi(x) = \prod_{j=0}^n (x - x_j)
+</span></p>
+<p>entonces, para cualquier <span class="math inline">k \in \{0, 1, \dots, n\}</span>, se cumple:</p>
+<p><span class="math display">
+\psi&#39;(x_k) = \prod_{\substack{j=0 \\ j \ne k}}^n (x_k - x_j)
+</span></p>
+<p>Esta es la derivada del producto evaluada en uno de los nodos <span class="math inline">x_k</span>. Usaremos <strong>inducción matemática sobre <span class="math inline">n</span></strong>.</p>
+<hr>
+<p><strong>Paso base: <span class="math inline">n = 1</span></strong></p>
+<p><span class="math display">
+\psi(x) = (x - x_0)(x - x_1)
+</span></p>
+<p>Entonces su derivada es:</p>
+<p><span class="math display">
+\psi&#39;(x) = (x - x_0)&#39;(x - x_1) + (x - x_0)(x - x_1)&#39; = (x - x_1) + (x - x_0)
+</span></p>
+<p>Evaluamos en <span class="math inline">x = x_0</span>:</p>
+<p><span class="math display">
+\psi&#39;(x_0) = (x_0 - x_1) + 0 = x_0 - x_1 = \prod_{\substack{j=0 \\ j \ne 0}}^1 (x_0 - x_j)
+</span></p>
+<p>Y en <span class="math inline">x = x_1</span>:</p>
+<p><span class="math display">
+\psi&#39;(x_1) = 0 + (x_1 - x_0) = x_1 - x_0 = \prod_{\substack{j=0 \\ j \ne 1}}^1 (x_1 - x_j)
+</span></p>
+<p>Por tanto, el paso base se cumple.</p>
+<hr>
+<p><strong>Paso inductivo: suponer cierto para <span class="math inline">n</span>, probar para <span class="math inline">n+1</span></strong></p>
+<p>Supongamos que para:</p>
+<p><span class="math display">
+\psi_n(x) = \prod_{j=0}^n (x - x_j)
+</span></p>
+<p>se cumple:</p>
+<p><span class="math display">
+\psi_n&#39;(x_k) = \prod_{\substack{j=0 \\ j \ne k}}^n (x_k - x_j)
+</span></p>
+<p>Queremos probar que para:</p>
+<p><span class="math display">
+\psi_{n+1}(x) = \psi_n(x)(x - x_{n+1})
+</span></p>
+<p>se cumple:</p>
+<p><span class="math display">
+\psi_{n+1}&#39;(x_k) = \prod_{\substack{j=0 \\ j \ne k}}^{n+1} (x_k - x_j)
+</span></p>
+<p>Aplicamos la derivada del producto:</p>
+<p><span class="math display">
+\psi_{n+1}&#39;(x) = \psi_n&#39;(x)(x - x_{n+1}) + \psi_n(x)
+</span></p>
+<p>Evaluamos en <span class="math inline">x = x_k</span> con <span class="math inline">k \le n</span>. Como <span class="math inline">\psi_n(x_k) = 0</span> (por definición de raíz), el segundo término desaparece:</p>
+<p><span class="math display">
+\psi_{n+1}&#39;(x_k) = \psi_n&#39;(x_k)(x_k - x_{n+1})
+</span></p>
+<p>Por hipótesis inductiva:</p>
+<p><span class="math display">
+\psi_n&#39;(x_k) = \prod_{\substack{j=0 \\ j \ne k}}^n (x_k - x_j)
+</span></p>
+<p>Entonces:</p>
+<p><span class="math display">
+\psi_{n+1}&#39;(x_k) = \left( \prod_{\substack{j=0 \\ j \ne k}}^n (x_k - x_j) \right)(x_k - x_{n+1})
+= \prod_{\substack{j=0 \\ j \ne k}}^{n+1} (x_k - x_j)
+</span></p>
+<p>Lo cual demuestra que la fórmula también es válida para <span class="math inline">n+1</span>.</p>
+<hr>
+<p><strong>Conclusión:</strong></p>
+<p>Por el principio de inducción matemática, se cumple que:</p>
+<p><span class="math display">
+\boxed{
+\psi&#39;(x_k) = \prod_{\substack{j=0 \\ j \ne k}}^n (x_k - x_j)
+}
+</span></p>
+<p>para todo <span class="math inline">k \in \{0, 1, \dots, n\}</span>.</p>
+</div>
+</div>
+</div>
+<p>ya que al derivar el producto total y evaluar en <span class="math inline">x_k</span>, solo sobrevive el término en el que se deriva <span class="math inline">(x - x_k)</span>.</p>
+<p>Sustituyendo todo en la fórmula original de <span class="math inline">L_k(x)</span>:</p>
+<p><span class="math display">
+L_k(x) = \frac{\prod_{\substack{j = 0 \\ j \ne k}}^n (x - x_j)}{\prod_{\substack{j = 0 \\ j \ne k}}^n (x_k - x_j)}
+= \frac{\psi(x)}{(x - x_k)\psi&#39;(x_k)}
+</span></p>
+<p>Esto completa la prueba de la fórmula para <span class="math inline">L_k(x)</span>.</p>
+<p>Finalmente, como el polinomio interpolante de Lagrange se define como:</p>
+<p><span class="math display">
+p(x) = \sum_{k=0}^n f(x_k) L_k(x)
+</span></p>
+<p>entonces sustituyendo la expresión obtenida para <span class="math inline">L_k(x)</span>:</p>
+<p><span class="math display">
+p(x) = \sum_{k=0}^n f(x_k) \frac{\psi(x)}{(x - x_k)\psi&#39;(x_k)}
+= \psi(x) \sum_{k=0}^n \frac{f(x_k)}{(x - x_k)\psi&#39;(x_k)}
+</span></p>
 </section>
 <section id="ejercicio-11" class="level1">
 <h1>Ejercicio 11</h1>
@@ -4606,7 +4728,7 @@ Instrucción del ejercicio 11
 <p>Note que <span class="math inline">f^{(n+1)}(x) = 0</span>, pues es un polinomio de grado menor o igual a n. </p>
 <p>Además, se sabe que el error absoluto entre <span class="math inline">f(x)</span> y su interpolacion viene dado por:</p>
 <p><span class="math inline">|f(x) - P_n(x)| = |\dfrac{f^{(n+1)}(\psi_x)}{(n+1)!}(x - x_0)(x - x_1)\cdot\cdot\cdot(x-x_n)|</span>, con <span class="math inline">\psi_x \in [a,b]</span>, donde <span class="math inline">[a,b]</span> es el intervalo donde estamos interpolando.</p>
-<p>Juntando estas dos cosas, se concluye que <span class="math inline">|f(x) - P_n(x)| = 0 \Rightarrow f(x) = P_n(x)</span> # Ejercicio 13</p>
+<p>Juntando estas dos cosas, se concluye que <span class="math inline">|f(x) - P_n(x)| = 0 \Rightarrow f(x) = P_n(x)</span></p>
 </section>
 <section id="ejercicio-12" class="level1">
 <h1>Ejercicio 12</h1>
@@ -4646,6 +4768,34 @@ Instrucción del ejercicio 13
 <ol type="a">
 <li><p>Encuentre el polinomio de interpolación de Lagrange <span class="math inline">P^\star(x)</span> en los nodos indicados, grafique <span class="math inline">f(x)</span> y <span class="math inline">P^\star(x)</span> en el mismo plano.</p></li>
 <li><p>Encuentre el polinomio de interpolación usando Splines cúbicos <span class="math inline">P^{\star\star}(x)</span> en los nodos indicados, grafique <span class="math inline">f(x)</span> y <span class="math inline">P^{\star\star}(x)</span> en el mismo plano, luego imprima.</p></li>
+<li><p>Encuentre el polinomio de interpolación de Hermite <span class="math inline">P^{\star\star\star}(x)</span> en los nodos indicados, grafique <span class="math inline">f(x)</span> y <span class="math inline">P^{\star\star\star}(x)</span> en el mismo plano.</p></li>
+<li><p>Grafique <span class="math inline">f(x)</span>, <span class="math inline">P^\star(x)</span>, <span class="math inline">P^{\star\star}(x)</span> y <span class="math inline">P^{\star\star\star}(x)</span> en el mismo plano. ¿Qué se puede concluir?</p></li>
+</ol>
+</div>
+</div>
+<p><strong>Solución</strong></p>
+</section>
+<section id="ejercicio-13" class="level1">
+<h1>Ejercicio 13</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="Instrucción del ejercicio 13">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Instrucción del ejercicio 13
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Para las siguientes funciones:</p>
+<ul>
+<li><span class="math inline">f(x)=3x^{2}\ln(x)+2x</span> con nodos <span class="math inline">x_{0}=1</span>, <span class="math inline">x_{1}=1.5</span>, <span class="math inline">x_{2}=2</span>, <span class="math inline">x_{3}=2.5</span> y <span class="math inline">x_{4}=3</span>.</li>
+<li><span class="math inline">f(x)=x^{2}\sin(x)-3\cos(x)</span> con nodos <span class="math inline">x_{0}=1</span>, <span class="math inline">x_{1}=2</span>, <span class="math inline">x_{2}=3</span>, <span class="math inline">x_{3}=4</span> y <span class="math inline">x_{4}=5</span>.</li>
+<li><span class="math inline">f(x)=x\cos(x)-2x^{2}+3x-1</span> con nodos <span class="math inline">x_{0}=1</span>, <span class="math inline">x_{1}=2</span>, <span class="math inline">x_{2}=3</span>, <span class="math inline">x_{3}=4</span> y <span class="math inline">x_{4}=5</span>.</li>
+</ul>
+<ol type="a">
+<li><p>Encuentre el polinomio de interpolación de Lagrange <span class="math inline">P^\star(x)</span> en los nodos indicados, grafique <span class="math inline">f(x)</span> y <span class="math inline">P^\star(x)</span> en el mismo plano.</p></li>
+<li><p>Encuentre el polinomio de interpolación usando Splines cúbicos <span class="math inline">P^{\star\star}(x)</span> en los nodos indicados, grafique <span class="math inline">f(x)</span> y <span class="math inline">P^{\star\star}(x)</span> en el mismo plano; luego imprima.</p></li>
 <li><p>Encuentre el polinomio de interpolación de Hermite <span class="math inline">P^{\star\star\star}(x)</span> en los nodos indicados, grafique <span class="math inline">f(x)</span> y <span class="math inline">P^{\star\star\star}(x)</span> en el mismo plano.</p></li>
 <li><p>Grafique <span class="math inline">f(x)</span>, <span class="math inline">P^\star(x)</span>, <span class="math inline">P^{\star\star}(x)</span> y <span class="math inline">P^{\star\star\star}(x)</span> en el mismo plano. ¿Qué se puede concluir?</p></li>
 </ol>
@@ -4961,8 +5111,8 @@ E=\sum_{i=1}^{m}\big(y_i-P_n(x_i)\big)^2.
 $f.ajuste
 function (z) 
 vapply(z, function(zz) sum(coef * zz^(0:n)), numeric(1))
-&lt;bytecode: 0x11dceba90&gt;
-&lt;environment: 0x11d5ff888&gt;
+&lt;bytecode: 0x134c65ee8&gt;
+&lt;environment: 0x132d79138&gt;
 
 $grafico</code></pre>
 </div>
