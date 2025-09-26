@@ -1223,6 +1223,8 @@ $$
 \psi'(x_k) = \prod_{\substack{j = 0 \\ j \ne k}}^n (x_k - x_j)
 $$
 
+ya que al derivar el producto total y evaluar en $x_k$, solo sobrevive el término en el que se deriva $(x - x_k)$.
+
 ::: {.callout-caution collapse="true" title="Demostración de $\psi'(x)$ por inducción"}
 
 Queremos probar que si definimos el polinomio:
@@ -1338,12 +1340,10 @@ para todo $k \in \{0, 1, \dots, n\}$.
 
 :::
 
-ya que al derivar el producto total y evaluar en $x_k$, solo sobrevive el término en el que se deriva $(x - x_k)$.
-
 Sustituyendo todo en la fórmula original de $L_k(x)$:
 
 $$
-L_k(x) = \frac{\prod_{\substack{j = 0 \\ j \ne k}}^n (x - x_j)}{\prod_{\substack{j = 0 \\ j \ne k}}^n (x_k - x_j)}
+L_k(x) = \frac{\prod\limits_{\substack{j = 0 \\ j \ne k}}^n (x - x_j)}{\prod\limits_{\substack{j = 0 \\ j \ne k}}^n (x_k - x_j)}
 = \frac{\psi(x)}{(x - x_k)\psi'(x_k)}
 $$
 
@@ -1438,6 +1438,165 @@ d) Grafique $f(x)$, $P^\star(x)$, $P^{\star\star}(x)$ y $P^{\star\star\star}(x)$
 
 **Solución**
 
+Preparación
+```{r}
+#| code-fold: true
+
+# Funciones 
+f1 <- function(x) 3 * x^2 * log(x) + 2 * x
+f2 <- function(x) x^2 * sin(x) - 3 * cos(x)
+f3 <- function(x) x * cos(x) - 2 * x^2 + 3 * x - 1
+
+# Derivadas 
+df1 <- function(x) 6 * x * log(x) + 3 * x + 2
+df2 <- function(x) 2 * x * sin(x) + x^2 * cos(x) + 3 * sin(x)
+df3 <- function(x) cos(x) - x * sin(x) - 4 * x + 3
+```
+
+a)
+
+```{r}
+#| code-fold: true
+#| fig-cap: "Interpolación de Lagrange - Función 1"
+graficar.polinomio(c(1, 1.5, 2, 2.5, 3), 1, 3, lagrange.newton, f = f1)
+```
+```{r}
+#| code-fold: true
+#| fig-cap: "Interpolación de Lagrange - Función 2"
+graficar.polinomio(c(1, 2, 3, 4, 5), 1, 5, lagrange.newton, f = f2)
+```
+```{r}
+#| code-fold: true
+#| fig-cap: "Interpolación de Lagrange - Función 3"
+graficar.polinomio(c(1, 2, 3, 4, 5), 1, 5, lagrange.newton, f = f3)
+```
+b)
+```{r}
+#| code-fold: true
+#| fig-cap: "Interpolación por Splines naturales - Función 1"
+graficar.polinomio(c(1, 1.5, 2, 2.5, 3), 1, 3, spline.natural, f = f1)
+```
+```{r}
+#| code-fold: true
+#| fig-cap: "Interpolación por Splines naturales - Función 2"
+graficar.polinomio(c(1, 2, 3, 4, 5), 1, 5, spline.natural, f = f2)
+```
+```{r}
+#| code-fold: true
+#| fig-cap: "Interpolación por Splines naturales - Función 3"
+graficar.polinomio(c(1, 2, 3, 4, 5), 1, 5, spline.natural, f = f3)
+```
+c)
+```{r}
+#| code-fold: true
+#| fig-cap: "Interpolación de Hermite - Función 1"
+graficar.polinomio(c(1, 1.5, 2, 2.5, 3), 1, 3, hermite.newton, f = f1, df = df1)
+```
+```{r}
+#| code-fold: true
+#| fig-cap: "Interpolación de Hermite - Función 2"
+graficar.polinomio(c(1, 2, 3, 4, 5), 1, 5, hermite.newton, f = f2, df = df2)
+```
+```{r}
+#| code-fold: true
+#| fig-cap: "Interpolación de Hermite - Función 3"
+graficar.polinomio(c(1, 2, 3, 4, 5), 1, 5, hermite.newton, f = f3, df = df3)
+```
+d)
+```{r}
+#| code-fold: true
+#| fig-cap: "Comparación de métodos - Función 1"
+nodos1 <- c(1, 1.5, 2, 2.5, 3)
+valores1 <- f1(nodos1)
+derivadas1 <- df1(nodos1)
+
+xi <- seq(1, 3, length.out = 400)
+df_comp1 <- tibble(
+  x = xi,
+  `f(x)` = f1(xi),
+  Lagrange = vapply(xi, function(x) lagrange.newton(nodos1, valores1, x)$valor, numeric(1)),
+  Hermite = vapply(xi, function(x) hermite.newton(nodos1, valores1, derivadas1, x)$valor, numeric(1)),
+  Splines = vapply(xi, function(x) spline.natural(nodos1, valores1, x)$valor, numeric(1))
+) |> pivot_longer(-x, names_to = "Método", values_to = "y")
+
+ggplot(df_comp1, aes(x = x, y = y, color = Método)) +
+  geom_line(linewidth = 1) +
+  geom_point(data = tibble(x = nodos1, y = valores1), 
+             aes(x = x, y = y, color = "Nodos"), 
+             shape = 21, fill = "white", size = 2) +
+  labs(title = "Comparación de métodos de interpolación - Función 1") +
+  theme_minimal(base_size = 14)
+```
+```{r}
+#| code-fold: true
+#| fig-cap: "Comparación de métodos de interpolación - Función 2"
+
+nodos2 <- c(1, 2, 3, 4, 5)
+valores2 <- f2(nodos2)
+derivadas2 <- df2(nodos2)
+
+xi2 <- seq(1, 5, length.out = 400)
+df_comp2 <- tibble(
+  x = xi2,
+  `f(x)` = f2(xi2),
+  Lagrange = vapply(xi2, function(x) lagrange.newton(nodos2, valores2, x)$valor, numeric(1)),
+  Hermite = vapply(xi2, function(x) hermite.newton(nodos2, valores2, derivadas2, x)$valor, numeric(1)),
+  Splines = vapply(xi2, function(x) spline.natural(nodos2, valores2, x)$valor, numeric(1))
+) |> pivot_longer(-x, names_to = "Método", values_to = "y")
+
+ggplot(df_comp2, aes(x = x, y = y, color = Método)) +
+  geom_line(linewidth = 1) +
+  geom_point(data = tibble(x = nodos2, y = valores2),
+             aes(x = x, y = y, color = "Nodos"),
+             shape = 21, fill = "white", size = 2) +
+  labs(title = "Comparación de métodos de interpolación - Función 2") +
+  theme_minimal(base_size = 14)
+```
+
+```{r}
+#| code-fold: true
+#| fig-cap: "Comparación de métodos de interpolación - Función 3"
+
+nodos3 <- c(1, 2, 3, 4, 5)
+valores3 <- f3(nodos3)
+derivadas3 <- df3(nodos3)
+
+xi3 <- seq(1, 5, length.out = 400)
+df_comp3 <- tibble(
+  x = xi3,
+  `f(x)` = f3(xi3),
+  Lagrange = vapply(xi3, function(x) lagrange.newton(nodos3, valores3, x)$valor, numeric(1)),
+  Hermite = vapply(xi3, function(x) hermite.newton(nodos3, valores3, derivadas3, x)$valor, numeric(1)),
+  Splines = vapply(xi3, function(x) spline.natural(nodos3, valores3, x)$valor, numeric(1))
+) |> pivot_longer(-x, names_to = "Método", values_to = "y")
+
+ggplot(df_comp3, aes(x = x, y = y, color = Método)) +
+  geom_line(linewidth = 1) +
+  geom_point(data = tibble(x = nodos3, y = valores3),
+             aes(x = x, y = y, color = "Nodos"),
+             shape = 21, fill = "white", size = 2) +
+  labs(title = "Comparación de métodos de interpolación - Función 3") +
+  theme_minimal(base_size = 14)
+```
+**¿Conclusion?**
+
+Función 1: $f(x) = 3x^2 \ln(x) + 2x$
+
+- Los tres métodos coinciden visualmente con la función original.
+- La función es suave y bien comportada en $[1, 3]$, y los nodos están bien distribuidos.
+- **Todos los métodos son adecuados**; no hay oscilaciones ni errores notables.
+
+Función 2: $f(x) = x^2 \sin(x) - 3\cos(x)$
+
+- Se observan diferencias leves entre Lagrange y los otros métodos, especialmente en los extremos.
+- **Hermite y Splines** ofrecen mejor ajuste, aprovechando la información de derivadas o la suavidad estructural.
+- **Lagrange tiende a oscilar más** en funciones con más curvatura.
+
+Función 3: $f(x) = x\cos(x) - 2x^2 + 3x - 1$
+
+- Los tres métodos coinciden perfectamente con la función en el intervalo.
+- La función es suave y casi polinómica, lo que facilita la interpolación.
+- **Todos los métodos funcionan bien en este caso**.
 
 # Ejercicio 14
 
