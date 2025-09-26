@@ -754,7 +754,7 @@ $$
 \qquad
 \|x\|_2 := \left( \sum_{i=1}^n |x_i|^2 \right)^{1/2}, 
 \qquad
-\|x\|_\infty := \max_{i=1,2,\ldots,n} |x_i|,
+\|x\|_\infty := \max\limits_{i=1,2,\ldots,n} |x_i|,
 $$
 
 para $x = (x_1, x_2, \ldots, x_n)^t$.
@@ -944,7 +944,7 @@ $$
 
 Como $x_{\nu}$ es una sucesión acotada y usando la norma
 $$
-\|x_{\nu}\|_{\infty B} := \max_{j=1,2,\ldots,n} |\alpha_{j\nu}|,
+\|x_{\nu}\|_{\infty B} := \max\limits_{j=1,2,\ldots,n} |\alpha_{j\nu}|,
 $$
 se tiene que cada una de las sucesiones $(\alpha_{j\nu})$ es acotada en $\mathbb{C}$ para cada $j=1,2,\ldots,n$.  
 
@@ -1179,7 +1179,7 @@ Un espacio pre–Hilbert se llama **espacio de Hilbert** si este es un espacio c
 El espacio vectorial $C[a,b]$ provisto con la norma:
 
 $$
-\|f\|_\infty := \max_{x \in [a,b]} |f(x)|
+\|f\|_\infty := \max\limits_{x \in [a,b]} |f(x)|
 $$
 
 es un espacio de Banach.
@@ -1348,7 +1348,7 @@ $$
 usando el Teorema 1 se tiene que existe un $C > 0$ tal que:  
 
 $$
-\max_{j=1,2,\ldots,n} |\alpha_{j\nu} - \alpha_{j\mu}| \leq C \, \| x_\nu - x_\mu \|
+\max\limits_{j=1,2,\ldots,n} |\alpha_{j\nu} - \alpha_{j\mu}| \leq C \, \| x_\nu - x_\mu \|
 $$
 
 para todo $\nu, \mu \in \mathbb{N}$.
@@ -1535,7 +1535,7 @@ Por lo que para todo $x \in [-1,1]$ se tiene que $f(x) \in [-1,1]$, o sea que $f
 
 Para probar la unicidad, por el teorema del valor medio la constante $L$ de Lipschitz está dada por:
 $$
-L = \max_{x \in [-1,1]} |f'(x)| = \max_{x \in [-1,1]} \left|\frac{x-1}{3}\right| 
+L = \max\limits_{x \in [-1,1]} |f'(x)| = \max\limits_{x \in [-1,1]} \left|\frac{x-1}{3}\right| 
 = \left|\frac{-1-1}{3}\right| = \frac{2}{3} < 1.
 $$
 
@@ -2166,8 +2166,8 @@ $$
 Como $f$ es continuamente diferenciable, tome:
 
 $$
-q = \max_{x \in A} \, \big| f'(x) \big| 
-   = \max_{x \in A} \, \big| -e^{-x} \big| 
+q = \max\limits_{x \in A} \, \big| f'(x) \big| 
+   = \max\limits_{x \in A} \, \big| -e^{-x} \big| 
    \approx 0.606531 < 1
 $$
 
@@ -4220,7 +4220,7 @@ La idea del polinomio de Hermite (que es un caso particular de los polinomios os
 
 - Sean $x_0, x_1, \ldots, x_n$, $n + 1$ nodos distintos en $[a,b]$.
 - Sea $m_i$ un entero no negativo, con $m_i$ asociado a $x_i$; para $i = 0,1,\ldots,n$.
-- Sea $m = \max_{0 \leq i \leq n} m_i$.
+- Sea $m = \max\limits_{0 \leq i \leq n} m_i$.
 - Sea $f \in C^m[a,b]$.
 
 Entonces el **Polinomio Osculante** que aproxima a $f$ es el polinomio de grado menor tal que:

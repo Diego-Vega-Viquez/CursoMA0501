@@ -1990,3 +1990,91 @@ $$
 :::
 
 **Solución**
+
+a) Suponga que existe otro polinomio $P(x)$ que también satisface las $2(n+1)$
+condiciones de interpolación de Hermite en $x_0,\dots,x_n$.  
+Considere
+$$
+D(x)=H_{2n+1}(x)-P(x).
+$$
+
+  1. Como $H_{2n+1}$ y $P$ coinciden en valores y derivadas en cada nodo,
+     $$D(x_i)=0\quad\text{y}\quad D'(x_i)=0,\qquad i=0,\dots,n.$$
+     Por lo tanto, cada $x_i$ es una raíz de $D$ con multiplicidad al menos $2$.
+  
+  2. Luego $D$ tiene al menos $2(n+1)$ ceros **contando multiplicidades**.
+     Pero $$\deg D \le \max\{\deg H_{2n+1},\deg P\}\le 2n+1$$
+  
+  3. El Teorema Fundamental del Álgebra (contando multiplicidades) implica que
+     un polinomio no nulo de grado $\le 2n+1$ no puede tener $2(n+1)$ raíces.  
+     La única posibilidad es $D\equiv 0$.
+
+Así, $H_{2n+1}(x)\equiv P(x)$ y el polinomio de Hermite es único. 
+
+$\blacksquare$
+
+::: {.callout-important collapse="true" title="Comentario"}
+La hipótesis de que los nodos $x_0,\dots,x_n$ son **distintos** es esencial:
+garantiza que las $2(n+1)$ condiciones (valores y derivadas) son independientes.
+Si algunas coincidieran, la formulación correcta requiere multiplicidades
+adecuadas (nodos repetidos) y el argumento se adapta contando esas multiplicidades.
+:::
+
+b)
+Defina el polinomio nodal
+$$
+\omega(t)=\prod_{i=0}^{n}(t-x_i)^2,
+\qquad \omega(x)=\prod_{i=0}^{n}(x-x_i)^2\neq 0 \ \ (x\ne x_i).
+$$
+Considere, para $t\in[a,b]$,
+
+$$
+g(t) = f(t) - H_{2n+1}(t) - \frac{\omega(t)}{\omega(x)} \, [ f(x) - H_{2n+1}(x) ].
+$$ {#eq-hola}
+
+  1) Zeros de $g$ y $g'$ en los nodos
+  
+    Para cada $i$, como $H_{2n+1}$ interpola valores y derivadas,
+  $$
+  f(x_i)-H_{2n+1}(x_i)=0,\qquad f'(x_i)-H'_{2n+1}(x_i)=0.
+  $$
+    Además, $\omega(x_i)=0$ y $\omega'(x_i)=0$ (raíz doble). Sustituyendo en (1) se obtiene
+  $$
+  g(x_i)=0,\qquad g'(x_i)=0,\qquad i=0,\dots,n.
+  $$
+  
+  2) Cero adicional en $t=x$.
+  De @eq-hola se ve directamente que $g(x)=0$.
+  
+  3) Aplicación de Rolle generalizado (con multiplicidades).
+  La función $g$ es $C^{2n+2}$ y tiene $2(n+1)$ ceros en
+  $x_0,\dots,x_n$ (por multiplicidad doble) más un cero en $x$.
+  Por el Teorema Generalizado de Rolle, existe $\xi\in(a,b)$ tal que
+  $$
+  g^{(2n+2)}(\xi)=0. 
+  $${#eq-holdasa}
+  
+  4) Cálculo de la derivada $(2n+2)$-ésima.
+  Derivando @eq-hola $2n+2$ veces,
+  el término $H_{2n+1}$ desaparece (su grado $\le 2n+1$),
+  y como $\omega$ es un polinomio mónico de grado $2n+2$,
+  $$
+  \frac{d^{\,2n+2}}{dt^{2n+2}}\omega(t)=(2n+2)!.
+  $$
+Así,
+$$
+g^{(2n+2)}(t)=f^{(2n+2)}(t)
+-\frac{(2n+2)!}{\omega(x)}\,[\,f(x)-H_{2n+1}(x)\,].
+$$
+Evaluando en $\xi$ y usando @eq-holdasa,
+$$
+0=f^{(2n+2)}(\xi)
+-\frac{(2n+2)!}{\omega(x)}\,[\,f(x)-H_{2n+1}(x)\,],
+$$
+de donde
+$$
+f(x)-H_{2n+1}(x)=\frac{f^{(2n+2)}(\xi)}{(2n+2)!}\,\omega(x)
+=\frac{f^{(2n+2)}(\xi)}{(2n+2)!}\prod_{i=0}^{n}(x-x_i)^2.
+$$
+
+$\blacksquare$
