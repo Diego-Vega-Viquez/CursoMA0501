@@ -990,6 +990,7 @@ Aproxime $f(0.5)$ usando el procedimiento **Neville**.
 **Solución**
 
 ```{r}
+#| code-fold: true
 neville(c(0.2, 0.4, 0.6, 0.8, 1.0), c(0.9798652, 0.9177710, 0.8080348, 0.6386093, 0.3843735), 0.5)
 ```
 
@@ -1012,6 +1013,7 @@ c) Compare el error real en (a) y (b) con la cota del error teórica según los 
 
 a)
 ```{r}
+#| code-fold: true
 f <- function(x) 3*x*exp(x) - exp(2*x)
 nodos <- c(1, 1.05, 1.07)
 valores <- f(nodos)
@@ -1021,6 +1023,7 @@ valor.a
 ```
 b)
 ```{r}
+#| code-fold: true
 nodos <- c(nodos, 1.04)
 valores <- f(nodos)
 
@@ -1029,6 +1032,7 @@ valor.b
 ```
 c) 
 ```{r}
+#| code-fold: true
 error.real.a <- abs(valor.a-f(1.03))
 error.real.a
 
@@ -1055,10 +1059,6 @@ error.teorico.a
 error.teorico.b
 ```
 
-
-
-
-
 # Ejercicio 6
 
 ::: {.callout-note title="Instrucción del ejercicio 6"}
@@ -1071,6 +1071,7 @@ Repita el ejercicio anterior usando el polinomio de interpolación de Hermite, c
 
 a)
 ```{r}
+#| code-fold: true
 f <- function(x) 3*x*exp(x) - exp(2*x)
 df <- function(x) 3*x*exp(x) + 3*exp(x) -2*exp(2*x)
 nodos <- c(1, 1.05, 1.07)
@@ -1082,6 +1083,7 @@ valor.a
 ```
 b)
 ```{r}
+#| code-fold: true
 nodos <- c(nodos, 1.04)
 valores <- f(nodos)
 derivadas <- df(nodos)
@@ -1089,17 +1091,36 @@ derivadas <- df(nodos)
 valor.b <- hermite.newton(nodos, valores, derivadas, 1.03)$valor
 valor.b
 ```
-c) **FALTA METER ERROR TEORICO**
+c) 
 ```{r}
+#| code-fold: true
 error.real.a <- abs(valor.a-f(1.03))
 error.real.a
 
 error.real.b <- abs(valor.b-f(1.03))
 error.real.b
 
-# FALTA METER ERROR TEORICO
+
+grid <- seq(1.00, 1.07, length.out = 2000)
+
+# Caso (a): 3 nodos
+m_a <- 2*length(c(1, 1.05, 1.07))  # orden 6
+f6  <- Deriv(f, x="x", nderiv = m_a)
+max_f6 <- max(abs(sapply(grid, f6)))
+prod_a <- prod((1.03 - c(1, 1.05, 1.07))^2)
+error.teorico.a <- max_f6 / factorial(m_a) * prod_a
+error.teorico.a
+
+# Caso (b): 4 nodos
+m_b <- 2*length(c(1, 1.05, 1.07, 1.04))  # orden 8
+f8  <- Deriv(f, x="x", nderiv = m_b)
+max_f8 <- max(abs(sapply(grid, f8)))
+prod_b <- prod((1.03 - c(1, 1.05, 1.07, 1.04))^2)
+error.teorico.b <- max_f8 / factorial(m_b) * prod_b
+error.teorico.b
 ```
-**FALTA COMPARAR RESULTADOS**
+
+
 # Ejercicio 7
 
 ::: {.callout-note title="Instrucción del ejercicio 7"}
@@ -1131,6 +1152,7 @@ A partir de lo obtenido por el algoritmo de diferencias divididas de Newton, se 
 $P_4(x) = -7 + 11.05170x - 32.76083x(x-0.1) + 55.77056x(x-0.1)(x-0.3) - 55.49254x(x-0.1)(x-0.3)(x - 0.6)$
 
 ```{r}
+#| code-fold: true
 graficar.polinomio(nodos, 0, 1, lagrange.newton, valores = valores)
 ```
 
@@ -1156,6 +1178,7 @@ Grafique este polinomio.
 **Solución**
 
 ```{r}
+#| code-fold: true
 nodos     <- c(0.2, 0.4, 0.6, 0.8, 1.0)
 valores   <- c(0.9798652, 0.9177710, 0.8080348, 0.6386093, 0.3843735)
 derivadas <- c(0.20271,   0.42279,   0.68414,   1.02964,   1.55741)
@@ -1163,6 +1186,7 @@ derivadas <- c(0.20271,   0.42279,   0.68414,   1.02964,   1.55741)
 hermite.newton(nodos, valores, derivadas, 0.2)
 ```
 ```{r}
+#| code-fold: true
 graficar.polinomio(nodos, 0.2, 1, hermite.newton, valores = valores, derivadas = derivadas)
 ```
 
@@ -1398,6 +1422,8 @@ Además, se sabe que el error absoluto entre $f(x)$ y su interpolacion viene dad
 $|f(x) - P_n(x)| = |\dfrac{f^{(n+1)}(\psi_x)}{(n+1)!}(x - x_0)(x - x_1)\cdot\cdot\cdot(x-x_n)|$, con $\psi_x \in [a,b]$, donde $[a,b]$ es el intervalo donde estamos interpolando. 
 
 Juntando estas dos cosas, se concluye que $|f(x) - P_n(x)| = 0 \Rightarrow f(x) = P_n(x)$
+
+$\blacksquare$
 
 # Ejercicio 12
 
@@ -1820,6 +1846,8 @@ $$
 
 b)
 ```{r}
+#| code-fold: true
+
 # Funcion para plantear el sistema de ecuaciones asociado al ajuste de minimos cuadrados
 # Retorna matriz asociada a los coeficientes (A) y vector de solucion (B)
 sistema.minimos <- function(nodos, valores, n){
@@ -1840,6 +1868,8 @@ sistema.minimos <- function(nodos, valores, n){
 ```
 c)
 ```{r}
+#| code-fold: true
+
 # Funcion para encontrar coeficientes del polinomio que surge del ajuste de minimos cuadrados y hacer el grafico del mismo
 ajuste.minimos.cuadrados <- function(nodos, valores, n, a, b){
   stopifnot(is.numeric(nodos), is.numeric(valores),
@@ -1874,6 +1904,8 @@ ajuste.minimos.cuadrados <- function(nodos, valores, n, a, b){
 ```
 d)
 ```{r}
+#| code-fold: true
+
 nodos   <- c(4.0, 4.2, 4.5, 4.7, 5.1, 5.5, 5.9, 6.3, 6.8, 7.1)
 valores <- c(102.56, 113.18, 130.11, 142.05, 167.53, 195.14, 224.87, 256.73, 299.50, 326.72)
 n <- 3
