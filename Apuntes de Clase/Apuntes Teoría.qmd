@@ -4888,3 +4888,997 @@ $\blacksquare$
 :::
 
 #### Presentación algorítmica
+
+![Condiciones de interpolación por Splines](Imagenes/Condiciones de interpolación por Splines.png)
+
+:::{.callout-note title="Definición: Spline cúbico interpolante"}
+
+Dada una función $f$ definida en $[a,b]$ y un conjunto de nodos
+
+$$a = x_0 < x_1 < \cdots < x_n = b$$
+
+un Spline Cúbico Interpolante $S$ para $f$ es una función que satisface las siguientes condiciones:
+
+1. $S(x)$ es un polinomio cúbico, denotado $S_j(x)$, en el subintervalo $[x_j, x_{j+1}]$ para cada $j = 0,1,\ldots,n-1$.
+2. $S_j(x_j) = f(x_j)$  y $S_j(x_{j+1}) = f(x_{j+1})$ para cada $j = 0,1,\ldots,n-1$.
+3. $S_{j+1}(x_{j+1}) = S_j(x_{j+1})$ para cada $j = 0,1,\ldots,n-2$ (se deduce de (2)).
+4. $S’_{j+1}(x{j+1}) = S’_j(x{j+1})$ para cada $j = 0,1,\ldots,n-2$.
+5. $S’’_{j+1}(x{j+1}) = S’’_j(x{j+1})$ para cada $j = 0,1,\ldots,n-2$.
+6. Se satisface uno de los siguientes conjuntos de condiciones de borde:
+   a) $S’’(x_0) = S’’(x_n) = 0$ (borde natural o libre);
+   b) $S’(x_0) = f’(x_0)$ y $S’(x_n) = f’(x_n)$ (borde clamped o sujeto).
+
+:::
+
+#### Spline cúbico natural
+
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
+Construir un spline cúbico natural que pase por los puntos $(1,2)$, $(2,3)$ y $(3,5)$.
+
+**Solución:**  
+Este spline consiste en dos funciones cúbicas. La primera para el intervalo $[1,2]$, denotada por:
+
+\begin{align*}
+S_0(x) &= a_0 + b_0(x-1) + c_0(x-1)^2 + d_0(x-1)^3,
+\end{align*}
+
+y la otra para $[2,3]$, denotada por:
+
+\begin{align*}
+S_1(x) &= a_1 + b_1(x-2) + c_1(x-2)^2 + d_1(x-2)^3.
+\end{align*}
+
+Existen 8 constantes a determinar, lo que requiere 8 condiciones.  
+Cuatro condiciones provienen del hecho de que los splines deben coincidir con los datos en los nodos. Así:
+
+\begin{align*}
+2 &= f(1) = a_0, \\
+3 &= f(2) = a_0 + b_0 + c_0 + d_0, \\
+3 &= f(2) = a_1, \\
+5 &= f(3) = a_1 + b_1 + c_1 + d_1.
+\end{align*}
+
+Otras dos condiciones provienen del hecho de que $S_0'(2) = S_1'(2)$ y $S_0''(2) = S_1''(2)$. Estas son:
+
+\begin{align*}
+S_0'(2) = S_1'(2) &: \quad b_0 + 2c_0 + 3d_0 = b_1, \\
+S_0''(2) = S_1''(2) &: \quad 2c_0 + 6d_0 = 2c_1.
+\end{align*}
+
+Las dos condiciones restantes provienen de las condiciones de frontera naturales:
+
+\begin{align*}
+S_0''(1) &= 0 : \quad 2c_0 = 0, \\
+S_1''(3) &= 0 : \quad 2c_1 + 6d_1 = 0.
+\end{align*}
+
+Resolviendo este sistema de ecuaciones se obtiene el Spline:
+
+$$
+S(x) =
+\begin{cases}
+2 + \tfrac{3}{4}(x-1) + \tfrac{1}{4}(x-1)^3, & x \in [1,2], \\[6pt]
+3 + \tfrac{3}{2}(x-2) + \tfrac{3}{4}(x-2)^2 - \tfrac{1}{4}(x-2)^3, & x \in [2,3].
+\end{cases}
+$$
+
+:::
+
+**Construcción de un Spline Cúbico**
+
+Como se ve en el ejemplo anterior, un spline definido en un intervalo que se divide en $n$ subintervalos requerirá determinar $4n$ constantes. Para construir el spline cúbico interpolante de una función dada $f$, las condiciones de la definición se aplican a los polinomios cúbicos
+
+\begin{align*}
+S_j(x) = a_j + b_j(x - x_j) + c_j(x - x_j)^2 + d_j(x - x_j)^3,
+\end{align*}
+
+para cada $j = 0,1, \ldots, n-1$.
+
+Como $S_j(x_j) = a_j = f(x_j)$, la condición (3) se puede aplicar para obtener:
+
+\begin{align*}
+a_{j+1} &= S_{j+1}(x_{j+1}) = S_j(x_{j+1}) \\
+&= a_j + b_j(x_{j+1} - x_j) + c_j(x_{j+1} - x_j)^2 + d_j(x_{j+1} - x_j)^3,
+\end{align*}
+
+para cada $j = 0,1, \ldots, n-2$.
+
+Los términos $x_{j+1} - x_j$ se utilizan repetidamente en este desarrollo, por lo que conviene introducir la notación más simple
+
+\begin{align*}
+h_j = x_{i+1} - x_i,
+\end{align*}
+
+para cada $j = 0,1, \ldots, n-1$.  
+Si además definimos $a_n = f(x_n)$, entonces la ecuación:
+
+\begin{align*}
+a_{j+1} = a_j + b_jh_j + c_jh_j^2 + d_jh_j^3
+\end{align*}
+
+es válida para cada $j = 0,1, \ldots, n-1$.  
+De manera similar, definimos $b_n = S'(x_n)$ y observamos que
+
+\begin{align*}
+S_j'(x) = b_j + 2c_j(x - x_j) + 3d_j(x - x_j)^2
+\end{align*}
+
+implica $S_j'(x_j) = b_j$, para cada $j = 0,1, \ldots, n-1$. Aplicando la condición (4) se obtiene
+
+\begin{align*}
+b_{j+1} = b_j + 2c_jh_j + 3d_jh_j^2,
+\end{align*}
+
+para cada $j = 0,1, \ldots, n-1$.
+
+Otra relación entre los coeficientes de $S_j$ se obtiene definiendo $c_n = S''(x_n)/2$ y aplicando la condición (5). Entonces, para cada $j = 0,1, \ldots, n-1$:
+
+\begin{align*}
+c_{j+1} = c_j + 3d_jh_j.
+\end{align*}
+
+Resolviendo para $d_j$ en la ecuación (1.4) y sustituyendo este valor en las ecuaciones (1.2) y (1.3), se obtiene, para cada $j = 0,1, \ldots, n-1$, las nuevas ecuaciones:
+
+\begin{align*}
+a_{j+1} &= a_j + b_jh_j + \tfrac{h_j^2}{3}(2c_j + c_{j+1}), \\
+b_{j+1} &= b_j + h_j(c_j + c_{j+1}).
+\end{align*}
+
+La relación final que involucra los coeficientes se obtiene resolviendo la ecuación apropiada en la forma de la ecuación (1.5), primero para $b_j$:
+
+\begin{align*}
+b_j = \tfrac{1}{h_j}(a_{j+1} - a_j) - \tfrac{h_j}{3}(2c_j + c_{j+1}),
+\end{align*}
+
+y luego, reduciendo el índice, para $b_{j-1}$. Esto da:
+
+\begin{align*}
+b_{j-1} = \tfrac{1}{h_{j-1}}(a_j - a_{j-1}) - \tfrac{h_{j-1}}{3}(2c_{j-1} + c_j).
+\end{align*}
+
+Sustituyendo estos valores en la ecuación derivada de la ecuación (1.6), con el índice reducido en uno, se obtiene el sistema lineal de ecuaciones:
+
+\begin{align*}
+h_{j-1}c_{j-1} + 2(h_{j-1} + h_j)c_j + h_jc_{j+1} 
+= \tfrac{3}{h_j}(a_{j+1} - a_j) - \tfrac{3}{h_{j-1}}(a_j - a_{j-1}),
+\end{align*}
+
+para cada $j = 1,2, \ldots, n-1$.
+
+Este sistema involucra únicamente a los $\{c_j\}_{j=0}^n$ como incógnitas.  
+Los valores de $\{h_j\}_{j=0}^{n-1}$ y $\{a_j\}_{j=0}^n$ son dados, respectivamente, por el espaciamiento de los nodos $\{x_j\}_{j=0}^n$ y los valores de $f$ en los nodos.  
+
+Una vez determinados los valores de $\{c_j\}_{j=0}^n$, es sencillo calcular el resto de las constantes $\{b_j\}_{j=0}^{n-1}$ a partir de la ecuación (1.9) y $\{d_j\}_{j=0}^{n-1}$ a partir de la ecuación (1.4).  
+
+Así, podemos construir los polinomios cúbicos $\{S_j(x)\}_{j=0}^{n-1}$.
+
+::: {.callout-note title="Teorema [Splines Naturales] "}
+
+Si $f$ está definida en $a = x_0 < x_1 < \cdots < x_n = b$, entonces $f$ tiene un único spline natural interpolante $S$ en los nodos $x_0, x_1, \ldots, x_n$; es decir, un spline interpolante que satisface las condiciones de frontera naturales
+
+\begin{align*}
+S''(a) &= 0, \quad S''(b) = 0.
+\end{align*}
+
+::: {.callout-caution collapse="true" title="Prueba"}
+
+**Demostración.**  
+Las condiciones de frontera en este caso implican que
+
+\begin{align*}
+c_n = \tfrac{1}{2} S''(x_n) = 0 
+\quad \text{y que} \quad 
+0 = S''(x_0) = 2c_0 + 6d_0(x_0 - x_0),
+\end{align*}
+
+por lo que $c_0 = 0$.
+
+Las dos ecuaciones $c_0 = 0$ y $c_n = 0$, junto con las ecuaciones en (1.10), producen un sistema lineal descrito por la ecuación vectorial $Ax = b$, donde $A$ es la matriz $(n+1) \times (n+1)$:
+
+$$
+A =
+\begin{bmatrix}
+1 & 0 & 0 & \cdots & 0 & 0 \\
+h_0 & 2(h_0 + h_1) & h_1 & \cdots & 0 & 0 \\
+0 & h_1 & 2(h_1 + h_2) & \cdots & 0 & 0 \\
+\vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+0 & 0 & 0 & \cdots & 2(h_{n-2} + h_{n-1}) & h_{n-1} \\
+0 & 0 & 0 & \cdots & 0 & 1
+\end{bmatrix}.
+$$
+
+Los vectores $b$ y $x$ son:
+
+$$
+b =
+\begin{bmatrix}
+0 \\
+\tfrac{3}{h_1}(a_2 - a_1) - \tfrac{3}{h_0}(a_1 - a_0) \\
+\vdots \\
+\tfrac{3}{h_{n-1}}(a_n - a_{n-1}) - \tfrac{3}{h_{n-2}}(a_{n-1} - a_{n-2}) \\
+0
+\end{bmatrix},
+\quad
+x =
+\begin{bmatrix}
+c_0 \\
+c_1 \\
+\vdots \\
+c_n
+\end{bmatrix}.
+$$
+
+La matriz $A$ es estrictamente diagonalmente dominante, es decir, en cada fila la magnitud del elemento diagonal excede la suma de las magnitudes de todas las demás entradas de esa fila.  
+
+Un sistema lineal con una matriz de esta forma tendrá, como se demostrará más adelante en el capítulo de solución numérica a sistemas lineales, una solución única para $c_0, c_1, \ldots, c_n$.
+
+:::
+:::
+
+###### Spline cúbico sujeto (clamped)
+
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
+Construir el *Spline Sujeto (clamped)* $s$ que pasa por los puntos $(1,2)$, $(2,3)$ y $(3,5)$, con $s'(1) = 2$ y $s'(3) = 1$.  
+
+Sea:
+
+\begin{align*}
+s_0(x) &= a_0 + b_0(x-1) + c_0(x-1)^2 + d_0(x-1)^3, \quad x \in [1,2], \\
+s_1(x) &= a_1 + b_1(x-2) + c_1(x-2)^2 + d_1(x-2)^3, \quad x \in [2,3].
+\end{align*}
+
+Las condiciones de interpolación y suavidad son:
+
+###### Algoritmo: Spline Cúbico Natural
+
+**Entrada:**  
+$n; \; x_0, x_1, \ldots, x_n; \; a_0 = f(x_0), \; a_1 = f(x_1), \ldots, a_n = f(x_n)$  
+
+**Salida:**  
+$a_j, b_j, c_j, d_j \quad$ para $j = 0,1,\ldots,n-1$.  
+
+**Nota:**  
+En cada subintervalo $[x_j, x_{j+1}]$ se tiene que:
+
+$$
+S_j(x) = a_j + b_j(x-x_j) + c_j(x-x_j)^2 + d_j(x-x_j)^3.
+$$
+
+**Paso 1:** Para $i = 0,1,\ldots,n-1$ defina:
+
+$$
+h_i = x_{i+1} - x_i.
+$$
+
+**Paso 2:** Para $i = 1,2,\ldots,n-1$ defina:
+
+$$
+\alpha_i = \tfrac{3}{h_i}(a_{i+1} - a_i) - \tfrac{3}{h_{i-1}}(a_i - a_{i-1}).
+$$
+
+**Paso 3:** Defina:
+
+$$
+\ell_0 = 1, \quad \mu_0 = 0, \quad z_0 = 0.
+$$
+
+**Paso 4:** Para $i = 1,2,\ldots,n-1$ sea:
+
+$$
+\ell_i = 2(x_{i+1} - x_{i-1}) - h_{i-1}\mu_{i-1}, 
+\quad \mu_i = \tfrac{h_i}{\ell_i}, 
+\quad z_i = \tfrac{\alpha_i - h_{i-1}z_{i-1}}{\ell_i}.
+$$
+
+**Paso 5:** Defina:
+
+$$
+\ell_n = 1, \quad z_n = 0, \quad c_n = 0.
+$$
+
+**Paso 6 (Sustitución hacia atrás):**  
+Para $j = n-1,n-2,\ldots,0$ haga:
+
+$$
+c_j = z_j - \mu_j c_{j+1},
+$$
+
+$$
+b_j = \tfrac{a_{j+1} - a_j}{h_j} - \tfrac{h_j}{3}(c_{j+1} + 2c_j),
+$$
+
+$$
+d_j = \tfrac{c_{j+1} - c_j}{3h_j}.
+$$
+
+
+**Paso 7:**  
+Retorne $\{a_j, b_j, c_j, d_j\}_{j=0}^{n-1}$.
+
+---
+
+De las condiciones de interpolación se tiene:
+
+$$
+f(1) = 2 \;\;\Rightarrow\;\; a_0 = 2,
+$$
+
+$$
+f(2) = 3 \;\;\Rightarrow\;\; a_0 + b_0 + c_0 + d_0 = 3, \quad a_1 = 3,
+$$
+
+$$
+f(3) = 5 \;\;\Rightarrow\;\; a_1 + b_1 + c_1 + d_1 = 5,
+$$
+
+$$
+s_0'(2) = s_1'(2) \;\;\Rightarrow\;\; b_0 + 2c_0 + 3d_0 = b_1,
+$$
+
+$$
+s_0''(2) = s_1''(2) \;\;\Rightarrow\;\; 2c_0 + 6d_0 = 2c_1.
+$$
+
+Las condiciones de frontera (*clamped*) son:
+
+$$
+s_0'(1) = 2 \;\;\Rightarrow\;\; b_0 = 2, 
+\qquad
+s_1'(3) = 1 \;\;\Rightarrow\;\; b_1 + 2c_1 + 3d_1 = 1.
+$$
+
+Al resolver el sistema se obtiene el Spline por trozos:
+
+$$
+s(x) =
+\begin{cases}
+2 + 2(x-1) - \tfrac{5}{2}(x-1)^2 + \tfrac{3}{2}(x-1)^3, & x \in [1,2], \\[6pt]
+3 + \tfrac{3}{2}(x-2) + 2(x-2)^2 - \tfrac{3}{2}(x-2)^3, & x \in [2,3].
+\end{cases}
+$$
+:::
+
+::: {.callout-note title="Teorema"}
+
+**[Unicidad del spline clamped]**  
+Sea $f$ una función definida en $a = x_0 < x_1 < \cdots < x_n = b$ y diferenciable en $a$ y $b$.  
+Entonces $f$ tiene un único spline cúbico interpolante *clamped* $S$ en los nodos $x_0, x_1, \ldots, x_n$; es decir, un spline interpolante que satisface las condiciones de frontera:
+
+$$
+S'(a) = f'(a), 
+\qquad 
+S'(b) = f'(b).
+$$
+
+
+::: {.callout-caution collapse="true" title="Prueba"}
+
+Como $f'(a) = S'(a) = S'(x_0) = b_0$, la ecuación (1.9) con $j=0$ implica que:
+
+$$
+f'(a) = \tfrac{1}{h_0}(a_1 - a_0) - \tfrac{h_0}{3}(2c_0 + c_1).
+$$
+
+En consecuencia:
+
+$$
+2h_0c_0 + h_0c_1 = \tfrac{3}{h_0}(a_1 - a_0) - 3f'(a).
+$$
+
+---
+
+De forma similar:
+
+$$
+f'(b) = b_n = b_{n-1} + h_{n-1}(c_{n-1} + c_n).
+$$
+
+De la ecuación (1.9) con $j=n-1$ se obtiene:
+
+$$
+f'(b) = \tfrac{a_n - a_{n-1}}{h_{n-1}}
+- \tfrac{h_{n-1}}{3}(2c_{n-1} + c_n) + h_{n-1}(c_{n-1} + c_n),
+$$
+
+es decir,
+
+$$
+f'(b) = \tfrac{a_n - a_{n-1}}{h_{n-1}} + \tfrac{h_{n-1}}{3}(c_{n-1} + 2c_n).
+$$
+
+Por tanto:
+
+$$
+h_{n-1}c_{n-1} + 2h_{n-1}c_n 
+= 3f'(b) - \tfrac{3}{h_{n-1}}(a_n - a_{n-1}).
+$$
+
+Las ecuaciones (1.10), junto con:
+
+$$
+2h_0c_0 + h_0c_1 = \tfrac{3}{h_0}(a_1 - a_0) - 3f'(a),
+$$
+
+y
+
+$$
+h_{n-1}c_{n-1} + 2h_{n-1}c_n = 3f'(b) - \tfrac{3}{h_{n-1}}(a_n - a_{n-1}),
+$$
+
+determinan el sistema lineal $Ax = b$, donde:
+
+$$
+A =
+\begin{bmatrix}
+2h_0 & h_0 & 0 & \cdots & 0 \\
+h_0 & 2(h_0+h_1) & h_1 & \cdots & 0 \\
+0 & h_1 & 2(h_1+h_2) & \cdots & h_2 \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+0 & \cdots & h_{n-2} & 2(h_{n-2}+h_{n-1}) & h_{n-1} \\
+0 & \cdots & 0 & h_{n-1} & 2h_{n-1}
+\end{bmatrix},
+$$
+
+$$
+b =
+\begin{bmatrix}
+\tfrac{3}{h_0}(a_1 - a_0) - 3f'(a) \\
+\tfrac{3}{h_1}(a_2 - a_1) - \tfrac{3}{h_0}(a_1 - a_0) \\
+\vdots \\
+\tfrac{3}{h_{n-1}}(a_n - a_{n-1}) - \tfrac{3}{h_{n-2}}(a_{n-1} - a_{n-2}) \\
+3f'(b) - \tfrac{3}{h_{n-1}}(a_n - a_{n-1})
+\end{bmatrix},
+\qquad
+x =
+\begin{bmatrix}
+c_0 \\
+c_1 \\
+\vdots \\
+c_n
+\end{bmatrix}.
+$$
+
+La matriz $A$ es estrictamente diagonalmente dominante, por tanto, el sistema lineal tiene solución única para $c_0, c_1, \ldots, c_n$, como veremos más adelante en el capítulo de solución de sistemas lineales. $\blacksquare$
+
+:::
+
+##### Algoritmo: Spline Cúbico Sujeto (Clamped)
+
+**Entrada:**  
+$n; \; x_0, x_1, \ldots, x_n; \; a_0 = f(x_0), \; a_1 = f(x_1), \ldots, a_n = f(x_n);$  
+$\text{FDX0} = f'(x_0), \; \text{FDXN} = f'(x_n)$.  
+
+**Salida:**  
+$a_j, b_j, c_j, d_j \quad$ para $j = 0,1,\ldots,n-1$.  
+
+**Nota:**  
+En cada subintervalo $[x_j, x_{j+1}]$ se tiene:
+
+$$
+S_j(x) = a_j + b_j(x-x_j) + c_j(x-x_j)^2 + d_j(x-x_j)^3.
+$$
+
+**Paso 1:** Para $i = 0,1,\ldots,n-1$ defina:
+
+$$
+h_i = x_{i+1} - x_i.
+$$
+
+**Paso 2 (Condiciones aseguradas):** Defina:
+
+$$
+\alpha_0 = 3 \frac{a_1 - a_0}{h_0} - 3 \,\text{FDX0}, 
+\qquad
+\alpha_n = 3 \,\text{FDXN} - 3 \frac{a_n - a_{n-1}}{h_{n-1}}.
+$$
+
+**Paso 3:** Para $i = 1,2,\ldots,n-1$ defina:
+
+$$
+\alpha_i = \frac{3}{h_i}(a_{i+1} - a_i) - \frac{3}{h_{i-1}}(a_i - a_{i-1}).
+$$
+
+**Paso 4:** Defina:
+
+$$
+\ell_0 = 2h_0, 
+\qquad \mu_0 = \tfrac{1}{2}, 
+\qquad z_0 = \tfrac{\alpha_0}{\ell_0}.
+$$
+
+**Paso 5:** Para $i = 1,2,\ldots,n-1$ sea:
+
+$$
+\ell_i = 2(x_{i+1} - x_{i-1}) - h_{i-1}\mu_{i-1}, 
+\qquad \mu_i = \tfrac{h_i}{\ell_i}, 
+\qquad z_i = \tfrac{\alpha_i - h_{i-1}z_{i-1}}{\ell_i}.
+$$
+
+**Paso 6:** Defina:
+
+$$
+\ell_n = h_{n-1}(2 - \mu_{n-1}), 
+\qquad z_n = \tfrac{\alpha_n - h_{n-1}z_{n-1}}{\ell_n}, 
+\qquad c_n = z_n.
+$$
+
+**Paso 7 (Sustitución hacia atrás):**  
+Para $j = n-1, n-2, \ldots, 0$ haga:
+
+$$
+c_j = z_j - \mu_j c_{j+1},
+$$
+
+$$
+b_j = \tfrac{a_{j+1} - a_j}{h_j} - \tfrac{h_j}{3}(c_{j+1} + 2c_j),
+$$
+
+$$
+d_j = \tfrac{c_{j+1} - c_j}{3h_j}.
+$$
+
+**Paso 8:**  
+Retorne $\{a_j, b_j, c_j, d_j\}_{j=0}^{n-1}$.
+
+:::
+
+
+# Integración Numérica
+
+## Derivacón e Integración Numérica
+
+### Cuadratura Numérica
+
+#### Diferenciación numérica
+
+En el capítulo anterior se obtuvo que:
+
+$$
+f(x) = P_n(x) + \frac{f^{(n+1)}(\xi)}{(n+1)!}(x-x_0)(x-x_1)\cdots(x-x_n),
+$$
+
+donde $P_n(x)$ es el polinomio de Lagrange.  
+La idea es derivar $P_n(x)$ en lugar de $f(x)$.
+
+
+##### Fórmula de dos puntos
+
+Se tienen dos nodos $x_0, x_1$, entonces:
+
+$$
+f(x) = P_{01}(x) + \frac{f^{(2)}(\xi_x)}{2!}(x-x_0)(x-x_1),
+$$
+
+esto implica que:
+
+$$
+f(x) = \frac{(x-x_1)f(x_0) - (x-x_0)f(x_1)}{x_0 - x_1} 
++ \frac{f^{(2)}(\xi_x)}{2!}(x-x_0)(x-x_1).
+$$
+
+Si $f \in C^2[a,b]$ y tomamos los nodos $x_0$ y $x_1 = x_0 + h$,  
+con $h$ suficientemente pequeño, se tiene que:
+
+Continuando, se obtiene:
+
+$$
+f(x) = \frac{(x-x_0-h)f(x_0) - (x-x_0)f(x_0+h)}{x_0 - (x_0-h)}
++ \frac{f^{(2)}(\xi_x)}{2!}(x-x_0)(x-x_0-h),
+$$
+
+$$
+= \frac{(x-x_0)f(x_0+h) - (x-x_0-h)f(x_0)}{h}
++ \frac{f^{(2)}(\xi_x)}{2!}(x-x_0)(x-x_0-h),
+$$
+
+de donde:
+
+$$
+f'(x) = \frac{f(x_0+h) - f(x_0)}{h} 
++ \frac{d}{dx}\left[ \frac{f^{(2)}(\xi_x)}{2!}(x-x_0)(x-x_0-h) \right].
+$$
+
+Esto implica que:
+
+$$
+f'(x) = \frac{f(x_0+h) - f(x_0)}{h} 
++ \frac{f^{(3)}(\xi_x)}{2!}\xi'_x (x-x_0)(x-x_0-h) 
++ \frac{f^{(2)}(\xi_x)}{2!}\left[(x-x_0-h) + (x-x_0)\right].
+$$
+
+Si $x = x_0$ se tiene que:
+
+$$
+f'(x_0) = \frac{f(x_0+h) - f(x_0)}{h} 
++ \frac{f^{(2)}(\xi_x)}{2!}\left[(x_0-x_0-h) + (x_0-x_0)\right],
+$$
+
+$$
+= \frac{f(x_0+h) - f(x_0)}{h} - \frac{h}{2}f^{(2)}(\xi_x).
+$$
+
+Por lo tanto:
+
+$$
+f'(x_0) = \frac{f(x_0+h) - f(x_0)}{h}, 
+\quad \text{con error absoluto igual a } \tfrac{h}{2}f^{(2)}(\xi_x).
+$$
+
+En general, si se tienen $(n+1)$ nodos $x_0, x_1, \ldots, x_n$ en $[a,b]$ y $f \in C^{n+1}[a,b]$, entonces:
+
+$$
+f(x) = \sum_{k=0}^n f(x_k)L_k(x) 
++ \frac{(x-x_0)(x-x_1)\cdots(x-x_n)}{(n+1)!}f^{(n+1)}(\xi_x),
+\quad \xi_x \in ]a,b[,
+$$
+
+de donde se tiene que:
+
+$$
+f'(x) = \sum_{k=0}^n f(x_k)L_k'(x) 
++ \frac{d}{dx}\left[\frac{(x-x_0)(x-x_1)\cdots(x-x_n)}{(n+1)!}\right] f^{(n+1)}(\xi_x)
++ \frac{(x-x_0)(x-x_1)\cdots(x-x_n)}{(n+1)!} f^{(n+2)}(\xi_x)\xi'_x.
+$$
+Si $x = x_k$ se tiene que:
+
+$$
+f'(x_k) = \sum_{k=0}^n f(x_k) L_k'(x_k) 
++ \frac{f^{(n+1)}(\xi_x)}{(n+1)!}(x_k - x_0)(x_k - x_1)\cdots(x_k - x_{k-1})(x_k - x_{k+1})\cdots(x_k - x_n),
+$$
+
+los demás términos se anulan en $x_k$, de donde se tiene que:
+
+$$
+f'(x_k) = \sum_{k=0}^n f(x_k) L_k'(x_k) 
++ \frac{f^{(n+1)}(\xi_x)}{(n+1)!} \prod_{\substack{j=0 \\ j \neq k}}^n (x_k - x_j).
+$$
+##### Fórmula de $(n+1)$ puntos
+
+**Fórmulas de 3 puntos:** $x_0, x_1, x_2$
+
+En este caso:
+
+$$
+f'(x_k) = \sum_{k=0}^2 f(x_k) L_k'(x_k) 
++ \frac{f^{(2+1)}(\xi_x)}{(2+1)!} \prod_{\substack{j=0 \\ j \neq k}}^2 (x_k - x_j),
+$$
+
+así:
+
+$$
+L_0(x) = \frac{(x-x_1)(x-x_2)}{(x_0-x_1)(x_0-x_2)}
+= \frac{x^2 - (x_1+x_2)x + x_1x_2}{(x_0-x_1)(x_0-x_2)},
+$$
+
+$$
+L_1(x) = \frac{x^2 - (x_0+x_2)x + x_0x_2}{(x_1-x_0)(x_1-x_2)},
+$$
+
+$$
+L_2(x) = \frac{x^2 - (x_0+x_1)x + x_0x_1}{(x_2-x_0)(x_2-x_1)}.
+$$
+
+De donde:
+
+$$
+L_0'(x) = \frac{2x - (x_1+x_2)}{(x_0-x_1)(x_0-x_2)},
+$$
+
+$$
+L_1'(x) = \frac{2x - (x_0+x_2)}{(x_1-x_0)(x_1-x_2)}.
+$$
+De $L_2'(x)$ se tiene que:
+
+$$
+L_2'(x) = \frac{2x - (x_0+x_1)}{(x_2-x_0)(x_2-x_1)}.
+$$
+
+Tomando $x = x_k$ se tiene que:
+
+$$
+f'(x_k) \approx f(x_0)\left[\frac{2x_k - (x_1+x_2)}{(x_0-x_1)(x_0-x_2)}\right]
++ f(x_1)\left[\frac{2x_k - (x_0+x_2)}{(x_1-x_0)(x_1-x_2)}\right]
++ f(x_2)\left[\frac{2x_k - (x_0+x_1)}{(x_2-x_0)(x_2-x_1)}\right].
+$$
+
+De modo que, si se toman los nodos igualmente espaciados $x_0, \; x_1 = x_0 + h, \; x_2 = x_0 + 2h$,  
+con $h = \tfrac{x_2 - x_0}{2}$, se tienen las siguientes fórmulas:
+
+**Fórmula A:** Tome $x_k = x_0$
+
+$$
+f'(x_0) \approx 
+f(x_0)\left[\frac{2x_0 - x_0 - h - x_0 - 2h}{(x_0-x_0-h)(x_0-x_0-2h)}\right]
++ f(x_0+h)\left[\frac{2x_0 - x_0 - x_0 - 2h}{(x_0+h-x_0)(x_0+h-x_0-2h)}\right]
++ f(x_0+2h)\left[\frac{2x_0 - x_0 - x_0 - h}{(x_0+2h-x_0)(x_0+2h-x_0-h)}\right].
+$$
+
+Simplificando:
+
+$$
+f'(x_0) = f(x_0)\left[-\tfrac{3h}{2h^2}\right]
++ f(x_0+h)\left[-\tfrac{2h}{-h^2}\right]
++ f(x_0+2h)\left[-\tfrac{h}{-2h^2}\right].
+$$
+
+De donde:
+
+$$
+f'(x_0) \approx \tfrac{1}{h}\left[-\tfrac{3}{2}f(x_0) + 2f(x_0+h) - \tfrac{1}{2}f(x_0+2h)\right].
+$$
+
+**Fórmula B:** Tome $x_k = x_1 = x_0 + h$
+
+Se puede probar fácilmente que (ejercicio):
+
+$$
+f'(x_0+h) \approx \tfrac{1}{h}\left[-\tfrac{1}{2}f(x_0) + \tfrac{1}{2}f(x_0+2h)\right].
+$$
+
+Luego, haciendo el cambio de variable $\tilde{x}_0 = x_0 + h$, se obtiene que:
+
+$$
+f'(\tilde{x}_0) = \tfrac{1}{h}\left[-\tfrac{1}{2}f(\tilde{x}_0-h) + \tfrac{1}{2}f(\tilde{x}_0+h)\right].
+$$
+
+#### Integración Numérica
+
+
+La idea es integrar el polinomio de Lagrange $P(x)$ en lugar de la función original,  
+es decir, hacer la siguiente aproximación:
+
+$$
+\int_a^b f(x)\,dx \;\approx\; \int_a^b P_n(x)\,dx,
+$$
+
+sabemos que:
+
+$$
+f(x) = P_n(x) + \frac{f^{(n+1)}(\xi_x)}{(n+1)!} \prod_{i=1}^n (x-x_i),
+$$
+
+lo cual implica que:
+
+$$
+f(x) = \sum_{i=0}^n f(x_i)L_i(x) 
++ \frac{f^{(n+1)}(\xi_x)}{(n+1)!} \prod_{i=1}^n (x-x_i),
+$$
+
+de donde se tiene que:
+
+$$
+\int_a^b f(x)\,dx 
+= \sum_{i=0}^n f(x_i)\int_a^b L_i(x)\,dx
++ \int_a^b \frac{f^{(n+1)}(\xi_x)}{(n+1)!}\prod_{i=1}^n (x-x_i)\,dx,
+$$
+
+tomado $\xi_x \in ]a,b[$.
+
+---
+
+## La Regla del Trapecio
+
+Usamos dos nodos igualmente espaciados $x_0 = a, \; x_1 = x_0+h$, con $h = b-a$,  
+es decir, $x_1 = b$, de donde:
+
+$$
+f(x) = \frac{(x-x_1)f(x_0) - (x-x_0)f(x_1)}{x_0-x_1}
++ \frac{f''(\xi_x)}{2}(x-x_0)(x-x_1).
+$$
+
+Entonces:
+
+$$
+\int_a^b f(x)\,dx 
+= \int_a^b \frac{(x-x_1)f(x_0)}{x_0-x_1}\,dx
+- \int_a^b \frac{(x-x_0)f(x_1)}{x_0-x_1}\,dx
++ \int_a^b \frac{f''(\xi_x)}{2}(x-x_0)(x-x_1)\,dx.
+$$
+
+Sean:
+
+$$
+I_1 = \int_a^b \frac{(x-x_1)f(x_0)}{x_0-x_1}\,dx
++ \int_a^b \frac{(x-x_0)f(x_1)}{x_1-x_0}\,dx,
+$$
+
+$$
+I_2 = \int_a^b \frac{f''(\xi_x)}{2}(x-x_0)(x-x_1)\,dx.
+$$
+
+---
+
+Calculemos $I_1$:
+
+\begin{align*}
+  I_1 &= \int_{x_0}^{x_1}\frac{(x-x_1)f(x_0)}{x_0-x_1}\,dx
++ \int_{x_0}^{x_1}\frac{(x-x_0)f(x_1)}{x_1-x_0}\,dx.\\
+&= \frac{f(x_0)}{x_0-x_1}\left[\frac{(x-x_1)^2}{2}\right]_{x_0}^{x_1}
++ \frac{f(x_1)}{x_1-x_0}\left[\frac{(x-x_0)^2}{2}\right]_{x_0}^{x_1}\\
+&= \frac{1}{2}\frac{f(x_0)}{(x_0-x_1)}\left[(x_1-x_1)^2 - (x_0-x_1)^2\right]
++ \frac{1}{2}\frac{f(x_1)}{(x_1-x_0)}\left[(x_1-x_0)^2 - (x_0-x_0)^2\right]\\
+&= -\tfrac{1}{2}f(x_0)(x_0-x_1) + \tfrac{1}{2}f(x_1)(x_1-x_0).\\
+&= \tfrac{1}{2}(x_1-x_0)[f(x_0)+f(x_1)].
+\end{align*}
+
+De donde se tiene que:
+
+$$
+I_1 = \tfrac{h}{2}[f(x_0) + f(x_1)] 
+= \tfrac{(b-a)}{2}[f(a) + f(b)].
+$$
+![Regla de Trapecio](Imagenes/Regla de Trapecio.png){width=400px fig-align="center"}
+
+(Usando el Teorema del Valor Medio para Integrales podemos calcular $I_2$:)
+
+$$
+I_2 = \int_a^b \frac{f''(\xi_x)}{2}(x-x_0)(x-x_1)\,dx
+= -\frac{h^3}{12} f''(\xi_x).
+$$
+
+De donde se tiene que:
+
+$$
+\int_a^b f(x)\,dx 
+= \tfrac{(b-a)}{2}[f(a)+f(b)] - \tfrac{h^3}{12} f''(\xi_x).
+$$
+
+Finalmente, sumando $I_1$ e $I_2$ se tiene la **fórmula del trapecio**:
+
+$$
+\int_a^b f(x)\,dx \;\approx\; \tfrac{(b-a)}{2}[f(a)+f(b)].
+$$
+**Aproximación de Integrales Definidas**
+```{r}
+#| code-fold: true
+
+# Calcula la integral de F de a hasta b usando la regla del Trapecio.
+# Regla del trapecio simple
+Trapecio <- function(F, a, b) {
+  return(((b - a) / 2) * (F(a) + F(b)))
+}
+
+# Calcula la integral de F de a hasta b usando la regla de Simpson.
+Simpson <- function(F, a, b) {
+  return(((b - a) / 6) * (F(a) + 4 * F((a + b) / 2) + F(b)))
+}
+
+# Calcula la integral de F de a hasta b usando la Regla de Simpson Compuesta.
+SimpsonCompuesto <- function(F, a, b, m) {
+  h  <- (b - a) / (2 * m)
+  XI0 <- F(a) + F(b)
+  XI1 <- 0  # suma de puntos impares
+  XI2 <- 0  # suma de puntos pares
+  for (j in 1:(2 * m - 1)) {
+    X <- a + j * h
+    if (j %% 2 == 0) {
+      XI2 <- XI2 + F(X)
+    } else {
+      XI1 <- XI1 + F(X)
+    }
+  }
+  return((h / 3) * (XI0 + 2 * XI2 + 4 * XI1))
+}
+```
+**Ejemplos**
+```{r}
+#| code-fold: true
+
+# Definición de la función f
+f <- function(x) sqrt(1 + x^2)
+# Evaluación Trapecio
+print(Trapecio(f, 0, 1), digits = 15)
+# Evaluación Simpson
+print(Simpson(f, 0, 1), digits = 15)
+# Evaluación Simpson Compuesta
+print(SimpsonCompuesto(f, 0, 1, 50), digits = 15)
+# Usando integrate() de R para comparar con el trapecio
+resultado <- integrate(f, lower = 0, upper = 1)
+print(resultado$value, digits = 15)
+```
+
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
+Calcule $\int_0^1 \sqrt{1+x^2}\,dx$ con la regla del trapecio.  
+
+**Solución:** Con $h=1$:
+
+$$
+\int_0^1 \sqrt{1+x^2}\,dx 
+\approx \tfrac{1}{2}[\sqrt{1} + \sqrt{2}] 
+= 1.2071068.
+$$
+
+En forma exacta:
+
+$$
+\int_0^1 \sqrt{1+x^2}\,dx = 1.1477936.
+$$
+
+Se tiene un Error Absoluto $= 0.0593131$. $\blacksquare$
+
+:::
+
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
+Aproximar $\int_0^1 e^x\,dx$ con la regla del trapecio.  
+
+**Solución:**
+
+$$
+\int_0^1 e^x\,dx 
+\approx \tfrac{1}{2}[e^0 + e^1] 
+= 1.8591409.
+$$
+
+El valor exacto es:
+
+$$
+\int_0^1 e^x\,dx = e^1 - e^0 = 1.7182818.
+$$
+
+Error Absoluto $= 0.140859$.  
+
+Error Teórico:
+
+$$
+\left|\frac{h^3 f''(\xi_x)}{12}\right|
+= \frac{1}{12}e^{\xi_x} \leq 0.2265234,
+\qquad \xi_x \in ]0,1[. \;\; \blacksquare
+$$
+
+:::
+
+
+**La Regla de Simpson**
+
+Usando tres nodos igualmente espaciados $x_0,\; x_1 = x_0+h,\; x_2 = x_0+2h$,  
+con $h = \tfrac{b-a}{2}$, se tiene que:
+
+$$
+\begin{aligned}
+f(x) &= \frac{(x-x_1)(x-x_2)}{(x_0-x_1)(x_0-x_2)}f(x_0) 
++ \frac{(x-x_0)(x-x_2)}{(x_1-x_0)(x_1-x_2)}f(x_1) \\
+&\quad + \frac{(x-x_0)(x-x_1)}{(x_2-x_0)(x_2-x_1)}f(x_2) 
++ \frac{f''(\xi_x)}{3!}(x-x_0)(x-x_1)(x-x_2).
+\end{aligned}
+$$
+
+De donde:
+
+$$
+\int_a^b f(x)\,dx 
+= \int_{x_1}^{x_2} \frac{(x-x_1)(x-x_2)}{(x_0-x_1)(x_0-x_2)} f(x_0)\,dx 
++ \cdots + \int_{x_0}^{x_1} \frac{f''(\xi_x)}{3!}(x-x_0)(x-x_1)(x-x_2)\,dx.
+$$
+
+Desarrollando esta expresión se tiene que (Ejercicio):
+
+$$
+\int_a^b f(x)\,dx 
+= \frac{h}{3}[f(x_0) + 4f(x_1) + f(x_2)] 
+- \frac{h^5}{90} f^{(4)}(\xi_x),
+$$
+
+lo cual implica que:
+
+$$
+\int_a^b f(x)\,dx 
+= \frac{h}{3}[f(a) + 4f(a+h) + f(a+2h)] 
+- \frac{h^5}{90} f^{(4)}(\xi_x),
+$$
+
+y por lo tanto:
+
+$$
+\int_a^b f(x)\,dx 
+= \frac{b-a}{6}\left[f(a) + 4f\!\left(\tfrac{a+b}{2}\right) + f(b)\right] 
+- \frac{h^5}{90} f^{(4)}(\xi_x).
+$$
+![Regla de Simpson](Imagenes/Regla de Simpson.png){width=400px fig-align="center"}
+
+#### Integración Numérica Múltiple
+
+#### Extrapolación de Richardson
