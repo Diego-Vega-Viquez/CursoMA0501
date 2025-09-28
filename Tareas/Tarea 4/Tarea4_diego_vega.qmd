@@ -1027,7 +1027,7 @@ valores <- f(nodos)
 valor.b <- neville(nodos, valores, 1.03)$valor
 valor.b
 ```
-c) **FALTA METER ERROR TEORICO**
+c) 
 ```{r}
 error.real.a <- abs(valor.a-f(1.03))
 error.real.a
@@ -1035,7 +1035,24 @@ error.real.a
 error.real.b <- abs(valor.b-f(1.03))
 error.real.b
 
-# FALTA METER ERROR TEORICO
+library(Deriv)
+
+f3 <- Deriv(f, x = "x", nderiv = 3)
+f4 <- Deriv(f, x = "x", nderiv = 4)
+
+intervalo <- seq(1, 1.07, length.out = 1000)
+max_f3 <- max(abs(sapply(intervalo, f3)))
+max_f4 <- max(abs(sapply(intervalo, f4)))
+
+producto.a <- prod(abs(1.03 - c(1, 1.05, 1.07)))
+producto.b <- prod(abs(1.03 - c(1, 1.05, 1.07, 1.04)))
+
+# Cotas teóricas del error
+error.teorico.a <- max_f3 / factorial(3) * producto.a
+error.teorico.b <- max_f4 / factorial(4) * producto.b
+
+error.teorico.a
+error.teorico.b
 ```
 
 
