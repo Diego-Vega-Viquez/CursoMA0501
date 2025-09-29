@@ -48,6 +48,9 @@ format:
     theme: flatly
     highlight: tango
     embed-resources: true
+editor: 
+  markdown: 
+    wrap: 72
 ---
 
 \newpage
@@ -55,30 +58,25 @@ format:
 # Ejercicio 1
 
 ::: {.callout-note title="Instrucción del ejercicio 1"}
-
 Complete las demostraciones que quedaron pendientes en la clase.
-
 :::
 
 **Solución**
 
-
 ::: {.callout-note title="Teorema 1 [Weierstrass]"}
-
-Sea $f$ continua en $[a, b]$; entonces dado $\varepsilon > 0$, existe $n \in \mathbb{N}$ y $P_n(x) \in P_n$ tal que
+Sea $f$ continua en $[a, b]$; entonces dado $\varepsilon > 0$, existe
+$n \in \mathbb{N}$ y $P_n(x) \in P_n$ tal que
 
 $$
 \left| f(x) - P_n(x) \right| < \varepsilon, \quad \forall x \in [a, b].
 $$
 
-
-![Polinomio de Bernstein](Imagenes/Polinomio de Bernstein.png){width=400px fig-align="center"}
+![Polinomio de
+Bernstein](Imagenes/Polinomio%20de%20Bernstein.png){width="400px"
+fig-align="center"}
 
 ::: {.callout-caution collapse="true" title="Prueba"}
-
-
 Sin pérdida de generalidad, suponga que $a = 0$ y $b = 1$. Sea:
-
 
 $$
 B_n(x) = \sum_{k=0}^n \binom{n}{k} x^k (1 - x)^{n-k} f\left( \frac{k}{n} \right),
@@ -86,10 +84,11 @@ $$
 
 se puede probar que $B_n(x) \to f(x)$ uniformemente en $[0,1]$:
 
-Vea que 
+Vea que
 
 $$|B_n(x)-f(x)| \le \sum_{k=0}^n \binom{n}{k} x^k (1 - x)^{n-k} \Big|f\left( \frac{k}{n} \right) - f(x)\Big|$$
-Note que se tiene una esperanza con respecto a una distribución binomial $\operatorname{Bin}(n,x)$
+Note que se tiene una esperanza con respecto a una distribución binomial
+$\operatorname{Bin}(n,x)$
 
 $$X_n\sim\operatorname{Bin}(n,x) \implies \mathbb{E}\left[f\left(\frac{X_n}{n}\right)\right] = B_n(x)$$
 
@@ -97,17 +96,16 @@ Entonces:
 
 $$
 \lvert B_n(x) - f(x) \rvert = \left\lvert \mathbb{E}\left[f\!\left(\tfrac{X_n}{n}\right)\right] - f(x) \right\rvert
-$$
-Dado que $f$ es continua en $[0,1]$, por el Teorema de Heine–Cantor, también es uniformemente continua.  
+$$ Dado que $f$ es continua en $[0,1]$, por el Teorema de Heine–Cantor,
+también es uniformemente continua.\
 Entonces, para todo $\varepsilon > 0$, existe $\delta > 0$ tal que:
 
 $$
 |x-y| < \delta \;\;\Rightarrow\;\; |f(x) - f(y)| < \varepsilon
-$$
-Considere dividir el dominio del índice $k$ en dos regiones:
+$$ Considere dividir el dominio del índice $k$ en dos regiones:
 
-- Cuando $\left|\tfrac{k}{n} - x\right| < \delta$  
-- Cuando $\left|\tfrac{k}{n} - x\right| \geq \delta$
+-   Cuando $\left|\tfrac{k}{n} - x\right| < \delta$\
+-   Cuando $\left|\tfrac{k}{n} - x\right| \geq \delta$
 
 Entonces:
 
@@ -118,10 +116,12 @@ $$
 + 2\lVert f\rVert_\infty \cdot P\!\left(\left|\tfrac{X_n}{n} - x\right| \ge \delta\right)
 $$
 
-Usando la *desigualdad de Chebyshev* aplicada a $\tfrac{X_n}{n}$, cuya varianza es $\tfrac{x(1-x)}{n}$, el segundo término tiende a $0$ uniformemente en $x\in[0,1]$.
+Usando la *desigualdad de Chebyshev* aplicada a $\tfrac{X_n}{n}$, cuya
+varianza es $\tfrac{x(1-x)}{n}$, el segundo término tiende a $0$
+uniformemente en $x\in[0,1]$.
 
-
-Como el error puede hacerse arbitrariamente pequeño uniformemente en $x$, se concluye:
+Como el error puede hacerse arbitrariamente pequeño uniformemente en
+$x$, se concluye:
 
 $$
 \sup_{x\in[0,1]} \lvert B_n(x) - f(x) \rvert \;\longrightarrow\; 0
@@ -133,18 +133,18 @@ $\blacksquare$
 :::
 
 ::: {.callout-note title="Teorema 3"}
-
-Sea $f \in C[a,b]$ y $f \in C^n]a,b[$, si $f$ se anula en $n+1$ puntos distintos,  
-$x_0, x_1, \ldots, x_n$ en $[a,b]$. Entonces $\exists \, c \in ]a,b[$ tal que $f^{(n)}(c) = 0$.
-
+Sea $f \in C[a,b]$ y $f \in C^n]a,b[$, si $f$ se anula en $n+1$ puntos
+distintos,\
+$x_0, x_1, \ldots, x_n$ en $[a,b]$. Entonces $\exists \, c \in ]a,b[$
+tal que $f^{(n)}(c) = 0$.
 
 ::: {.callout-caution collapse="true" title="Prueba"}
+**Por inducción sobre** $n$
 
-**Por inducción sobre $n$**
+**Caso base:** $n = 1$.
 
-**Caso base: $n = 1$.**
-
-Si $f(x_0) = f(x_1) = 0$ con $x_0 < x_1$, entonces por el Teorema de Rolle clásico, existe $c \in (x_0, x_1)$ tal que:
+Si $f(x_0) = f(x_1) = 0$ con $x_0 < x_1$, entonces por el Teorema de
+Rolle clásico, existe $c \in (x_0, x_1)$ tal que:
 
 $$
 f'(c) = 0.
@@ -152,60 +152,66 @@ $$
 
 **Hipótesis de inducción:**
 
-Supongamos que el resultado es cierto para $n = k$, es decir, si $f \in C^{k}]a,b[$ y se anula en $k+1$ puntos distintos en $[a,b]$, entonces existe $c \in (a,b)$ tal que $f^{(k)}(c) = 0$.
+Supongamos que el resultado es cierto para $n = k$, es decir, si
+$f \in C^{k}]a,b[$ y se anula en $k+1$ puntos distintos en $[a,b]$,
+entonces existe $c \in (a,b)$ tal que $f^{(k)}(c) = 0$.
 
 **Paso inductivo:**
 
-Sea ahora $f \in C^{k+1}]a,b[$ y supongamos que $f(x_0) = f(x_1) = \dots = f(x_{k+1}) = 0$, con $x_0 < x_1 < \dots < x_{k+1}$.
+Sea ahora $f \in C^{k+1}]a,b[$ y supongamos que
+$f(x_0) = f(x_1) = \dots = f(x_{k+1}) = 0$, con
+$x_0 < x_1 < \dots < x_{k+1}$.
 
-Por el Teorema de Rolle, para cada par consecutivo $(x_i, x_{i+1})$, existe $c_i \in (x_i, x_{i+1})$ tal que:
+Por el Teorema de Rolle, para cada par consecutivo $(x_i, x_{i+1})$,
+existe $c_i \in (x_i, x_{i+1})$ tal que:
 
 $$
 f'(c_i) = 0.
 $$
 
-Eso da una nueva colección de $k+1$ puntos $c_0 < c_1 < \dots < c_k$ donde $f'$ se anula. Entonces, por la hipótesis de inducción aplicada a $f'$, existe un punto $c \in (a,b)$ tal que:
+Eso da una nueva colección de $k+1$ puntos $c_0 < c_1 < \dots < c_k$
+donde $f'$ se anula. Entonces, por la hipótesis de inducción aplicada a
+$f'$, existe un punto $c \in (a,b)$ tal que:
 
 $$
 f^{(k+1)}(c) = 0.
-$$
-$\blacksquare$
-
+$$ $\blacksquare$
 :::
 :::
 
 ::: {.callout-note title="Teorema 6"}
-
-Si $P_n(x)$ es el polinomio de Lagrange que coincide con $f(x)$ en  
+Si $P_n(x)$ es el polinomio de Lagrange que coincide con $f(x)$ en\
 $x_0, x_1, \ldots, x_n$, entonces:
 
+```{=tex}
 \begin{align*}
 P_n(x) &= f[x_0] + f[x_0,x_1](x-x_0) + f[x_0,x_1,x_2](x-x_0)(x-x_1) \\
 &\quad + \cdots + f[x_0,x_1,\ldots,x_n](x-x_0)(x-x_1)\cdots(x-x_{n-1}) \\
 &= f[x_0] + \sum_{k=1}^n f[x_0,\ldots,x_k](x-x_0)\cdots(x-x_{k-1}).
 \end{align*}
-
+```
 ::: {.callout-caution collapse="true" title="Prueba"}
-
 Si $P_n(x)$ se escribe de la forma
 
+```{=tex}
 \begin{align*}
 P_n(x) &= a_0 + a_1(x-x_0) + a_2(x-x_0)(x-x_1) + \cdots \\
 &\quad + a_n(x-x_0)(x-x_1)\cdots(x-x_{n-1}),
 \end{align*}
-
-entonces $P_n(x_0) = a_0$. Como $P_n(x_0)=f(x_0)$ se sigue que  
+```
+entonces $P_n(x_0) = a_0$. Como $P_n(x_0)=f(x_0)$ se sigue que\
 $a_0 = f(x_0) = f[x_0]$.
 
 Además:
 
+```{=tex}
 \begin{align*}
 P_n(x_1) &= a_0 + a_1(x_1-x_0), \\
 f(x_1) &= f[x_0] + a_1(x_1-x_0) \quad \Rightarrow \quad a_1 = \frac{f[x_1]-f[x_0]}{x_1-x_0} = f[x_0,x_1].
 \end{align*}
-
-Luego, por inducción se puede probar fácilmente que  $a_k = f[x_0, x_1, \ldots, x_k]$.
-
+```
+Luego, por inducción se puede probar fácilmente que
+$a_k = f[x_0, x_1, \ldots, x_k]$.
 
 **Paso base:**
 
@@ -237,48 +243,51 @@ $$
 a_k = f[x_0, x_1, \dots, x_k].
 $$
 
-Evaluamos el polinomio $P_n(x)$ en $x = x_k$. Por construcción, se cumple:
+Evaluamos el polinomio $P_n(x)$ en $x = x_k$. Por construcción, se
+cumple:
 
+```{=tex}
 \begin{align*}
 P_n(x_k) &= a_0 + a_1(x_k - x_0) + a_2(x_k - x_0)(x_k - x_1) + \cdots \\
 &\quad + a_k(x_k - x_0)(x_k - x_1)\cdots(x_k - x_{k-1}).
 \end{align*}
+```
+Pero también sabemos que $P_n(x_k) = f(x_k)$, y por la hipótesis de
+inducción:
 
-Pero también sabemos que $P_n(x_k) = f(x_k)$, y por la hipótesis de inducción:
-
+```{=tex}
 \begin{align*}
 f(x_k) &= f[x_0] + f[x_0, x_1](x_k - x_0) + \cdots \\
 &\quad + f[x_0, \dots, x_{k-1}](x_k - x_0)\cdots(x_k - x_{k-2}) \\
 &\quad + a_k(x_k - x_0)\cdots(x_k - x_{k-1}).
 \end{align*}
-
+```
 Entonces, restando ambos lados, obtenemos:
 
 $$
 a_k = \frac{f(x_k) - P_{k-1}(x_k)}{(x_k - x_0)(x_k - x_1)\cdots(x_k - x_{k-1})},
 $$
 
-pero esta fracción es exactamente la definición de la **diferencia dividida**:
+pero esta fracción es exactamente la definición de la **diferencia
+dividida**:
 
 $$
 a_k = f[x_0, x_1, \dots, x_k].
 $$
 
 $\blacksquare$
-
 :::
 :::
-
 
 ::: {.callout-note title="Teorema 7"}
+-   Sea $f \in C[a,b]$.
+-   Sean $x_0, x_1, \ldots, x_n$, $(n+1)$ nodos distintos en $[a,b]$.
 
-- Sea $f \in C[a,b]$.
-- Sean $x_0, x_1, \ldots, x_n$, $(n+1)$ nodos distintos en $[a,b]$.
+Entonces el polinomio de grado menor que coincide con $f$ y $f'$ en
+$x_0, x_1, \ldots, x_n$:
 
-Entonces el polinomio de grado menor que coincide con $f$ y $f'$ en $x_0, x_1, \ldots, x_n$:
-
-- Tiene grado $2n+1$.
-- Está dado por
+-   Tiene grado $2n+1$.
+-   Está dado por
 
 $$
 H_{2n+1}(x) = \sum_{j=0}^{n} f(x_j) H_{nj}(x) + \sum_{j=0}^{n} f'(x_j) \widetilde{H}_{nj}(x),
@@ -296,16 +305,15 @@ $$
 \widetilde{H}_{nj}(x) = (x - x_j) L_{nj}^2(x).
 $$
 
-- Además, el error absoluto es:
+-   Además, el error absoluto es:
 
 $$
 \left| f(x) - H_{2n+1}(x) \right| = \left| \frac{(x - x_0)^2 \cdots (x - x_n)^2}{(2n+2)!} f^{(2n+2)}(\xi) \right|, \quad \text{con } \xi \in ]a, b[.
 $$
 
 ::: {.callout-caution collapse="true" title="Prueba"}
-
-
-- Se debe demostrar que $H_{2n+1}(x_i) = f(x_i)$ para todo $i = 0, 1, \ldots, n$. Para ver esto, recordemos que:
+-   Se debe demostrar que $H_{2n+1}(x_i) = f(x_i)$ para todo
+    $i = 0, 1, \ldots, n$. Para ver esto, recordemos que:
 
 $$
 L_{nj}(x_i) =
@@ -339,21 +347,25 @@ $$
 
 Por lo tanto:
 
-- $H_{2n+1}(x_i) = f(x_i)$ para $i = 0, 1, 2, \ldots, n$.
+-   $H_{2n+1}(x_i) = f(x_i)$ para $i = 0, 1, 2, \ldots, n$.
 
-- Se debe demostrar que $H'_{2n+1}(x_i) = f'(x_i)$ para todo $i = 0, 1, \ldots, n$.
+-   Se debe demostrar que $H'_{2n+1}(x_i) = f'(x_i)$ para todo
+    $i = 0, 1, \ldots, n$.
 
-Nótese que $L_{nj}(x)$ es un factor de $H'_{nj}(x)$, lo cual implica que $H'_{nj}(x_i) = 0$ cuando $i \ne j$.
+Nótese que $L_{nj}(x)$ es un factor de $H'_{nj}(x)$, lo cual implica que
+$H'_{nj}(x_i) = 0$ cuando $i \ne j$.
 
 Además, si $i = j$:
 
+```{=tex}
 \begin{align*}
 H'_{ni}(x_i) &= -2L'_{ni}(x_i)L^2_{ni}(x_i) + [1 - 2(x_i - x_i)L'_{ni}(x_i)] \cdot 2 \cdot L_{ni}(x_i)L'_{ni}(x_i) \\
 &= -2L'_{ni}(x_i) + 2L'_{ni}(x_i) \\
 &= 0.
 \end{align*}
-
-Por lo tanto, $H'_{nj}(x_i) = 0$ para todo $i = 0, 1, 2, \ldots, n$ y para todo $j = 0, 1, 2, \ldots, n$.
+```
+Por lo tanto, $H'_{nj}(x_i) = 0$ para todo $i = 0, 1, 2, \ldots, n$ y
+para todo $j = 0, 1, 2, \ldots, n$.
 
 Además:
 
@@ -383,8 +395,8 @@ $$
 H'_{2n+1}(x_i) = f'(x_i) \quad \text{para } i = 0, 1, 2, \ldots, n.
 $$
 
-- 
-Sea $H(x)$ y $\widetilde{H}(x)$ dos polinomios de grado a lo sumo $2n+1$ que satisfacen:
+-   Sea $H(x)$ y $\widetilde{H}(x)$ dos polinomios de grado a lo sumo
+    $2n+1$ que satisfacen:
 
 $$
 H(x_i) = \widetilde{H}(x_i) = f(x_i), \quad H'(x_i) = \widetilde{H}'(x_i) = f'(x_i), \quad \text{para } i = 0, 1, \ldots, n.
@@ -398,14 +410,17 @@ $$
 
 Entonces $R(x)$ es un polinomio de grado a lo sumo $2n+1$, y:
 
-- $R(x_i) = H(x_i) - \widetilde{H}(x_i) = 0$,
-- $R'(x_i) = H'(x_i) - \widetilde{H}'(x_i) = 0$,
+-   $R(x_i) = H(x_i) - \widetilde{H}(x_i) = 0$,
+-   $R'(x_i) = H'(x_i) - \widetilde{H}'(x_i) = 0$,
 
 para todos $i = 0, 1, \ldots, n$.
 
-Es decir, $R(x)$ tiene **$2(n+1)$ ceros** (porque cada condición en un punto $x_i$ impone dos condiciones linealmente independientes: una en valor y otra en derivada).
+Es decir, $R(x)$ tiene $2(n+1)$ ceros (porque cada condición en un punto
+$x_i$ impone dos condiciones linealmente independientes: una en valor y
+otra en derivada).
 
-Pero el grado de $R(x)$ es como máximo $2n+1$, y un polinomio no nulo de grado $d$ no puede tener más de $d$ ceros (contando multiplicidades).
+Pero el grado de $R(x)$ es como máximo $2n+1$, y un polinomio no nulo de
+grado $d$ no puede tener más de $d$ ceros (contando multiplicidades).
 
 Como $R(x)$ tiene más ceros que su grado, se concluye que:
 
@@ -424,8 +439,8 @@ $\blacksquare$
 :::
 
 ::: {.callout-note title="Lema 1"}
-
-Si $f \in C^n[a, b]$ y $x_0, x_1, \dots, x_n$ son los $(n+1)$ nodos distintos en $[a,b]$, entonces:  
+Si $f \in C^n[a, b]$ y $x_0, x_1, \dots, x_n$ son los $(n+1)$ nodos
+distintos en $[a,b]$, entonces:\
 existe $\xi \in ]a, b[$ tal que:
 
 $$
@@ -433,9 +448,8 @@ f[x_0, x_1, \dots, x_n] = \frac{f^{(n)}(\xi)}{n!}.
 $$
 
 ::: {.callout-caution collapse="true" title="Prueba"}
-
-
-Consideremos el polinomio interpolador de Newton de grado $n$, que interpola a $f$ en los nodos $x_0, \dots, x_n$:
+Consideremos el polinomio interpolador de Newton de grado $n$, que
+interpola a $f$ en los nodos $x_0, \dots, x_n$:
 
 $$
 P_n(x) = \sum_{k=0}^n f[x_0, \dots, x_k] \prod_{j=0}^{k-1}(x - x_j).
@@ -461,7 +475,9 @@ $$
 F(x) = f(x) - Q(x),
 $$
 
-donde $Q(x)$ es el polinomio de grado $n-1$ tal que $Q(x_i) = f(x_i)$ para $i = 0, \dots, n-1$. Entonces $F(x)$ es una función que coincide con $f$ en los primeros $n$ nodos, pero no necesariamente en el último.
+donde $Q(x)$ es el polinomio de grado $n-1$ tal que $Q(x_i) = f(x_i)$
+para $i = 0, \dots, n-1$. Entonces $F(x)$ es una función que coincide
+con $f$ en los primeros $n$ nodos, pero no necesariamente en el último.
 
 Aplicamos el **Teorema de Rolle generalizado** a la función:
 
@@ -469,7 +485,9 @@ $$
 g(x) = f(x) - P_n(x),
 $$
 
-la cual se anula en los puntos $x_0, \dots, x_n$, ya que $P_n(x_j) = f(x_j)$. Como $f \in C^n[a,b]$, entonces $g \in C^n[a,b]$ y se anula en $n+1$ puntos.
+la cual se anula en los puntos $x_0, \dots, x_n$, ya que
+$P_n(x_j) = f(x_j)$. Como $f \in C^n[a,b]$, entonces $g \in C^n[a,b]$ y
+se anula en $n+1$ puntos.
 
 Por el teorema, existe $\xi \in (a,b)$ tal que:
 
@@ -477,7 +495,8 @@ $$
 g^{(n)}(\xi) = 0.
 $$
 
-Pero como $P_n(x)$ es de grado $n$, su derivada de orden $n$ es constante:
+Pero como $P_n(x)$ es de grado $n$, su derivada de orden $n$ es
+constante:
 
 $$
 P_n^{(n)}(x) = n! \cdot f[x_0, x_1, \dots, x_n],
@@ -493,33 +512,34 @@ Entonces, si $g^{(n)}(\xi) = 0$:
 
 $$
 f^{(n)}(\xi) = n! \cdot f[x_0, \dots, x_n] \quad \Rightarrow \quad f[x_0, \dots, x_n] = \frac{f^{(n)}(\xi)}{n!}.
-$$
-$\blacksquare$
+$$ $\blacksquare$
 :::
 :::
-
 
 # Ejercicio 2
 
 ::: {.callout-note title="Instrucción del ejercicio 2"}
-
-Implemente en R los algoritmos de interpolación polinómica vistos en clase.  
+Implemente en R los algoritmos de interpolación polinómica vistos en
+clase.\
 Los métodos que se deben implementar son:
 
-a) Interpolar $f(x)$ usando el polinomio de Lagrange con el algoritmo de Neville.  
+a)  Interpolar $f(x)$ usando el polinomio de Lagrange con el algoritmo
+    de Neville.
 
-b) Interpolar $f(x)$ usando el polinomio de Lagrange con el algoritmo de diferencias divididas de Newton.  
+b)  Interpolar $f(x)$ usando el polinomio de Lagrange con el algoritmo
+    de diferencias divididas de Newton.
 
-c) Interpolar $f(x)$ usando el polinomio de Hermite con el algoritmo de diferencias divididas de Newton.  
+c)  Interpolar $f(x)$ usando el polinomio de Hermite con el algoritmo de
+    diferencias divididas de Newton.
 
-d) Interpolar $f(x)$ usando el “Splines” cúbicos naturales y sujetos.  
+d)  Interpolar $f(x)$ usando el “Splines” cúbicos naturales y sujetos.
 
-Luego en general programe una función que permita graficar el polinomio de interpolación y la función correspondiente (si la hay).
-
+Luego en general programe una función que permita graficar el polinomio
+de interpolación y la función correspondiente (si la hay).
 :::
 
-**Solución**
-**Neville**
+**Solución** **Neville**
+
 ```{r}
 #| code-fold: true
 # Neville: interpolacion en un punto x a partir de un vector de nodos (xi) y otro de valores (f(xi))
@@ -548,7 +568,9 @@ neville <- function(nodos, valores, x) {
   return(list(valor = Q[n, n], tabla = Q))
 }
 ```
+
 **Lagrange por diferencias divididas de Newton**
+
 ```{r}
 #| code-fold: true
 
@@ -589,7 +611,9 @@ lagrange.newton <- function(nodos, valores, x) {
   ))
 }
 ```
+
 **Hermite por diferencias divididas de Newton**
+
 ```{r}
 #| code-fold: true
 
@@ -647,7 +671,9 @@ hermite.newton <- function(nodos, valores, derivadas, x) {
   ))
 }
 ```
+
 **Splines cubicos naturales**
+
 ```{r}
 #| code-fold: true
 
@@ -730,7 +756,9 @@ spline.natural <- function(nodos, valores, x) {
   ))
 }
 ```
+
 **Splines cubicos sujetos**
+
 ```{r}
 #| code-fold: true
 
@@ -815,7 +843,9 @@ spline.sujeto <- function(nodos, valores, derivadas, x) {
   ))
 }
 ```
+
 **Funcion de graficacion**
+
 ```{r}
 #| message: false
 #| warning: false
@@ -920,7 +950,9 @@ graficar.polinomio <- function(nodos,
 }
 
 ```
+
 **Pruebas**
+
 ```{r}
 #| code-fold: true
 
@@ -935,56 +967,107 @@ graficar.polinomio(nodos, nodos[1], nodos[length(nodos)], spline.sujeto, f = f, 
 
 ```
 
-
-
-
-
 # Ejercicio 3
 
 ::: {.callout-note title="Instrucción del ejercicio 3"}
-
 Para el polinomio de Bernstein $B_n(x)$ hacer lo siguiente:
 
-a) Demostrar que para $k \leq n$ se tiene  
+a)  Demostrar que para $k \leq n$ se tiene
 
 $$
 \binom{n-1}{k-1} = \frac{k}{n}\binom{n}{k}.
 $$
 
-b) Pruebe que, para todo $n \in \mathbb{N}$  
+b)  Pruebe que, para todo $n \in \mathbb{N}$
 
 $$
 1 = \sum_{k=0}^n \binom{n}{k} x^k (1-x)^{n-k}.
 $$
 
-c) Use (b) y (c) para probar que para $f(x) = x^2$  
+c)  Use (b) y (c) para probar que para $f(x) = x^2$
 
 $$
 B_n(x) = \binom{n-1}{n} x^2 + \frac{1}{n}x.
 $$
-
 :::
 
 **Solución**
 
+a)
+
+Por definición de coeficiente binomial
+$$\binom{n-1}{k-1} = \frac{(n-1)!}{(k-1)!(n-k)!}, \qquad \binom{n}{k} = \frac{n!}{k!(n-k)!}$$
+Multiplicando $\binom{n}{k}$ por $\tfrac{k}{n}$:
+$$ \frac{k}{n}\binom{n}{k} = \frac{k}{n} \cdot \frac{n!}{k!(n-k)!}$$
+Simplificando: $$ = \frac{(n-1)!}{(k-1)!(n-k)!} = \binom{n-1}{k-1} $$
+
+
+b)
+
+Este resultado es inmediato de aplicar la fórmula del binomio sobre
+$[x+(1-x)]^n=1^n = 1$:
+$$1 = 1^n = [x+(1-x)]^n = \sum_{k=0}^n \binom{n}{k} x^k (1-x)^{n-k}$$
+
+
+c)
+
+Para $f(x)=x^2$ tenemos:
+$$
+B_n(x) = \sum_{k=0}^n \left(\frac{k}{n}\right)^2 \binom{n}{k} x^k (1-x)^{n-k}= \frac{1}{n^2}\sum_{k=0}^n k^2 \binom{n}{k} x^k (1-x)^{n-k}
+$$ 
+Note que $k^2 = k(k-1) + k$, entonces: 
+$$
+\sum_{k=0}^n k^2 \binom{n}{k} x^k (1-x)^{n-k}
+= \sum_{k=0}^n k(k-1)\binom{n}{k} x^k (1-x)^{n-k}
++ \sum_{k=0}^n k\binom{n}{k} x^k (1-x)^{n-k}
+$$ 
+De (a) se puede deducir que:
+$$k(k-1)\binom{n}{k} = n(n-1)\binom{n-2}{k-2}$$ 
+Entonces, sobre la
+primera suma: 
+$$
+\star = \sum_{k=0}^n k(k-1)\binom{n}{k} x^k (1-x)^{n-k}
+= n(n-1)x^2 \sum_{j=0}^{n-2} \binom{n-2}{j} x^j (1-x)^{n-2-j}
+$$
+Por el (b) sabemos que la la suma es $1$, así que: 
+$$
+\star = n(n-1)x^2
+$$ 
+Para la segunda suma, utilizando (a) de igual forma: 
+$$
+k\binom{n}{k} = n\binom{n-1}{k-1}
+$$ 
+Entonces, $$
+\bullet = \sum_{k=0}^n k\binom{n}{k} x^k (1-x)^{n-k}
+= n x \sum_{j=0}^{n-1} \binom{n-1}{j} x^j (1-x)^{n-1-j}
+$$ Por (b) la suma es $1$, así que:
+
+$$\bullet = nx$$ Por lo tanto, 
+
+$$
+B_n(x) = \frac{1}{n^2}\big(n(n-1)x^2 + nx\big)
+$$ 
+
+$$
+B_n(x) = \frac{n-1}{n}x^2 + \frac{1}{n}x
+$$
+$\blacksquare$
 
 
 # Ejercicio 4
 
 ::: {.callout-note title="Instrucción del ejercicio 4"}
-
 Dada la siguiente tabla de datos para $f(x)$:
 
-| $x$  | $f(x)$     |
-|------|------------|
-| 0.2  | 0.9798652  |
-| 0.4  | 0.9177710  |
-| 0.6  | 0.8080348  |
-| 0.8  | 0.6386093  |
-| 1.0  | 0.3843735  |
+| $x$ | $f(x)$    |
+|-----|-----------|
+| 0.2 | 0.9798652 |
+| 0.4 | 0.9177710 |
+| 0.6 | 0.8080348 |
+| 0.8 | 0.6386093 |
+| 1.0 | 0.3843735 |
 
 Aproxime $f(0.5)$ usando el procedimiento **Neville**.
-
 :::
 
 **Solución**
@@ -994,24 +1077,25 @@ Aproxime $f(0.5)$ usando el procedimiento **Neville**.
 neville(c(0.2, 0.4, 0.6, 0.8, 1.0), c(0.9798652, 0.9177710, 0.8080348, 0.6386093, 0.3843735), 0.5)
 ```
 
-
 # Ejercicio 5
 
 ::: {.callout-note title="Instrucción del ejercicio 5"}
+a)  Use el algoritmo de Neville para aproximar $f(1.03)$ con $P_{0,1,2}$
+    para la función\
+    $$f(x) = 3x e^x - e^{2x}$$\
+    usando $x_0 = 1$, $x_1 = 1.05$ y $x_2 = 1.07$.
 
-a) Use el algoritmo de Neville para aproximar $f(1.03)$ con $P_{0,1,2}$ para la función  
-$$f(x) = 3x e^x - e^{2x}$$  
-usando $x_0 = 1$, $x_1 = 1.05$ y $x_2 = 1.07$.
+b)  Suponga que la aproximación en (a) no es suficientemente exacta.
+    Calcule $P_{0,1,2,3}$ donde $x_3 = 1.04$.
 
-b) Suponga que la aproximación en (a) no es suficientemente exacta. Calcule $P_{0,1,2,3}$ donde $x_3 = 1.04$.
-
-c) Compare el error real en (a) y (b) con la cota del error teórica según los teoremas vistos en clase.
-
+c)  Compare el error real en (a) y (b) con la cota del error teórica
+    según los teoremas vistos en clase.
 :::
 
 **Solución**
 
-a)
+a)  
+
 ```{r}
 #| code-fold: true
 f <- function(x) 3*x*exp(x) - exp(2*x)
@@ -1021,7 +1105,9 @@ valores <- f(nodos)
 valor.a <- neville(nodos, valores, 1.03)$valor
 valor.a
 ```
-b)
+
+b)  
+
 ```{r}
 #| code-fold: true
 nodos <- c(nodos, 1.04)
@@ -1030,7 +1116,9 @@ valores <- f(nodos)
 valor.b <- neville(nodos, valores, 1.03)$valor
 valor.b
 ```
-c) 
+
+c)  
+
 ```{r}
 #| code-fold: true
 error.real.a <- abs(valor.a-f(1.03))
@@ -1062,14 +1150,14 @@ error.teorico.b
 # Ejercicio 6
 
 ::: {.callout-note title="Instrucción del ejercicio 6"}
-
-Repita el ejercicio anterior usando el polinomio de interpolación de Hermite, compare resultados.
-
+Repita el ejercicio anterior usando el polinomio de interpolación de
+Hermite, compare resultados.
 :::
 
 **Solución**
 
-a)
+a)  
+
 ```{r}
 #| code-fold: true
 f <- function(x) 3*x*exp(x) - exp(2*x)
@@ -1081,7 +1169,9 @@ derivadas <- df(nodos)
 valor.a <- hermite.newton(nodos, valores, derivadas, 1.03)$valor
 valor.a
 ```
-b)
+
+b)  
+
 ```{r}
 #| code-fold: true
 nodos <- c(nodos, 1.04)
@@ -1091,7 +1181,9 @@ derivadas <- df(nodos)
 valor.b <- hermite.newton(nodos, valores, derivadas, 1.03)$valor
 valor.b
 ```
-c) 
+
+c)  
+
 ```{r}
 #| code-fold: true
 error.real.a <- abs(valor.a-f(1.03))
@@ -1120,26 +1212,25 @@ error.teorico.b <- max_f8 / factorial(m_b) * prod_b
 error.teorico.b
 ```
 
-
 # Ejercicio 7
 
 ::: {.callout-note title="Instrucción del ejercicio 7"}
+Use el algoritmo de Diferencias Divididas para construir el polinomio
+interpolante de grado 4 según la siguiente tabla:
 
-Use el algoritmo de Diferencias Divididas para construir el polinomio interpolante de grado 4 según la siguiente tabla:
-
-| $x$  | $f(x)$     |
-|------|------------|
-| 0.0  | $-7.00000$ |
-| 0.1  | $-5.89483$ |
-| 0.3  | $-5.65014$ |
-| 0.6  | $-5.17788$ |
-| 1.0  | $-4.28172$ |
+| $x$ | $f(x)$     |
+|-----|------------|
+| 0.0 | $-7.00000$ |
+| 0.1 | $-5.89483$ |
+| 0.3 | $-5.65014$ |
+| 0.6 | $-5.17788$ |
+| 1.0 | $-4.28172$ |
 
 Grafique este polinomio.
-
 :::
 
 **Solución**
+
 ```{r}
 nodos <- c(0, 0.1, 0.3, 0.6, 1)
 valores <- c(-7, -5.89483, -5.65014, -5.17788, -4.28172)
@@ -1147,7 +1238,8 @@ valores <- c(-7, -5.89483, -5.65014, -5.17788, -4.28172)
 lagrange.newton(nodos, valores, 1)
 ```
 
-A partir de lo obtenido por el algoritmo de diferencias divididas de Newton, se obtiene que el polinomio de grado 4 que interpola a f(x) es:
+A partir de lo obtenido por el algoritmo de diferencias divididas de
+Newton, se obtiene que el polinomio de grado 4 que interpola a f(x) es:
 
 $P_4(x) = -7 + 11.05170x - 32.76083x(x-0.1) + 55.77056x(x-0.1)(x-0.3) - 55.49254x(x-0.1)(x-0.3)(x - 0.6)$
 
@@ -1160,19 +1252,18 @@ graficar.polinomio(nodos, 0, 1, lagrange.newton, valores = valores)
 # Ejercicio 8
 
 ::: {.callout-note title="Instrucción del ejercicio 8"}
+Use el algoritmo de Hermite para construir el polinomio interpolante de
+Hermite dada la siguiente tabla:
 
-Use el algoritmo de Hermite para construir el polinomio interpolante de Hermite dada la siguiente tabla:
-
-| $x$  | $f(x)$     | $f'(x)$    |
-|------|------------|------------|
-| 0.2  | 0.9798652  | 0.20271    |
-| 0.4  | 0.9177710  | 0.42279    |
-| 0.6  | 0.8080348  | 0.68414    |
-| 0.8  | 0.6386093  | 1.02964    |
-| 1.0  | 0.3843735  | 1.55741    |
+| $x$ | $f(x)$    | $f'(x)$ |
+|-----|-----------|---------|
+| 0.2 | 0.9798652 | 0.20271 |
+| 0.4 | 0.9177710 | 0.42279 |
+| 0.6 | 0.8080348 | 0.68414 |
+| 0.8 | 0.6386093 | 1.02964 |
+| 1.0 | 0.3843735 | 1.55741 |
 
 Grafique este polinomio.
-
 :::
 
 **Solución**
@@ -1185,17 +1276,17 @@ derivadas <- c(0.20271,   0.42279,   0.68414,   1.02964,   1.55741)
 
 hermite.newton(nodos, valores, derivadas, 0.2)
 ```
+
 ```{r}
 #| code-fold: true
 graficar.polinomio(nodos, 0.2, 1, hermite.newton, valores = valores, derivadas = derivadas)
 ```
 
-
 # Ejercicio 9
 
 ::: {.callout-note title="Instrucción del ejercicio 9"}
-
-Use el algoritmo de Diferencias Divididas para calcular el polinomio de interpolación de Lagrange $p(x)$ de cuarto grado para:
+Use el algoritmo de Diferencias Divididas para calcular el polinomio de
+interpolación de Lagrange $p(x)$ de cuarto grado para:
 
 $$
 f(x) = x^3 \sin(x)
@@ -1204,18 +1295,26 @@ $$
 con nodos $x_0 = 1$, $x_1 = 2$, $x_2 = 3$, $x_3 = 4$ y $x_4 = 5$.
 
 Grafique en un mismo plano $f(x)$ y $p(x)$ y luego imprima.
-
 :::
 
 **Solución**
 
+```{r}
 
+f <- function(x) {
+  x^3 * sin(x)
+}
+
+nodos <- c(1, 2, 3, 4, 5)
+graficar.polinomio(nodos, nodos[1], nodos[length(nodos)], lagrange.newton, f)
+
+```
 
 # Ejercicio 10
 
 ::: {.callout-note title="Instrucción del ejercicio 10"}
-
-Probar que los polinomios $L_k(x)$ vistos en clase se pueden expresar de la forma:
+Probar que los polinomios $L_k(x)$ vistos en clase se pueden expresar de
+la forma:
 
 $$
 L_k(x) = \frac{\psi(x)}{(x - x_k)\psi'(x_k)}
@@ -1227,16 +1326,15 @@ $$
 \psi(x) = \prod_{j=0}^n (x - x_j)
 $$
 
-y que por lo tanto el polinomio interpolante de Lagrange se puede expresar como:
+y que por lo tanto el polinomio interpolante de Lagrange se puede
+expresar como:
 
 $$
 p(x) = \psi(x) \sum_{k=0}^n \frac{f(x_k)}{(x - x_k)\psi'(x_k)}.
 $$
-
 :::
 
 **Solución**
-
 
 Partimos de la definición vista en clase del polinomio de Lagrange:
 
@@ -1264,10 +1362,10 @@ $$
 \psi'(x_k) = \prod_{\substack{j = 0 \\ j \ne k}}^n (x_k - x_j)
 $$
 
-ya que al derivar el producto total y evaluar en $x_k$, solo sobrevive el término en el que se deriva $(x - x_k)$.
+ya que al derivar el producto total y evaluar en $x_k$, solo sobrevive
+el término en el que se deriva $(x - x_k)$.
 
-::: {.callout-caution collapse="true" title="Demostración de $\psi'(x)$ por inducción"}
-
+::: {.callout-caution collapse="true" title="Demostración de $\\psi'(x)$ por inducción"}
 Queremos probar que si definimos el polinomio:
 
 $$
@@ -1280,11 +1378,12 @@ $$
 \psi'(x_k) = \prod_{\substack{j=0 \\ j \ne k}}^n (x_k - x_j)
 $$
 
-Esta es la derivada del producto evaluada en uno de los nodos $x_k$. Usaremos **inducción matemática sobre $n$**.
+Esta es la derivada del producto evaluada en uno de los nodos $x_k$.
+Usaremos **inducción matemática sobre** $n$.
 
----
+------------------------------------------------------------------------
 
-**Paso base: $n = 1$**
+**Paso base:** $n = 1$
 
 $$
 \psi(x) = (x - x_0)(x - x_1)
@@ -1310,9 +1409,9 @@ $$
 
 Por tanto, el paso base se cumple.
 
----
+------------------------------------------------------------------------
 
-**Paso inductivo: suponer cierto para $n$, probar para $n+1$**
+**Paso inductivo: suponer cierto para** $n$, probar para $n+1$
 
 Supongamos que para:
 
@@ -1344,7 +1443,8 @@ $$
 \psi_{n+1}'(x) = \psi_n'(x)(x - x_{n+1}) + \psi_n(x)
 $$
 
-Evaluamos en $x = x_k$ con $k \le n$. Como $\psi_n(x_k) = 0$ (por definición de raíz), el segundo término desaparece:
+Evaluamos en $x = x_k$ con $k \le n$. Como $\psi_n(x_k) = 0$ (por
+definición de raíz), el segundo término desaparece:
 
 $$
 \psi_{n+1}'(x_k) = \psi_n'(x_k)(x_k - x_{n+1})
@@ -1365,7 +1465,7 @@ $$
 
 Lo cual demuestra que la fórmula también es válida para $n+1$.
 
----
+------------------------------------------------------------------------
 
 **Conclusión:**
 
@@ -1378,7 +1478,6 @@ $$
 $$
 
 para todo $k \in \{0, 1, \dots, n\}$.
-
 :::
 
 Sustituyendo todo en la fórmula original de $L_k(x)$:
@@ -1406,82 +1505,86 @@ $$
 # Ejercicio 11
 
 ::: {.callout-note title="Instrucción del ejercicio 11"}
-
-Demostrar que si $f(x)$ es un polinomio de grado menor o igual a $n$, entonces el polinomio de grado menor o igual a $n$ que interpola $f(x)$ en $x_0, x_1, \ldots, x_n$ es el mismo $f(x)$.
-
+Demostrar que si $f(x)$ es un polinomio de grado menor o igual a $n$,
+entonces el polinomio de grado menor o igual a $n$ que interpola $f(x)$
+en $x_0, x_1, \ldots, x_n$ es el mismo $f(x)$.
 :::
 
 **Solución**
 
-Sea $f(x)$ un polinomio de grado menor o igual a $n$ y $P_n(x)$ el polinomio que lo interpola en $x_0, x_1,..., x_n$. 
+Sea $f(x)$ un polinomio de grado menor o igual a $n$ y $P_n(x)$ el
+polinomio que lo interpola en $x_0, x_1,..., x_n$.
 
-Note que $f^{(n+1)}(x) = 0$, pues es un polinomio de grado menor o igual a n. 
+Note que $f^{(n+1)}(x) = 0$, pues es un polinomio de grado menor o igual
+a n.
 
-Además, se sabe que el error absoluto entre $f(x)$ y su interpolacion viene dado por:
+Además, se sabe que el error absoluto entre $f(x)$ y su interpolacion
+viene dado por:
 
-$|f(x) - P_n(x)| = |\dfrac{f^{(n+1)}(\psi_x)}{(n+1)!}(x - x_0)(x - x_1)\cdot\cdot\cdot(x-x_n)|$, con $\psi_x \in [a,b]$, donde $[a,b]$ es el intervalo donde estamos interpolando. 
+$|f(x) - P_n(x)| = |\dfrac{f^{(n+1)}(\psi_x)}{(n+1)!}(x - x_0)(x - x_1)\cdot\cdot\cdot(x-x_n)|$,
+con $\psi_x \in [a,b]$, donde $[a,b]$ es el intervalo donde estamos
+interpolando.
 
-Juntando estas dos cosas, se concluye que $|f(x) - P_n(x)| = 0 \Rightarrow f(x) = P_n(x)$
+Juntando estas dos cosas, se concluye que
+$|f(x) - P_n(x)| = 0 \Rightarrow f(x) = P_n(x)$
 
 $\blacksquare$
 
 # Ejercicio 12
 
 ::: {.callout-note title="Instrucción del ejercicio 12"}
-
 Usar el ejercicio anterior para probar que:
 
 $$
 \sum_{i=0}^n L_i(x) = 1
 $$
-
 :::
 
 **Solución**
 
-::: {.callout-note title="Instrucción del ejercicio 13"}
+Esto es una aplicación directa del ejercicio anterior sobre la función
+$f(x) = 1$. Claramente para cualquier polinomio de grado $n>0$,
+$f(x) = 1$ tiene menor grado que $n$. Entonces:
 
-Para las siguientes funciones:
+$$
+1=f(x)=P_n(x)=\sum_{i=0}^nf(x_i)L_i(x)=\sum_{i=0}^nL_i(x)
+$$
+$\blacksquare$
 
-- $f(x)=3x^2\ln(x)+2x$ con nodos $x_0=1$, $x_1=1.5$, $x_2=2$, $x_3=2.5$ y $x_4=3$.
-- $f(x)=x^2\sin(x)-3\cos(x)$ con nodos $x_0=1$, $x_1=2$, $x_2=3$, $x_3=4$ y $x_4=5$.
-- $f(x)=x\cos(x)-2x^2+3x-1$ con nodos $x_0=1$, $x_1=2$, $x_2=3$, $x_3=4$ y $x_4=5$.
 
-a) Encuentre el polinomio de interpolación de Lagrange $P^\star(x)$ en los nodos indicados, grafique $f(x)$ y $P^\star(x)$ en el mismo plano.
-
-b) Encuentre el polinomio de interpolación usando Splines cúbicos $P^{\star\star}(x)$ en los nodos indicados, grafique $f(x)$ y $P^{\star\star}(x)$ en el mismo plano, luego imprima.
-
-c) Encuentre el polinomio de interpolación de Hermite $P^{\star\star\star}(x)$ en los nodos indicados, grafique $f(x)$ y $P^{\star\star\star}(x)$ en el mismo plano.
-
-d) Grafique $f(x)$, $P^\star(x)$, $P^{\star\star}(x)$ y $P^{\star\star\star}(x)$ en el mismo plano. ¿Qué se puede concluir?
-
-:::
-
-**Solución**
 
 # Ejercicio 13
 
 ::: {.callout-note title="Instrucción del ejercicio 13"}
-
 Para las siguientes funciones:
 
-- $f(x)=3x^{2}\ln(x)+2x$ con nodos $x_{0}=1$, $x_{1}=1.5$, $x_{2}=2$, $x_{3}=2.5$ y $x_{4}=3$.
-- $f(x)=x^{2}\sin(x)-3\cos(x)$ con nodos $x_{0}=1$, $x_{1}=2$, $x_{2}=3$, $x_{3}=4$ y $x_{4}=5$.
-- $f(x)=x\cos(x)-2x^{2}+3x-1$ con nodos $x_{0}=1$, $x_{1}=2$, $x_{2}=3$, $x_{3}=4$ y $x_{4}=5$.
+-   $f(x)=3x^{2}\ln(x)+2x$ con nodos $x_{0}=1$, $x_{1}=1.5$, $x_{2}=2$,
+    $x_{3}=2.5$ y $x_{4}=3$.
+-   $f(x)=x^{2}\sin(x)-3\cos(x)$ con nodos $x_{0}=1$, $x_{1}=2$,
+    $x_{2}=3$, $x_{3}=4$ y $x_{4}=5$.
+-   $f(x)=x\cos(x)-2x^{2}+3x-1$ con nodos $x_{0}=1$, $x_{1}=2$,
+    $x_{2}=3$, $x_{3}=4$ y $x_{4}=5$.
 
-a) Encuentre el polinomio de interpolación de Lagrange $P^\star(x)$ en los nodos indicados, grafique $f(x)$ y $P^\star(x)$ en el mismo plano.
+a)  Encuentre el polinomio de interpolación de Lagrange $P^\star(x)$ en
+    los nodos indicados, grafique $f(x)$ y $P^\star(x)$ en el mismo
+    plano.
 
-b) Encuentre el polinomio de interpolación usando Splines cúbicos $P^{\star\star}(x)$ en los nodos indicados, grafique $f(x)$ y $P^{\star\star}(x)$ en el mismo plano; luego imprima.
+b)  Encuentre el polinomio de interpolación usando Splines cúbicos
+    $P^{\star\star}(x)$ en los nodos indicados, grafique $f(x)$ y
+    $P^{\star\star}(x)$ en el mismo plano; luego imprima.
 
-c) Encuentre el polinomio de interpolación de Hermite $P^{\star\star\star}(x)$ en los nodos indicados, grafique $f(x)$ y $P^{\star\star\star}(x)$ en el mismo plano.
+c)  Encuentre el polinomio de interpolación de Hermite
+    $P^{\star\star\star}(x)$ en los nodos indicados, grafique $f(x)$ y
+    $P^{\star\star\star}(x)$ en el mismo plano.
 
-d) Grafique $f(x)$, $P^\star(x)$, $P^{\star\star}(x)$ y $P^{\star\star\star}(x)$ en el mismo plano. ¿Qué se puede concluir?
-
+d)  Grafique $f(x)$, $P^\star(x)$, $P^{\star\star}(x)$ y
+    $P^{\star\star\star}(x)$ en el mismo plano. ¿Qué se puede concluir?
 :::
 
 **Solución**
 
 Preparación
+
 ```{r}
 #| code-fold: true
 
@@ -1496,56 +1599,68 @@ df2 <- function(x) 2 * x * sin(x) + x^2 * cos(x) + 3 * sin(x)
 df3 <- function(x) cos(x) - x * sin(x) - 4 * x + 3
 ```
 
-a)
+a)  
 
 ```{r}
 #| code-fold: true
 #| fig-cap: "Interpolación de Lagrange - Función 1"
 graficar.polinomio(c(1, 1.5, 2, 2.5, 3), 1, 3, lagrange.newton, f = f1)
 ```
+
 ```{r}
 #| code-fold: true
 #| fig-cap: "Interpolación de Lagrange - Función 2"
 graficar.polinomio(c(1, 2, 3, 4, 5), 1, 5, lagrange.newton, f = f2)
 ```
+
 ```{r}
 #| code-fold: true
 #| fig-cap: "Interpolación de Lagrange - Función 3"
 graficar.polinomio(c(1, 2, 3, 4, 5), 1, 5, lagrange.newton, f = f3)
 ```
-b)
+
+b)  
+
 ```{r}
 #| code-fold: true
 #| fig-cap: "Interpolación por Splines naturales - Función 1"
 graficar.polinomio(c(1, 1.5, 2, 2.5, 3), 1, 3, spline.natural, f = f1)
 ```
+
 ```{r}
 #| code-fold: true
 #| fig-cap: "Interpolación por Splines naturales - Función 2"
 graficar.polinomio(c(1, 2, 3, 4, 5), 1, 5, spline.natural, f = f2)
 ```
+
 ```{r}
 #| code-fold: true
 #| fig-cap: "Interpolación por Splines naturales - Función 3"
 graficar.polinomio(c(1, 2, 3, 4, 5), 1, 5, spline.natural, f = f3)
 ```
-c)
+
+c)  
+
 ```{r}
 #| code-fold: true
 #| fig-cap: "Interpolación de Hermite - Función 1"
 graficar.polinomio(c(1, 1.5, 2, 2.5, 3), 1, 3, hermite.newton, f = f1, df = df1)
 ```
+
 ```{r}
 #| code-fold: true
 #| fig-cap: "Interpolación de Hermite - Función 2"
 graficar.polinomio(c(1, 2, 3, 4, 5), 1, 5, hermite.newton, f = f2, df = df2)
 ```
+
 ```{r}
 #| code-fold: true
 #| fig-cap: "Interpolación de Hermite - Función 3"
 graficar.polinomio(c(1, 2, 3, 4, 5), 1, 5, hermite.newton, f = f3, df = df3)
 ```
-d)
+
+d)  
+
 ```{r}
 #| code-fold: true
 #| fig-cap: "Comparación de métodos - Función 1"
@@ -1570,6 +1685,7 @@ ggplot(df_comp1, aes(x = x, y = y, color = Método)) +
   labs(title = "Comparación de métodos de interpolación - Función 1") +
   theme_minimal(base_size = 14)
 ```
+
 ```{r}
 #| code-fold: true
 #| fig-cap: "Comparación de métodos de interpolación - Función 2"
@@ -1621,30 +1737,36 @@ ggplot(df_comp3, aes(x = x, y = y, color = Método)) +
   labs(title = "Comparación de métodos de interpolación - Función 3") +
   theme_minimal(base_size = 14)
 ```
+
 **¿Conclusion?**
 
 Función 1: $f(x) = 3x^2 \ln(x) + 2x$
 
-- Los tres métodos coinciden visualmente con la función original.
-- La función es suave y bien comportada en $[1, 3]$, y los nodos están bien distribuidos.
-- **Todos los métodos son adecuados**; no hay oscilaciones ni errores notables.
+-   Los tres métodos coinciden visualmente con la función original.
+-   La función es suave y bien comportada en $[1, 3]$, y los nodos están
+    bien distribuidos.
+-   **Todos los métodos son adecuados**; no hay oscilaciones ni errores
+    notables.
 
 Función 2: $f(x) = x^2 \sin(x) - 3\cos(x)$
 
-- Se observan diferencias leves entre Lagrange y los otros métodos, especialmente en los extremos.
-- **Hermite y Splines** ofrecen mejor ajuste, aprovechando la información de derivadas o la suavidad estructural.
-- **Lagrange tiende a oscilar más** en funciones con más curvatura.
+-   Se observan diferencias leves entre Lagrange y los otros métodos,
+    especialmente en los extremos.
+-   **Hermite y Splines** ofrecen mejor ajuste, aprovechando la
+    información de derivadas o la suavidad estructural.
+-   **Lagrange tiende a oscilar más** en funciones con más curvatura.
 
 Función 3: $f(x) = x\cos(x) - 2x^2 + 3x - 1$
 
-- Los tres métodos coinciden perfectamente con la función en el intervalo.
-- La función es suave y casi polinómica, lo que facilita la interpolación.
-- **Todos los métodos funcionan bien en este caso**.
+-   Los tres métodos coinciden perfectamente con la función en el
+    intervalo.
+-   La función es suave y casi polinómica, lo que facilita la
+    interpolación.
+-   **Todos los métodos funcionan bien en este caso**.
 
 # Ejercicio 14
 
 ::: {.callout-note title="Instrucción del ejercicio 14"}
-
 ¿Existen $a,b,c,d$ tal que la función:
 
 $$
@@ -1655,14 +1777,16 @@ bx^3+x^2+dx, & \ \ 0\le x\le 1
 \end{cases}
 $$
 
-sea el spline cúbico natural que coincide con la función $f(x)=|x|$ en los nodos $-1,0,1$?
-
+sea el spline cúbico natural que coincide con la función $f(x)=|x|$ en
+los nodos $-1,0,1$?
 :::
 
 **Solución**
 
-Una de las primeras condiciones que deben ocurrir es que $S_{-1}(-1) = 1$ y $S_0(1) = 1$
+Una de las primeras condiciones que deben ocurrir es que
+$S_{-1}(-1) = 1$ y $S_0(1) = 1$
 
+```{=tex}
 \begin{equation*}
 \begin{cases}
   S_{-1}(-1) =-a + 1 - c = 1\\
@@ -1674,15 +1798,17 @@ Una de las primeras condiciones que deben ocurrir es que $S_{-1}(-1) = 1$ y $S_0
   b = -d
 \end{cases}
 \end{equation*}
-
+```
 Por otra parte, debe suceder que $S'_{-1}(0) = S'_0(0)$
 
 $$
 3ax^2 +2x +c = 3bx^2 +2x +d \text{ en $x = 0$}\Rightarrow c = d \Rightarrow a = -c = -d = b \Rightarrow a = b
 $$
 
-Finalmente, se debe cumplir la condicion natural: $S''_{-1}(-1) = 0$ y $S''_0(1) = 0$
+Finalmente, se debe cumplir la condicion natural: $S''_{-1}(-1) = 0$ y
+$S''_0(1) = 0$
 
+```{=tex}
 \begin{equation*}\begin{cases}
   6a(-1) + 2 = 0\\
   6b(1) + 2 = 0
@@ -1693,14 +1819,15 @@ Finalmente, se debe cumplir la condicion natural: $S''_{-1}(-1) = 0$ y $S''_0(1)
   b = -1/3
 \end{cases}
 \Longrightarrow a = -b \Rightarrow \Leftarrow\end{equation*}
-
-Por lo tanto, no existen $a,b,c,d$ tal que $S(x)$ sea el spline cubico natural de $|x|$ en los nodos $-1, 0, 1$
+```
+Por lo tanto, no existen $a,b,c,d$ tal que $S(x)$ sea el spline cubico
+natural de $|x|$ en los nodos $-1, 0, 1$
 
 # Ejercicio 15
 
 ::: {.callout-note title="Instrucción del ejercicio 15"}
-
-Encuentre los valores de $a,b,c,d$ y $e$ tal que la función $S(x)$ es un spline cúbico natural:
+Encuentre los valores de $a,b,c,d$ y $e$ tal que la función $S(x)$ es un
+spline cúbico natural:
 
 $$
 S(x)=
@@ -1709,19 +1836,70 @@ a+b(x-1)+c(x-1)^2+d(x-1)^3, & 0\le x\le 1,\\[4pt]
 (x-1)^3+ex^2-1, & 1\le x\le 2.
 \end{cases}
 $$
-
 :::
 
 **Solución**
 
+En el nodo interno $x=1$ se requiere continuidad de $S(x)$: $$
+S_0(1) = a, 
+\qquad 
+S_1(1) = (0)^3 + e(1)^2 - 1 = e-1
+$$
 
+De aquí se obtiene la primera ecuación: $$
+a = e - 1
+$$ Respecto a la igualdad en las primeras derivadas se obtiene que: $$
+S_0'(x) = b + 2c(x-1) + 3d(x-1)^2, 
+\qquad S_0'(1) = b,
+$$ $$
+S_1'(x) = 3(x-1)^2 + 2ex,
+\qquad S_1'(1) = 2e
+$$
+
+Llegando a la condición de continuidad: $$
+b = 2e.
+$$
+
+Ahora con las segundas derivadas:
+
+$$
+S_0''(x) = 2c + 6d(x-1), 
+\qquad S_0''(1) = 2c,
+$$ $$
+S_1''(x) = 6(x-1) + 2e, 
+\qquad S_1''(1) = 2e
+$$
+
+Condición de continuidad: $$
+2c = 2e \quad \Rightarrow \quad c = e
+$$ Y por último, las condiciones de frontera:
+
+En $x=0$: $$
+S_0''(0) = 2c - 6d = 0 \quad \Rightarrow \quad c = 3d
+$$
+
+En $x=2$: $$
+S_1''(2) = 6(1) + 2e = 0 \quad \Rightarrow \quad e = -3
+$$
+
+Solucionando el sistema, utilizando las condiciones anteriores se tiene:
+$$
+e = -3, \quad c = e = -3, \quad c = 3d \;\Rightarrow\; d = -1,
+$$
+
+$$
+b = 2e = -6, \quad a = e - 1 = -4
+$$ Teniendo así que
+$a = -4, \quad b = -6, \quad c = -3, \quad d = -1, \quad e = -3$.
+$\blacksquare$
 
 # Ejercicio 16
 
 ::: {.callout-note title="Instrucción del ejercicio 16"}
-
-Encuentre los valores de $a,b,c$ y $d$ tal que la función $S(x)$ es un spline cúbico y cumple que
-$\displaystyle \int_{0}^{2}\!\big[S''(x)\big]^2\,dx$ es mínimo (esta condición sustituye a la condición para ser spline natural o sujeto):
+Encuentre los valores de $a,b,c$ y $d$ tal que la función $S(x)$ es un
+spline cúbico y cumple que
+$\displaystyle \int_{0}^{2}\!\big[S''(x)\big]^2\,dx$ es mínimo (esta
+condición sustituye a la condición para ser spline natural o sujeto):
 
 $$
 S(x)=
@@ -1730,36 +1908,32 @@ S(x)=
 a+b(x-1)+c(x-1)^2+d(x-1)^3, & 1\le x\le 2.
 \end{cases}
 $$
-
 :::
 
 **Solución**
 
+1)  Condiciones de continuidad en $x=1$ (de $S$ y $S'$) y de empalme de
+    $S''$:
 
-1) Condiciones de continuidad en $x=1$ (de $S$ y $S'$) y de empalme de $S''$:
+-   Para $x\le 1$:\
+    $S_0(x)=3+x-9x^3,\;\; S_0'(x)=1-27x^2,\;\; S_0''(x)=-54x.$
 
-- Para $x\le 1$:  
-  $S_0(x)=3+x-9x^3,\;\; S_0'(x)=1-27x^2,\;\; S_0''(x)=-54x.$
+-   Para $x\ge 1$:\
+    $S_1(x)=a+b(x-1)+c(x-1)^2+d(x-1)^3,$\
+    $S_1'(x)=b+2c(x-1)+3d(x-1)^2,$\
+    $S_1''(x)=2c+6d(x-1).$
 
-- Para $x\ge 1$:  
-  $S_1(x)=a+b(x-1)+c(x-1)^2+d(x-1)^3,$  
-  $S_1'(x)=b+2c(x-1)+3d(x-1)^2,$  
-  $S_1''(x)=2c+6d(x-1).$
-
-En $x=1$:
-\begin{align*}
+En $x=1$: \begin{align*}
 S_0(1)=3+1-9=-5 &\Rightarrow a=-5,\\
 S_0'(1)=1-27=-26 &\Rightarrow b=-26,\\
 S_0''(1)=-54 = 2c &\Rightarrow c=-27.
 \end{align*}
 
-2) Minimización de la energía de curvatura:
-$$
-J(d)=\int_{0}^{1}\!\big[S_0''(x)\big]^2 dx+\int_{1}^{2}\!\big[S_1''(x)\big]^2 dx.
-$$
+2)  Minimización de la energía de curvatura: $$
+    J(d)=\int_{0}^{1}\!\big[S_0''(x)\big]^2 dx+\int_{1}^{2}\!\big[S_1''(x)\big]^2 dx.
+    $$
 
-El primer término no depende de $d$:
-$$
+El primer término no depende de $d$: $$
 \int_{0}^{1}\!\big(-54x\big)^2 dx=\frac{54^2}{3}.
 $$
 
@@ -1771,72 +1945,73 @@ Para el segundo, ponga $y=x-1\in[0,1]$, con $A=-54$ y $B=6d$:
 = 2916 - 324d + 12d^2.
 \end{align*}
 
-Luego
-$$
+Luego $$
 J(d)=\text{cte} + 12d^2 - 324d,
 \qquad
 J'(d)=24d-324=0 \Rightarrow d=\frac{324}{24}=13.5.
 $$
 
-**Resultado final:**  
+**Resultado final:**\
 $$
 \boxed{\,a=-5,\quad b=-26,\quad c=-27,\quad d=13.5\,}
-$$
-$\blacksquare$
+$$ $\blacksquare$
 
 # Ejercicio 17
 
 ::: {.callout-note title="Instrucción del ejercicio 17"}
+El objetivo de este ejercicio es estudiar e implementar un algoritmo
+para **Aproximación discreta por mínimos cuadrados**. Para esto:
 
-El objetivo de este ejercicio es estudiar e implementar un algoritmo para **Aproximación discreta por mínimos cuadrados**. Para esto:
+a)  El problema en general es aproximar una tabla de datos
+    $\{(x_i,y_i)\mid i=1,2,\ldots,m\}$ por un polinomio de grado $n<m-1$
+    denotado por $$
+    P_n(x)=\sum_{k=0}^{n} a_k x^k.
+    $$ La idea es encontrar constantes $\{a_k\}_{k=0}^{n}$ tal que se
+    minimice el error: $$
+    E=\sum_{i=1}^{m}\big(y_i-P_n(x_i)\big)^2.
+    $$ Pruebe que este mínimo se alcanza en la solución del sistema de
+    **ecuaciones normales** (n+1)×(n+1) para las incógnitas
+    $\{a_k\}_{k=0}^{n}$ dado por: $$
+    \sum_{k=0}^{n} a_k \sum_{i=1}^{m} x_i^{\,j+k}
+    \;=\;
+    \sum_{i=1}^{m} y_i x_i^{\,j},
+    \qquad j=0,1,2,\ldots,n.
+    $$
 
-a) El problema en general es aproximar una tabla de datos $\{(x_i,y_i)\mid i=1,2,\ldots,m\}$ por un polinomio de grado $n<m-1$ denotado por
-$$
-P_n(x)=\sum_{k=0}^{n} a_k x^k.
-$$
-La idea es encontrar constantes $\{a_k\}_{k=0}^{n}$ tal que se minimice el error:
-$$
-E=\sum_{i=1}^{m}\big(y_i-P_n(x_i)\big)^2.
-$$
-Pruebe que este mínimo se alcanza en la solución del sistema de **ecuaciones normales** (n+1)×(n+1) para las incógnitas $\{a_k\}_{k=0}^{n}$ dado por:
-$$
-\sum_{k=0}^{n} a_k \sum_{i=1}^{m} x_i^{\,j+k}
-\;=\;
-\sum_{i=1}^{m} y_i x_i^{\,j},
-\qquad j=0,1,2,\ldots,n.
-$$
+b)  Dada una tabla de datos para $f$, escriba una función en **R** que
+    permita generar el sistema de ecuaciones normales del inciso (a).
 
-b) Dada una tabla de datos para $f$, escriba una función en **R** que permita generar el sistema de ecuaciones normales del inciso (a).
+c)  Luego escriba una función en **R** que encuentre los coeficientes
+    del polinomio de mínimos cuadrados y luego lo grafique.
 
-c) Luego escriba una función en **R** que encuentre los coeficientes del polinomio de mínimos cuadrados y luego lo grafique.
+d)  Construir la **aproximación de mínimos cuadrados de grado 3** para
+    la siguiente tabla y **construir el gráfico**.
 
-d) Construir la **aproximación de mínimos cuadrados de grado 3** para la siguiente tabla y **construir el gráfico**.
-
-| $x_i$ | $y_i$   |
-|:-----:|:-------:|
-| 4.0   | 102.56  |
-| 4.2   | 113.18  |
-| 4.5   | 130.11  |
-| 4.7   | 142.05  |
-| 5.1   | 167.53  |
-| 5.5   | 195.14  |
-| 5.9   | 224.87  |
-| 6.3   | 256.73  |
-| 6.8   | 299.50  |
-| 7.1   | 326.72  |
-
+| $x_i$ | $y_i$  |
+|:-----:|:------:|
+|  4.0  | 102.56 |
+|  4.2  | 113.18 |
+|  4.5  | 130.11 |
+|  4.7  | 142.05 |
+|  5.1  | 167.53 |
+|  5.5  | 195.14 |
+|  5.9  | 224.87 |
+|  6.3  | 256.73 |
+|  6.8  | 299.50 |
+|  7.1  | 326.72 |
 :::
 
-**Solución**
-a)
+**Solución** a)
 
-Para encontrar el minimo de $E$, hay que derivarlo con respecto a cada uno de los $a_j$, con $j = 0, 1, ..., n$
+Para encontrar el minimo de $E$, hay que derivarlo con respecto a cada
+uno de los $a_j$, con $j = 0, 1, ..., n$
 
 $$
 \dfrac{\partial E}{\partial a_j} = 2 \sum_{i = 1}^{m}{(y_i - \sum_{k = 0}^{n}{a_kx_i^k})\cdot \dfrac{-\partial}{\partial a_k}(\sum_{k = 0}^n{a_kx_i^k})}=0
 $$
 
-Note que $\dfrac{\partial}{\partial a_j}(\sum_{k = 0}^n{a_kx_i^k}) = x_i^j$
+Note que
+$\dfrac{\partial}{\partial a_j}(\sum_{k = 0}^n{a_kx_i^k}) = x_i^j$
 
 $$
 \Rightarrow \dfrac{\partial E}{\partial a_j} = -2\cdot \sum_{i = 1}^m{(y_i - \sum_{k = 0}^n{a_kx_i^k})\cdot x_i^j} = 0 \\
@@ -1844,7 +2019,8 @@ $$
 \Rightarrow \sum_{k = 0}^n{a_k\sum_{i = 1}^m{x_i^{j+k}}} = \sum_{i = 1}^m{y_ix_i^j}
 $$
 
-b)
+b)  
+
 ```{r}
 #| code-fold: true
 
@@ -1866,7 +2042,9 @@ sistema.minimos <- function(nodos, valores, n){
   return(list(A = A, B = B))
 }
 ```
-c)
+
+c)  
+
 ```{r}
 #| code-fold: true
 
@@ -1902,7 +2080,9 @@ ajuste.minimos.cuadrados <- function(nodos, valores, n, a, b){
   return(list(coeficientes = coef, f.ajuste = f_hat, grafico = p))
 }
 ```
-d)
+
+d)  
+
 ```{r}
 #| code-fold: true
 
@@ -1916,19 +2096,21 @@ x <- ajuste.minimos.cuadrados(nodos, valores, n, a, b)
 x
 ```
 
-
 # Ejercicio 18
 
 ::: {.callout-note title="Instrucción del ejercicio 18"}
-
-El objetivo de este ejercicio es **generalizar la aproximación discreta por mínimos cuadrados**.  
-Dada una función $f\in C[a,b]$, se requiere un polinomio $\tilde P_n(x)=\sum\limits_{k=0}^{n} a_k x^k$ de manera tal que las constantes $\{a_k\}_{k=0}^{n}$ minimicen el error:
+El objetivo de este ejercicio es **generalizar la aproximación discreta
+por mínimos cuadrados**.\
+Dada una función $f\in C[a,b]$, se requiere un polinomio
+$\tilde P_n(x)=\sum\limits_{k=0}^{n} a_k x^k$ de manera tal que las
+constantes $\{a_k\}_{k=0}^{n}$ minimicen el error:
 
 $$
 E=\int_a^b \big(f(x)-\tilde P_n(x)\big)^2\,dx.
 $$
 
-Pruebe que este mínimo se alcanza en la solución del sistema de **$(n+1)$ ecuaciones normales** y $(n+1)$ incógnitas $\{a_k\}_{k=0}^{n}$ dado por:
+Pruebe que este mínimo se alcanza en la solución del sistema de $(n+1)$
+ecuaciones normales y $(n+1)$ incógnitas $\{a_k\}_{k=0}^{n}$ dado por:
 
 $$
 \sum_{k=0}^{n} a_k \int_a^b x^{j+k}\,dx \;=\; \int_a^b x^{j} f(x)\,dx,
@@ -1936,17 +2118,20 @@ $$
 \tag{2}
 $$
 
-a) Dada una función $f$ escriba una función en **R** que permita **generar el sistema de ecuaciones (2)**.
+a)  Dada una función $f$ escriba una función en **R** que permita
+    **generar el sistema de ecuaciones (2)**.
 
-b) Luego escriba una función en **R** que **encuentre los coeficientes** del polinomio $\tilde P_n(x)$ y luego lo grafique.
+b)  Luego escriba una función en **R** que **encuentre los
+    coeficientes** del polinomio $\tilde P_n(x)$ y luego lo grafique.
 
-c) Encuentre la **aproximación polinómica** $\tilde P_n(x)$ de grado $2$, $4$ y $6$ para $f(x)=\cos(\pi x)$ en el intervalo $[-1,1]$. Además, **construya los gráficos**.
-
+c)  Encuentre la **aproximación polinómica** $\tilde P_n(x)$ de grado
+    $2$, $4$ y $6$ para $f(x)=\cos(\pi x)$ en el intervalo $[-1,1]$.
+    Además, **construya los gráficos**.
 :::
 
 **Solución**
 
-a)
+a)  
 
 ```{r}
 sistema.minimos.integrados <- function(a, b, f, n){
@@ -1962,7 +2147,9 @@ sistema.minimos.integrados <- function(a, b, f, n){
   return(list(A = A, B = B))
 }
 ```
-b)
+
+b)  
+
 ```{r}
 ajuste.minimos.cuadrados.integrados <- function(a, b, f, n){
   sistema <- sistema.minimos.integrados(a, b, f, n)
@@ -1989,13 +2176,15 @@ ajuste.minimos.cuadrados.integrados <- function(a, b, f, n){
   invisible(list(coeficientes = coef, f_ajuste = f_hat, grafico = p))
 }
 ```
-c)
+
+c)  
 
 ```{r}
 grado.2 <- ajuste.minimos.cuadrados.integrados(-1,1, function(x) cos(pi * x),2)
 grado.4 <- ajuste.minimos.cuadrados.integrados(-1,1, function(x) cos(pi * x),4)
 grado.6 <- ajuste.minimos.cuadrados.integrados(-1,1, function(x) cos(pi * x),6)
 ```
+
 ```{r}
 # Coeficientes de P2
 print(grado.2$coeficientes)
@@ -2010,17 +2199,16 @@ print(grado.6$coeficientes)
 print(grado.6$grafico)
 ```
 
-
-
-
 # Ejercicio 19
 
 ::: {.callout-note title="Instrucción del ejercicio 19"}
+a)  Demuestre que el **Polinomio de Hermite** visto en clase
+    $H_{2n+1}(x)$ es **único**.\
+    *Sugerencia:* Suponga que existe otro polinomio $P(x)$ que cumple
+    las condiciones de interpolación de Hermite y considere
+    $D=H_{2n+1}(x)-P(x)$ y $D'$ en $x_0,x_1,\ldots,x_n$.
 
-a) Demuestre que el **Polinomio de Hermite** visto en clase $H_{2n+1}(x)$ es **único**.  
-*Sugerencia:* Suponga que existe otro polinomio $P(x)$ que cumple las condiciones de interpolación de Hermite y considere $D=H_{2n+1}(x)-P(x)$ y $D'$ en $x_0,x_1,\ldots,x_n$.
-
-b) Demuestre que el **error absoluto** en este caso está dado por:
+b)  Demuestre que el **error absoluto** en este caso está dado por:
 
 $$
 \big|f(x)-H_{2n+1}(x)\big| \;=\;
@@ -2028,102 +2216,93 @@ $$
 \quad \text{con } \xi\in(a,b) .
 $$
 
-**Sugerencia:** Use el mismo método que usamos para demostrar la fórmula del error absoluto en el caso de Lagrange, pero con:
+**Sugerencia:** Use el mismo método que usamos para demostrar la fórmula
+del error absoluto en el caso de Lagrange, pero con:
 
 $$
 g(t)=f(t)-H_{2n+1}(t)\;-\;
 \frac{(t-x_0)^2\cdots(t-x_n)^2}{(x-x_0)^2\cdots(x-x_n)^2}
 \Big[f(x)-H_{2n+1}(x)\Big].
 $$
-
 :::
 
 **Solución**
 
-a) Suponga que existe otro polinomio $P(x)$ que también satisface las $2(n+1)$
-condiciones de interpolación de Hermite en $x_0,\dots,x_n$.  
-Considere
-$$
-D(x)=H_{2n+1}(x)-P(x).
-$$
+a)  Suponga que existe otro polinomio $P(x)$ que también satisface las
+    $2(n+1)$ condiciones de interpolación de Hermite en
+    $x_0,\dots,x_n$.\
+    Considere $$
+    D(x)=H_{2n+1}(x)-P(x).
+    $$
 
-  1. Como $H_{2n+1}$ y $P$ coinciden en valores y derivadas en cada nodo,
-     $$D(x_i)=0\quad\text{y}\quad D'(x_i)=0,\qquad i=0,\dots,n.$$
-     Por lo tanto, cada $x_i$ es una raíz de $D$ con multiplicidad al menos $2$.
-  
-  2. Luego $D$ tiene al menos $2(n+1)$ ceros **contando multiplicidades**.
-     Pero $$\deg D \le \max\{\deg H_{2n+1},\deg P\}\le 2n+1$$
-  
-  3. El Teorema Fundamental del Álgebra (contando multiplicidades) implica que
-     un polinomio no nulo de grado $\le 2n+1$ no puede tener $2(n+1)$ raíces.  
-     La única posibilidad es $D\equiv 0$.
+<!-- -->
 
-Así, $H_{2n+1}(x)\equiv P(x)$ y el polinomio de Hermite es único. 
+1.  Como $H_{2n+1}$ y $P$ coinciden en valores y derivadas en cada nodo,
+    $$D(x_i)=0\quad\text{y}\quad D'(x_i)=0,\qquad i=0,\dots,n.$$ Por lo
+    tanto, cada $x_i$ es una raíz de $D$ con multiplicidad al menos $2$.
+
+2.  Luego $D$ tiene al menos $2(n+1)$ ceros **contando
+    multiplicidades**. Pero
+    $$\deg D \le \max\{\deg H_{2n+1},\deg P\}\le 2n+1$$
+
+3.  El Teorema Fundamental del Álgebra (contando multiplicidades)
+    implica que un polinomio no nulo de grado $\le 2n+1$ no puede tener
+    $2(n+1)$ raíces.\
+    La única posibilidad es $D\equiv 0$.
+
+Así, $H_{2n+1}(x)\equiv P(x)$ y el polinomio de Hermite es único.
 
 $\blacksquare$
 
 ::: {.callout-important collapse="true" title="Comentario"}
-La hipótesis de que los nodos $x_0,\dots,x_n$ son **distintos** es esencial:
-garantiza que las $2(n+1)$ condiciones (valores y derivadas) son independientes.
-Si algunas coincidieran, la formulación correcta requiere multiplicidades
-adecuadas (nodos repetidos) y el argumento se adapta contando esas multiplicidades.
+La hipótesis de que los nodos $x_0,\dots,x_n$ son **distintos** es
+esencial: garantiza que las $2(n+1)$ condiciones (valores y derivadas)
+son independientes. Si algunas coincidieran, la formulación correcta
+requiere multiplicidades adecuadas (nodos repetidos) y el argumento se
+adapta contando esas multiplicidades.
 :::
 
-b)
-Defina el polinomio nodal
-$$
-\omega(t)=\prod_{i=0}^{n}(t-x_i)^2,
-\qquad \omega(x)=\prod_{i=0}^{n}(x-x_i)^2\neq 0 \ \ (x\ne x_i).
-$$
-Considere, para $t\in[a,b]$,
+b)  Defina el polinomio nodal $$
+    \omega(t)=\prod_{i=0}^{n}(t-x_i)^2,
+    \qquad \omega(x)=\prod_{i=0}^{n}(x-x_i)^2\neq 0 \ \ (x\ne x_i).
+    $$ Considere, para $t\in[a,b]$,
 
 $$
 g(t) = f(t) - H_{2n+1}(t) - \frac{\omega(t)}{\omega(x)} \, [ f(x) - H_{2n+1}(x) ].
 $$ {#eq-hola}
 
-  1) Zeros de $g$ y $g'$ en los nodos
-  
-    Para cada $i$, como $H_{2n+1}$ interpola valores y derivadas,
-  $$
+1)  Zeros de $g$ y $g'$ en los nodos
+
+  Para cada $i$, como $H_{2n+1}$ interpola valores y derivadas, $$
   f(x_i)-H_{2n+1}(x_i)=0,\qquad f'(x_i)-H'_{2n+1}(x_i)=0.
-  $$
-    Además, $\omega(x_i)=0$ y $\omega'(x_i)=0$ (raíz doble). Sustituyendo en (1) se obtiene
-  $$
+  $$   Además, $\omega(x_i)=0$ y $\omega'(x_i)=0$ (raíz doble).
+Sustituyendo en (1) se obtiene $$
   g(x_i)=0,\qquad g'(x_i)=0,\qquad i=0,\dots,n.
   $$
-  
-  2) Cero adicional en $t=x$.
-  De @eq-hola se ve directamente que $g(x)=0$.
-  
-  3) Aplicación de Rolle generalizado (con multiplicidades).
-  La función $g$ es $C^{2n+2}$ y tiene $2(n+1)$ ceros en
-  $x_0,\dots,x_n$ (por multiplicidad doble) más un cero en $x$.
-  Por el Teorema Generalizado de Rolle, existe $\xi\in(a,b)$ tal que
-  $$
-  g^{(2n+2)}(\xi)=0. 
-  $${#eq-holdasa}
-  
-  4) Cálculo de la derivada $(2n+2)$-ésima.
-  Derivando @eq-hola $2n+2$ veces,
-  el término $H_{2n+1}$ desaparece (su grado $\le 2n+1$),
-  y como $\omega$ es un polinomio mónico de grado $2n+2$,
-  $$
-  \frac{d^{\,2n+2}}{dt^{2n+2}}\omega(t)=(2n+2)!.
-  $$
-Así,
-$$
-g^{(2n+2)}(t)=f^{(2n+2)}(t)
--\frac{(2n+2)!}{\omega(x)}\,[\,f(x)-H_{2n+1}(x)\,].
-$$
-Evaluando en $\xi$ y usando @eq-holdasa,
-$$
-0=f^{(2n+2)}(\xi)
--\frac{(2n+2)!}{\omega(x)}\,[\,f(x)-H_{2n+1}(x)\,],
-$$
-de donde
-$$
-f(x)-H_{2n+1}(x)=\frac{f^{(2n+2)}(\xi)}{(2n+2)!}\,\omega(x)
-=\frac{f^{(2n+2)}(\xi)}{(2n+2)!}\prod_{i=0}^{n}(x-x_i)^2.
-$$
+
+2)  Cero adicional en $t=x$. De @eq-hola se ve directamente que
+    $g(x)=0$.
+
+3)  Aplicación de Rolle generalizado (con multiplicidades). La función
+    $g$ es $C^{2n+2}$ y tiene $2(n+1)$ ceros en $x_0,\dots,x_n$ (por
+    multiplicidad doble) más un cero en $x$. Por el Teorema Generalizado
+    de Rolle, existe $\xi\in(a,b)$ tal que $$
+      g^{(2n+2)}(\xi)=0. 
+      $$ {#eq-holdasa}
+
+4)  Cálculo de la derivada $(2n+2)$-ésima. Derivando @eq-hola $2n+2$
+    veces, el término $H_{2n+1}$ desaparece (su grado $\le 2n+1$), y
+    como $\omega$ es un polinomio mónico de grado $2n+2$, $$
+      \frac{d^{\,2n+2}}{dt^{2n+2}}\omega(t)=(2n+2)!.
+      $$ Así, $$
+    g^{(2n+2)}(t)=f^{(2n+2)}(t)
+    -\frac{(2n+2)!}{\omega(x)}\,[\,f(x)-H_{2n+1}(x)\,].
+    $$ Evaluando en $\xi$ y usando @eq-holdasa, $$
+    0=f^{(2n+2)}(\xi)
+    -\frac{(2n+2)!}{\omega(x)}\,[\,f(x)-H_{2n+1}(x)\,],
+    $$ de donde $$
+    f(x)-H_{2n+1}(x)=\frac{f^{(2n+2)}(\xi)}{(2n+2)!}\,\omega(x)
+    =\frac{f^{(2n+2)}(\xi)}{(2n+2)!}\prod_{i=0}^{n}(x-x_i)^2.
+    $$
 
 $\blacksquare$
