@@ -202,30 +202,12 @@ $$
 2. Si $fl(x)$ se obtiene usando $k$-dígitos de $x$ **redondeado**, entonces:
 
 $$
-\left| \frac{x - fl(x)}{x} \right| \leq 0.5 \times 10^{-k+1} \;=\; 5 \times 10^{-k}.
+\left| \frac{x - fl(x)}{x} \right| \leq 0.5 \times 10^{-k+1} = 5 \times 10^{-k}.
 $$
-:::
-::: {.callout-tip collapse="true" title="Ejemplo"}
-
-Si $P = 0.3000 \times 10^{1}$ y $P^* = 0.3100 \times 10^{1}$ entonces:
-
-$$
-|P - P^*| = 0.1 \times 10^{0}, 
-\qquad \frac{|P - P^*|}{|P|} = 0.33 \times 10^{-1}
-$$
-
-Pero si $P = 0.3000 \times 10^{4}$ y $P^* = 0.3100 \times 10^{4}$ entonces:
-
-$$
-|P - P^*| = 0.1 \times 10^{3}, 
-\qquad \frac{|P - P^*|}{|P|} = 0.33 \times 10^{-1}
-$$
-:::
 
 ::: {.callout-caution collapse="true" title="Prueba"}
 
-**1.**
-
+**1.**  
 \begin{align*}
 \left| \frac{x - fl(x)}{x} \right|
 &= \left| \frac{0.d_1 d_2 \cdots \times 10^n - 0.d_1 d_2 \cdots d_k \times 10^n}{0.d_1 d_2 \cdots \times 10^n} \right| \\[1ex]
@@ -234,8 +216,6 @@ $$
 &\le \frac{1}{0.1} \times 10^{-k} \\[1ex]
 &= 10^{-k+1}.
 \end{align*}
-
----
 
 **2.** 
 
@@ -293,6 +273,27 @@ $$
 Luego, concluya que 
 $$
 \left| \frac{x - {fl}(x)}{x} \right| \leq 0.5 \times 10^{-k+1} \qquad \blacksquare
+$$
+
+:::
+
+:::
+
+
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
+Si $P = 0.3000 \times 10^{1}$ y $P^* = 0.3100 \times 10^{1}$ entonces:
+
+$$
+|P - P^*| = 0.1 \times 10^{0}, 
+\qquad \frac{|P - P^*|}{|P|} = 0.33 \times 10^{-1}
+$$
+
+Pero si $P = 0.3000 \times 10^{4}$ y $P^* = 0.3100 \times 10^{4}$ entonces:
+
+$$
+|P - P^*| = 0.1 \times 10^{3}, 
+\qquad \frac{|P - P^*|}{|P|} = 0.33 \times 10^{-1}
 $$
 :::
 
@@ -1904,9 +1905,13 @@ Es evidente de la desigualdad (1.1).
 
 $\blacksquare$
 :::
+ - Te dice: si hago $n$ pasos, el error máximo respecto a la solución verdadera $x$ estará acotado por esa fórmula.
+ - Es útil porque permite decidir de antemano cuántas iteraciones necesito para alcanzar una precisión deseada.
+ - Ejemplo: “si quiero error menor que $10^{-6}$, necesito al menos $n = 15$ iteraciones”.
 :::
 
-::: {.callout-note title = "Corolario: Cota del Error a Posteriori"}
+::: {.callout-note title="Corolario: Cota del Error a Posteriori"}
+
 Con las mismas hipótesis del teorema anterior se tiene el siguiente *estimado para el error a posteriori*:
 
 $$
@@ -1918,7 +1923,11 @@ $$
 Se deduce del error a priori iniciando con $x_0 = x_{n-1}$.  
 
 $\blacksquare$
+
 :::
+ - Usa la diferencia entre dos aproximaciones consecutivas ($x_n$ y $x_{n-1}$) que ya calculaste.
+ - Sirve para verificar en la práctica si ya estás suficientemente cerca de la solución sin necesidad de conocerla.
+ - Ejemplo: si $\|x_n - x_{n-1}\|$ es muy pequeño, puedes garantizar que $\|x_n - x\|$ también lo es.
 :::
 
 ::: {.callout-note title="Teorema [Versión 1]"}
@@ -1988,6 +1997,7 @@ Para probar la cota del error (1.4) note que:
 
 $\blacksquare$
 :::
+Este teorema garantiza que, bajo la condición de contracción ($|g’(x)|<1$), la iteración $x_{n+1}=g(x_n)$ converge al único punto fijo y nos da fórmulas concretas para medir el error (a priori, a posteriori, y también en el caso de intervalos cerrados).
 :::
 
 ::: {.callout-note title="Teorema [Versión 2]"}
@@ -2638,7 +2648,7 @@ x_{n-1} - \dfrac{f(x_{n-1})}{f'(x_{n-1})} & \text{si } n > 0
 $$
 :::
 
-::: {.callout-note title = "Algoritmo 3 – Método de Newton–Raphson"}
+::: {.callout-note title="Algoritmo 3 – Método de Newton–Raphson"}
 
 **Entrada:** $x_0$, $N$, $Tol$, $f$  
 **Salida:** La solución $x$ aproximada de la ecuación $f(x) = 0$ o mensaje de error.
@@ -2867,12 +2877,32 @@ $$
 
 está bien definida dentro del intervalo $[x - \varepsilon, x + \varepsilon]$  
 y converge a $x$ (cero de la ecuación $f(x) = 0$).
-:::
+
 
 ::: {.callout-caution collapse="true" title="Prueba"}
 
+1. Dado que $f'(x) \neq 0$, por el **Teorema de la Inversa Local** existe $\varepsilon > 0$ tal que $f$ es estrictamente monótona en $[x-\varepsilon, x+\varepsilon]$.  
+   Esto garantiza que el denominador $f(x_{n-2}) - f(x_{n-1}) \neq 0$ para $x_{n-2}, x_{n-1}$ cercanos a $x$,  
+   de modo que la sucesión $\{x_n\}$ está bien definida.
 
-Ejercicio. $\blacksquare$
+2. La expansión de Taylor alrededor de $x$ da:
+   $$
+   f(y) = f'(x)(y-x) + \tfrac{1}{2} f''(\xi_y)(y-x)^2,
+   \quad \xi_y \in (x,y).
+   $$
+
+3. Usando esta expresión en la fórmula de la secante se obtiene que el error satisface aproximadamente:
+   $$
+   e_n = x_n - x \approx C \, e_{n-1} e_{n-2},
+   $$
+   con $C = -\dfrac{f''(\xi)}{2f'(x)}$ para algún $\xi \in (x-\varepsilon, x+\varepsilon)$.
+
+4. Esto muestra que si $e_{n-1}, e_{n-2}$ son pequeños, $e_n$ tiende a cero y, por tanto, $x_n \to x$.  
+   Además, la convergencia es **superlineal** con orden $\varphi = \tfrac{1+\sqrt{5}}{2}$ (número áureo).
+
+$\blacksquare$
+
+:::
 :::
 
 ### Orden de convergencia
@@ -3465,8 +3495,8 @@ ggplot() +
   geom_text(data = df_nodos, aes(x = x, y = y, label = etiqueta),
             vjust = -1.2, size = 3.5) +
   labs(
-    title = "Interpolación polinómica con nodos: (-2,-1.2), (-1,0.5), (0,1), (1,2.8), (2,3.5)",
-    subtitle = "Polinomio P[n](x) tal que  P_n(xᵢ) = yᵢ",
+    title="Interpolación polinómica con nodos: (-2,-1.2), (-1,0.5), (0,1), (1,2.8), (2,3.5)",
+    subtitle="Polinomio P[n](x) tal que  P_n(xᵢ) = yᵢ",
     x = "x",
     y = "y"
   ) +
@@ -3807,8 +3837,8 @@ ggplot(df, aes(x = x)) +
   geom_line(aes(y = Lx,   color = "L(x)"),  linewidth = 1, linetype = "dashed") +
   geom_point(data = df_nodes, aes(x = x, y = y), shape = 21, size = 3, fill = "white") +
   scale_color_manual(values = c("exp(x)" = "blue", "L(x)" = "red")) +
-  labs(title = "Interpolación de Lagrange",
-       subtitle = "Nodos {0,1,2}, f(x) = exp(x)",
+  labs(title="Interpolación de Lagrange",
+       subtitle="Nodos {0,1,2}, f(x) = exp(x)",
        y = "Valor", color = "Función") +
   theme_minimal(base_size = 14)
 ```
@@ -3849,8 +3879,8 @@ ggplot(df, aes(x = x)) +
   geom_line(aes(y = Lx,   color = "L(x)"),  linewidth = 1, linetype = "dashed") +
   geom_point(data = df_nodes, aes(x = x, y = y), shape = 21, size = 3, fill = "white") +
   scale_color_manual(values = c("exp(x)" = "blue", "L(x)" = "red")) +
-  labs(title = "Interpolación de Lagrange",
-       subtitle = "Nodos {0, 3, 6, 9, 12, 15},  f(x) = exp(x)",
+  labs(title="Interpolación de Lagrange",
+       subtitle="Nodos {0, 3, 6, 9, 12, 15},  f(x) = exp(x)",
        y = "Valor", color = "Función") +
   theme_minimal(base_size = 14)
 ```

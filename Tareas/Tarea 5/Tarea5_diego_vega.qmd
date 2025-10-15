@@ -1,0 +1,597 @@
+---
+title: "MA0501 – Tarea 5"
+author: 
+  - name: "Diego Alberto Vega Víquez - C38367" 
+    email: "diegovv13@gmail.com"
+  - name: "José Carlos Quintero Cedeño - C26152" 
+    email: "jose.quinterocedeno@ucr.ac.cr"
+  - name: "Gabriel Valverde Guzmán - C38060"
+    email: "GABRIEL.VALVERDEGUZMAN@ucr.ac.cr"
+date: today
+lang: es
+format:
+  pdf:
+    documentclass: article
+    fontsize: 11pt
+    linestretch: 1.3
+    geometry:
+      - top=2.5cm
+      - bottom=2.5cm
+      - left=2.5cm
+      - right=2.5cm
+      - headheight=15pt
+      - footskip=1.25cm
+    toc: true
+    toc-depth: 1
+    number-sections: false
+    classoption:
+      - oneside
+      - titlepage 
+    openany: true
+    colorlinks: false   
+    top-level-division: section
+    include-in-header: 
+      text: |
+        \usepackage[most]{tcolorbox}
+        \usepackage[hidelinks]{hyperref}
+        \usepackage{setspace}
+        \AtBeginDocument{\setstretch{1.0}} % ← interlineado
+  html:
+    code-annotations: hover
+    toc: true
+    toc-depth: 1
+    toc-location: left
+    toc_float: yes
+    html-math-method: katex
+    css: styles.css
+    df_print: paged
+    theme: flatly
+    highlight: tango
+    embed-resources: true
+    page-layout: full
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+\newpage
+
+# Ejercicio 1
+
+::: {.callout-note title="Instrucción del ejercicio 1"}
+
+Implemente en **R** los algoritmos de derivación numérica vistos en clase.  
+Se deben implementar los siguientes:
+
+- `Der2Puntos(X0, h)`  
+  (* Calcula la derivada de F usando la fórmula de 2 puntos *)
+
+- `Der3PuntosA(X0, h)`  
+  (* Calcula la derivada de F usando la fórmula de 3 puntos - fórmula A *)
+
+- `Der3PuntosB(X0, h)`  
+  (* Calcula la derivada de F usando la fórmula de 3 puntos - fórmula B *)
+
+- `Der5PuntosA(X0, h)`  
+  (* Calcula la derivada de F usando la fórmula de 5 puntos - fórmula A *)
+
+- `Der5PuntosB(X0, h)`  
+  (* Calcula la derivada de F usando la fórmula de 5 puntos - fórmula B *)
+
+:::
+
+**Solución**  
+*(Implementación en R de las cinco funciones para derivación numérica)*
+
+# Ejercicio 2
+
+::: {.callout-note title="Instrucción del ejercicio 2"}
+
+Sea $f(x) = x^3 e^{x^2} - \sin x$.  
+Para $h = 0.01$ y $h = 0.001$, aproxime $f'(2.19)$ usando todos los métodos implementados en el ejercicio 1.  
+Compare con el valor exacto.  
+¿Cuál es la mejor aproximación?
+
+:::
+
+**Solución**  
+*(Cálculo de $f'(2.19)$ mediante las cinco fórmulas de derivación y comparación con la derivada analítica exacta.)*
+
+
+# Ejercicio 3
+
+::: {.callout-note title="Instrucción del ejercicio 3"}
+
+Agregue al archivo anterior una función para la **Extrapolación de Richardson**,  
+que permita trabajar con fórmulas del tipo $N(x_0, h)$.
+
+:::
+
+**Solución**  
+*(Implementación de una función general para aplicar extrapolación de Richardson a derivadas numéricas.)*
+
+# Ejercicio 4
+
+::: {.callout-note title="Instrucción del ejercicio 4"}
+
+Se puede probar la siguiente **fórmula progresiva** para calcular derivadas:
+
+$$
+f'(x_0) = \frac{1}{h}\big[f(x_0 + h) - f(x_0)\big]
+- \frac{h}{2} f''(x_0)
+- \frac{h^2}{2} f'''(x_0)
++ O(h^3)
+$$
+
+Aplique **extrapolación de Richardson** para aproximar derivadas con la fórmula anterior.  
+Luego, repita el ejercicio 2 usando este método.
+
+:::
+
+**Solución**  
+*(Implementación de la fórmula progresiva con extrapolación de Richardson aplicada al caso de $f'(2.19)$.)*
+
+# Ejercicio 5
+
+::: {.callout-note title="Instrucción del ejercicio 5"}
+
+Implemente en **R** los algoritmos de **integración numérica** vistos en clase.  
+Se deben implementar los siguientes:
+
+- `Trapecio(a, b)`  
+  (* Calcula la integral de F de a hasta b, usando la regla del Trapecio *)
+
+- `Simpson(a, b)`  
+  (* Calcula la integral de F de a hasta b, usando la regla de Simpson *)
+
+- `SimpsonCompuesta(a, b, m)`  
+  (* Calcula la integral de F de a hasta b, usando la regla de Simpson Compuesta *)
+
+- `Romberg(a, b, n)`  
+  (* Calcula la integral de F de a hasta b, usando el método de Romberg *)
+
+- `IntegralDobleSCT(a, b, n, m)`  
+  (* Calcula la integral doble de F en regiones de tipo I usando Simpson Compuesto *)
+
+:::
+
+**Solución**  
+*(Implementación de los cinco métodos de integración numérica en R.)*
+
+
+
+# Ejercicio 6
+
+::: {.callout-note title="Instrucción del ejercicio 6"}
+
+Calcule
+
+$$
+\int_0^{\pi} (4 + 2\sin x)\,dx
+$$
+
+mediante **todos los métodos programados arriba**  
+(*excepto el último método de integración doble*).
+
+:::
+
+**Solución**  
+*(Evaluación de la integral con Trapecio, Simpson, Simpson Compuesto y Romberg;  
+comparación con el valor analítico exacto $= 4\pi$.)*
+
+# Ejercicio 7
+
+::: {.callout-note title="Instrucción del ejercicio 7"}
+
+Determine el valor de $n$ según las **cotas teóricas del error** para aproximar la integral:
+
+$$
+\int_0^{\pi} (8 + 5 \sin x)\,dx
+$$
+
+con **4 cifras significativas** mediante la **regla de Simpson Compuesta**.  
+Calcule la integral con este valor de $n$.  
+¿Es realmente el valor de $n$ necesario?
+
+:::
+
+**Solución**  
+*(Cálculo teórico del error en Simpson compuesta, estimación de $n$, verificación numérica y comparación del error real con el teórico.)*
+
+
+
+# Ejercicio 8
+
+::: {.callout-note title="Instrucción del ejercicio 8"}
+
+Calcule $\ln(2)$ usando:
+
+$$
+\ln(2) = \int_1^2 \frac{dx}{x}
+$$
+
+mediante la **regla de Simpson Compuesta**.  
+¿Cuál es el menor valor de $n$ que garantiza **6 cifras significativas** en el cálculo de $\ln(2)$?
+
+:::
+
+**Solución**  
+*(Determinación de $n$ mediante el error teórico de Simpson compuesta y comparación con el valor exacto de $\ln(2)$.)*
+
+
+
+# Ejercicio 9
+
+::: {.callout-note title="Instrucción del ejercicio 9"}
+
+Use el procedimiento de **integrales dobles** para calcular el área limitada por la parábola  
+$y = 4x - x^2$, el eje $X$, y la recta $y = -3x + 6$.  
+Resuélvalo también usando **R** directamente.
+
+:::
+
+**Solución**  
+*(Determinación de los puntos de intersección, límites de integración y cálculo del área mediante integración doble y verificación en R.)*
+
+
+
+# Ejercicio 10
+
+::: {.callout-note title="Instrucción del ejercicio 10"}
+
+Usando el procedimiento de integración múltiple, calcule el volumen del sólido limitado por el paraboloide  
+
+$$
+z = 4 - x^2 - 2y^2
+$$
+
+y el plano $xy$.  
+Resuélvalo también usando **R** directamente.
+
+:::
+
+**Solución**  
+*(Definición del dominio de integración, cálculo del volumen analítico y numérico en R.)*
+
+
+
+# Ejercicio 11
+
+::: {.callout-note title="Instrucción del ejercicio 11"}
+
+La **Regla del Trapecio Extendida** se presenta en el siguiente teorema:
+
+> **Teorema:**  
+> Sea $f \in C^2[a,b]$, con $h = (b - a)/n$ y $x_j = a + jh$ para cada $j = 0,1,\ldots,n$.  
+> La regla del trapecio para $n$ subintervalos es:
+>
+> $$
+> \int_a^b f(x)\,dx
+> = \frac{h}{2}\left[f(a) + f(b) + 2\sum_{j=1}^{n-1} f(x_j)\right]
+> - \frac{(b-a)h^2}{12} f''(\mu),
+> \quad \text{para alguna } \mu \in [a,b].
+> $$
+
+**(a)** Pruebe el teorema anterior.  
+**(b)** Escriba un algoritmo en pseudo-código para la **regla del trapecio extendida**.  
+**(c)** Implemente en **R** la regla del trapecio extendida.
+
+:::
+
+**Solución**  
+*(Demostración teórica del teorema, desarrollo del pseudo-código y ejemplo de implementación en R.)*
+
+
+
+# Ejercicio 12
+
+::: {.callout-note title="Instrucción del ejercicio 12"}
+
+Calcule:
+
+$$
+\int_0^2 x^2 e^{-x^2}\,dx
+$$
+
+usando la **regla del trapecio extendida** con $n = 8$.
+
+:::
+
+**Solución**  
+*(Cálculo numérico de la integral y comparación con el valor de referencia obtenido por software simbólico.)*
+
+
+
+# Ejercicio 13
+
+::: {.callout-note title="Instrucción del ejercicio 13"}
+
+Sea $f$ definida por:
+
+$$
+f(x) = 
+\begin{cases}
+x^3 + 1, & 0 \le x \le 2,\\[0.5em]
+2x + 5, & 2 < x \le 6.
+\end{cases}
+$$
+
+**(a)** Aproxime $\int_0^6 f(x)\,dx$ usando la **regla del trapecio extendida**.  
+**(b)** Aproxime $\int_0^6 f(x)\,dx$ usando la **regla de Simpson compuesta**.  
+**(c)** Determine cuál resultado es más preciso.
+
+:::
+
+**Solución**  
+*(Evaluación de ambas integrales con los métodos solicitados y comparación de errores relativos.)*
+
+
+
+# Ejercicio 14
+
+::: {.callout-note title="Instrucción del ejercicio 14"}
+
+Escriba un **algoritmo en pseudo-código** para calcular **integrales dobles tipo I** basado en la **Regla del Trapecio Extendida**.  
+Luego, agregue este algoritmo al módulo de integración numérica implementado anteriormente.
+
+:::
+
+**Solución**  
+*(Esquema de pseudo-código del algoritmo generalizado a doble integración y adaptación al código previo.)*
+
+
+
+# Ejercicio 15
+
+::: {.callout-note title="Instrucción del ejercicio 15"}
+
+Repita los ejercicios 9 y 10 usando el algoritmo desarrollado en el ejercicio anterior.
+
+:::
+
+**Solución**  
+*(Aplicación del nuevo algoritmo de integración doble a los casos geométricos definidos en los ejercicios 9 y 10.)*
+
+# Ejercicio 16
+
+::: {.callout-note title="Instrucción del ejercicio 16"}
+
+Sea
+
+$$
+f(x) = \int_0^x \cos(t^2)\,dt.
+$$
+
+(a) Interpole $f(x)$ con nodos $x_0 = 0$, $x_1 = \frac{\pi}{2}$, $x_2 = \pi$,  
+$x_3 = \frac{3\pi}{2}$, $x_4 = 2\pi$, $x_5 = \frac{5\pi}{2}$, $x_6 = 3\pi$,  
+usando alguno de los métodos vistos en el curso.  
+
+*Sugerencia:* Recuerde que $\int \cos(t^2)\,dt$ no puede calcularse en términos de funciones elementales.
+
+(b) Grafique el polinomio $p(x)$ y la función $f(x)$ en un mismo plano.
+
+(c) Dé dos razones por las cuales **a priori** se sabe que la interpolación anterior para $f(x)$ es “mala”.
+
+:::
+
+**Solución**  
+*(Construcción de los nodos y valores de $f(x)$ mediante integración numérica, obtención del polinomio interpolante y análisis de la oscilación tipo Runge.)*
+
+
+
+# Ejercicio 17
+
+::: {.callout-note title="Instrucción del ejercicio 17"}
+
+Determine $a, b, c$ en la fórmula de cuadratura:
+
+$$
+\int_{-1}^{1} f(x)\,dx = a f(-\alpha) + b f(0) + c f(\alpha) + \mathcal{E}(f)
+$$
+
+en función de $\alpha$, tal que tenga una **exactitud algebraica igual a 3**, por lo menos.
+
+:::
+
+**Solución**  
+*(Desarrollo del sistema de ecuaciones a partir de la condición de exactitud algebraica y resolución para $a, b, c$ en términos de $\alpha$.)*
+
+
+
+# Ejercicio 18
+
+::: {.callout-note title="Instrucción del ejercicio 18"}
+
+Repita el ejercicio anterior pero con **exactitud algebraica igual a 5**.
+
+:::
+
+**Solución**  
+*(Derivación del sistema extendido para los polinomios de grado hasta 5 y cálculo de los coeficientes.)*
+
+
+
+# Ejercicio 19
+
+::: {.callout-note title="Instrucción del ejercicio 19"}
+
+Demuestre la **regla de Simpson** a partir de la fórmula de cuadratura
+
+$$
+\int_{x_0}^{x_2} f(x)\,dx = a_0 f(x_0) + a_1 f(x_1) + a_2 f(x_2) + \mathcal{E}(f)
+$$
+
+usando el hecho de que la fórmula de Simpson tiene **exactitud algebraica igual a 3**.
+
+:::
+
+**Solución**  
+*(Derivación paso a paso de los coeficientes $a_0$, $a_1$, $a_2$ mediante el ajuste de los momentos exactos de monomios de grado 0 a 3.)*
+
+
+
+# Ejercicio 20
+
+::: {.callout-note title="Instrucción del ejercicio 20"}
+
+Demuestre que existe una constante positiva $c$ tal que la fórmula de cuadratura
+
+$$
+\int_{-1/2}^{1/2} f(x)\,dx = \frac{1}{3}\,[f(-c) + f(0) + f(c)] + \mathcal{E}(f)
+$$
+
+tiene **exactitud algebraica igual a 3**.
+
+:::
+
+**Solución**  
+*(Verificación de la exactitud algebraica mediante evaluación de la fórmula para $f(x) = 1, x, x^2, x^3$ y determinación de la constante $c$ que satisface las condiciones de simetría y momento.)*
+
+
+
+# Ejercicio 21
+
+::: {.callout-note title="Instrucción del ejercicio 21"}
+
+Determine las constantes $a$ y $b$ tal que la fórmula de cuadratura
+
+$$
+\int_0^{\infty} e^{-x} f(x)\,dx = \frac{1}{4} [a f(b) + b f(a)] + \mathcal{E}(f)
+$$
+
+tenga **exactitud algebraica igual a 3**, por lo menos.
+
+:::
+
+**Solución**  
+*(Empleo de la función peso $e^{-x}$, desarrollo de los momentos de Laguerre y resolución del sistema de condiciones para $a$ y $b$.)*
+
+
+
+# Ejercicio 22
+
+::: {.callout-note title="Instrucción del ejercicio 22"}
+
+Demuestre que existen constantes $c_1 \in [a,b]$ y $c_2 \in [a,b]$ tal que la fórmula de cuadratura
+
+$$
+\int_a^b f(x)\,dx = \frac{b-a}{2} \, [f(c_1) + f(c_2)] + \mathcal{E}(f)
+$$
+
+tiene **exactitud algebraica igual a 3**, por lo menos.
+
+:::
+
+**Solución**  
+*(Aplicación del teorema de los valores intermedios y propiedades de simetría para justificar la existencia de $c_1$ y $c_2$ en el intervalo, garantizando la exactitud hasta grado 3.)*
+
+# Ejercicio 23
+
+::: {.callout-note title="Instrucción del ejercicio 23"}
+
+Usando **integración numérica**, escriba un procedimiento en **R** que permita obtener para una función dada $f(x)$ su **polinomio trigonométrico $S_n(x)$**,  
+es decir, una **aproximación a su Serie de Fourier**.
+
+:::
+
+
+
+::: {.callout-note title="Instrucción del inciso (a)"}
+
+Si se definen:
+
+$$
+\phi_0(x) = \frac{1}{\sqrt{2\pi}},
+$$
+
+$$
+\phi_k(x) = \frac{1}{\sqrt{\pi}} \cos(kx), \quad k = 1, 2, \ldots, n,
+$$
+
+$$
+\phi_{n+k}(x) = \frac{1}{\sqrt{\pi}} \sin(kx), \quad k = 1, 2, \ldots, n-1.
+$$
+
+Pruebe que el conjunto  
+
+$$
+B = \{\phi_0, \phi_1, \ldots, \phi_{2n-1}\}
+$$
+
+es **ortogonal** con el producto interno integral en el intervalo $[-\pi, \pi]$.  
+
+Dada $f \in C[-\pi, \pi]$, su polinomio trigonométrico $S_n(x)$ se define como:
+
+$$
+S_n(x) := \sum_{k=0}^{2n-1} a_k \, \phi_k(x),
+$$
+
+donde
+
+$$
+a_k = \int_{-\pi}^{\pi} f(x)\phi_k(x)\,dx, \quad k = 0, 1, \ldots, 2n-1.
+$$
+
+El límite:
+
+$$
+\lim_{n \to \infty} S_n(x) = \lim_{n \to \infty} \sum_{k=0}^{2n-1} a_k \phi_k(x)
+$$
+
+se denomina **Serie de Fourier** de $f$.
+
+:::
+
+**Solución (a)**  
+*(Demostración de la ortogonalidad mediante el cálculo del producto interno entre las funciones base $\phi_i$ y $\phi_j$ y verificación de que el resultado es cero cuando $i \ne j$ y distinto de cero cuando $i = j$.)*
+
+
+::: {.callout-note title="Instrucción del inciso (b)"}
+
+Usando alguno de los métodos de integración numérica programados anteriormente,  
+escriba una función en **R** para calcular:
+
+$$
+a_k = \int_{-\pi}^{\pi} f(x)\phi_k(x)\,dx, \quad \text{para cada } k = 0, 1, \ldots, 2n-1.
+$$
+
+:::
+
+**Solución (b)**  
+*(Implementación en R que use métodos numéricos como Simpson o Romberg para calcular los coeficientes $a_k$.)*
+
+
+::: {.callout-note title="Instrucción del inciso (c)"}
+
+Programe una función en **R** para calcular la suma:
+
+$$
+S(n, x) = \sum_{k=0}^{2n-1} a_k \phi_k(x).
+$$
+
+:::
+
+**Solución (c)**  
+*(Función en R que recibe los coeficientes $a_k$ y las funciones base $\phi_k$ para evaluar $S_n(x)$ en un conjunto de puntos del dominio $[-\pi, \pi]$.)*
+
+
+::: {.callout-note title="Instrucción del inciso (d)"}
+
+Con el programa anterior, encontrar $S_n(x)$ para  
+$n = 3, 4, 5, 6, 7, 8$  
+para la función:
+
+$$
+f(x) = 
+\begin{cases}
+-1, & -\pi < x < 0, \\[0.3em]
+1, & 0 < x < \pi.
+\end{cases}
+$$
+
+Luego grafique $f(x)$ y $S_n(x)$ en un mismo plano para $n = 3, 4, 5, 6, 7, 8$.
+
+:::
+
+**Solución (d)**  
+*(Código en R que genera las aproximaciones $S_n(x)$ y grafica las curvas junto con la función original $f(x)$ para observar el fenómeno de Gibbs y la convergencia de la serie de Fourier.)*

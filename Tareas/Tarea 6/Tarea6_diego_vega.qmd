@@ -1,0 +1,65 @@
+---
+title: "MA0501 – Tarea 6"
+author: 
+  - name: "Diego Alberto Vega Víquez - C38367" 
+    email: "diegovv13@gmail.com"
+  - name: "José Carlos Quintero Cedeño - C26152" 
+    email: "jose.quinterocedeno@ucr.ac.cr"
+  - name: "Gabriel Valverde Guzmán - C38060"
+    email: "GABRIEL.VALVERDEGUZMAN@ucr.ac.cr"
+date: today
+lang: es
+format:
+  pdf:
+    documentclass: article
+    fontsize: 11pt
+    linestretch: 1.3
+    geometry:
+      - top=2.5cm
+      - bottom=2.5cm
+      - left=2.5cm
+      - right=2.5cm
+      - headheight=15pt
+      - footskip=1.25cm
+    toc: true
+    toc-depth: 1
+    number-sections: false
+    classoption:
+      - oneside
+      - titlepage 
+    openany: true
+    colorlinks: false   
+    top-level-division: section
+    include-in-header: 
+      text: |
+        \usepackage[most]{tcolorbox}
+        \usepackage[hidelinks]{hyperref}
+        \usepackage{setspace}
+        \AtBeginDocument{\setstretch{1.0}} % ← interlineado
+  html:
+    code-annotations: hover
+    toc: true
+    toc-depth: 1
+    toc-location: left
+    toc_float: yes
+    html-math-method: katex
+    css: styles.css
+    df_print: paged
+    theme: flatly
+    highlight: tango
+    embed-resources: true
+    page-layout: full
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+\newpage
+
+# Ejercicio 1
+
+::: {.callout-note title="Instrucción del ejercicio 1"}
+
+:::
+
+**Solución**
