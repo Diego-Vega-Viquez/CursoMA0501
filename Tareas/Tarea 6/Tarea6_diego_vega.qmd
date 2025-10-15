@@ -60,6 +60,343 @@ editor:
 
 ::: {.callout-note title="Instrucción del ejercicio 1"}
 
+Implemente en **R** funciones para todos los algoritmos numéricos de resolución de ecuaciones diferenciales vistos en clase.
+
 :::
 
 **Solución**
+
+*(Implementación en R de los métodos numéricos básicos: Euler, Euler modificado, Heun, Runge–Kutta de orden 4, etc.)*
+
+
+
+# Ejercicio 2
+
+::: {.callout-note title="Instrucción del ejercicio 2"}
+
+Complete los detalles de las demostraciones que quedaron pendientes en este capítulo.
+
+:::
+
+**Solución**
+
+*(Desarrollo formal de las demostraciones teóricas omitidas, incluyendo la consistencia, estabilidad y convergencia de los métodos estudiados.)*
+
+
+
+# Ejercicio 3
+
+::: {.callout-note title="Instrucción del ejercicio 3"}
+
+Para los problemas de valor inicial:
+
+$$
+y' = -2ty^2, \quad y(0) = 1, \quad 0 \le t \le 1.
+$$
+
+$$
+y' - y = \cos(t), \quad y(0) = \tfrac{1}{2}, \quad 0 \le t \le 1.
+$$
+
+$$
+x\sqrt{1 - y^2}\,dx + y\sqrt{1 - x^2}\,dy = 0, \quad y(0) = 1, \quad 0 \le x \le 1.
+$$
+
+(a) Genere una tabla con cada uno de los métodos del ejercicio anterior con $N = 10$.  
+
+(b) Encuentre la solución exacta usando **R**.  
+
+(c) Mediante alguno de los métodos de interpolación vistos en el curso, interpole cada una de las soluciones obtenidas. Luego grafique en un mismo plano la solución exacta y el polinomio obtenido.  
+
+(d) ¿Cuál de los métodos permitió obtener una mejor solución aproximada?
+
+:::
+
+**Solución**
+
+*(Implementación de los tres problemas en R, aplicación de los métodos numéricos de Euler, Heun y Runge–Kutta, comparación con la solución exacta e interpolación de resultados.)*
+
+
+
+# Ejercicio 4
+
+::: {.callout-note title="Instrucción del ejercicio 4"}
+
+Muestre que el método de **Euler** falla al aproximar la solución
+
+$$
+u(x) = \left(\frac{2}{3}x\right)^{3/2}
+$$
+
+para el problema de valor inicial
+
+$$
+u' = u^{1/3}, \quad u(0) = 0.
+$$
+
+Explique por qué falla.
+
+:::
+
+**Solución**
+
+*(Análisis de la discontinuidad del término $u^{1/3}$ en $u=0$, que causa que el método de Euler no satisfaga la hipótesis de Lipschitz y por tanto diverja.)*
+
+
+
+# Ejercicio 5
+
+::: {.callout-note title="Instrucción del ejercicio 5"}
+
+Demuestre que el método de un paso dado por:
+
+$$
+u_{j+1} = u_j + h f\left(x_j + \frac{h}{2},\, u_j + \frac{h}{2} f(x_j, u_j)\right)
+$$
+
+es consistente y que, si $f$ es dos veces continuamente diferenciable, entonces tiene **orden dos**  
+(este método se conoce como el **método de Euler Modificado**).  
+
+Implemente este método en **R** y resuelva las ecuaciones diferenciales del problema 2. Luego grafique.
+
+:::
+
+**Solución**
+
+*(Demostración de la consistencia mediante expansión en serie de Taylor y verificación del error local de orden $O(h^3)$. Implementación en R y comparación gráfica con otros métodos.)*
+
+
+
+# Ejercicio 6
+
+::: {.callout-note title="Instrucción del ejercicio 6"}
+
+Demuestre que el método de un paso dado por:
+
+$$
+k_1 = f(x_j, u_j),
+$$
+$$
+k_2 = f\left(x_j + \frac{h}{3},\, u_j + \frac{h}{3} k_1\right),
+$$
+$$
+k_3 = f\left(x_j + \frac{2h}{3},\, u_j + \frac{2h}{3} k_2\right),
+$$
+$$
+u_{j+1} = u_j + \frac{h}{4}(k_1 + 3k_3),
+$$
+
+es consistente y que, si $f$ es tres veces continuamente diferenciable, entonces tiene **orden tres**  
+(este método se conoce como el **método de Tercer Orden de Heun**).  
+
+Implemente este método en **R** y resuelva las ecuaciones diferenciales del problema 2. Luego grafique.
+
+:::
+
+**Solución**
+
+*(Demostración de la consistencia mediante comparación con la expansión de Taylor hasta términos de $O(h^4)$, y verificación del orden 3. Implementación en R y análisis de error global con respecto a métodos de orden inferior.)*
+
+# Ejercicio 7
+
+::: {.callout-note title="Instrucción del ejercicio 7"}
+
+Demuestre que el método de un paso dado por:
+
+$$
+k_1 = f(x_j, u_j),
+$$
+$$
+k_2 = f\left(x_j + \frac{h}{2},\, u_j + \frac{h}{2}k_1\right),
+$$
+$$
+k_3 = f\left(x_j + h,\, u_j - hk_1 + 2hk_2\right),
+$$
+$$
+u_{j+1} = u_j + \frac{h}{6}(k_1 + 4k_2 + k_3),
+$$
+
+es consistente y que si $f$ es tres veces continuamente diferenciable entonces tiene **orden tres**  
+(este método se conoce como el **método de Tercer Orden de Runge–Kutta**).  
+
+Implemente este método en **R** y resuelva las ecuaciones diferenciales del problema 2, luego grafique.
+
+:::
+
+**Solución**
+
+*(Demostración del orden del método mediante expansión en series de Taylor, comparación con la solución exacta y verificación de la cancelación de términos hasta $O(h^4)$. Implementación en R y análisis gráfico de la convergencia frente a métodos de orden menor.)*
+
+
+
+# Ejercicio 8
+
+::: {.callout-note title="Instrucción del ejercicio 8"}
+
+La idea de este ejercicio es introducir la **matriz exponencial** $e^A$ para resolver sistemas de ecuaciones diferenciales.
+
+**Definición:**  
+Dada una sucesión $\{C_k\}$ de matrices $m \times n$ cuyos elementos son reales o complejos, se denota por $c_{ij}^k$ la entrada $ij$ de $C_k$.  
+Entonces, si todas las $mn$ series
+
+$$
+\sum\limits_{k=1}^{\infty} c_{ij}^k \quad \text{con } i = 1, 2, \ldots, m; \; j = 1, 2, \ldots, n
+$$
+
+son convergentes, se dice que la serie de matrices $\sum\limits_{k=1}^{\infty} C_k$ es convergente y su suma es la matriz cuya entrada $ij$ es:
+
+$$
+\sum\limits_{k=1}^{\infty} c_{ij}^k.
+$$
+
+(a) Pruebe que si $\{C_k\}$ es una sucesión de matrices $m \times n$ tales que  
+$\sum\limits_{k=1}^{\infty} \|C_k\|$ converge, entonces la serie de matrices $\sum\limits_{k=1}^{\infty} C_k$ también es convergente.
+
+(b) Pruebe que la serie $\sum\limits_{k=0}^{\infty} \frac{A^k}{k!}$ es convergente.
+
+::: {.callout-note title="Definición"}
+Dada una matriz $A$, $n \times n$ con elementos reales o complejos, se define la **matriz exponencial** como:
+
+$$
+e^A = \sum\limits_{k=0}^{\infty} \frac{A^k}{k!}.
+$$
+:::
+
+(c) Verifique que si 
+
+$$
+A = 
+\begin{pmatrix}
+1 & 0 & 0 \\
+0 & 2 & 0 \\
+0 & 0 & 3
+\end{pmatrix}
+$$
+
+  entonces 
+
+$$
+e^A =
+\begin{pmatrix}
+e^t & 0 & 0 \\
+0 & e^{2t} & 0 \\
+0 & 0 & e^{3t}
+\end{pmatrix}.
+$$
+
+(e) Verifique que si 
+
+$$
+A = 
+\begin{pmatrix}
+a & 1 \\
+0 & a
+\end{pmatrix}
+$$
+
+  entonces 
+
+$$
+e^{tA} =
+\begin{pmatrix}
+e^{at} & te^{at} \\
+0 & e^{at}
+\end{pmatrix}.
+$$
+
+(f) Pruebe que para todo $t \in \mathbb{R}$ la función matricial $E(t) = e^{tA}$ satisface la ecuación diferencial matricial:
+
+$$
+E'(t) = E(t)A = AE(t).
+$$
+
+(g) Dada una matriz $A$, $n \times n$ con elementos reales o complejos, pruebe que para todo $t \in \mathbb{R}$ se cumple:
+
+$$
+e^{tA} e^{-tA} = I
+$$
+
+  o sea que $e^{tA}$ es no singular y su inversa es $e^{-tA}$.
+
+
+(h) Pruebe que si $A$ y $B$ son dos matrices $n \times n$ con elementos reales o complejos tales que $AB = BA$,  
+entonces:
+
+$$
+e^{A+B} = e^A e^B.
+$$
+
+(i) Pruebe que, dada una matriz $A$, $n \times n$ con elementos reales o complejos y un vector $B$ de $n$ entradas, entonces el problema de valor inicial:
+
+$$
+Y'(t) = AY(t)
+$$
+$$
+Y(0) = B
+$$
+
+  tiene solución única con $t \in \mathbb{R}$ y que esta solución está dada por:
+
+$$
+Y(t) = e^{tA} B.
+$$
+
+(j) Pruebe que si una matriz cuadrada $A$ es diagonalizable, es decir, que existe una matriz $C$ no singular tal que la matriz $D = C^{-1}AC$ es diagonal, entonces:
+
+$$
+e^{tA} = C e^{tD} C^{-1}.
+$$
+
+(k) Escriba una función en **R** que reciba una matriz $A$ diagonalizable y retorne $e^{tA}$.  
+Para esto puede usar la función `eigen(...)` de R.
+
+(l) Verifique que si
+
+$$
+A =
+\begin{pmatrix}
+3 & -1 \\
+-2 & 2
+\end{pmatrix}
+$$
+
+  entonces
+
+$$
+e^{tA} = -\frac{1}{3}
+\begin{pmatrix}
+-e^t - 2e^{4t} & -e^t + e^{4t} \\
+-2e^t + 2e^{4t} & -2e^t - e^{4t}
+\end{pmatrix}.
+$$
+
+(m) Resuelva el siguiente sistema de ecuaciones diferenciales:
+
+$$
+\begin{cases}
+x_1'(t) = 3x_1(t) - x_2(t) \\
+x_2'(t) = -2x_1(t) + 2x_2(t)
+\end{cases}
+$$
+
+  sujeto a $x_1(0) = 90$ y $x_2(0) = 150$.
+
+(n) Escriba una función en **R** que reciba una matriz $A$ con los coeficientes de un sistema de ecuaciones diferenciales, las condiciones iniciales en una lista de pares, y retorne una lista con las soluciones del sistema de ecuaciones diferenciales.
+
+(o) Usando el programa, resuelva el siguiente sistema de ecuaciones diferenciales:
+
+$$
+\begin{cases}
+x_1'(t) = 3x_1(t) - 2x_2(t) \\
+x_2'(t) = -2x_1(t) + 3x_2(t) \\
+x_3'(t) = 5x_3(t)
+\end{cases}
+$$
+
+  sujeto a $x_1(0) = 2$, $x_2(0) = 1$ y $x_3(0) = 3$.
+
+:::
+
+**Solución**
+
+*(Prueba de la propiedad de conmutatividad para exponentiales de matrices mediante expansión de series de potencias; demostración de la existencia y unicidad de la solución $Y(t) = e^{tA}B$ aplicando el teorema de Picard–Lindelöf; derivación de la forma general de $e^{tA}$ para matrices diagonalizables; implementación en R usando `eigen()` y validación con ejemplos concretos. Finalmente, resolución de los sistemas de ecuaciones diferenciales con $e^{tA}$ y graficación de las trayectorias de las soluciones.)*
