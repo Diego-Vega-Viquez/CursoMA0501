@@ -494,6 +494,18 @@ La **Regla del Trapecio Extendida** se presenta en el siguiente teorema:
 **Solución**  
 *(Demostración teórica del teorema, desarrollo del pseudo-código y ejemplo de implementación en R.)*
 
+**Regla del trapecio extendida**
+```{r}
+TrapecioExtendido <- function(f, a, b, n){
+  h <- (b-a)/n
+  suma <- 0
+  for(i in 1:(n-1)){
+    suma <- suma + f(a + i*h)
+  }
+  
+  return((h/2)*(f(a) + f(b) + 2*suma))
+}
+```
 
 
 # Ejercicio 12
@@ -537,7 +549,43 @@ $$
 
 **Solución**  
 *(Evaluación de ambas integrales con los métodos solicitados y comparación de errores relativos.)*
+```{r}
+f <- function(x){
+  if(0 <= x & x <= 2){
+    return(x^3 + 1)
+  } else if(2 < x & x <= 6){
+    return(2*x + 5)
+  } else{
+    return(NULL)
+  }
+}
+```
 
+
+a)
+```{r}
+tr <- TrapecioExtendido(f, 0, 6, 10)
+tr
+```
+b)
+```{r}
+si <- SimpsonCompuesto(f, 0, 6, 10)
+si
+```
+c)
+```{r}
+valor_real <- integrate(function(x) x^3 + 1, 0, 2)$value + integrate(function(x) 2*x + 5, 2, 6)$value
+valor_real
+```
+error absoluto con trapecio:
+```{r}
+abs(tr - valor_real)
+```
+error absoluto con simpson:
+```{r}
+abs(si - valor_real)
+```
+En este caso, el resultado obtenido con el metodo de Simpson Compuesto es más preciso, entonces es mejor.
 
 
 # Ejercicio 14
@@ -590,7 +638,145 @@ usando alguno de los métodos vistos en el curso.
 **Solución**  
 *(Construcción de los nodos y valores de $f(x)$ mediante integración numérica, obtención del polinomio interpolante y análisis de la oscilación tipo Runge.)*
 
+a y b)
+```{r}
+#| collapse: true
+library(tidyverse)
 
+neville <- function(nodos, valores, x) {
+  stopifnot(is.numeric(nodos),
+            is.numeric(valores),
+            length(nodos) == length(valores))
+  n <- length(nodos)
+  Q <- matrix(NA_real_, nrow = n, ncol = n)
+  
+  # Columna inicial con valores de Y
+  Q[, 1] <-  valores
+  
+  # Construccion de la tabla de Neville
+  for (i in 2:n) {
+    for (j in 2:i) {
+      numerador <- ((x - nodos[i - j + 1]) * Q[i, j - 1] - (x - nodos[i]) * Q[i -
+                                                                                1, j - 1])
+      denominador <- nodos[i] - nodos[i - j + 1]
+      Q[i, j] <-  numerador / denominador
+    }
+  }
+  return(list(valor = Q[n, n], tabla = Q))
+}
+
+graficar.polinomio <- function(nodos,
+                               a,
+                               b,
+                               metodo,
+                               f = NULL,
+                               valores = NULL,
+                               df = NULL,
+                               derivadas.clamped = NULL) {
+  stopifnot(is.numeric(nodos), length(nodos) >= 2)
+  # Validación: exactamente uno de f o valores
+  if (is.null(f) == is.null(valores)) {
+    stop("Debe proveer exactamente uno: 'f' (función) o 'valores' (numérico).")
+  }
+  # Obtener valores en nodos según el caso
+  if (!is.null(f)) {
+    stopifnot(is.function(f))
+    valores_nodos <- f(nodos)
+  } else {
+    stopifnot(is.numeric(valores), length(valores) == length(nodos))
+    valores_nodos <- valores
+  }
+  
+  # Derivadas (opcional). Acepta función o vector numérico.
+  derivadas_nodos <- NULL
+  if (!is.null(df)) {
+    if (is.function(df)) {
+      derivadas_nodos <- df(nodos)
+    } else if (is.numeric(df)) {
+      stopifnot(length(df) == length(nodos))
+      derivadas_nodos <- df
+    } else {
+      stop("`df` debe ser función o vector numérico de derivadas en los nodos.")
+    }
+  }
+  
+  # Wrapper vectorizado para el método (con o sin derivadas)
+  if (!is.null(derivadas_nodos)) {
+    H <- function(x)
+      vapply(x, function(xx)
+        metodo(nodos, valores_nodos, derivadas_nodos, xx)$valor, numeric(1))
+  } else {
+    if(is.null(derivadas.clamped)){
+      H <- function(x)
+        vapply(x, function(xx)
+          metodo(nodos, valores_nodos, xx)$valor, numeric(1))
+    } else{
+      H <- function(x)
+        vapply(x, function(xx)
+          spline.sujeto(nodos, valores_nodos, derivadas.clamped, xx)$valor, numeric(1))
+    }
+  }
+  
+  # Malla y data frames
+  xi <- seq(a, b, length.out = 400)
+  df_plot <- data.frame(x  = xi,
+                        Hx = H(xi),
+                        fx = if (!is.null(f))
+                          f(xi)
+                        else
+                          NA_real_)
+  df_nodos <- data.frame(x = nodos, y = valores_nodos)
+  
+  # Gráfico: con f (dos curvas) o solo interpolación
+  p <- ggplot(df_plot, aes(x = x))
+  if (!is.null(f)) {
+    p <- p +
+      geom_line(aes(y = fx, color = "Original"), linewidth = 1) +
+      geom_line(aes(y = Hx, color = "Interpolación"),
+                linewidth = 1,
+                linetype = "dashed") +
+      scale_color_manual(values = c(
+        "Original" = "blue",
+        "Interpolación" = "red"
+      ))
+  } else {
+    p <- p +
+      geom_line(aes(y = Hx, color = "Interpolación"), linewidth = 1) +
+      scale_color_manual(values = c("Interpolación" = "red"))
+  }
+  p +
+    geom_point(
+      data = df_nodos,
+      aes(x = x, y = y),
+      shape = 21,
+      size = 3,
+      fill = "white"
+    ) +
+    labs(title = paste0("Interpolación por ", deparse(substitute(metodo))), y = "Valor", color = "Serie") +
+    theme_minimal(base_size = 14)
+}
+```
+
+```{r}
+nodos <- c(0, pi/2, pi, 3*pi/2, 2*pi, 5*pi/2, 3*pi)
+imagenes <- numeric(6)
+for (i in 1:7) {
+  imagenes[i] <- integrate(function(x) cos(x^2), 0, nodos[i])$value
+}
+
+f_scalar <- function(x) integrate(function(y) cos(y^2), lower = 0, upper = x)$value
+f <- Vectorize(f_scalar)
+
+graficar.polinomio(nodos, 0, 3*pi, neville, f = f)
+
+```
+c)
+
+Se puede saber desde antes de hacer la gráfica que la interpolación no va a ser buena por dos motivos.
+
+Primero, los puntos que se eligieron están bastante separados entre sí dentro del intervalo. Eso hace que el polinomio tenga que “rellenar” grandes espacios sin información, y al hacerlo termina alejándose bastante de la forma real de la función.
+
+Segundo, la función original cambia de forma muy rápido, sube y baja muchas veces. Como el polinomio tiene que pasar por todos los puntos, trata de imitar esas variaciones y termina haciendo curvas exageradas que no representan bien el comportamiento verdadero.
 
 # Ejercicio 17
 
