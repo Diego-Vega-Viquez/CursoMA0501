@@ -347,6 +347,36 @@ Calcule la integral con este valor de $n$.
 **Solución**  
 *(Cálculo teórico del error en Simpson compuesta, estimación de $n$, verificación numérica y comparación del error real con el teórico.)*
 
+Note que el error del metodo de simpson compuesto viene dado por:
+
+$$
+|\dfrac{(b-a)^5\cdot f^{(4)}(\mu)}{2880\cdot n ^4}|
+$$
+De manera que si queremos acotarlo por $10^{-4}$, entonces hay que despejarlo tomando en cuenta lo siguiente:
+
+Note que $f^{(4)} = 5\cdot\sin(x)\leq5$ y ademas $(b-a)^5 = \pi^5$
+
+$$
+\Rightarrow |\dfrac{(b-a)^5\cdot f^{(4)}(\mu)}{2880\cdot n ^4}|\leq |\dfrac{\pi^5\cdot 5}{2880\cdot n ^4}|\leq 10^{-4}\\
+\Rightarrow n \geq (\dfrac{\pi^5\cdot 5}{2880\cdot 10^{-4}})^{1/4} \approx 8.5375 \\
+\Rightarrow n \geq9
+$$
+Así pues, teóricamente, se requiere que n sea mayor o igual a 9. 
+
+Por otra parte, note que con n = 8 se consigue que el error sea menor a $10^{-4}$:
+
+```{r}
+integral_real <- integrate(function(x) 8 + 5*sin(x), 0, pi)$value
+integral_estimada <- SimpsonCompuesto(function(x) 8 + 5*sin(x), 0, pi, 8)
+abs(integral_real- integral_estimada)
+```
+Esto no ocurre si n = 7:
+```{r}
+integral_real <- integrate(function(x) 8 + 5*sin(x), 0, pi)$value
+integral_estimada <- SimpsonCompuesto(function(x) 8 + 5*sin(x), 0, pi, 7)
+abs(integral_real- integral_estimada)
+```
+
 
 
 # Ejercicio 8
@@ -402,7 +432,41 @@ Resuélvalo también usando **R** directamente.
 **Solución**  
 *(Definición del dominio de integración, cálculo del volumen analítico y numérico en R.)*
 
+calculo con la funcion IntegralDobleSCT
+```{r}
+volumen_estimado <- IntegralDobleSCT(function(x, y) 4 - x^2 - 2*y^2 - x*y, function(x) { (-x - sqrt(root_safe(x)))/4 }, function(x) { (-x + sqrt(root_safe(x)))/4 }, -4*sqrt(2)/sqrt(7), 4*sqrt(2)/sqrt(7), 100, 100)
+volumen_estimado
+```
+Calculo directo con R
+```{r}
+## Integrando: (4 - x^2 - 2y^2 - x*y)
+f <- function(x, y) 4 - x^2 - 2*y^2 - x*y
 
+## Límites en x como funciones de y
+x_lower <- function(y) (-y - sqrt(16 - 7*y^2)) / 2
+x_upper <- function(y) (-y + sqrt(16 - 7*y^2)) / 2
+
+## Borde en y
+y_min <- -4 / sqrt(7)
+y_max <-  4 / sqrt(7)
+
+## Integral interior en x, para un y dado
+inner_x <- function(y) {
+  ## Si y está fuera del dominio por redondeo numérico, devuelve 0
+  if (7*y^2 > 16) return(0)
+  integrate(function(x) f(x, y),
+            lower = x_lower(y), upper = x_upper(y),
+            rel.tol = 1e-10, abs.tol = 0)$value
+}
+
+## Integral exterior en y
+V_dxdy <- integrate(function(y) Vectorize(inner_x)(y),
+                    lower = y_min, upper = y_max,
+                    rel.tol = 1e-9, abs.tol = 0)
+
+V_dxdy$value
+
+```
 
 # Ejercicio 11
 
