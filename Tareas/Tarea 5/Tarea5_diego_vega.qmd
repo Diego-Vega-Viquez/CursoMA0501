@@ -434,6 +434,8 @@ Resuélvalo también usando **R** directamente.
 
 calculo con la funcion IntegralDobleSCT
 ```{r}
+root_safe <- function(x) pmax(0, 32 - 7*x^2)
+
 volumen_estimado <- IntegralDobleSCT(function(x, y) 4 - x^2 - 2*y^2 - x*y, function(x) { (-x - sqrt(root_safe(x)))/4 }, function(x) { (-x + sqrt(root_safe(x)))/4 }, -4*sqrt(2)/sqrt(7), 4*sqrt(2)/sqrt(7), 100, 100)
 volumen_estimado
 ```
@@ -640,7 +642,8 @@ usando alguno de los métodos vistos en el curso.
 
 a y b)
 ```{r}
-#| collapse: true
+#| code-fold: true
+#| warning: false
 library(tidyverse)
 
 neville <- function(nodos, valores, x) {
@@ -827,7 +830,52 @@ usando el hecho de que la fórmula de Simpson tiene **exactitud algebraica igual
 **Solución**  
 *(Derivación paso a paso de los coeficientes $a_0$, $a_1$, $a_2$ mediante el ajuste de los momentos exactos de monomios de grado 0 a 3.)*
 
+Queremos determinar los coeficientes $a_0$, $a_1$, $a_2$ de la cuadratura tal que sean los que establece la regla de simpson, asumiendo exactitud algebraica 3. 
 
+Tome nodos igualmente espaciados: $x_1 = \dfrac{x_1 + x_2}{2}$ y longitud total $2h = x_2 - x_0$
+
+Queremos que la formula sea exacta en $f(x) = 1, x, x^2, x^3$
+
+1- Para $f(x) = 1$
+
+$\int_{x_0}^{x_2} 1dx = 2h = a_0 + a_1 + a_2$
+
+2- Para $f(x) = x$
+
+$\int_{x_0}^{x_2} x dx = \dfrac{{x_2}^2 - {x_0}^2}{2} = 2x_1h = a_0x_0 + a_1x_1 + a_2x_2$
+
+$\Rightarrow 2x_1h = x_1(a_0 + a_1 + a_2) + h(a_2 - a_0)$
+
+Como ya sabemos que $a_0 + a_1 + a_2 = 2h$, entonces debe cumplirse que $a_2 - a_0 = 0 \Rightarrow a_2 = a_1$
+
+3- Para $f(x) = x^2$
+
+$\int_{x_0}^{x_2}x^2dx = \dfrac{{x_2}^3 - {x_0}^3}{3} = \dfrac{2h}{3}(3{x_1}^2 + h^2)$
+y
+$a_0x_0^2 + a_1x_1^2 + a_2x_2^2 = a_0(x_1 - h)^2 + a_1x_1^2 + a_2(x_1 + h)^2$
+Reemplazando $a_0 = a_2$
+
+$= a_0[(x_1 - h)^2 + (x_1 + h)^2] + a_1x_1^2 = 2a_0(x_1^2 + h^2) + a_1x_1^2$
+
+Igualando y usando $a_0 + a_1 +a_2 = 2h \Rightarrow a_1 = 2h - 2a_0$:
+
+$\dfrac{2h}{3}(3x_1^2 + h^2) = 2a_0(x_1^2 + h^2) + (2h - 2a_0)x_1^2$
+
+Simplificando:
+
+$\dfrac{2h}{3}(3x_1^2 + h^2) = 2hx_1^2 - 2a_0h^2$
+
+Despejando $a_0$:
+
+$$
+a_0 = \dfrac{h}{3} \\
+\Rightarrow a_1 = 2h -2a_0 = \dfrac{4h}{3}
+$$
+Asi pues, podemos ver que
+
+$\int_{x_0}^{x_1}f(x) \approx \dfrac{h}{3}(f(x_0) + 4f(x_1) + f(x_2))$
+
+lo cual es justamente la regla de simpson.
 
 # Ejercicio 20
 
@@ -882,7 +930,125 @@ tiene **exactitud algebraica igual a 3**, por lo menos.
 :::
 
 **Solución**  
-*(Aplicación del teorema de los valores intermedios y propiedades de simetría para justificar la existencia de $c_1$ y $c_2$ en el intervalo, garantizando la exactitud hasta grado 3.)*
+
+Buscamos constantes $c_1$ y $c_2$ en $[a,b]$ tales que la fórmula de cuadratura
+
+$$
+\int_a^b f(x)\,dx = \frac{b-a}{2}\,[f(c_1) + f(c_2)]
+$$
+
+tenga exactitud algebraica igual a $3$, es decir, que sea exacta para los polinomios $f(x) = 1$, $f(x) = x$, $f(x) = x^2$ y $f(x) = x^3$.
+
+---
+
+ 1. Caso $f(x) = 1$
+
+$$
+\int_a^b 1\,dx = b - a = \frac{b-a}{2}(1 + 1)
+$$
+
+Por lo tanto, la fórmula es exacta para funciones constantes.
+
+---
+
+ 2. Caso $f(x) = x$
+
+$$
+\int_a^b x\,dx = \frac{b^2 - a^2}{2} = \frac{b-a}{2}(c_1 + c_2)
+$$
+
+De aquí se obtiene la relación
+
+$$
+c_1 + c_2 = a + b
+$$
+
+---
+
+ 3. Caso $f(x) = x^2$
+
+$$
+\int_a^b x^2\,dx = \frac{b^3 - a^3}{3} = \frac{b-a}{2}(c_1^2 + c_2^2)
+$$
+
+Simplificando,
+
+$$
+c_1^2 + c_2^2 = \frac{2}{3}(a^2 + ab + b^2)
+$$
+
+Definimos las sumas simétricas
+
+$$
+S_1 = c_1 + c_2 = a + b, \quad S_2 = c_1 c_2
+$$
+
+Entonces,
+
+$$
+S_1^2 - 2S_2 = \frac{2}{3}(a^2 + ab + b^2)
+$$
+
+De donde
+
+$$
+S_2 = \frac{a^2 + 4ab + b^2}{6}
+$$
+
+---
+
+ 4. Cálculo de los puntos $c_1$ y $c_2$
+
+Después de desarrollar un poco el sistema de ecuaciones dado por los casos 2 y 3, se nota que los puntos $c_1$ y $c_2$ son las raíces del polinomio cuadrático
+
+$$
+t^2 - S_1 t + S_2 = 0
+$$
+
+es decir,
+
+$$
+c_{1,2} = \frac{S_1 \pm \sqrt{S_1^2 - 4S_2}}{2}
+$$
+
+Sustituyendo los valores de $S_1$ y $S_2$,
+
+$$
+S_1^2 - 4S_2 = (a+b)^2 - \frac{4(a^2 + 4ab + b^2)}{6} = \frac{(b - a)^2}{3}
+$$
+
+Por tanto,
+
+$$
+\boxed{
+c_1 = \frac{a+b}{2} - \frac{b-a}{2\sqrt{3}}, \quad
+c_2 = \frac{a+b}{2} + \frac{b-a}{2\sqrt{3}}
+}
+$$
+
+Como $0 < 1/\sqrt{3} < 1$, se cumple que $c_1$ y $c_2$ pertenecen al intervalo $[a,b]$.
+
+---
+
+ 5. Caso $f(x) = x^3$
+
+Usando la identidad
+
+$$
+c_1^3 + c_2^3 = S_1^3 - 3S_1S_2
+$$
+
+y sustituyendo los valores de $S_1$ y $S_2$, se verifica que la igualdad también se cumple para $f(x) = x^3$.
+
+---
+
+Por tanto, existen $c_1$ y $c_2$ en $[a,b]$ tales que
+
+$$
+\int_a^b f(x)\,dx = \frac{b-a}{2}[f(c_1) + f(c_2)] + E(f)
+$$
+
+y la fórmula tiene exactitud algebraica igual a $3$.  
 
 # Ejercicio 23
 
@@ -959,6 +1125,26 @@ $$
 **Solución (b)**  
 *(Implementación en R que use métodos numéricos como Simpson o Romberg para calcular los coeficientes $a_k$.)*
 
+```{r}
+coef.fourier <- function(f, k, tipo = "coseno") {
+
+  integrando <- switch(
+    tipo,
+    "constante" = function(x) f(x),
+    "coseno"    = function(x) f(x) * cos(k * x),
+    "seno"      = function(x) f(x) * sin(k * x),
+    stop("El parámetro 'tipo' debe ser 'constante', 'coseno' o 'seno'.")
+  )
+  
+  # Cálculo del coeficiente según el tipo
+  if (tipo == "constante") {
+    return((1 / (2 * pi)) * SimpsonCompuesto(integrando, -pi, pi, 200))
+  } else {
+    return((1 / pi) * SimpsonCompuesto(integrando, -pi, pi, 200))
+  }
+}
+```
+
 
 ::: {.callout-note title="Instrucción del inciso (c)"}
 
@@ -973,6 +1159,18 @@ $$
 **Solución (c)**  
 *(Función en R que recibe los coeficientes $a_k$ y las funciones base $\phi_k$ para evaluar $S_n(x)$ en un conjunto de puntos del dominio $[-\pi, \pi]$.)*
 
+```{r}
+serie.fourier <- function(f, n, x) {
+  a0 <- coef.fourier(f, 0, tipo = "constante")
+  suma <- a0
+  for (k in 1:n) {
+    a_k <- coef.fourier(f, k, tipo = "coseno")
+    b_k <- coef.fourier(f, k, tipo = "seno")
+    suma <- suma + a_k * cos(k * x) + b_k * sin(k * x)
+  }
+  return(suma)
+}
+```
 
 ::: {.callout-note title="Instrucción del inciso (d)"}
 
@@ -994,3 +1192,75 @@ Luego grafique $f(x)$ y $S_n(x)$ en un mismo plano para $n = 3, 4, 5, 6, 7, 8$.
 
 **Solución (d)**  
 *(Código en R que genera las aproximaciones $S_n(x)$ y grafica las curvas junto con la función original $f(x)$ para observar el fenómeno de Gibbs y la convergencia de la serie de Fourier.)*
+
+```{r}
+#| include: false
+graficar <- function(funciones, a, b, c = NULL, d = NULL, n = 400,
+                     nombres = NULL, titulo = "Gráfico de funciones") {
+  # Verificaciones básicas
+  stopifnot(is.numeric(a), is.numeric(b), a < b)
+  
+  # Si se pasa solo una función, la convertimos en lista
+  if (is.function(funciones)) {
+    funciones <- list(funciones)
+  }
+  
+  # Si no se dan nombres, los generamos automáticamente
+  if (is.null(nombres)) {
+    nombres <- paste0("f", seq_along(funciones))
+  } else if (length(nombres) != length(funciones)) {
+    stop("El número de nombres debe coincidir con el número de funciones.")
+  }
+  
+  # Crear secuencia de puntos
+  x <- seq(a, b, length.out = n)
+  
+  # Evaluar cada función y combinar en un solo data frame
+  lista_datos <- lapply(seq_along(funciones), function(i) {
+    y <- tryCatch(funciones[[i]](x),
+                  error = function(e) rep(NA, length(x)))
+    data.frame(x = x, y = y, funcion = nombres[i])
+  })
+  
+  datos <- do.call(rbind, lista_datos)
+  
+  # Crear el gráfico base
+  p <- ggplot(datos, aes(x = x, y = y, color = funcion)) +
+    geom_line(linewidth = 1) +
+    labs(
+      title = titulo,
+      x = "x",
+      y = "f(x)",
+      color = "Función"
+    ) +
+    theme_minimal(base_size = 14) +
+    theme(legend.position = "bottom")
+  
+  # Aplicar límites del eje Y si se proporcionan
+  if (!is.null(c) && !is.null(d)) {
+    stopifnot(is.numeric(c), is.numeric(d), c < d)
+    p <- p + coord_cartesian(ylim = c(c, d))
+  }
+  
+  return(p)
+}
+```
+
+
+```{r}
+funcion.prueba <- function(x) {
+  if (-pi <= x && x < 0) {
+    return(-1)
+  } else if (0 <= x && x <= pi) {
+    return(1)
+  } else {
+    return(NA)
+  }
+}
+
+funcion.prueba <- Vectorize(funcion.prueba)
+
+graficar(list(function(x) funcion.prueba(x), function(x) serie.fourier(funcion.prueba, 3, x), function(x) serie.fourier(funcion.prueba, 4, x), function(x) serie.fourier(funcion.prueba, 5, x), function(x) serie.fourier(funcion.prueba, 6, x), function(x) serie.fourier(funcion.prueba, 7, x), function(x) serie.fourier(funcion.prueba, 8, x)), -pi, pi, -2, 2)
+```
+En este grafico, f1 representa la funcion original, y de f2 a f7 son las series de fourier incrementando n de 3 a 8
+
