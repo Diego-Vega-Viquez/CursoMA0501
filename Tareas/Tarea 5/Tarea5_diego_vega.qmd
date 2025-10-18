@@ -401,9 +401,77 @@ mediante la **regla de Simpson Compuesta**.
 
 :::
 
-**Solución**  
-*(Determinación de $n$ mediante el error teórico de Simpson compuesta y comparación con el valor exacto de $\ln(2)$.)*
+**Regla de Simpson compuesta**
 
+Sea $f(x)=1/x$, $[a,b]=[1,2]$, $n$ par y $h=(b-a)/n=1/n$. La fórmula es
+$$
+S_n=\frac{h}{3}\Big[f(a)+f(b)+4\!\!\sum_{\substack{j=1\\ j\ \text{impar}}}^{n-1}\!\! f(a+jh)
++2\!\!\sum_{\substack{j=2\\ j\ \text{par}}}^{n-2}\!\! f(a+jh)\Big].
+$$
+
+**Cota de error**
+
+Para Simpson compuesta el error satisface
+$$
+|E_n|=\left|\,-\frac{(b-a)}{180}\,h^{4}\,f^{(4)}(\xi)\right|
+\le \frac{(b-a)}{180}\,h^{4}\,\max_{[a,b]}|f^{(4)}|.
+$$
+
+Con $f(x)=x^{-1}$, $f^{(4)}(x)=24\,x^{-5}$, decreciente en $[1,2]$, por lo que
+$$
+\max_{[1,2]}|f^{(4)}|=24 \quad\text{(en $x=1$)}.
+$$
+Además $b-a=1$, luego
+$$
+|E_n|\le \frac{1}{180}\cdot 24\,h^{4}=\frac{2}{15}\,h^{4}.
+$$
+
+Para **6 cifras significativas** pedimos un error absoluto $\le 0.5\times 10^{-6}$:
+$$
+\frac{2}{15}h^{4}\le 0.5\times10^{-6}
+\;\;\Longrightarrow\;\;
+h\le(3.75\times10^{-6})^{1/4}\approx 0.04401.
+$$
+Como $h=1/n$, obtenemos $n\ge 22.73$. El menor $n$ **par** que cumple esto es
+$$
+\boxed{\,n=24\,}.
+$$
+
+**Valor numérico (R)**
+
+```{r}
+#| label: simpson-compuesta-ln2
+#| echo: true
+
+# Definimos la función
+f <- function(x) 1/x
+
+# Regla de Simpson compuesta
+simpson_compuesta <- function(f, a, b, n) {
+  stopifnot(n %% 2 == 0)
+  h <- (b - a) / n
+  x <- seq(a, b, by = h)
+  fx <- f(x)
+  S <- fx[1] + fx[n + 1] +
+       4 * sum(fx[seq(2, n, by = 2)]) +
+       2 * sum(fx[seq(3, n - 1, by = 2)])
+  (h / 3) * S
+}
+
+# Ejemplo: cálculo con n = 24
+n <- 24
+S24 <- simpson_compuesta(f, 1, 2, n)
+err <- abs(S24 - log(2))
+
+c(n = n,
+  aproximacion = S24,
+  ln2 = log(2),
+  error_abs = err)
+```
+
+El menor número de subintervalos que garantiza 6 cifras significativas es
+$$\boxed{n=24}.$$
+Con $n=24$ se obtiene un error absoluto $<0.5\times10^{-6}$, cumpliendo la exigencia.
 
 
 # Ejercicio 9
