@@ -4173,8 +4173,40 @@ Instrucción del ejercicio 17
 <p>en función de <span class="math inline">\alpha</span>, tal que tenga una <strong>exactitud algebraica igual a 3</strong>, por lo menos.</p>
 </div>
 </div>
-<p><strong>Solución</strong><br>
-<em>(Desarrollo del sistema de ecuaciones a partir de la condición de exactitud algebraica y resolución para <span class="math inline">a, b, c</span> en términos de <span class="math inline">\alpha</span>.)</em></p>
+<p><strong>Solución</strong></p>
+<p>Por simetría del intervalo y de los nodos <span class="math inline">(-\alpha,0,\alpha)</span>, debe cumplirse que los pesos de los puntos simétricos sean iguales: <span class="math display">a=c.</span> Así, la fórmula queda: <span class="math display">
+\int_{-1}^{1} f(x)\,dx = a[f(-\alpha)+f(\alpha)] + b f(0) + \mathcal{E}(f).
+</span></p>
+<p>Queremos que la fórmula sea <strong>exacta para todos los polinomios de grado <span class="math inline">\le</span> 3</strong>.</p>
+<ol type="1">
+<li><p>Para <span class="math inline">f(x)=1</span>: <span class="math display">
+\int_{-1}^{1}1\,dx=2,\qquad a(1+1)+b(1)=2a+b=2.
+</span> Por tanto, <span class="math display">\begin{equation}
+2a+b=2 \tag{1}
+\end{equation}</span></p></li>
+<li><p>Para <span class="math inline">f(x)=x</span>: <span class="math display">
+\int_{-1}^{1}x\,dx=0,\qquad a(-\alpha+\alpha)+b(0)=0,
+</span> lo cual se cumple automáticamente, como se esperaba por simetría.</p></li>
+<li><p>Para <span class="math inline">f(x)=x^2</span>: <span class="math display">
+\int_{-1}^{1}x^2\,dx=\frac{2}{3},\qquad a(\alpha^2+\alpha^2)+b(0^2)=2a\alpha^2.
+</span> Por tanto, <span class="math display">\begin{equation}
+2a\alpha^2=\frac{2}{3} \quad\Rightarrow\quad a=\frac{1}{3\alpha^2}. \tag{2}
+\end{equation}</span></p></li>
+<li><p>Para <span class="math inline">f(x)=x^3</span>: <span class="math display">
+\int_{-1}^{1}x^3\,dx=0,\qquad a(-\alpha^3+\alpha^3)+b(0^3)=0,
+</span> lo cual también se cumple automáticamente.<br>
+Por tanto, la regla será exacta hasta grado 3.</p></li>
+<li><p>Sustituyendo (2) en (1): <span class="math display">
+2\left(\frac{1}{3\alpha^2}\right) + b = 2
+\quad\Rightarrow\quad b = 2 - \frac{2}{3\alpha^2}.
+</span></p></li>
+</ol>
+<p>Los coeficientes son: <span class="math display">
+\boxed{
+a=c=\frac{1}{3\alpha^2}, \qquad b=2-\frac{2}{3\alpha^2}.
+}
+</span></p>
+<p>Esta regla tiene <strong>exactitud algebraica igual a 3</strong> para todo <span class="math inline">\alpha&gt;0</span> y se reduce a una familia de cuadraturas simétricas de tres puntos en <span class="math inline">[-1,1]</span>.</p>
 </section>
 <section id="ejercicio-18" class="level1">
 <h1>Ejercicio 18</h1>
@@ -4238,6 +4270,7 @@ a_0 = \dfrac{h}{3} \\
 </span> Asi pues, podemos ver que</p>
 <p><span class="math display">\int_{x_0}^{x_1}f(x) \approx \dfrac{h}{3}(f(x_0) + 4f(x_1) + f(x_2))</span></p>
 <p>lo cual es justamente la regla de simpson.</p>
+<p><span class="math inline">\blacksquare</span></p>
 </section>
 <section id="ejercicio-20" class="level1">
 <h1>Ejercicio 20</h1>
@@ -4267,7 +4300,7 @@ Instrucción del ejercicio 20
 Q[p]=\tfrac{1}{3}\big((-c)^k+0+c^k\big)=0\quad (k=1,3).</span></p></li>
 <li><p>Para <span class="math inline">p(x)=x^2</span>, <span class="math display">I[p]=\int_{-1/2}^{1/2}x^2\,dx=\left.\frac{x^3}{3}\right|_{-1/2}^{1/2}=\frac{1}{12},</span> mientras que <span class="math display">Q[p]=\tfrac{1}{3}\big(c^2+0+c^2\big)=\frac{2c^2}{3}.</span> Exigiendo <span class="math inline">Q[p]=I[p]</span> se obtiene <span class="math display">\frac{2c^2}{3}=\frac{1}{12}\quad\Longrightarrow\quad c^2=\frac{1}{8}\;\;\Rightarrow\;\; c=\frac{1}{2\sqrt{2}} \; (&gt;0).</span></p></li>
 </ul>
-<p>Con este valor de <span class="math inline">c</span>, la regla es exacta para <span class="math inline">1,x,x^2,x^3</span>, por lo que su <strong>exactitud algebraica es 3</strong>. En consecuencia, el término de error <span class="math inline">\mathcal{E}(f)</span> se anula para todo polinomio de grado <span class="math inline">\le 3</span> (y, para <span class="math inline">f\in C^4</span>, es de orden <span class="math inline">O(\|f^{(4)}\|)</span> por el teorema de Peano para reglas de cuadratura).</p>
+<p>Con este valor de <span class="math inline">c</span>, la regla es exacta para <span class="math inline">1,x,x^2,x^3</span>, por lo que su <strong>exactitud algebraica es 3</strong>. En consecuencia, el término de error <span class="math inline">\mathcal{E}(f)</span> se anula para todo polinomio de grado <span class="math inline">\le 3</span> (y, para <span class="math inline">f\in C^4</span>, es de orden <span class="math inline">O(\|f^{(4)}\|)</span> por el teorema de Peano para reglas de cuadratura). <span class="math inline">\blacksquare</span></p>
 </section>
 <section id="ejercicio-21" class="level1">
 <h1>Ejercicio 21</h1>

@@ -819,9 +819,62 @@ en función de $\alpha$, tal que tenga una **exactitud algebraica igual a 3**, p
 :::
 
 **Solución**  
-*(Desarrollo del sistema de ecuaciones a partir de la condición de exactitud algebraica y resolución para $a, b, c$ en términos de $\alpha$.)*
+
+Por simetría del intervalo y de los nodos $(-\alpha,0,\alpha)$, debe cumplirse que los pesos de los puntos simétricos sean iguales:
+$$a=c.$$
+Así, la fórmula queda:
+$$
+\int_{-1}^{1} f(x)\,dx = a[f(-\alpha)+f(\alpha)] + b f(0) + \mathcal{E}(f).
+$$
+
+Queremos que la fórmula sea **exacta para todos los polinomios de grado $\le$ 3**.
+
+1. Para $f(x)=1$:
+$$
+\int_{-1}^{1}1\,dx=2,\qquad a(1+1)+b(1)=2a+b=2.
+$$
+Por tanto,
+\begin{equation}
+2a+b=2 \tag{1}
+\end{equation}
+
+2. Para $f(x)=x$:
+$$
+\int_{-1}^{1}x\,dx=0,\qquad a(-\alpha+\alpha)+b(0)=0,
+$$
+lo cual se cumple automáticamente, como se esperaba por simetría.
+
+3. Para $f(x)=x^2$:
+$$
+\int_{-1}^{1}x^2\,dx=\frac{2}{3},\qquad a(\alpha^2+\alpha^2)+b(0^2)=2a\alpha^2.
+$$
+Por tanto,
+\begin{equation}
+2a\alpha^2=\frac{2}{3} \quad\Rightarrow\quad a=\frac{1}{3\alpha^2}. \tag{2}
+\end{equation}
+
+4. Para $f(x)=x^3$:
+$$
+\int_{-1}^{1}x^3\,dx=0,\qquad a(-\alpha^3+\alpha^3)+b(0^3)=0,
+$$
+lo cual también se cumple automáticamente.  
+Por tanto, la regla será exacta hasta grado 3.
+
+5. Sustituyendo (2) en (1):
+$$
+2\left(\frac{1}{3\alpha^2}\right) + b = 2 
+\quad\Rightarrow\quad b = 2 - \frac{2}{3\alpha^2}.
+$$
 
 
+Los coeficientes son:
+$$
+\boxed{
+a=c=\frac{1}{3\alpha^2}, \qquad b=2-\frac{2}{3\alpha^2}.
+}
+$$
+
+Esta regla tiene **exactitud algebraica igual a 3** para todo $\alpha>0$ y se reduce a una familia de cuadraturas simétricas de tres puntos en $[-1,1]$.
 
 # Ejercicio 18
 
@@ -900,6 +953,8 @@ $$\int_{x_0}^{x_1}f(x) \approx \dfrac{h}{3}(f(x_0) + 4f(x_1) + f(x_2))$$
 
 lo cual es justamente la regla de simpson.
 
+\hfill $\blacksquare$
+
 # Ejercicio 20
 
 ::: {.callout-note title="Instrucción del ejercicio 20"}
@@ -938,6 +993,7 @@ Exigiendo $Q[p]=I[p]$ se obtiene
 $$\frac{2c^2}{3}=\frac{1}{12}\quad\Longrightarrow\quad c^2=\frac{1}{8}\;\;\Rightarrow\;\; c=\frac{1}{2\sqrt{2}} \; (>0).$$
 
 Con este valor de $c$, la regla es exacta para $1,x,x^2,x^3$, por lo que su **exactitud algebraica es 3**. En consecuencia, el término de error $\mathcal{E}(f)$ se anula para todo polinomio de grado $\le 3$ (y, para $f\in C^4$, es de orden $O(\|f^{(4)}\|)$ por el teorema de Peano para reglas de cuadratura).
+\hfill $\blacksquare$
 
 
 
