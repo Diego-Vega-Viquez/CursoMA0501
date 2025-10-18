@@ -623,8 +623,75 @@ Luego, agregue este algoritmo al módulo de integración numérica implementado 
 :::
 
 **Solución**  
-*(Esquema de pseudo-código del algoritmo generalizado a doble integración y adaptación al código previo.)*
 
+```{text}
+Algoritmo Trapecio_Extendido_Doble(f, a, b, c, d, nx, ny)
+  # Calcula ∫_{x=a}^{b} ∫_{y=c}^{d} f(x, y) dy dx
+  # usando la Regla del Trapecio Extendida en ambas direcciones
+
+  Entrada:
+      f(x, y): función continua en [a,b]×[c,d]
+      a, b : límites en x
+      c, d : límites en y
+      nx   : número de subintervalos en x
+      ny   : número de subintervalos en y
+
+  Salida:
+      Aproximación de la integral doble
+
+  h_x ← (b - a) / nx
+  h_y ← (d - c) / ny
+  suma ← 0
+
+  Para i desde 0 hasta nx:
+      x_i ← a + i * h_x
+      Para j desde 0 hasta ny:
+          y_j ← c + j * h_y
+          peso ← 1
+          Si (i = 0 ó i = nx) → peso ← peso / 2
+          Si (j = 0 ó j = ny) → peso ← peso / 2
+          suma ← suma + peso * f(x_i, y_j)
+      Fin Para
+  Fin Para
+
+  integral ← h_x * h_y * suma
+  Retornar integral
+Fin Algoritmo
+```
+
+```{r}
+#| code-fold: true
+# Regla del Trapecio Extendida para integrales dobles tipo I
+trapecio_doble <- function(f, a, b, c, d, nx, ny) {
+  hx <- (b - a) / nx
+  hy <- (d - c) / ny
+  suma <- 0
+
+  for (i in 0:nx) {
+    x <- a + i * hx
+    for (j in 0:ny) {
+      y <- c + j * hy
+      peso <- 1
+
+      if (i == 0 || i == nx) peso <- peso / 2
+      if (j == 0 || j == ny) peso <- peso / 2
+
+      suma <- suma + peso * f(x, y)
+    }
+  }
+
+  I <- hx * hy * suma
+  return(I)
+}
+```
+
+
+```{r}
+# Ejemplo de uso:
+f <- function(x, y) x^2 + y^2  # función ejemplo
+resultado <- trapecio_doble(f, 0, 1, 0, 1, nx = 10, ny = 10)
+cat("Aproximación de la integral doble:", resultado, "\n")
+```
 
 
 # Ejercicio 15

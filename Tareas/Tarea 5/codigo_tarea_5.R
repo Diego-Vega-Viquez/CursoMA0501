@@ -186,3 +186,26 @@ prueba <- function(x) (x^3)*exp(x^2) - sin(x)
 
 Der5PuntosA(prueba, 69, 1)
 Der5PuntosB(prueba, 69, 1)
+
+# Regla del Trapecio Extendida para integrales dobles tipo I
+trapecio_doble <- function(f, a, b, c, d, nx, ny) {
+  hx <- (b - a) / nx
+  hy <- (d - c) / ny
+  suma <- 0
+  
+  for (i in 0:nx) {
+    x <- a + i * hx
+    for (j in 0:ny) {
+      y <- c + j * hy
+      peso <- 1
+      
+      if (i == 0 || i == nx) peso <- peso / 2
+      if (j == 0 || j == ny) peso <- peso / 2
+      
+      suma <- suma + peso * f(x, y)
+    }
+  }
+  
+  I <- hx * hy * suma
+  return(I)
+}
