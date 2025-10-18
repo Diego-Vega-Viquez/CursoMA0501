@@ -81,9 +81,10 @@ Se deben implementar los siguientes:
 :::
 
 **Solución**  
-*(Implementación en R de las cinco funciones para derivación numérica)*
 
 ```{r}
+#| code-fold: true
+
 Der2Puntos <- function(f, x_0, h) {
   return((f(x_0 + h) - f(x_0)) / h)
 }
@@ -120,9 +121,10 @@ Compare con el valor exacto.
 :::
 
 **Solución**  
-*(Cálculo de $f'(2.19)$ mediante las cinco fórmulas de derivación y comparación con la derivada analítica exacta.)*
 
 ```{r}
+#| code-fold: true
+
 f <- function(x) (x^3)*exp(x^2) - sin(x)
 df <- function(x) 3*(x^2)*exp(x^2) + 2*(x^4)*exp(x^2)-cos(x)
 x <- 2.19
@@ -159,9 +161,10 @@ que permita trabajar con fórmulas del tipo $N(x_0, h)$.
 :::
 
 **Solución**  
-*(Implementación de una función general para aplicar extrapolación de Richardson a derivadas numéricas.)*
 
 ```{r}
+#| code-fold: true
+
 Richardson <- function(N, x0, h, n){
   Q <- matrix(NA_real_, nrow = n, ncol = n)
   for (i in 1:n) {
@@ -196,9 +199,10 @@ Luego, repita el ejercicio 2 usando este método.
 :::
 
 **Solución**  
-*(Implementación de la fórmula progresiva con extrapolación de Richardson aplicada al caso de $f'(2.19)$.)*
 
 ```{r}
+#| code-fold: true
+
 formula <- function(f, d2f, d3f, x0, h){
   return((f(x0+h)-f(x0))/h - (h/2)*d2f(x0) - (h^2/2)*d3f(x0))
 }
@@ -239,9 +243,10 @@ Se deben implementar los siguientes:
 :::
 
 **Solución**  
-*(Implementación de los cinco métodos de integración numérica en R.)*
 
 ```{r}
+#| code-fold: true
+
 Trapecio <- function(f, a, b){
   return((b-a)*(f(a) + f(b))/2)
 }
@@ -325,8 +330,7 @@ mediante **todos los métodos programados arriba**
 :::
 
 **Solución**  
-*(Evaluación de la integral con Trapecio, Simpson, Simpson Compuesto y Romberg;  
-comparación con el valor analítico exacto $= 4\pi$.)*
+
 
 # Ejercicio 7
 
@@ -345,7 +349,6 @@ Calcule la integral con este valor de $n$.
 :::
 
 **Solución**  
-*(Cálculo teórico del error en Simpson compuesta, estimación de $n$, verificación numérica y comparación del error real con el teórico.)*
 
 Note que el error del metodo de simpson compuesto viene dado por:
 
@@ -366,12 +369,16 @@ Así pues, teóricamente, se requiere que n sea mayor o igual a 9.
 Por otra parte, note que con n = 8 se consigue que el error sea menor a $10^{-4}$:
 
 ```{r}
+#| code-fold: true
+
 integral_real <- integrate(function(x) 8 + 5*sin(x), 0, pi)$value
 integral_estimada <- SimpsonCompuesto(function(x) 8 + 5*sin(x), 0, pi, 8)
 abs(integral_real- integral_estimada)
 ```
 Esto no ocurre si n = 7:
 ```{r}
+#| code-fold: true
+
 integral_real <- integrate(function(x) 8 + 5*sin(x), 0, pi)$value
 integral_estimada <- SimpsonCompuesto(function(x) 8 + 5*sin(x), 0, pi, 7)
 abs(integral_real- integral_estimada)
@@ -430,10 +437,11 @@ Resuélvalo también usando **R** directamente.
 :::
 
 **Solución**  
-*(Definición del dominio de integración, cálculo del volumen analítico y numérico en R.)*
 
 calculo con la funcion IntegralDobleSCT
 ```{r}
+#| code-fold: true
+
 root_safe <- function(x) pmax(0, 32 - 7*x^2)
 
 volumen_estimado <- IntegralDobleSCT(function(x, y) 4 - x^2 - 2*y^2 - x*y, function(x) { (-x - sqrt(root_safe(x)))/4 }, function(x) { (-x + sqrt(root_safe(x)))/4 }, -4*sqrt(2)/sqrt(7), 4*sqrt(2)/sqrt(7), 100, 100)
@@ -441,6 +449,8 @@ volumen_estimado
 ```
 Calculo directo con R
 ```{r}
+#| code-fold: true
+
 ## Integrando: (4 - x^2 - 2y^2 - x*y)
 f <- function(x, y) 4 - x^2 - 2*y^2 - x*y
 
@@ -494,10 +504,11 @@ La **Regla del Trapecio Extendida** se presenta en el siguiente teorema:
 :::
 
 **Solución**  
-*(Demostración teórica del teorema, desarrollo del pseudo-código y ejemplo de implementación en R.)*
 
 **Regla del trapecio extendida**
 ```{r}
+#| code-fold: true
+
 TrapecioExtendido <- function(f, a, b, n){
   h <- (b-a)/n
   suma <- 0
@@ -550,8 +561,10 @@ $$
 :::
 
 **Solución**  
-*(Evaluación de ambas integrales con los métodos solicitados y comparación de errores relativos.)*
+
 ```{r}
+#| code-fold: true
+
 f <- function(x){
   if(0 <= x & x <= 2){
     return(x^3 + 1)
@@ -566,25 +579,35 @@ f <- function(x){
 
 a)
 ```{r}
+#| code-fold: true
+
 tr <- TrapecioExtendido(f, 0, 6, 10)
 tr
 ```
 b)
 ```{r}
+#| code-fold: true
+
 si <- SimpsonCompuesto(f, 0, 6, 10)
 si
 ```
 c)
 ```{r}
+#| code-fold: true
+
 valor_real <- integrate(function(x) x^3 + 1, 0, 2)$value + integrate(function(x) 2*x + 5, 2, 6)$value
 valor_real
 ```
 error absoluto con trapecio:
 ```{r}
+#| code-fold: true
+
 abs(tr - valor_real)
 ```
 error absoluto con simpson:
 ```{r}
+#| code-fold: true
+
 abs(si - valor_real)
 ```
 En este caso, el resultado obtenido con el metodo de Simpson Compuesto es más preciso, entonces es mejor.
@@ -638,7 +661,6 @@ usando alguno de los métodos vistos en el curso.
 :::
 
 **Solución**  
-*(Construcción de los nodos y valores de $f(x)$ mediante integración numérica, obtención del polinomio interpolante y análisis de la oscilación tipo Runge.)*
 
 a y b)
 ```{r}
@@ -761,6 +783,7 @@ graficar.polinomio <- function(nodos,
 ```
 
 ```{r}
+#| code-fold: true
 nodos <- c(0, pi/2, pi, 3*pi/2, 2*pi, 5*pi/2, 3*pi)
 imagenes <- numeric(6)
 for (i in 1:7) {
@@ -838,32 +861,32 @@ Queremos que la formula sea exacta en $f(x) = 1, x, x^2, x^3$
 
 1- Para $f(x) = 1$
 
-$\int_{x_0}^{x_2} 1dx = 2h = a_0 + a_1 + a_2$
+$$\int_{x_0}^{x_2} 1dx = 2h = a_0 + a_1 + a_2$$
 
 2- Para $f(x) = x$
 
-$\int_{x_0}^{x_2} x dx = \dfrac{{x_2}^2 - {x_0}^2}{2} = 2x_1h = a_0x_0 + a_1x_1 + a_2x_2$
+$$\int_{x_0}^{x_2} x dx = \dfrac{{x_2}^2 - {x_0}^2}{2} = 2x_1h = a_0x_0 + a_1x_1 + a_2x_2$$
 
-$\Rightarrow 2x_1h = x_1(a_0 + a_1 + a_2) + h(a_2 - a_0)$
+$$\Rightarrow 2x_1h = x_1(a_0 + a_1 + a_2) + h(a_2 - a_0)$$
 
 Como ya sabemos que $a_0 + a_1 + a_2 = 2h$, entonces debe cumplirse que $a_2 - a_0 = 0 \Rightarrow a_2 = a_1$
 
 3- Para $f(x) = x^2$
 
-$\int_{x_0}^{x_2}x^2dx = \dfrac{{x_2}^3 - {x_0}^3}{3} = \dfrac{2h}{3}(3{x_1}^2 + h^2)$
+$$\int_{x_0}^{x_2}x^2dx = \dfrac{{x_2}^3 - {x_0}^3}{3} = \dfrac{2h}{3}(3{x_1}^2 + h^2)$$
 y
-$a_0x_0^2 + a_1x_1^2 + a_2x_2^2 = a_0(x_1 - h)^2 + a_1x_1^2 + a_2(x_1 + h)^2$
+$$a_0x_0^2 + a_1x_1^2 + a_2x_2^2 = a_0(x_1 - h)^2 + a_1x_1^2 + a_2(x_1 + h)^2$$
 Reemplazando $a_0 = a_2$
 
-$= a_0[(x_1 - h)^2 + (x_1 + h)^2] + a_1x_1^2 = 2a_0(x_1^2 + h^2) + a_1x_1^2$
+$$= a_0[(x_1 - h)^2 + (x_1 + h)^2] + a_1x_1^2 = 2a_0(x_1^2 + h^2) + a_1x_1^2$$
 
 Igualando y usando $a_0 + a_1 +a_2 = 2h \Rightarrow a_1 = 2h - 2a_0$:
 
-$\dfrac{2h}{3}(3x_1^2 + h^2) = 2a_0(x_1^2 + h^2) + (2h - 2a_0)x_1^2$
+$$\dfrac{2h}{3}(3x_1^2 + h^2) = 2a_0(x_1^2 + h^2) + (2h - 2a_0)x_1^2$$
 
 Simplificando:
 
-$\dfrac{2h}{3}(3x_1^2 + h^2) = 2hx_1^2 - 2a_0h^2$
+$$\dfrac{2h}{3}(3x_1^2 + h^2) = 2hx_1^2 - 2a_0h^2$$
 
 Despejando $a_0$:
 
@@ -873,7 +896,7 @@ a_0 = \dfrac{h}{3} \\
 $$
 Asi pues, podemos ver que
 
-$\int_{x_0}^{x_1}f(x) \approx \dfrac{h}{3}(f(x_0) + 4f(x_1) + f(x_2))$
+$$\int_{x_0}^{x_1}f(x) \approx \dfrac{h}{3}(f(x_0) + 4f(x_1) + f(x_2))$$
 
 lo cual es justamente la regla de simpson.
 
@@ -892,7 +915,29 @@ tiene **exactitud algebraica igual a 3**.
 :::
 
 **Solución**  
-*(Verificación de la exactitud algebraica mediante evaluación de la fórmula para $f(x) = 1, x, x^2, x^3$ y determinación de la constante $c$ que satisface las condiciones de simetría y momento.)*
+
+
+Buscamos $c>0$ tal que la regla
+$$Q[f]=\tfrac{1}{3}\,[\,f(-c)+f(0)+f(c)\,]$$
+reproduzca exactamente los momentos de $\displaystyle I[f]=\int_{-1/2}^{1/2} f(x)\,dx$ para todos los polinomios de grado $\le 3$.
+
+Por simetría del intervalo y de los nodos $(-c,0,c)$:
+
+- Para $p(x)=1$,
+$$I[p]=\int_{-1/2}^{1/2}1\,dx=1,\qquad Q[p]=\tfrac{1}{3}(1+1+1)=1.$$
+
+- Para $p(x)=x$ y $p(x)=x^3$,
+$$I[p]=0\quad (\text{funciones impares}),\qquad 
+Q[p]=\tfrac{1}{3}\big((-c)^k+0+c^k\big)=0\quad (k=1,3).$$
+
+- Para $p(x)=x^2$,
+$$I[p]=\int_{-1/2}^{1/2}x^2\,dx=\left.\frac{x^3}{3}\right|_{-1/2}^{1/2}=\frac{1}{12},$$
+mientras que
+$$Q[p]=\tfrac{1}{3}\big(c^2+0+c^2\big)=\frac{2c^2}{3}.$$
+Exigiendo $Q[p]=I[p]$ se obtiene
+$$\frac{2c^2}{3}=\frac{1}{12}\quad\Longrightarrow\quad c^2=\frac{1}{8}\;\;\Rightarrow\;\; c=\frac{1}{2\sqrt{2}} \; (>0).$$
+
+Con este valor de $c$, la regla es exacta para $1,x,x^2,x^3$, por lo que su **exactitud algebraica es 3**. En consecuencia, el término de error $\mathcal{E}(f)$ se anula para todo polinomio de grado $\le 3$ (y, para $f\in C^4$, es de orden $O(\|f^{(4)}\|)$ por el teorema de Peano para reglas de cuadratura).
 
 
 
@@ -939,8 +984,6 @@ $$
 
 tenga exactitud algebraica igual a $3$, es decir, que sea exacta para los polinomios $f(x) = 1$, $f(x) = x$, $f(x) = x^2$ y $f(x) = x^3$.
 
----
-
  1. Caso $f(x) = 1$
 
 $$
@@ -948,8 +991,6 @@ $$
 $$
 
 Por lo tanto, la fórmula es exacta para funciones constantes.
-
----
 
  2. Caso $f(x) = x$
 
@@ -962,8 +1003,6 @@ De aquí se obtiene la relación
 $$
 c_1 + c_2 = a + b
 $$
-
----
 
  3. Caso $f(x) = x^2$
 
@@ -994,8 +1033,6 @@ De donde
 $$
 S_2 = \frac{a^2 + 4ab + b^2}{6}
 $$
-
----
 
  4. Cálculo de los puntos $c_1$ y $c_2$
 
@@ -1028,8 +1065,6 @@ $$
 
 Como $0 < 1/\sqrt{3} < 1$, se cumple que $c_1$ y $c_2$ pertenecen al intervalo $[a,b]$.
 
----
-
  5. Caso $f(x) = x^3$
 
 Usando la identidad
@@ -1039,8 +1074,6 @@ c_1^3 + c_2^3 = S_1^3 - 3S_1S_2
 $$
 
 y sustituyendo los valores de $S_1$ y $S_2$, se verifica que la igualdad también se cumple para $f(x) = x^3$.
-
----
 
 Por tanto, existen $c_1$ y $c_2$ en $[a,b]$ tales que
 
@@ -1108,8 +1141,92 @@ se denomina **Serie de Fourier** de $f$.
 :::
 
 **Solución (a)**  
-*(Demostración de la ortogonalidad mediante el cálculo del producto interno entre las funciones base $\phi_i$ y $\phi_j$ y verificación de que el resultado es cero cuando $i \ne j$ y distinto de cero cuando $i = j$.)*
 
+Usaremos, para $r,s\in\mathbb{Z}_{\ge 0}$,
+$$
+\cos(rx)\cos(sx)=\tfrac12\big[\cos((r-s)x)+\cos((r+s)x)\big],\\
+\sin(rx)\sin(sx)=\tfrac12\big[\cos((r-s)x)-\cos((r+s)x)\big],\\
+\sin(rx)\cos(sx)=\tfrac12\big[\sin((r+s)x)+\sin((r-s)x)\big].
+$$
+Además, para $m\in\mathbb{Z}\setminus\{0\}$ se cumple
+$$
+\int_{-\pi}^{\pi}\cos(mx)\,dx=0,\qquad \int_{-\pi}^{\pi}\sin(mx)\,dx=0,
+$$
+y $\int_{-\pi}^{\pi}1\,dx=2\pi$.
+
+** Productos con $\phi_0$ **
+
+- Con sí misma:
+$$
+\langle \phi_0,\phi_0\rangle=\int_{-\pi}^{\pi}\frac{1}{2\pi}\,dx=\frac{1}{2\pi}\cdot 2\pi=1.
+$$
+
+- Con $\phi_k=\frac{1}{\sqrt{\pi}}\cos(kx)$ ($k\ge 1$):
+$$
+\langle \phi_0,\phi_k\rangle=\frac{1}{\sqrt{2\pi\,\pi}}\int_{-\pi}^{\pi}\cos(kx)\,dx=0.
+$$
+
+- Con $\phi_{n+k}=\frac{1}{\sqrt{\pi}}\sin(kx)$ ($k\ge 1$):
+$$
+\langle \phi_0,\phi_{n+k}\rangle=\frac{1}{\sqrt{2\pi\,\pi}}\int_{-\pi}^{\pi}\sin(kx)\,dx=0.
+$$
+
+Por lo tanto, $\phi_0$ es ortogonal a todas las demás y tiene norma $1$.
+
+**Coseno con coseno**
+
+Para $k,\ell\ge 1$,
+$$
+\langle \phi_k,\phi_\ell\rangle
+=\frac{1}{\pi}\int_{-\pi}^{\pi}\cos(kx)\cos(\ell x)\,dx
+=\frac{1}{2\pi}\int_{-\pi}^{\pi}\big[\cos((k-\ell)x)+\cos((k+\ell)x)\big]\,dx.
+$$
+
+- Si $k\ne \ell$, ambas integrales son $0$, así que $\langle \phi_k,\phi_\ell\rangle=0$.
+
+- Si $k=\ell$, queda
+$$
+\langle \phi_k,\phi_k\rangle
+=\frac{1}{2\pi}\int_{-\pi}^{\pi}\big[1+\cos(2kx)\big]\,dx
+=\frac{1}{2\pi}\big[2\pi+0\big]=1.
+$$
+**Seno con seno**
+
+Para $k,\ell\ge 1$,
+$$
+\langle \phi_{n+k},\phi_{n+\ell}\rangle
+=\frac{1}{\pi}\int_{-\pi}^{\pi}\sin(kx)\sin(\ell x)\,dx
+=\frac{1}{2\pi}\int_{-\pi}^{\pi}\big[\cos((k-\ell)x)-\cos((k+\ell)x)\big]\,dx.
+$$
+
+- Si $k\ne \ell$, el valor es $0$.
+
+- Si $k=\ell$, entonces
+$$
+\langle \phi_{n+k},\phi_{n+k}\rangle
+=\frac{1}{2\pi}\int_{-\pi}^{\pi}\big[1-\cos(2kx)\big]\,dx
+=\frac{1}{2\pi}\big[2\pi-0\big]=1.
+$$
+
+**Seno con coseno**
+
+
+Para $k,\ell\ge 1$,
+$$
+\langle \phi_{n+k},\phi_\ell\rangle
+=\frac{1}{\pi}\int_{-\pi}^{\pi}\sin(kx)\cos(\ell x)\,dx
+=\frac{1}{2\pi}\int_{-\pi}^{\pi}\big[\sin((k+\ell)x)+\sin((k-\ell)x)\big]\,dx=0.
+$$
+
+De los productos con $\phi_0$ y el seno con coseno se sigue que
+$$
+\langle \phi_i,\phi_j\rangle=
+\begin{cases}
+1,& i=j,\\[2mm]
+0,& i\ne j,
+\end{cases}
+$$
+por lo que $B=\{\phi_0,\phi_1,\ldots,\phi_{2n-1}\}$ es no solo **ortogonal** sino **ortonormal** en $L^2([-\pi,\pi])$ con el producto interno dado. \hfill $\blacksquare$
 
 ::: {.callout-note title="Instrucción del inciso (b)"}
 
@@ -1123,9 +1240,11 @@ $$
 :::
 
 **Solución (b)**  
-*(Implementación en R que use métodos numéricos como Simpson o Romberg para calcular los coeficientes $a_k$.)*
+
 
 ```{r}
+#| code-fold: true
+
 coef.fourier <- function(f, k, tipo = "coseno") {
 
   integrando <- switch(
@@ -1157,9 +1276,10 @@ $$
 :::
 
 **Solución (c)**  
-*(Función en R que recibe los coeficientes $a_k$ y las funciones base $\phi_k$ para evaluar $S_n(x)$ en un conjunto de puntos del dominio $[-\pi, \pi]$.)*
 
 ```{r}
+#| code-fold: true
+
 serie.fourier <- function(f, n, x) {
   a0 <- coef.fourier(f, 0, tipo = "constante")
   suma <- a0
@@ -1191,7 +1311,6 @@ Luego grafique $f(x)$ y $S_n(x)$ en un mismo plano para $n = 3, 4, 5, 6, 7, 8$.
 :::
 
 **Solución (d)**  
-*(Código en R que genera las aproximaciones $S_n(x)$ y grafica las curvas junto con la función original $f(x)$ para observar el fenómeno de Gibbs y la convergencia de la serie de Fourier.)*
 
 ```{r}
 #| include: false
@@ -1248,6 +1367,8 @@ graficar <- function(funciones, a, b, c = NULL, d = NULL, n = 400,
 
 
 ```{r}
+#| code-fold: true
+
 funcion.prueba <- function(x) {
   if (-pi <= x && x < 0) {
     return(-1)
