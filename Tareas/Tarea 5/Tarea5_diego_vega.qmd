@@ -497,26 +497,88 @@ La **Regla del Trapecio Extendida** se presenta en el siguiente teorema:
 > \quad \text{para alguna } \mu \in [a,b].
 > $$
 
-**(a)** Pruebe el teorema anterior.  
-**(b)** Escriba un algoritmo en pseudo-código para la **regla del trapecio extendida**.  
-**(c)** Implemente en **R** la regla del trapecio extendida.
+(a) Pruebe el teorema anterior.  
+(b) Escriba un algoritmo en pseudo-código para la **regla del trapecio extendida**.  
+(c) Implemente en **R** la regla del trapecio extendida.
 
 :::
 
 **Solución**  
 
-**Regla del trapecio extendida**
+(a) Sea $f \in C^2[a,b]$ y subdividamos el intervalo en $n$ subintervalos de longitud $h = (b-a)/n$.
+
+   En cada subintervalo $[x_j, x_{j+1}]$, aplicamos la regla del trapecio simple:
+
+$$
+\int_{x_j}^{x_{j+1}} f(x)\,dx = 
+\frac{h}{2}\,[f(x_j) + f(x_{j+1})] - \frac{h^3}{12} f''(\xi_j),
+\quad \xi_j \in [x_j,x_{j+1}].
+$$
+
+   Sumando para $j=0,\ldots,n-1$:
+
+$$
+\int_a^b f(x)\,dx = 
+\sum_{j=0}^{n-1} \int_{x_j}^{x_{j+1}} f(x)\,dx =
+\frac{h}{2}\Big[f(a)+f(b) + 2\sum_{j=1}^{n-1} f(x_j)\Big]
+- \frac{h^3}{12}\sum_{j=0}^{n-1} f''(\xi_j).
+$$
+
+   Por el **teorema del valor medio para integrales**, existe $\mu \in [a,b]$ tal que:
+
+$$
+\sum_{j=0}^{n-1} f''(\xi_j) = n f''(\mu).
+$$
+
+   Sustituyendo $n = \frac{b-a}{h}$, obtenemos el término de error global:
+
+$$
+E(f) = -\frac{(b-a)h^2}{12}f''(\mu),
+$$
+
+   \hfill $\blacksquare$
+
+(b) **Pseudo-código de la Regla del Trapecio Extendida**
+
+```{text}
+#| codecode-fold: true
+Algoritmo Trapecio_Extendido(f, a, b, n)
+  # Calcula ∫_a^b f(x) dx usando la regla del trapecio extendida
+  Entrada:
+      f(x): función continua
+      a, b: límites de integración
+      n: número de subintervalos
+  Salida:
+      Aproximación de la integral
+
+  h ← (b - a) / n
+  suma ← f(a) + f(b)
+
+  Para j desde 1 hasta n-1 hacer
+      xj ← a + j * h
+      suma ← suma + 2 * f(xj)
+  Fin Para
+
+  integral ← (h / 2) * suma
+  Retornar integral
+Fin Algoritmo
+```
+
+(c) **Regla del trapecio extendida en R**
 ```{r}
 #| code-fold: true
 
-TrapecioExtendido <- function(f, a, b, n){
-  h <- (b-a)/n
-  suma <- 0
-  for(i in 1:(n-1)){
-    suma <- suma + f(a + i*h)
+TrapecioExtendido <- function(f, a, b, n) {
+  h <- (b - a) / n
+  suma <- f(a) + f(b)
+
+  for (j in 1:(n - 1)) {
+    xj <- a + j * h
+    suma <- suma + 2 * f(xj)
   }
-  
-  return((h/2)*(f(a) + f(b) + 2*suma))
+
+  I <- (h / 2) * suma
+  return(I)
 }
 ```
 

@@ -3794,25 +3794,84 @@ La regla del trapecio para <span class="math inline">n</span> subintervalos es:<
 \quad \text{para alguna } \mu \in [a,b].
 </span></p>
 </blockquote>
-<p><strong>(a)</strong> Pruebe el teorema anterior.<br>
-<strong>(b)</strong> Escriba un algoritmo en pseudo-código para la <strong>regla del trapecio extendida</strong>.<br>
-<strong>(c)</strong> Implemente en <strong>R</strong> la regla del trapecio extendida.</p>
+<ol type="a">
+<li>Pruebe el teorema anterior.<br>
+</li>
+<li>Escriba un algoritmo en pseudo-código para la <strong>regla del trapecio extendida</strong>.<br>
+</li>
+<li>Implemente en <strong>R</strong> la regla del trapecio extendida.</li>
+</ol>
 </div>
 </div>
 <p><strong>Solución</strong></p>
-<p><strong>Regla del trapecio extendida</strong></p>
+<ol type="a">
+<li>Sea <span class="math inline">f \in C^2[a,b]</span> y subdividamos el intervalo en <span class="math inline">n</span> subintervalos de longitud <span class="math inline">h = (b-a)/n</span>.</li>
+</ol>
+<p>   En cada subintervalo <span class="math inline">[x_j, x_{j+1}]</span>, aplicamos la regla del trapecio simple:</p>
+<p><span class="math display">
+\int_{x_j}^{x_{j+1}} f(x)\,dx =
+\frac{h}{2}\,[f(x_j) + f(x_{j+1})] - \frac{h^3}{12} f&#39;&#39;(\xi_j),
+\quad \xi_j \in [x_j,x_{j+1}].
+</span></p>
+<p>   Sumando para <span class="math inline">j=0,\ldots,n-1</span>:</p>
+<p><span class="math display">
+\int_a^b f(x)\,dx =
+\sum_{j=0}^{n-1} \int_{x_j}^{x_{j+1}} f(x)\,dx =
+\frac{h}{2}\Big[f(a)+f(b) + 2\sum_{j=1}^{n-1} f(x_j)\Big]
+- \frac{h^3}{12}\sum_{j=0}^{n-1} f&#39;&#39;(\xi_j).
+</span></p>
+<p>   Por el <strong>teorema del valor medio para integrales</strong>, existe <span class="math inline">\mu \in [a,b]</span> tal que:</p>
+<p><span class="math display">
+\sum_{j=0}^{n-1} f&#39;&#39;(\xi_j) = n f&#39;&#39;(\mu).
+</span></p>
+<p>   Sustituyendo <span class="math inline">n = \frac{b-a}{h}</span>, obtenemos el término de error global:</p>
+<p><span class="math display">
+E(f) = -\frac{(b-a)h^2}{12}f&#39;&#39;(\mu),
+</span></p>
+<p>   <span class="math inline">\blacksquare</span></p>
+<ol start="2" type="a">
+<li><strong>Pseudo-código de la Regla del Trapecio Extendida</strong></li>
+</ol>
+<div class="cell" data-codecode-fold="true">
+<pre class="text cell-code"><code>Algoritmo Trapecio_Extendido(f, a, b, n)
+  # Calcula ∫_a^b f(x) dx usando la regla del trapecio extendida
+  Entrada:
+      f(x): función continua
+      a, b: límites de integración
+      n: número de subintervalos
+  Salida:
+      Aproximación de la integral
+
+  h ← (b - a) / n
+  suma ← f(a) + f(b)
+
+  Para j desde 1 hasta n-1 hacer
+      xj ← a + j * h
+      suma ← suma + 2 * f(xj)
+  Fin Para
+
+  integral ← (h / 2) * suma
+  Retornar integral
+Fin Algoritmo</code></pre>
+</div>
+<ol start="3" type="a">
+<li><strong>Regla del trapecio extendida en R</strong></li>
+</ol>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>TrapecioExtendido <span class="ot">&lt;-</span> <span class="cf">function</span>(f, a, b, n){</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  h <span class="ot">&lt;-</span> (b<span class="sc">-</span>a)<span class="sc">/</span>n</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  suma <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(n<span class="dv">-1</span>)){</span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>    suma <span class="ot">&lt;-</span> suma <span class="sc">+</span> <span class="fu">f</span>(a <span class="sc">+</span> i<span class="sc">*</span>h)</span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>((h<span class="sc">/</span><span class="dv">2</span>)<span class="sc">*</span>(<span class="fu">f</span>(a) <span class="sc">+</span> <span class="fu">f</span>(b) <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>suma))</span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>TrapecioExtendido <span class="ot">&lt;-</span> <span class="cf">function</span>(f, a, b, n) {</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  h <span class="ot">&lt;-</span> (b <span class="sc">-</span> a) <span class="sc">/</span> n</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  suma <span class="ot">&lt;-</span> <span class="fu">f</span>(a) <span class="sc">+</span> <span class="fu">f</span>(b)</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(n <span class="sc">-</span> <span class="dv">1</span>)) {</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>    xj <span class="ot">&lt;-</span> a <span class="sc">+</span> j <span class="sc">*</span> h</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>    suma <span class="ot">&lt;-</span> suma <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">f</span>(xj)</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>  I <span class="ot">&lt;-</span> (h <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">*</span> suma</span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(I)</span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -3867,15 +3926,15 @@ x^3 + 1, &amp; 0 \le x \le 2,\\[0.5em]
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="dv">0</span> <span class="sc">&lt;=</span> x <span class="sc">&amp;</span> x <span class="sc">&lt;=</span> <span class="dv">2</span>){</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(x<span class="sc">^</span><span class="dv">3</span> <span class="sc">+</span> <span class="dv">1</span>)</span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span>(<span class="dv">2</span> <span class="sc">&lt;</span> x <span class="sc">&amp;</span> x <span class="sc">&lt;=</span> <span class="dv">6</span>){</span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="dv">2</span><span class="sc">*</span>x <span class="sc">+</span> <span class="dv">5</span>)</span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span>{</span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="dv">0</span> <span class="sc">&lt;=</span> x <span class="sc">&amp;</span> x <span class="sc">&lt;=</span> <span class="dv">2</span>){</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(x<span class="sc">^</span><span class="dv">3</span> <span class="sc">+</span> <span class="dv">1</span>)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span>(<span class="dv">2</span> <span class="sc">&lt;</span> x <span class="sc">&amp;</span> x <span class="sc">&lt;=</span> <span class="dv">6</span>){</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="dv">2</span><span class="sc">*</span>x <span class="sc">+</span> <span class="dv">5</span>)</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span>{</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <ol type="a">
@@ -3884,8 +3943,8 @@ x^3 + 1, &amp; 0 \le x \le 2,\\[0.5em]
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>tr <span class="ot">&lt;-</span> <span class="fu">TrapecioExtendido</span>(f, <span class="dv">0</span>, <span class="dv">6</span>, <span class="dv">10</span>)</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>tr</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>tr <span class="ot">&lt;-</span> <span class="fu">TrapecioExtendido</span>(f, <span class="dv">0</span>, <span class="dv">6</span>, <span class="dv">10</span>)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>tr</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 57.9456</code></pre>
@@ -3897,8 +3956,8 @@ x^3 + 1, &amp; 0 \le x \le 2,\\[0.5em]
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>si <span class="ot">&lt;-</span> <span class="fu">SimpsonCompuesto</span>(f, <span class="dv">0</span>, <span class="dv">6</span>, <span class="dv">10</span>)</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>si</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>si <span class="ot">&lt;-</span> <span class="fu">SimpsonCompuesto</span>(f, <span class="dv">0</span>, <span class="dv">6</span>, <span class="dv">10</span>)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>si</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 58.0076</code></pre>
@@ -3910,8 +3969,8 @@ x^3 + 1, &amp; 0 \le x \le 2,\\[0.5em]
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>valor_real <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(x) x<span class="sc">^</span><span class="dv">3</span> <span class="sc">+</span> <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>)<span class="sc">$</span>value <span class="sc">+</span> <span class="fu">integrate</span>(<span class="cf">function</span>(x) <span class="dv">2</span><span class="sc">*</span>x <span class="sc">+</span> <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">6</span>)<span class="sc">$</span>value</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>valor_real</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>valor_real <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(x) x<span class="sc">^</span><span class="dv">3</span> <span class="sc">+</span> <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>)<span class="sc">$</span>value <span class="sc">+</span> <span class="fu">integrate</span>(<span class="cf">function</span>(x) <span class="dv">2</span><span class="sc">*</span>x <span class="sc">+</span> <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">6</span>)<span class="sc">$</span>value</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>valor_real</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 58</code></pre>
@@ -3921,7 +3980,7 @@ x^3 + 1, &amp; 0 \le x \le 2,\\[0.5em]
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">abs</span>(tr <span class="sc">-</span> valor_real)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">abs</span>(tr <span class="sc">-</span> valor_real)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.0544</code></pre>
@@ -3931,7 +3990,7 @@ x^3 + 1, &amp; 0 \le x \le 2,\\[0.5em]
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">abs</span>(si <span class="sc">-</span> valor_real)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">abs</span>(si <span class="sc">-</span> valor_real)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.0076</code></pre>
@@ -3993,35 +4052,35 @@ Fin Algoritmo</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Regla del Trapecio Extendida para integrales dobles tipo I</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>trapecio_doble <span class="ot">&lt;-</span> <span class="cf">function</span>(f, a, b, c, d, nx, ny) {</span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  hx <span class="ot">&lt;-</span> (b <span class="sc">-</span> a) <span class="sc">/</span> nx</span>
-<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>  hy <span class="ot">&lt;-</span> (d <span class="sc">-</span> c) <span class="sc">/</span> ny</span>
-<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>  suma <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">0</span><span class="sc">:</span>nx) {</span>
-<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> a <span class="sc">+</span> i <span class="sc">*</span> hx</span>
-<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">0</span><span class="sc">:</span>ny) {</span>
-<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>      y <span class="ot">&lt;-</span> c <span class="sc">+</span> j <span class="sc">*</span> hy</span>
-<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a>      peso <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-13"><a href="#cb57-13" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (i <span class="sc">==</span> <span class="dv">0</span> <span class="sc">||</span> i <span class="sc">==</span> nx) peso <span class="ot">&lt;-</span> peso <span class="sc">/</span> <span class="dv">2</span></span>
-<span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (j <span class="sc">==</span> <span class="dv">0</span> <span class="sc">||</span> j <span class="sc">==</span> ny) peso <span class="ot">&lt;-</span> peso <span class="sc">/</span> <span class="dv">2</span></span>
-<span id="cb57-15"><a href="#cb57-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-16"><a href="#cb57-16" aria-hidden="true" tabindex="-1"></a>      suma <span class="ot">&lt;-</span> suma <span class="sc">+</span> peso <span class="sc">*</span> <span class="fu">f</span>(x, y)</span>
-<span id="cb57-17"><a href="#cb57-17" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb57-18"><a href="#cb57-18" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb57-19"><a href="#cb57-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-20"><a href="#cb57-20" aria-hidden="true" tabindex="-1"></a>  I <span class="ot">&lt;-</span> hx <span class="sc">*</span> hy <span class="sc">*</span> suma</span>
-<span id="cb57-21"><a href="#cb57-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(I)</span>
-<span id="cb57-22"><a href="#cb57-22" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Regla del Trapecio Extendida para integrales dobles tipo I</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>trapecio_doble <span class="ot">&lt;-</span> <span class="cf">function</span>(f, a, b, c, d, nx, ny) {</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  hx <span class="ot">&lt;-</span> (b <span class="sc">-</span> a) <span class="sc">/</span> nx</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  hy <span class="ot">&lt;-</span> (d <span class="sc">-</span> c) <span class="sc">/</span> ny</span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>  suma <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">0</span><span class="sc">:</span>nx) {</span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> a <span class="sc">+</span> i <span class="sc">*</span> hx</span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">0</span><span class="sc">:</span>ny) {</span>
+<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a>      y <span class="ot">&lt;-</span> c <span class="sc">+</span> j <span class="sc">*</span> hy</span>
+<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a>      peso <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (i <span class="sc">==</span> <span class="dv">0</span> <span class="sc">||</span> i <span class="sc">==</span> nx) peso <span class="ot">&lt;-</span> peso <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb58-14"><a href="#cb58-14" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (j <span class="sc">==</span> <span class="dv">0</span> <span class="sc">||</span> j <span class="sc">==</span> ny) peso <span class="ot">&lt;-</span> peso <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb58-15"><a href="#cb58-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-16"><a href="#cb58-16" aria-hidden="true" tabindex="-1"></a>      suma <span class="ot">&lt;-</span> suma <span class="sc">+</span> peso <span class="sc">*</span> <span class="fu">f</span>(x, y)</span>
+<span id="cb58-17"><a href="#cb58-17" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb58-18"><a href="#cb58-18" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb58-19"><a href="#cb58-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-20"><a href="#cb58-20" aria-hidden="true" tabindex="-1"></a>  I <span class="ot">&lt;-</span> hx <span class="sc">*</span> hy <span class="sc">*</span> suma</span>
+<span id="cb58-21"><a href="#cb58-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(I)</span>
+<span id="cb58-22"><a href="#cb58-22" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo de uso:</span></span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> y<span class="sc">^</span><span class="dv">2</span>  <span class="co"># función ejemplo</span></span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>resultado <span class="ot">&lt;-</span> <span class="fu">trapecio_doble</span>(f, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="at">nx =</span> <span class="dv">10</span>, <span class="at">ny =</span> <span class="dv">10</span>)</span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Aproximación de la integral doble:&quot;</span>, resultado, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo de uso:</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> y<span class="sc">^</span><span class="dv">2</span>  <span class="co"># función ejemplo</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>resultado <span class="ot">&lt;-</span> <span class="fu">trapecio_doble</span>(f, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="at">nx =</span> <span class="dv">10</span>, <span class="at">ny =</span> <span class="dv">10</span>)</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Aproximación de la integral doble:&quot;</span>, resultado, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Aproximación de la integral doble: 0.67 </code></pre>
 </div>
@@ -4078,135 +4137,135 @@ usando alguno de los métodos vistos en el curso.</li>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>neville <span class="ot">&lt;-</span> <span class="cf">function</span>(nodos, valores, x) {</span>
-<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stopifnot</span>(<span class="fu">is.numeric</span>(nodos),</span>
-<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">is.numeric</span>(valores),</span>
-<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>            <span class="fu">length</span>(nodos) <span class="sc">==</span> <span class="fu">length</span>(valores))</span>
-<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(nodos)</span>
-<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>  Q <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA_real_</span>, <span class="at">nrow =</span> n, <span class="at">ncol =</span> n)</span>
-<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Columna inicial con valores de Y</span></span>
-<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>  Q[, <span class="dv">1</span>] <span class="ot">&lt;-</span>  valores</span>
-<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Construccion de la tabla de Neville</span></span>
-<span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>n) {</span>
-<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>i) {</span>
-<span id="cb60-16"><a href="#cb60-16" aria-hidden="true" tabindex="-1"></a>      numerador <span class="ot">&lt;-</span> ((x <span class="sc">-</span> nodos[i <span class="sc">-</span> j <span class="sc">+</span> <span class="dv">1</span>]) <span class="sc">*</span> Q[i, j <span class="sc">-</span> <span class="dv">1</span>] <span class="sc">-</span> (x <span class="sc">-</span> nodos[i]) <span class="sc">*</span> Q[i <span class="sc">-</span></span>
-<span id="cb60-17"><a href="#cb60-17" aria-hidden="true" tabindex="-1"></a>                                                                                <span class="dv">1</span>, j <span class="sc">-</span> <span class="dv">1</span>])</span>
-<span id="cb60-18"><a href="#cb60-18" aria-hidden="true" tabindex="-1"></a>      denominador <span class="ot">&lt;-</span> nodos[i] <span class="sc">-</span> nodos[i <span class="sc">-</span> j <span class="sc">+</span> <span class="dv">1</span>]</span>
-<span id="cb60-19"><a href="#cb60-19" aria-hidden="true" tabindex="-1"></a>      Q[i, j] <span class="ot">&lt;-</span>  numerador <span class="sc">/</span> denominador</span>
-<span id="cb60-20"><a href="#cb60-20" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb60-21"><a href="#cb60-21" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb60-22"><a href="#cb60-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">valor =</span> Q[n, n], <span class="at">tabla =</span> Q))</span>
-<span id="cb60-23"><a href="#cb60-23" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb60-24"><a href="#cb60-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-25"><a href="#cb60-25" aria-hidden="true" tabindex="-1"></a>graficar.polinomio <span class="ot">&lt;-</span> <span class="cf">function</span>(nodos,</span>
-<span id="cb60-26"><a href="#cb60-26" aria-hidden="true" tabindex="-1"></a>                               a,</span>
-<span id="cb60-27"><a href="#cb60-27" aria-hidden="true" tabindex="-1"></a>                               b,</span>
-<span id="cb60-28"><a href="#cb60-28" aria-hidden="true" tabindex="-1"></a>                               metodo,</span>
-<span id="cb60-29"><a href="#cb60-29" aria-hidden="true" tabindex="-1"></a>                               <span class="at">f =</span> <span class="cn">NULL</span>,</span>
-<span id="cb60-30"><a href="#cb60-30" aria-hidden="true" tabindex="-1"></a>                               <span class="at">valores =</span> <span class="cn">NULL</span>,</span>
-<span id="cb60-31"><a href="#cb60-31" aria-hidden="true" tabindex="-1"></a>                               <span class="at">df =</span> <span class="cn">NULL</span>,</span>
-<span id="cb60-32"><a href="#cb60-32" aria-hidden="true" tabindex="-1"></a>                               <span class="at">derivadas.clamped =</span> <span class="cn">NULL</span>) {</span>
-<span id="cb60-33"><a href="#cb60-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stopifnot</span>(<span class="fu">is.numeric</span>(nodos), <span class="fu">length</span>(nodos) <span class="sc">&gt;=</span> <span class="dv">2</span>)</span>
-<span id="cb60-34"><a href="#cb60-34" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Validación: exactamente uno de f o valores</span></span>
-<span id="cb60-35"><a href="#cb60-35" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.null</span>(f) <span class="sc">==</span> <span class="fu">is.null</span>(valores)) {</span>
-<span id="cb60-36"><a href="#cb60-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;Debe proveer exactamente uno: &#39;f&#39; (función) o &#39;valores&#39; (numérico).&quot;</span>)</span>
-<span id="cb60-37"><a href="#cb60-37" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb60-38"><a href="#cb60-38" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Obtener valores en nodos según el caso</span></span>
-<span id="cb60-39"><a href="#cb60-39" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(f)) {</span>
-<span id="cb60-40"><a href="#cb60-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stopifnot</span>(<span class="fu">is.function</span>(f))</span>
-<span id="cb60-41"><a href="#cb60-41" aria-hidden="true" tabindex="-1"></a>    valores_nodos <span class="ot">&lt;-</span> <span class="fu">f</span>(nodos)</span>
-<span id="cb60-42"><a href="#cb60-42" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb60-43"><a href="#cb60-43" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stopifnot</span>(<span class="fu">is.numeric</span>(valores), <span class="fu">length</span>(valores) <span class="sc">==</span> <span class="fu">length</span>(nodos))</span>
-<span id="cb60-44"><a href="#cb60-44" aria-hidden="true" tabindex="-1"></a>    valores_nodos <span class="ot">&lt;-</span> valores</span>
-<span id="cb60-45"><a href="#cb60-45" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb60-46"><a href="#cb60-46" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb60-47"><a href="#cb60-47" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Derivadas (opcional). Acepta función o vector numérico.</span></span>
-<span id="cb60-48"><a href="#cb60-48" aria-hidden="true" tabindex="-1"></a>  derivadas_nodos <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb60-49"><a href="#cb60-49" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(df)) {</span>
-<span id="cb60-50"><a href="#cb60-50" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">is.function</span>(df)) {</span>
-<span id="cb60-51"><a href="#cb60-51" aria-hidden="true" tabindex="-1"></a>      derivadas_nodos <span class="ot">&lt;-</span> <span class="fu">df</span>(nodos)</span>
-<span id="cb60-52"><a href="#cb60-52" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">is.numeric</span>(df)) {</span>
-<span id="cb60-53"><a href="#cb60-53" aria-hidden="true" tabindex="-1"></a>      <span class="fu">stopifnot</span>(<span class="fu">length</span>(df) <span class="sc">==</span> <span class="fu">length</span>(nodos))</span>
-<span id="cb60-54"><a href="#cb60-54" aria-hidden="true" tabindex="-1"></a>      derivadas_nodos <span class="ot">&lt;-</span> df</span>
-<span id="cb60-55"><a href="#cb60-55" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
-<span id="cb60-56"><a href="#cb60-56" aria-hidden="true" tabindex="-1"></a>      <span class="fu">stop</span>(<span class="st">&quot;`df` debe ser función o vector numérico de derivadas en los nodos.&quot;</span>)</span>
-<span id="cb60-57"><a href="#cb60-57" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb60-58"><a href="#cb60-58" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb60-59"><a href="#cb60-59" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb60-60"><a href="#cb60-60" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Wrapper vectorizado para el método (con o sin derivadas)</span></span>
-<span id="cb60-61"><a href="#cb60-61" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(derivadas_nodos)) {</span>
-<span id="cb60-62"><a href="#cb60-62" aria-hidden="true" tabindex="-1"></a>    H <span class="ot">&lt;-</span> <span class="cf">function</span>(x)</span>
-<span id="cb60-63"><a href="#cb60-63" aria-hidden="true" tabindex="-1"></a>      <span class="fu">vapply</span>(x, <span class="cf">function</span>(xx)</span>
-<span id="cb60-64"><a href="#cb60-64" aria-hidden="true" tabindex="-1"></a>        <span class="fu">metodo</span>(nodos, valores_nodos, derivadas_nodos, xx)<span class="sc">$</span>valor, <span class="fu">numeric</span>(<span class="dv">1</span>))</span>
-<span id="cb60-65"><a href="#cb60-65" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb60-66"><a href="#cb60-66" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">is.null</span>(derivadas.clamped)){</span>
-<span id="cb60-67"><a href="#cb60-67" aria-hidden="true" tabindex="-1"></a>      H <span class="ot">&lt;-</span> <span class="cf">function</span>(x)</span>
-<span id="cb60-68"><a href="#cb60-68" aria-hidden="true" tabindex="-1"></a>        <span class="fu">vapply</span>(x, <span class="cf">function</span>(xx)</span>
-<span id="cb60-69"><a href="#cb60-69" aria-hidden="true" tabindex="-1"></a>          <span class="fu">metodo</span>(nodos, valores_nodos, xx)<span class="sc">$</span>valor, <span class="fu">numeric</span>(<span class="dv">1</span>))</span>
-<span id="cb60-70"><a href="#cb60-70" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span>{</span>
-<span id="cb60-71"><a href="#cb60-71" aria-hidden="true" tabindex="-1"></a>      H <span class="ot">&lt;-</span> <span class="cf">function</span>(x)</span>
-<span id="cb60-72"><a href="#cb60-72" aria-hidden="true" tabindex="-1"></a>        <span class="fu">vapply</span>(x, <span class="cf">function</span>(xx)</span>
-<span id="cb60-73"><a href="#cb60-73" aria-hidden="true" tabindex="-1"></a>          <span class="fu">spline.sujeto</span>(nodos, valores_nodos, derivadas.clamped, xx)<span class="sc">$</span>valor, <span class="fu">numeric</span>(<span class="dv">1</span>))</span>
-<span id="cb60-74"><a href="#cb60-74" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb60-75"><a href="#cb60-75" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb60-76"><a href="#cb60-76" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb60-77"><a href="#cb60-77" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Malla y data frames</span></span>
-<span id="cb60-78"><a href="#cb60-78" aria-hidden="true" tabindex="-1"></a>  xi <span class="ot">&lt;-</span> <span class="fu">seq</span>(a, b, <span class="at">length.out =</span> <span class="dv">400</span>)</span>
-<span id="cb60-79"><a href="#cb60-79" aria-hidden="true" tabindex="-1"></a>  df_plot <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x  =</span> xi,</span>
-<span id="cb60-80"><a href="#cb60-80" aria-hidden="true" tabindex="-1"></a>                        <span class="at">Hx =</span> <span class="fu">H</span>(xi),</span>
-<span id="cb60-81"><a href="#cb60-81" aria-hidden="true" tabindex="-1"></a>                        <span class="at">fx =</span> <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(f))</span>
-<span id="cb60-82"><a href="#cb60-82" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">f</span>(xi)</span>
-<span id="cb60-83"><a href="#cb60-83" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">else</span></span>
-<span id="cb60-84"><a href="#cb60-84" aria-hidden="true" tabindex="-1"></a>                          <span class="cn">NA_real_</span>)</span>
-<span id="cb60-85"><a href="#cb60-85" aria-hidden="true" tabindex="-1"></a>  df_nodos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> nodos, <span class="at">y =</span> valores_nodos)</span>
-<span id="cb60-86"><a href="#cb60-86" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb60-87"><a href="#cb60-87" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Gráfico: con f (dos curvas) o solo interpolación</span></span>
-<span id="cb60-88"><a href="#cb60-88" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_plot, <span class="fu">aes</span>(<span class="at">x =</span> x))</span>
-<span id="cb60-89"><a href="#cb60-89" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(f)) {</span>
-<span id="cb60-90"><a href="#cb60-90" aria-hidden="true" tabindex="-1"></a>    p <span class="ot">&lt;-</span> p <span class="sc">+</span></span>
-<span id="cb60-91"><a href="#cb60-91" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> fx, <span class="at">color =</span> <span class="st">&quot;Original&quot;</span>), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb60-92"><a href="#cb60-92" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Hx, <span class="at">color =</span> <span class="st">&quot;Interpolación&quot;</span>),</span>
-<span id="cb60-93"><a href="#cb60-93" aria-hidden="true" tabindex="-1"></a>                <span class="at">linewidth =</span> <span class="dv">1</span>,</span>
-<span id="cb60-94"><a href="#cb60-94" aria-hidden="true" tabindex="-1"></a>                <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
-<span id="cb60-95"><a href="#cb60-95" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(</span>
-<span id="cb60-96"><a href="#cb60-96" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Original&quot;</span> <span class="ot">=</span> <span class="st">&quot;blue&quot;</span>,</span>
-<span id="cb60-97"><a href="#cb60-97" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Interpolación&quot;</span> <span class="ot">=</span> <span class="st">&quot;red&quot;</span></span>
-<span id="cb60-98"><a href="#cb60-98" aria-hidden="true" tabindex="-1"></a>      ))</span>
-<span id="cb60-99"><a href="#cb60-99" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb60-100"><a href="#cb60-100" aria-hidden="true" tabindex="-1"></a>    p <span class="ot">&lt;-</span> p <span class="sc">+</span></span>
-<span id="cb60-101"><a href="#cb60-101" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Hx, <span class="at">color =</span> <span class="st">&quot;Interpolación&quot;</span>), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb60-102"><a href="#cb60-102" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Interpolación&quot;</span> <span class="ot">=</span> <span class="st">&quot;red&quot;</span>))</span>
-<span id="cb60-103"><a href="#cb60-103" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb60-104"><a href="#cb60-104" aria-hidden="true" tabindex="-1"></a>  p <span class="sc">+</span></span>
-<span id="cb60-105"><a href="#cb60-105" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(</span>
-<span id="cb60-106"><a href="#cb60-106" aria-hidden="true" tabindex="-1"></a>      <span class="at">data =</span> df_nodos,</span>
-<span id="cb60-107"><a href="#cb60-107" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y),</span>
-<span id="cb60-108"><a href="#cb60-108" aria-hidden="true" tabindex="-1"></a>      <span class="at">shape =</span> <span class="dv">21</span>,</span>
-<span id="cb60-109"><a href="#cb60-109" aria-hidden="true" tabindex="-1"></a>      <span class="at">size =</span> <span class="dv">3</span>,</span>
-<span id="cb60-110"><a href="#cb60-110" aria-hidden="true" tabindex="-1"></a>      <span class="at">fill =</span> <span class="st">&quot;white&quot;</span></span>
-<span id="cb60-111"><a href="#cb60-111" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb60-112"><a href="#cb60-112" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">paste0</span>(<span class="st">&quot;Interpolación por &quot;</span>, <span class="fu">deparse</span>(<span class="fu">substitute</span>(metodo))), <span class="at">y =</span> <span class="st">&quot;Valor&quot;</span>, <span class="at">color =</span> <span class="st">&quot;Serie&quot;</span>) <span class="sc">+</span></span>
-<span id="cb60-113"><a href="#cb60-113" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span>
-<span id="cb60-114"><a href="#cb60-114" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>neville <span class="ot">&lt;-</span> <span class="cf">function</span>(nodos, valores, x) {</span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stopifnot</span>(<span class="fu">is.numeric</span>(nodos),</span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">is.numeric</span>(valores),</span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>            <span class="fu">length</span>(nodos) <span class="sc">==</span> <span class="fu">length</span>(valores))</span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(nodos)</span>
+<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a>  Q <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA_real_</span>, <span class="at">nrow =</span> n, <span class="at">ncol =</span> n)</span>
+<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Columna inicial con valores de Y</span></span>
+<span id="cb61-11"><a href="#cb61-11" aria-hidden="true" tabindex="-1"></a>  Q[, <span class="dv">1</span>] <span class="ot">&lt;-</span>  valores</span>
+<span id="cb61-12"><a href="#cb61-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb61-13"><a href="#cb61-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Construccion de la tabla de Neville</span></span>
+<span id="cb61-14"><a href="#cb61-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>n) {</span>
+<span id="cb61-15"><a href="#cb61-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>i) {</span>
+<span id="cb61-16"><a href="#cb61-16" aria-hidden="true" tabindex="-1"></a>      numerador <span class="ot">&lt;-</span> ((x <span class="sc">-</span> nodos[i <span class="sc">-</span> j <span class="sc">+</span> <span class="dv">1</span>]) <span class="sc">*</span> Q[i, j <span class="sc">-</span> <span class="dv">1</span>] <span class="sc">-</span> (x <span class="sc">-</span> nodos[i]) <span class="sc">*</span> Q[i <span class="sc">-</span></span>
+<span id="cb61-17"><a href="#cb61-17" aria-hidden="true" tabindex="-1"></a>                                                                                <span class="dv">1</span>, j <span class="sc">-</span> <span class="dv">1</span>])</span>
+<span id="cb61-18"><a href="#cb61-18" aria-hidden="true" tabindex="-1"></a>      denominador <span class="ot">&lt;-</span> nodos[i] <span class="sc">-</span> nodos[i <span class="sc">-</span> j <span class="sc">+</span> <span class="dv">1</span>]</span>
+<span id="cb61-19"><a href="#cb61-19" aria-hidden="true" tabindex="-1"></a>      Q[i, j] <span class="ot">&lt;-</span>  numerador <span class="sc">/</span> denominador</span>
+<span id="cb61-20"><a href="#cb61-20" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb61-21"><a href="#cb61-21" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb61-22"><a href="#cb61-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">valor =</span> Q[n, n], <span class="at">tabla =</span> Q))</span>
+<span id="cb61-23"><a href="#cb61-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb61-24"><a href="#cb61-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-25"><a href="#cb61-25" aria-hidden="true" tabindex="-1"></a>graficar.polinomio <span class="ot">&lt;-</span> <span class="cf">function</span>(nodos,</span>
+<span id="cb61-26"><a href="#cb61-26" aria-hidden="true" tabindex="-1"></a>                               a,</span>
+<span id="cb61-27"><a href="#cb61-27" aria-hidden="true" tabindex="-1"></a>                               b,</span>
+<span id="cb61-28"><a href="#cb61-28" aria-hidden="true" tabindex="-1"></a>                               metodo,</span>
+<span id="cb61-29"><a href="#cb61-29" aria-hidden="true" tabindex="-1"></a>                               <span class="at">f =</span> <span class="cn">NULL</span>,</span>
+<span id="cb61-30"><a href="#cb61-30" aria-hidden="true" tabindex="-1"></a>                               <span class="at">valores =</span> <span class="cn">NULL</span>,</span>
+<span id="cb61-31"><a href="#cb61-31" aria-hidden="true" tabindex="-1"></a>                               <span class="at">df =</span> <span class="cn">NULL</span>,</span>
+<span id="cb61-32"><a href="#cb61-32" aria-hidden="true" tabindex="-1"></a>                               <span class="at">derivadas.clamped =</span> <span class="cn">NULL</span>) {</span>
+<span id="cb61-33"><a href="#cb61-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stopifnot</span>(<span class="fu">is.numeric</span>(nodos), <span class="fu">length</span>(nodos) <span class="sc">&gt;=</span> <span class="dv">2</span>)</span>
+<span id="cb61-34"><a href="#cb61-34" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Validación: exactamente uno de f o valores</span></span>
+<span id="cb61-35"><a href="#cb61-35" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.null</span>(f) <span class="sc">==</span> <span class="fu">is.null</span>(valores)) {</span>
+<span id="cb61-36"><a href="#cb61-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;Debe proveer exactamente uno: &#39;f&#39; (función) o &#39;valores&#39; (numérico).&quot;</span>)</span>
+<span id="cb61-37"><a href="#cb61-37" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb61-38"><a href="#cb61-38" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Obtener valores en nodos según el caso</span></span>
+<span id="cb61-39"><a href="#cb61-39" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(f)) {</span>
+<span id="cb61-40"><a href="#cb61-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stopifnot</span>(<span class="fu">is.function</span>(f))</span>
+<span id="cb61-41"><a href="#cb61-41" aria-hidden="true" tabindex="-1"></a>    valores_nodos <span class="ot">&lt;-</span> <span class="fu">f</span>(nodos)</span>
+<span id="cb61-42"><a href="#cb61-42" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb61-43"><a href="#cb61-43" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stopifnot</span>(<span class="fu">is.numeric</span>(valores), <span class="fu">length</span>(valores) <span class="sc">==</span> <span class="fu">length</span>(nodos))</span>
+<span id="cb61-44"><a href="#cb61-44" aria-hidden="true" tabindex="-1"></a>    valores_nodos <span class="ot">&lt;-</span> valores</span>
+<span id="cb61-45"><a href="#cb61-45" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb61-46"><a href="#cb61-46" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb61-47"><a href="#cb61-47" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Derivadas (opcional). Acepta función o vector numérico.</span></span>
+<span id="cb61-48"><a href="#cb61-48" aria-hidden="true" tabindex="-1"></a>  derivadas_nodos <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb61-49"><a href="#cb61-49" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(df)) {</span>
+<span id="cb61-50"><a href="#cb61-50" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">is.function</span>(df)) {</span>
+<span id="cb61-51"><a href="#cb61-51" aria-hidden="true" tabindex="-1"></a>      derivadas_nodos <span class="ot">&lt;-</span> <span class="fu">df</span>(nodos)</span>
+<span id="cb61-52"><a href="#cb61-52" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">is.numeric</span>(df)) {</span>
+<span id="cb61-53"><a href="#cb61-53" aria-hidden="true" tabindex="-1"></a>      <span class="fu">stopifnot</span>(<span class="fu">length</span>(df) <span class="sc">==</span> <span class="fu">length</span>(nodos))</span>
+<span id="cb61-54"><a href="#cb61-54" aria-hidden="true" tabindex="-1"></a>      derivadas_nodos <span class="ot">&lt;-</span> df</span>
+<span id="cb61-55"><a href="#cb61-55" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb61-56"><a href="#cb61-56" aria-hidden="true" tabindex="-1"></a>      <span class="fu">stop</span>(<span class="st">&quot;`df` debe ser función o vector numérico de derivadas en los nodos.&quot;</span>)</span>
+<span id="cb61-57"><a href="#cb61-57" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb61-58"><a href="#cb61-58" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb61-59"><a href="#cb61-59" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb61-60"><a href="#cb61-60" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Wrapper vectorizado para el método (con o sin derivadas)</span></span>
+<span id="cb61-61"><a href="#cb61-61" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(derivadas_nodos)) {</span>
+<span id="cb61-62"><a href="#cb61-62" aria-hidden="true" tabindex="-1"></a>    H <span class="ot">&lt;-</span> <span class="cf">function</span>(x)</span>
+<span id="cb61-63"><a href="#cb61-63" aria-hidden="true" tabindex="-1"></a>      <span class="fu">vapply</span>(x, <span class="cf">function</span>(xx)</span>
+<span id="cb61-64"><a href="#cb61-64" aria-hidden="true" tabindex="-1"></a>        <span class="fu">metodo</span>(nodos, valores_nodos, derivadas_nodos, xx)<span class="sc">$</span>valor, <span class="fu">numeric</span>(<span class="dv">1</span>))</span>
+<span id="cb61-65"><a href="#cb61-65" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb61-66"><a href="#cb61-66" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">is.null</span>(derivadas.clamped)){</span>
+<span id="cb61-67"><a href="#cb61-67" aria-hidden="true" tabindex="-1"></a>      H <span class="ot">&lt;-</span> <span class="cf">function</span>(x)</span>
+<span id="cb61-68"><a href="#cb61-68" aria-hidden="true" tabindex="-1"></a>        <span class="fu">vapply</span>(x, <span class="cf">function</span>(xx)</span>
+<span id="cb61-69"><a href="#cb61-69" aria-hidden="true" tabindex="-1"></a>          <span class="fu">metodo</span>(nodos, valores_nodos, xx)<span class="sc">$</span>valor, <span class="fu">numeric</span>(<span class="dv">1</span>))</span>
+<span id="cb61-70"><a href="#cb61-70" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span>{</span>
+<span id="cb61-71"><a href="#cb61-71" aria-hidden="true" tabindex="-1"></a>      H <span class="ot">&lt;-</span> <span class="cf">function</span>(x)</span>
+<span id="cb61-72"><a href="#cb61-72" aria-hidden="true" tabindex="-1"></a>        <span class="fu">vapply</span>(x, <span class="cf">function</span>(xx)</span>
+<span id="cb61-73"><a href="#cb61-73" aria-hidden="true" tabindex="-1"></a>          <span class="fu">spline.sujeto</span>(nodos, valores_nodos, derivadas.clamped, xx)<span class="sc">$</span>valor, <span class="fu">numeric</span>(<span class="dv">1</span>))</span>
+<span id="cb61-74"><a href="#cb61-74" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb61-75"><a href="#cb61-75" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb61-76"><a href="#cb61-76" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb61-77"><a href="#cb61-77" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Malla y data frames</span></span>
+<span id="cb61-78"><a href="#cb61-78" aria-hidden="true" tabindex="-1"></a>  xi <span class="ot">&lt;-</span> <span class="fu">seq</span>(a, b, <span class="at">length.out =</span> <span class="dv">400</span>)</span>
+<span id="cb61-79"><a href="#cb61-79" aria-hidden="true" tabindex="-1"></a>  df_plot <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x  =</span> xi,</span>
+<span id="cb61-80"><a href="#cb61-80" aria-hidden="true" tabindex="-1"></a>                        <span class="at">Hx =</span> <span class="fu">H</span>(xi),</span>
+<span id="cb61-81"><a href="#cb61-81" aria-hidden="true" tabindex="-1"></a>                        <span class="at">fx =</span> <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(f))</span>
+<span id="cb61-82"><a href="#cb61-82" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">f</span>(xi)</span>
+<span id="cb61-83"><a href="#cb61-83" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">else</span></span>
+<span id="cb61-84"><a href="#cb61-84" aria-hidden="true" tabindex="-1"></a>                          <span class="cn">NA_real_</span>)</span>
+<span id="cb61-85"><a href="#cb61-85" aria-hidden="true" tabindex="-1"></a>  df_nodos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> nodos, <span class="at">y =</span> valores_nodos)</span>
+<span id="cb61-86"><a href="#cb61-86" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb61-87"><a href="#cb61-87" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Gráfico: con f (dos curvas) o solo interpolación</span></span>
+<span id="cb61-88"><a href="#cb61-88" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_plot, <span class="fu">aes</span>(<span class="at">x =</span> x))</span>
+<span id="cb61-89"><a href="#cb61-89" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(f)) {</span>
+<span id="cb61-90"><a href="#cb61-90" aria-hidden="true" tabindex="-1"></a>    p <span class="ot">&lt;-</span> p <span class="sc">+</span></span>
+<span id="cb61-91"><a href="#cb61-91" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> fx, <span class="at">color =</span> <span class="st">&quot;Original&quot;</span>), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb61-92"><a href="#cb61-92" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Hx, <span class="at">color =</span> <span class="st">&quot;Interpolación&quot;</span>),</span>
+<span id="cb61-93"><a href="#cb61-93" aria-hidden="true" tabindex="-1"></a>                <span class="at">linewidth =</span> <span class="dv">1</span>,</span>
+<span id="cb61-94"><a href="#cb61-94" aria-hidden="true" tabindex="-1"></a>                <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb61-95"><a href="#cb61-95" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb61-96"><a href="#cb61-96" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Original&quot;</span> <span class="ot">=</span> <span class="st">&quot;blue&quot;</span>,</span>
+<span id="cb61-97"><a href="#cb61-97" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Interpolación&quot;</span> <span class="ot">=</span> <span class="st">&quot;red&quot;</span></span>
+<span id="cb61-98"><a href="#cb61-98" aria-hidden="true" tabindex="-1"></a>      ))</span>
+<span id="cb61-99"><a href="#cb61-99" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb61-100"><a href="#cb61-100" aria-hidden="true" tabindex="-1"></a>    p <span class="ot">&lt;-</span> p <span class="sc">+</span></span>
+<span id="cb61-101"><a href="#cb61-101" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Hx, <span class="at">color =</span> <span class="st">&quot;Interpolación&quot;</span>), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb61-102"><a href="#cb61-102" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Interpolación&quot;</span> <span class="ot">=</span> <span class="st">&quot;red&quot;</span>))</span>
+<span id="cb61-103"><a href="#cb61-103" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb61-104"><a href="#cb61-104" aria-hidden="true" tabindex="-1"></a>  p <span class="sc">+</span></span>
+<span id="cb61-105"><a href="#cb61-105" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(</span>
+<span id="cb61-106"><a href="#cb61-106" aria-hidden="true" tabindex="-1"></a>      <span class="at">data =</span> df_nodos,</span>
+<span id="cb61-107"><a href="#cb61-107" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y),</span>
+<span id="cb61-108"><a href="#cb61-108" aria-hidden="true" tabindex="-1"></a>      <span class="at">shape =</span> <span class="dv">21</span>,</span>
+<span id="cb61-109"><a href="#cb61-109" aria-hidden="true" tabindex="-1"></a>      <span class="at">size =</span> <span class="dv">3</span>,</span>
+<span id="cb61-110"><a href="#cb61-110" aria-hidden="true" tabindex="-1"></a>      <span class="at">fill =</span> <span class="st">&quot;white&quot;</span></span>
+<span id="cb61-111"><a href="#cb61-111" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb61-112"><a href="#cb61-112" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">paste0</span>(<span class="st">&quot;Interpolación por &quot;</span>, <span class="fu">deparse</span>(<span class="fu">substitute</span>(metodo))), <span class="at">y =</span> <span class="st">&quot;Valor&quot;</span>, <span class="at">color =</span> <span class="st">&quot;Serie&quot;</span>) <span class="sc">+</span></span>
+<span id="cb61-113"><a href="#cb61-113" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span>
+<span id="cb61-114"><a href="#cb61-114" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>nodos <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, pi<span class="sc">/</span><span class="dv">2</span>, pi, <span class="dv">3</span><span class="sc">*</span>pi<span class="sc">/</span><span class="dv">2</span>, <span class="dv">2</span><span class="sc">*</span>pi, <span class="dv">5</span><span class="sc">*</span>pi<span class="sc">/</span><span class="dv">2</span>, <span class="dv">3</span><span class="sc">*</span>pi)</span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>imagenes <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="dv">6</span>)</span>
-<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>) {</span>
-<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>  imagenes[i] <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(x) <span class="fu">cos</span>(x<span class="sc">^</span><span class="dv">2</span>), <span class="dv">0</span>, nodos[i])<span class="sc">$</span>value</span>
-<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a>f_scalar <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">cos</span>(y<span class="sc">^</span><span class="dv">2</span>), <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> x)<span class="sc">$</span>value</span>
-<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(f_scalar)</span>
-<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a><span class="fu">graficar.polinomio</span>(nodos, <span class="dv">0</span>, <span class="dv">3</span><span class="sc">*</span>pi, neville, <span class="at">f =</span> f)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>nodos <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, pi<span class="sc">/</span><span class="dv">2</span>, pi, <span class="dv">3</span><span class="sc">*</span>pi<span class="sc">/</span><span class="dv">2</span>, <span class="dv">2</span><span class="sc">*</span>pi, <span class="dv">5</span><span class="sc">*</span>pi<span class="sc">/</span><span class="dv">2</span>, <span class="dv">3</span><span class="sc">*</span>pi)</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>imagenes <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="dv">6</span>)</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>) {</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>  imagenes[i] <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(x) <span class="fu">cos</span>(x<span class="sc">^</span><span class="dv">2</span>), <span class="dv">0</span>, nodos[i])<span class="sc">$</span>value</span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>f_scalar <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">cos</span>(y<span class="sc">^</span><span class="dv">2</span>), <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> x)<span class="sc">$</span>value</span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(f_scalar)</span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a><span class="fu">graficar.polinomio</span>(nodos, <span class="dv">0</span>, <span class="dv">3</span><span class="sc">*</span>pi, neville, <span class="at">f =</span> f)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -4632,23 +4691,23 @@ a_k = \int_{-\pi}^{\pi} f(x)\phi_k(x)\,dx, \quad \text{para cada } k = 0, 1, \ld
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>coef.fourier <span class="ot">&lt;-</span> <span class="cf">function</span>(f, k, <span class="at">tipo =</span> <span class="st">&quot;coseno&quot;</span>) {</span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  integrando <span class="ot">&lt;-</span> <span class="cf">switch</span>(</span>
-<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>    tipo,</span>
-<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;constante&quot;</span> <span class="ot">=</span> <span class="cf">function</span>(x) <span class="fu">f</span>(x),</span>
-<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;coseno&quot;</span>    <span class="ot">=</span> <span class="cf">function</span>(x) <span class="fu">f</span>(x) <span class="sc">*</span> <span class="fu">cos</span>(k <span class="sc">*</span> x),</span>
-<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;seno&quot;</span>      <span class="ot">=</span> <span class="cf">function</span>(x) <span class="fu">f</span>(x) <span class="sc">*</span> <span class="fu">sin</span>(k <span class="sc">*</span> x),</span>
-<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;El parámetro &#39;tipo&#39; debe ser &#39;constante&#39;, &#39;coseno&#39; o &#39;seno&#39;.&quot;</span>)</span>
-<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb62-11"><a href="#cb62-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Cálculo del coeficiente según el tipo</span></span>
-<span id="cb62-12"><a href="#cb62-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (tipo <span class="sc">==</span> <span class="st">&quot;constante&quot;</span>) {</span>
-<span id="cb62-13"><a href="#cb62-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>((<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> pi)) <span class="sc">*</span> <span class="fu">SimpsonCompuesto</span>(integrando, <span class="sc">-</span>pi, pi, <span class="dv">200</span>))</span>
-<span id="cb62-14"><a href="#cb62-14" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb62-15"><a href="#cb62-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>((<span class="dv">1</span> <span class="sc">/</span> pi) <span class="sc">*</span> <span class="fu">SimpsonCompuesto</span>(integrando, <span class="sc">-</span>pi, pi, <span class="dv">200</span>))</span>
-<span id="cb62-16"><a href="#cb62-16" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb62-17"><a href="#cb62-17" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>coef.fourier <span class="ot">&lt;-</span> <span class="cf">function</span>(f, k, <span class="at">tipo =</span> <span class="st">&quot;coseno&quot;</span>) {</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>  integrando <span class="ot">&lt;-</span> <span class="cf">switch</span>(</span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>    tipo,</span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;constante&quot;</span> <span class="ot">=</span> <span class="cf">function</span>(x) <span class="fu">f</span>(x),</span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;coseno&quot;</span>    <span class="ot">=</span> <span class="cf">function</span>(x) <span class="fu">f</span>(x) <span class="sc">*</span> <span class="fu">cos</span>(k <span class="sc">*</span> x),</span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;seno&quot;</span>      <span class="ot">=</span> <span class="cf">function</span>(x) <span class="fu">f</span>(x) <span class="sc">*</span> <span class="fu">sin</span>(k <span class="sc">*</span> x),</span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;El parámetro &#39;tipo&#39; debe ser &#39;constante&#39;, &#39;coseno&#39; o &#39;seno&#39;.&quot;</span>)</span>
+<span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb63-10"><a href="#cb63-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Cálculo del coeficiente según el tipo</span></span>
+<span id="cb63-12"><a href="#cb63-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (tipo <span class="sc">==</span> <span class="st">&quot;constante&quot;</span>) {</span>
+<span id="cb63-13"><a href="#cb63-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>((<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> pi)) <span class="sc">*</span> <span class="fu">SimpsonCompuesto</span>(integrando, <span class="sc">-</span>pi, pi, <span class="dv">200</span>))</span>
+<span id="cb63-14"><a href="#cb63-14" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb63-15"><a href="#cb63-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>((<span class="dv">1</span> <span class="sc">/</span> pi) <span class="sc">*</span> <span class="fu">SimpsonCompuesto</span>(integrando, <span class="sc">-</span>pi, pi, <span class="dv">200</span>))</span>
+<span id="cb63-16"><a href="#cb63-16" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb63-17"><a href="#cb63-17" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Instrucción del inciso (c)">
@@ -4671,16 +4730,16 @@ S(n, x) = \sum_{k=0}^{2n-1} a_k \phi_k(x).
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>serie.fourier <span class="ot">&lt;-</span> <span class="cf">function</span>(f, n, x) {</span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  a0 <span class="ot">&lt;-</span> <span class="fu">coef.fourier</span>(f, <span class="dv">0</span>, <span class="at">tipo =</span> <span class="st">&quot;constante&quot;</span>)</span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>  suma <span class="ot">&lt;-</span> a0</span>
-<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
-<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>    a_k <span class="ot">&lt;-</span> <span class="fu">coef.fourier</span>(f, k, <span class="at">tipo =</span> <span class="st">&quot;coseno&quot;</span>)</span>
-<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>    b_k <span class="ot">&lt;-</span> <span class="fu">coef.fourier</span>(f, k, <span class="at">tipo =</span> <span class="st">&quot;seno&quot;</span>)</span>
-<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>    suma <span class="ot">&lt;-</span> suma <span class="sc">+</span> a_k <span class="sc">*</span> <span class="fu">cos</span>(k <span class="sc">*</span> x) <span class="sc">+</span> b_k <span class="sc">*</span> <span class="fu">sin</span>(k <span class="sc">*</span> x)</span>
-<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(suma)</span>
-<span id="cb63-10"><a href="#cb63-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>serie.fourier <span class="ot">&lt;-</span> <span class="cf">function</span>(f, n, x) {</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>  a0 <span class="ot">&lt;-</span> <span class="fu">coef.fourier</span>(f, <span class="dv">0</span>, <span class="at">tipo =</span> <span class="st">&quot;constante&quot;</span>)</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>  suma <span class="ot">&lt;-</span> a0</span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>    a_k <span class="ot">&lt;-</span> <span class="fu">coef.fourier</span>(f, k, <span class="at">tipo =</span> <span class="st">&quot;coseno&quot;</span>)</span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>    b_k <span class="ot">&lt;-</span> <span class="fu">coef.fourier</span>(f, k, <span class="at">tipo =</span> <span class="st">&quot;seno&quot;</span>)</span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>    suma <span class="ot">&lt;-</span> suma <span class="sc">+</span> a_k <span class="sc">*</span> <span class="fu">cos</span>(k <span class="sc">*</span> x) <span class="sc">+</span> b_k <span class="sc">*</span> <span class="fu">sin</span>(k <span class="sc">*</span> x)</span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(suma)</span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Instrucción del inciso (d)">
@@ -4710,19 +4769,19 @@ f(x) =
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>funcion.prueba <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">-</span>pi <span class="sc">&lt;=</span> x <span class="sc">&amp;&amp;</span> x <span class="sc">&lt;</span> <span class="dv">0</span>) {</span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="sc">-</span><span class="dv">1</span>)</span>
-<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (<span class="dv">0</span> <span class="sc">&lt;=</span> x <span class="sc">&amp;&amp;</span> x <span class="sc">&lt;=</span> pi) {</span>
-<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="dv">1</span>)</span>
-<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="cn">NA</span>)</span>
-<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a>funcion.prueba <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(funcion.prueba)</span>
-<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a><span class="fu">graficar</span>(<span class="fu">list</span>(<span class="cf">function</span>(x) <span class="fu">funcion.prueba</span>(x), <span class="cf">function</span>(x) <span class="fu">serie.fourier</span>(funcion.prueba, <span class="dv">3</span>, x), <span class="cf">function</span>(x) <span class="fu">serie.fourier</span>(funcion.prueba, <span class="dv">4</span>, x), <span class="cf">function</span>(x) <span class="fu">serie.fourier</span>(funcion.prueba, <span class="dv">5</span>, x), <span class="cf">function</span>(x) <span class="fu">serie.fourier</span>(funcion.prueba, <span class="dv">6</span>, x), <span class="cf">function</span>(x) <span class="fu">serie.fourier</span>(funcion.prueba, <span class="dv">7</span>, x), <span class="cf">function</span>(x) <span class="fu">serie.fourier</span>(funcion.prueba, <span class="dv">8</span>, x)), <span class="sc">-</span>pi, pi, <span class="sc">-</span><span class="dv">2</span>, <span class="dv">2</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>funcion.prueba <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">-</span>pi <span class="sc">&lt;=</span> x <span class="sc">&amp;&amp;</span> x <span class="sc">&lt;</span> <span class="dv">0</span>) {</span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (<span class="dv">0</span> <span class="sc">&lt;=</span> x <span class="sc">&amp;&amp;</span> x <span class="sc">&lt;=</span> pi) {</span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="dv">1</span>)</span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="cn">NA</span>)</span>
+<span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb65-10"><a href="#cb65-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-11"><a href="#cb65-11" aria-hidden="true" tabindex="-1"></a>funcion.prueba <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(funcion.prueba)</span>
+<span id="cb65-12"><a href="#cb65-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-13"><a href="#cb65-13" aria-hidden="true" tabindex="-1"></a><span class="fu">graficar</span>(<span class="fu">list</span>(<span class="cf">function</span>(x) <span class="fu">funcion.prueba</span>(x), <span class="cf">function</span>(x) <span class="fu">serie.fourier</span>(funcion.prueba, <span class="dv">3</span>, x), <span class="cf">function</span>(x) <span class="fu">serie.fourier</span>(funcion.prueba, <span class="dv">4</span>, x), <span class="cf">function</span>(x) <span class="fu">serie.fourier</span>(funcion.prueba, <span class="dv">5</span>, x), <span class="cf">function</span>(x) <span class="fu">serie.fourier</span>(funcion.prueba, <span class="dv">6</span>, x), <span class="cf">function</span>(x) <span class="fu">serie.fourier</span>(funcion.prueba, <span class="dv">7</span>, x), <span class="cf">function</span>(x) <span class="fu">serie.fourier</span>(funcion.prueba, <span class="dv">8</span>, x)), <span class="sc">-</span>pi, pi, <span class="sc">-</span><span class="dv">2</span>, <span class="dv">2</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
