@@ -471,7 +471,7 @@ c(n = n,
 
 El menor número de subintervalos que garantiza 6 cifras significativas es
 $$\boxed{n=24}.$$
-Con $n=24$ se obtiene un error absoluto $<0.5\times10^{-6}$, cumpliendo la exigencia.
+Con $n=24$ se obtiene un error absoluto $<0.5\times10^{-6}$.
 
 
 # Ejercicio 9

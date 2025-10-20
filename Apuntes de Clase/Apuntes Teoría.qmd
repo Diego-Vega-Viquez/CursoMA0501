@@ -46,6 +46,7 @@ format:
     html-math-method: katex
     css: styles.css
     embed-resources: true
+    page-layout: full
 ---
 \newpage
 # Fundamentos de la Programación en Lenguaje R
@@ -4540,8 +4541,6 @@ H_5(x) =\; & (1 - 3x) \left( \frac{x^2 - 3x + 2}{2} \right)^2 + 2.7182818\,x^2(x
 
 $\blacksquare$
 
----
-
 2. Aproximando $f(0.25) \cong H(0.25)$ se tiene que:
 
 $$
@@ -4565,8 +4564,6 @@ $$
 $$
 
 que es mucho mayor.
-
----
 
 3. Calculando una cota para el error teórico se tiene que:
 
@@ -4919,7 +4916,7 @@ $\blacksquare$
 
 #### Presentación algorítmica
 
-![Condiciones de interpolación por Splines](Imagenes/Condiciones de interpolación por Splines.png)
+![Condiciones de interpolación por Splines](Imagenes/Condiciones de interpolación por Splines.png){width=400px fig-align="center"}
 
 :::{.callout-note title="Definición: Spline cúbico interpolante"}
 
@@ -5564,6 +5561,7 @@ $$
 f'(x_k) = \sum_{k=0}^n f(x_k) L_k'(x_k) 
 + \frac{f^{(n+1)}(\xi_x)}{(n+1)!} \prod_{\substack{j=0 \\ j \neq k}}^n (x_k - x_j).
 $$
+
 ##### Fórmula de $(n+1)$ puntos
 
 **Fórmulas de 3 puntos:** $x_0, x_1, x_2$
@@ -5686,9 +5684,8 @@ $$
 
 tomado $\xi_x \in ]a,b[$.
 
----
 
-## La Regla del Trapecio
+**La Regla del Trapecio**
 
 Usamos dos nodos igualmente espaciados $x_0 = a, \; x_1 = x_0+h$, con $h = b-a$,  
 es decir, $x_1 = b$, de donde:
@@ -5717,8 +5714,6 @@ $$
 $$
 I_2 = \int_a^b \frac{f''(\xi_x)}{2}(x-x_0)(x-x_1)\,dx.
 $$
-
----
 
 Calculemos $I_1$:
 
@@ -5908,7 +5903,1075 @@ $$
 - \frac{h^5}{90} f^{(4)}(\xi_x).
 $$
 ![Regla de Simpson](Imagenes/Regla de Simpson.png){width=400px fig-align="center"}
+![Comparación entre la Regla del Trapecio y la Regla de Simpson](Imagenes/ReglaTrapecio vs RegraSimpson.png){width=400px fig-align="center"}
+
+##### Aproximación de Integrales Definidas
+
+```{r}
+#| code-fold: true
+
+# Calcula la integral de F de a hasta b usando la regla del Trapecio.
+# Regla del trapecio simple
+Trapecio <- function(F, a, b) {
+  return(((b - a) / 2) * (F(a) + F(b)))
+}
+
+# Calcula la integral de F de a hasta b usando la regla de Simpson.
+Simpson <- function(F, a, b) {
+  return(((b - a) / 6) * (F(a) + 4 * F((a + b) / 2) + F(b)))
+}
+
+# Calcula la integral de F de a hasta b usando la Regla de Simpson Compuesta.
+SimpsonCompuesto <- function(F, a, b, m) {
+  h  <- (b - a) / (2 * m)
+  XI0 <- F(a) + F(b)
+  XI1 <- 0  # suma de puntos impares
+  XI2 <- 0  # suma de puntos pares
+  for (j in 1:(2 * m - 1)) {
+    X <- a + j * h
+    if (j %% 2 == 0) {
+      XI2 <- XI2 + F(X)
+    } else {
+      XI1 <- XI1 + F(X)
+    }
+  }
+  return((h / 3) * (XI0 + 2 * XI2 + 4 * XI1))
+}
+```
+
+
+```{r}
+# Definición de la función f
+f <- function(x) sqrt(1 + x^2)
+# Evaluación Trapecio
+print(Trapecio(f, 0, 1), digits = 15)
+# Evaluación Simpson
+print(Simpson(f, 0, 1), digits = 15)
+# Evaluación Simpson Compuesta
+print(SimpsonCompuesto(f, 0, 1, 50), digits = 15)
+# Usando integrate() de R para comparar con el trapecio
+resultado <- integrate(f, lower = 0, upper = 1)
+print(resultado$value, digits = 15)
+```
+
+::: {.callout-note title="Definición: Fórmula de cuadratura"}
+
+Se llama **fórmula de cuadratura** a una expresión de la forma:
+
+$$
+\int_a^b f(x)\,dx = \sum_{i=0}^{n} a_i f(x_i) + E(f).
+$$
+
+:::
+
+::: {.callout-note title="Definición: Grado de precisión o exactitud algebraica"}
+
+El **grado de precisión** o **exactitud algebraica** de una fórmula de cuadratura es un entero $n$ tal que:
+
+- $E(P_k) = 0, \quad \forall k \le n.$  
+- $E(P_{n+1}) \ne 0.$
+
+:::
+
+::: {.callout-important collapse="true" title="Observación"}
+
+Para tener exactitud algebraica en una fórmula de cuadratura igual a $n$,  
+es suficiente probar que:
+
+$$
+E(x^k) = 0, \quad \forall k \le n, \quad \text{y que} \quad E(x^{n+1}) \ne 0.
+$$
+
+:::
+
+::: {.callout-tip title="Ejemplo"}
+
+- Regla de **Simpson** → Precisión = 3.  
+- Regla del **Trapecio** → Precisión = 1.  
+
+:::
+
+::: {.callout-note title="Definición: Operador del error"}
+
+$$
+E(f) = \int_a^b f(x)\,dx - \sum_{i=0}^{n} a_i f(x_i),
+$$
+
+se llama **el operador del error**.
+
+:::
+
+::: {.callout-tip title="Ejemplo: Regla de Simpson"}
+
+La **regla de Simpson** con $a = -1$, $b = 1$ es:
+
+$$
+\int_{-1}^{1} f(x)\,dx = \frac{1}{6}\,[f(-1) + 4f(0) + f(1)] + E(f),
+$$
+
+lo cual implica que:
+
+$$
+E(f) = \int_{-1}^{1} f(x)\,dx - \frac{1}{6}\,[f(-1) + 4f(0) + f(1)].
+$$
+
+Se puede probar que $E$ anula a $1, x, x^2, x^3$ y que $E(x^4) \ne 0$ (ejercicio),  
+por lo tanto la **exactitud algebraica** de la regla de Simpson es **3**.
+
+:::
+
+::: {.callout-note title="Fórmula de Gauss–Chebyshev"}
+
+Se desea encontrar una fórmula de cuadratura del tipo:
+
+$$
+\int_{-1}^{1} f(x)\,dx = f(-\alpha) + f(\alpha) + E(f),
+$$
+
+con **exactitud algebraica 2** y con $|\alpha| < 1$.
+
+:::
+
+**Solución:**
+
+$$
+E(1) = \int_{-1}^{1} 1\,dx - 1 - 1 = 2 - 2 = 0,
+$$
+
+$$
+E(x) = \int_{-1}^{1} x\,dx + \alpha - \alpha = 0,
+$$
+
+$$
+E(x^2) = \int_{-1}^{1} x^2\,dx - \alpha^2 - \alpha^2
+= \left.\frac{x^3}{3}\right|_{-1}^{1} - 2\alpha^2 = 0,
+$$
+
+lo que implica:
+
+$$
+\frac{2}{3} - 2\alpha^2 = 0,
+$$
+
+de donde:
+
+$$
+\alpha = \pm \frac{\sqrt{3}}{3},
+$$
+
+por lo tanto:
+
+$$
+\int_{-1}^{1} f(x)\,dx = f\!\left(-\frac{\sqrt{3}}{3}\right) + f\!\left(\frac{\sqrt{3}}{3}\right) + E(f).
+$$
+
+Se puede probar que $E(x^3) = 0$ (ejercicio), pero que $E(x^4) \ne 0$,  
+lo cual implica que la **exactitud algebraica** es igual a **3**. $\blacksquare$
+
+::: {.callout-tip title="Ejemplo: Aplicación numérica de la fórmula de Gauss–Chebyshev"}
+
+El valor aproximado es:
+
+$$
+\int_{-1}^{1} e^x\,dx \approx e^{\frac{\sqrt{3}}{3}} + e^{-\frac{\sqrt{3}}{3}}
+= 1.7813122 + 0.5613839 = 2.3426961.
+$$
+
+Mientras que el valor exacto es:
+
+$$
+\int_{-1}^{1} e^x\,dx = e^x\big|_{-1}^{1} = e^1 - e^{-1} = 2.3504024.
+$$
+
+:::
+
+::: {.callout-note title="Ejemplo: Deducción de la regla de Simpson"}
+
+Deduza la regla de Simpson, usando el hecho de que la siguiente fórmula de cuadratura:
+
+$$
+\int_{-1}^{1} f(x)\,dx = a f(-1) + b f(0) + c f(1) + E(f),
+$$
+
+tiene **exactitud algebraica igual a 3**.
+
+**Solución:**
+
+- Consideremos primero $f(x) = 1$:
+
+$$
+E(1) = \int_{-1}^{1} 1\,dx - [a f(-1) + b f(0) + c f(1)] = 0,
+$$
+
+$$
+\Rightarrow x\big|_{-1}^{1} - (a + b + c) = 0
+\Rightarrow 2 - (a + b + c) = 0,
+$$
+
+de donde:
+
+$$
+a + b + c = 2.
+$$
+
+- Veamos $f(x) = x$:
+
+$$
+E(x) = \int_{-1}^{1} x\,dx - [a f(-1) + b f(0) + c f(1)] = 0,
+$$
+
+$$
+\Rightarrow \frac{x^2}{2}\Big|_{-1}^{1} - (-a + c) = 0 
+\Rightarrow a - c = 0.
+$$
+
+- Veamos $f(x) = x^2$:
+
+$$
+E(x^2) = \int_{-1}^{1} x^2\,dx - [a f(-1) + b f(0) + c f(1)] = 0,
+$$
+
+$$
+\Rightarrow \frac{x^3}{3}\Big|_{-1}^{1} - a - c = 0 
+\Rightarrow \frac{2}{3} - a - c = 0,
+$$
+
+$$
+\Rightarrow a + c = \frac{2}{3}.
+$$
+
+Por lo tanto, se debe resolver el sistema:
+
+$$
+\begin{cases}
+a + b + c = 2, \\
+a - c = 0, \\
+a + c = \dfrac{2}{3}.
+\end{cases}
+$$
+
+De donde:
+
+$$
+a = \frac{1}{3}, \quad b = \frac{4}{3}, \quad c = \frac{1}{3}.
+$$
+
+Por lo tanto, la **regla de Simpson** es:
+
+$$
+\int_{-1}^{1} f(x)\,dx \approx 
+\frac{1}{3}f(-1) + \frac{4}{3}f(0) + \frac{1}{3}f(1).
+$$
+
+$\blacksquare$
+
+:::
+
+**Integración Numérica Compuesta**
+
+![Regla del Trapecio Compuesta](Imagenes/Regla del Trapecio Compuesta.png){width=400px fig-align="center"}
+
+![Regla del Trapecio Compuesta](Imagenes/Regla del Trapecio Compuesta2.png){width=400px fig-align="center"}
+
+La idea es calcular 
+
+$$
+\int_a^b f(x)\,dx
+$$ 
+
+usando $n = 2m$ subintervalos, luego aplicar la regla de Simpson $m$ veces a cada par de intervalos (por lo tanto, $n$ debe ser par).
+
+La regla de Simpson es la siguiente:
+
+$$
+\int_a^b f(x)\,dx = \int_{x_0}^{x_2} f(x)\,dx 
+= \frac{h}{3}\,[f(x_0) + 4f(x_1) + f(x_2)] 
+- \frac{h^5}{90}\,f^{(4)}(\xi_x),
+$$
+
+con $\xi_x \in [x_0, x_2]$.  
+Además, sean:
+
+$$
+h = \frac{b - a}{n} = \frac{b - a}{2m}, 
+\quad a = x_0 < x_1 < \dots < x_m = x_n = b,
+$$
+
+con $x_j = x_0 + jh$, para $j = 0, 1, 2, \dots, 2m$.  
+Existe $\xi_j \in [x_{2j-2}, x_{2j}]$ tal que:
+
+$$
+\int_{x_{2j-2}}^{x_{2j}} f(x)\,dx 
+= \frac{h}{3}\,[f(x_{2j-2}) + 4f(x_{2j-1}) + f(x_{2j})]
+- \frac{h^5}{90}\,f^{(4)}(\xi_j),
+$$
+
+entonces:
+
+\begin{align*}
+\int_a^b f(x)\,dx 
+&= \sum_{j=1}^{m} \int_{x_{2j-2}}^{x_{2j}} f(x)\,dx \\[1em]
+&= \frac{h}{3} \left[ 
+\sum_{j=1}^{m} f(x_{2j-2}) 
++ 4\sum_{j=1}^{m} f(x_{2j-1})
++ \sum_{j=1}^{m} f(x_{2j})
+\right]
+- \frac{h^5}{90} \sum_{j=1}^{m} f^{(4)}(\xi_j).
+\end{align*}
+
+
+Reorganizando términos, se obtiene:
+
+
+\begin{align*}
+\int_a^b f(x)\,dx 
+&= \frac{h}{3} \left[
+f(x_0) + 2\sum_{j=1}^{m-1} f(x_{2j}) 
++ 4\sum_{j=1}^{m} f(x_{2j-1})
++ f(x_{2m})
+\right]
+- \frac{h^5}{90} \sum_{j=1}^{m} f^{(4)}(\xi_j).
+\end{align*}
+
+**Regla conocida como:**  
+$$
+\boxed{\text{La Fórmula SC1 (Simpson Compuesta)}}
+$$
+
+::: {.callout-note title="Teorema: Error en la Regla de Simpson Compuesta"}
+
+Si $f \in C^4[a,b]$, entonces existe $\mu \in ]a,b[$ tal que la fórmula **SC1** se puede escribir como:
+
+$$
+\int_a^b f(x)\,dx
+= \frac{h}{3}
+\left[
+f(a)
++ 2\sum_{j=1}^{m-1} f(x_{2j})
++ 4\sum_{j=1}^{m} f(x_{2j-1})
++ f(b)
+\right]
+- \frac{(b-a)^5}{2880\,m^4}\, f^{(4)}(\mu).
+$$
+
+![Regla del Simpson Compuesta](Imagenes/Regla de Simpson Compuesta.png){width=400px fig-align="center"}
+
+::: {.callout-caution collapse="true" title="Prueba"}
+
+Hay que probar que existe $\mu \in ]a,b[$ tal que:
+
+$$
+\frac{h^5}{90} \sum_{j=1}^{m} f^{(4)}(\xi_j)
+= \frac{(b-a)^5}{2880\,m^4} f^{(4)}(\mu),
+$$
+
+con $\xi_j \in ]x_{2j-2}, x_{2j}] \subset ]a,b[$.
+
+Se sabe que:
+
+$$
+\min_{x \in [a,b]} f^{(4)}(x)
+\le f^{(4)}(\xi_j)
+\le \max_{x \in [a,b]} f^{(4)}(x),
+$$
+
+por lo que:
+
+$$
+m \min_{x \in [a,b]} f^{(4)}(x)
+\le \sum_{j=1}^{m} f^{(4)}(\xi_j)
+\le m \max_{x \in [a,b]} f^{(4)}(x),
+$$
+
+y dividiendo entre $m$:
+
+$$
+\min_{x \in [a,b]} f^{(4)}(x)
+\le \frac{1}{m} \sum_{j=1}^{m} f^{(4)}(\xi_j)
+\le \max_{x \in [a,b]} f^{(4)}(x).
+$$
+
+Luego, por el **Teorema del Valor Intermedio**, existe $\mu \in ]a,b[$ tal que:
+
+$$
+f^{(4)}(\mu)
+= \frac{1}{m} \sum_{j=1}^{m} f^{(4)}(\xi_j),
+$$
+
+lo cual implica que:
+
+$$
+m f^{(4)}(\mu)
+= \sum_{j=1}^{m} f^{(4)}(\xi_j).
+$$
+
+Por tanto, tenemos que:
+
+
+\begin{align*}
+\frac{h^5}{90} \sum_{j=1}^{m} f^{(4)}(\xi_j)
+&= \frac{h^5}{90} m f^{(4)}(\mu) \\[1em]
+&= \frac{\left(\dfrac{b-a}{2m}\right)^5 m}{90} f^{(4)}(\mu) \\[1em]
+&= \frac{(b-a)^5}{2^5 \cdot 90 \, m^4} f^{(4)}(\mu) \\[1em]
+&= \frac{(b-a)^5}{2880\,m^4} f^{(4)}(\mu).
+\end{align*}
+
+
+$\blacksquare$
+
+:::
+
+:::
+
+::: {.callout-note title="Algoritmo 1: Método de Simpson Compuesto"}
+
+**Entrada:** $a, b, m, f$  
+
+**Salida:** $XI$, valor aproximado de la integral $\displaystyle \int_a^b f(x)\,dx$.
+
+   **Paso 1.** Tomar $h = \frac{b - a}{2m}.$
+
+   **Paso 2.** Inicializar:
+
+      $XI0 = f(a) + f(b)$
+      
+      $XI1 = 0 \quad \text{(impares)}$
+      
+      $XI2 = 0 \quad \text{(pares)}$
+
+   **Paso 3.** Para $j = 1$ hasta $2m - 1$, seguir los pasos 4–5:
+
+      **Paso 4.** Calcular  $x = a + jh.$
+
+      **Paso 5.** Si $j$ es par:
+$$
+XI2 = XI2 + f(x),
+$$
+            si no:
+$$
+XI1 = XI1 + f(x).
+$$
+
+   **Paso 6.** Calcular el valor aproximado de la integral:
+
+$$
+XI = \frac{h}{3}\,[\,XI0 + 2*XI2 + 4\,XI1\,].
+$$
+
+   **Paso 7.** Salida $(XI)$.
+
+   **Parar.**
+
+:::
+
+::: {.callout-note title="Ejemplo 8"}
+
+Calcular $\displaystyle \int_0^3 e^x\,dx$ con **6 cifras significativas**.
+
+**Solución**
+
+Se tiene que el error de la regla de Simpson compuesta está dado por:
+
+$$
+\frac{(b - a)^5}{2880\,m^4} f^{(4)}(\mu) \le 10^{-6},
+$$
+
+por lo tanto:
+
+$$
+\frac{3^5}{2880\,m^4} f^{(4)}(\mu)
+\le
+\frac{3^5}{2880\,m^4} e^3
+\le 10^{-6},
+$$
+
+lo que implica que:
+
+$$
+\frac{3^5 e^3}{2880} \le m^4,
+$$
+
+$$
+1694717.2 \le m^4,
+$$
+
+$$
+36 \le m.
+$$
+
+Por lo tanto, se requiere que:
+
+$$
+2m - 1 = 2(36) - 1 = 71.
+$$
+
+$\blacksquare$
+
+:::
+
 
 #### Integración Numérica Múltiple
 
+Se quiere calcular integrales del siguiente tipo:
+
+$$
+\iint_R f(x,y)\,dA, 
+\qquad 
+R = \{(x,y)\,/\, a \le x \le b,\, c \le y \le d\},
+$$
+
+con $a, b, c, d$ constantes.
+
+Entonces se debe calcular:
+
+$$
+\iint_R f(x,y)\,dA 
+= \int_a^b \left[\int_c^d f(x,y)\,dy \right] dx.
+$$
+
+Si se aplica la **regla de Simpson Compuesta**, se tiene que para calcular  
+$\displaystyle \int_c^d f(x,y)\,dy$, donde $x$ se toma como constante, se define:
+
+$$
+k = \frac{d - c}{2m}, 
+\qquad 
+y_j = c + jk, 
+\qquad 
+j = 0, 1, 2, \ldots, 2m.
+$$
+
+Entonces:
+
+$$
+\int_c^d f(x,y)\,dy 
+= 
+\frac{k}{3} 
+\left[
+f(x,y_0)
++ 2 \sum_{j=1}^{m-1} f(x,y_{2j})
++ 4 \sum_{j=1}^{m} f(x,y_{2j-1})
++ f(x,y_m)
+\right]
+-
+\frac{(d-c)\,k^4}{180}
+\frac{\partial^4 f(x,\mu)}{\partial y^4},
+$$
+
+donde $\mu \in ]c,d[$.
+
+![Integración en Regiones NO Rectángulares](Imagenes/Integraci´on en Regiones NO Rect´angulares..png){width=400px fig-align="center"}
+
+![Integración en Regiones NO Rectángulares](Imagenes/Integraci´on en Regiones NO Rect´angulares.png){width=400px fig-align="center"}
+
+Con $\mu \in ]c, d[$, se tiene que:
+
+\begin{align*}
+\int_a^b \int_c^d f(x,y)\,dy\,dx
+=
+&\frac{k}{3}
+\left[
+\int_a^b f(x,y_0)\,dx
++ 2 \sum_{j=1}^{m-1} \int_a^b f(x,y_{2j})\,dx\right.\\
+&\left.+ 4 \sum_{j=1}^{m} \int_a^b f(x,y_{2j-1})\,dx
++ \int_a^b f(x,y_m)\,dx
+\right]\\
+&-
+\frac{(d-c)\,k^4}{180}
+\int_a^b 
+\frac{\partial^4 f(x,\mu)}{\partial y^4}\,dx.
+\end{align*}
+
+Pero la **Regla de Simpson Compuesta** establece que:
+
+$$
+\int_a^b f(x)\,dx 
+= 
+\frac{h}{3}
+\left[
+f(a)
++ 2 \sum_{j=1}^{m-1} f(x_{2j})
++ 4 \sum_{j=1}^{m} f(x_{2j-1})
++ f(b)
+\right]
+-
+\frac{(b-a)^5}{2880\,m^4} f^{(4)}(\mu),
+$$
+
+donde 
+
+$$
+h = \frac{b - a}{2n}, 
+\qquad
+x_i = x_0 + ih, 
+\qquad
+i = 1, 2, \ldots, 2n.
+$$
+
+Luego, aplicando Simpson Compuesta se tiene que:
+
+\begin{align*}
+\int_a^b f(x, \alpha)\,dy 
+&= \frac{h}{3} \left[ 
+f(x_0, \alpha) 
++ 2 \sum_{i=1}^{n-1} f(x_{2i}, \alpha) 
++ 4 \sum_{i=1}^{n} f(x_{2i-1}, \alpha) 
++ f(x_{2n}, \alpha) 
+\right] \\
+&\quad - \frac{(b-a)h^4}{180} \frac{\partial^4 f(\xi_\alpha, \alpha)}{\partial x^4},
+\end{align*}
+
+Sustituyendo se tiene que
+
+\begin{align*}
+\int_a^b \int_c^d f(x,y)\,dy\,dx =
+&\frac{hk}{9}
+\Bigg\{
+f(x_0, y_0)
++ 2 \sum_{i=1}^{n-1} f(x_{2i}, y_0)
++ 4 \sum_{i=1}^{n} f(x_{2i-1}, y_0)
++ f(x_{2n}, y_0) \\
+&+ 2 \sum_{j=1}^{m-1}
+\Big[
+f(x_0, y_{2j})
++ 2 \sum_{i=1}^{n-1} f(x_{2i}, y_{2j})
++ 4 \sum_{i=1}^{n} f(x_{2i-1}, y_{2j})
++ f(x_{2n}, y_{2j})
+\Big] \\
+&+ 4 \sum_{j=1}^{m}
+\Big[
+f(x_0, y_{2j-1})
++ 2 \sum_{i=1}^{n-1} f(x_{2i}, y_{2j-1})
++ 4 \sum_{i=1}^{n} f(x_{2i-1}, y_{2j-1})
++ f(x_{2n}, y_{2j-1})
+\Big]\\
+&+ f(x_0, y_{2m})
++ 2 \sum_{i=1}^{n-1} f(x_{2i}, y_{2m})
++ 4 \sum_{i=1}^{n} f(x_{2i-1}, y_{2m})
++ f(x_{2n}, y_{2m})
+\Bigg\}
++ E,
+
+\end{align*}
+
+donde el término de error $E$ está dado por:
+
+\begin{align*}
+E =
+&-\frac{k(b-a)h^4}{540}
+\Bigg[
+\frac{\partial^4 f(\xi_0, y_0)}{\partial x^4}
++ 2 \sum_{i=1}^{n-1} \frac{\partial^4 f(\xi_{2i}, y_{2j})}{\partial x^4}\\
+&+ 4 \sum_{j=1}^{m}
+\Big(
+\frac{\partial^4 f(\xi_{2j-1}, y_{2j-1})}{\partial x^4}
++ \frac{\partial^4 f(\xi_{2m}, y_{2m})}{\partial x^4}
+\Big)
+\Bigg]\\
+&-\frac{(d-c)k^4}{180}
+\int_a^b 
+\frac{\partial^4 f(x, \mu)}{\partial y^4}
+\frac{\partial^4 f(\xi_{2j}, y_{2j})}{\partial x^4}
+\,dx.
+\end{align*}
+
+donde
+
+\begin{align*}
+\int_a^b \int_c^d f(x,y)\,dy\,dx &= \frac{hk}{9} \Bigg\{ 
+f(x_0, y_0) 
++ 2 \sum_{i=1}^{n-1} f(x_{2i}, y_0) 
++ 4 \sum_{i=1}^{n} f(x_{2i-1}, y_0) 
++ f(x_{2n}, y_0) \\
+&\quad + 2 \sum_{j=1}^{m-1} f(x_0, y_{2j}) 
++ 4 \sum_{j=1}^{m-1} \sum_{i=1}^{n-1} f(x_{2i}, y_{2j}) 
++ 8 \sum_{j=1}^{m-1} \sum_{i=1}^{n} f(x_{2i-1}, y_{2j}) \\
+&\quad + 2 \sum_{j=1}^{m-1} f(x_{2n}, y_{2j}) 
++ 4 \sum_{j=1}^{m-1} f(x_0, y_{2j-1}) 
++ 8 \sum_{j=1}^{m-1} \sum_{i=1}^{n} f(x_{2i-1}, y_{2j-1}) \\
+&\quad + 4 \sum_{j=1}^{m-1} f(x_{2n}, y_{2j-1}) 
++ f(x_0, y_{2m}) 
++ 2 \sum_{i=1}^{n-1} f(x_{2i}, y_{2m}) \\
+&\quad + 4 \sum_{i=1}^{n} f(x_{2i-1}, y_{2m}) 
++ f(x_{2n}, y_{2m}) 
+\Bigg\} + E,
+\end{align*}
+
+Con:
+
+$$
+E = -\frac{(d-c)(b-a)}{180}
+\left[
+h^4 \frac{\partial^4 f(\bar{\eta}, \bar{\mu})}{\partial x^4}
++ 
+k^4 \frac{\partial^4 f(\hat{\eta}, \hat{\mu})}{\partial y^4}
+\right],
+\qquad
+(\bar{\eta}, \bar{\mu}) \in R, \; (\hat{\eta}, \hat{\mu}) \in R.
+$$
+
+::: {.callout-note title="Ejemplo 9"}
+
+Calcule el error cometido al aproximar:
+
+$$
+\int_a^b \int_c^d e^x\,dy\,dx,
+$$
+
+con:
+
+$$
+h = \frac{1}{4}, 
+\qquad 
+k = \frac{1}{4}.
+$$
+
+**Solución:**
+
+$$
+|E| 
+\le 
+\frac{1}{180}
+\left[
+\left(\frac{1}{4}\right)^4 e^{\bar{\eta}}
++
+\left(\frac{1}{4}\right)^4 \cdot 0
+\right]
+$$
+
+$$
+\le 
+\frac{1}{180}
+\left(\frac{1}{4}\right)^4 e^{1}
+$$
+
+$$
+= 5.8 \times 10^{-5}.
+$$
+
+:::
+
+**Segundo Caso: Integrales Tipo I**
+
+![Integración en Regiones Tipo I](Imagenes/Integración de Regiones Tipo I.png){width=400px fig-align="center"}
+
+Se desea calcular integrales del siguiente tipo:
+
+$$
+\iint_R f(x,y)\,dA 
+= 
+\int_a^b 
+\int_{\varphi_1(x)}^{\varphi_2(x)} f(x,y)\,dy\,dx,
+$$
+
+con 
+
+$$
+h = \frac{b - a}{2n}, 
+\qquad 
+x_i = x_0 + ih, 
+\qquad 
+x_0 = a.
+$$
+
+Luego, para $i = 0, 1, 2, \ldots, 2n$, se debe calcular:
+
+$$
+\int_a^b 
+\int_{\varphi_1(x)}^{\varphi_2(x)} 
+f(x,y)\,dy\,dx,
+\qquad
+\text{usando Simpson Compuesto.}
+$$
+
+Recordemos el **Algoritmo de Simpson Compuesto**:
+
+En R ver `3-Integrales_multiples.html`.
+
+
+::: {.callout-note title="Ejemplo 10"}
+
+Calcular
+
+$$
+\iint_R e^{-(x+y)}\,dA = 1.469840,
+$$
+
+con $n = m = 7$, donde $R$ es la región limitada por $y = x^2$ y $y = \sqrt{x}$.
+
+:::
+
+::: {.callout-note title="Algoritmo 2: Método de Simpson Compuesto"}
+
+**Entrada:** $a, b, f, n$  
+
+**Salida:** $XI$, valor aproximado de la integral $\displaystyle \int_a^b f(x)\,dx$.
+
+   **Paso 1.** Tomar 
+$$
+h = \frac{b - a}{2n}.
+$$
+
+   **Paso 2.** Inicializar:
+
+      $XI0 = f(a) + f(b)$
+      
+      $XI1 = 0 \quad \text{(impares)}$
+      
+      $XI2 = 0 \quad \text{(pares)}$
+
+   **Paso 3.** Para $j = 1$ hasta $2n - 1$, seguir los pasos 4–5:
+
+      **Paso 4.** Calcular  $x = a + jh.$
+
+      **Paso 5.** Si $j$ es par:
+$$
+XI2 = XI2 + f(x),
+$$
+            si no:
+$$
+XI1 = XI1 + f(x).
+$$
+
+   **Paso 6.** Calcular el valor aproximado de la integral:
+
+$$
+XI = \frac{h}{3}\,[\,XI0 + 2*XI2 + 4\,XI1\,].
+$$
+
+   **Paso 7.** Salida $(XI)$.
+
+   **Parar.**
+
+:::
+
 #### Extrapolación de Richardson
+
+
+Suponga que se tiene una fórmula $N(h)$ que aproxima un valor desconocido $M$,  
+y que:
+
+$$
+M = N(h) + K_1h^2 + O(h^4) \tag{1.1}
+$$
+
+Si se sustituye $h$ por $\dfrac{h}{2}$ en (1.1) se tiene que:
+
+$$
+M = N\!\left(\frac{h}{2}\right) + K_1\!\left(\frac{h}{2}\right)^2 + O\!\left(\left(\frac{h}{2}\right)^4\right),
+$$
+
+multiplicando todo por 4 se tiene que:
+
+$$
+4M = 4N\!\left(\frac{h}{2}\right) + 4K_1\!\left(\frac{h}{2}\right)^2 + 4O\!\left(\left(\frac{h}{2}\right)^4\right),
+$$
+
+Entonces:
+
+$$
+4M = 4N\!\left(\frac{h}{2}\right) + K_1h^2 + 4O\!\left(\left(\frac{h}{2}\right)^4\right), \tag{1.2}
+$$
+
+restando (1.2) − (1.1) se tiene que:
+
+$$
+3M = 4N\!\left(\frac{h}{2}\right) - N(h) + 4O\!\left(\left(\frac{h}{2}\right)^4\right) - O(h^4),
+$$
+
+lo cual implica que:
+
+$$
+M = \frac{4N\!\left(\frac{h}{2}\right) - N(h)}{3} + 4O(h^4).
+$$
+
+Si denotamos $N_1(h) = N(h)$ y $N_2(h) = M$, se obtiene que:
+
+$$
+N_2(h) = \frac{4N_1\!\left(\frac{h}{2}\right) - N_1(h)}{3} + 4O(h^4). \tag{1.3}
+$$
+
+A partir de la fórmula (1.3) se tiene que:
+
+$$
+\begin{array}{ccc}
+N_1(h) &  & \\
+N_1\!\left(\frac{h}{2}\right) & N_2(h) & \\
+N_1\!\left(\frac{h}{4}\right) & N_2\!\left(\frac{h}{2}\right) & \\
+N_1\!\left(\frac{h}{8}\right) & N_2\!\left(\frac{h}{4}\right) & \\
+\vdots & \vdots & \\
+\end{array}
+$$
+
+La tabla se puede ir ampliando si se tiene una fórmula del tipo:
+
+$$
+M = N(h) + K_1h^2 + K_2h^4 + O(h^6). \tag{1.4}
+$$
+
+Por ejemplo:
+
+$$
+f'(x_0) = \frac{1}{2h}\,[f(x_0 + h) - f(x_0 - h)] = N(h) - \frac{h^2}{6}f^{(3)}(x_0) - \frac{h^4}{120}f^{(5)}(x_0) + O(h^6),
+$$
+
+donde 
+$$
+K_1 = \frac{f^{(3)}(x_0)}{6}, 
+\qquad 
+K_2 = -\frac{f^{(5)}(x_0)}{120}.
+$$
+
+En (1.4) tome $h = \frac{h}{2}$, entonces:
+
+$$
+M = N\!\left(\frac{h}{2}\right) + K_1\!\left(\frac{h}{2}\right)^2 + K_2\!\left(\frac{h}{2}\right)^4 + O\!\left(\left(\frac{h}{2}\right)^6\right).
+$$
+
+multiplicando por $4^2$, se tiene que:
+
+$$
+4^2 M = 4^2 N\!\left(\frac{h}{2}\right) + 4K_1h^2 + K_2h^4 + O\!\left(\left(\frac{h}{2}\right)^6\right). \tag{1.5}
+$$
+
+Restando (1.5) − (1.4), se tiene que:
+
+$$
+(4^2 - 1)M = 4^2 N\!\left(\frac{h}{2}\right) - N(h) + 3K_1h^2 + O\!\left(\left(\frac{h}{2}\right)^6\right) + O(h^6),
+$$
+
+lo cual implica que:
+
+$$
+M \approx \frac{4^2 N\!\left(\frac{h}{2}\right) - N(h)}{15},
+$$
+
+si tomo $N = N_2$ y $N_3 = M$, entonces:
+
+$$
+N_3(h) \approx \frac{4^2 N_2\!\left(\frac{h}{2}\right) - N_2(h)}{15}.
+$$
+
+Esta fórmula genera la siguiente tabla:
+
+$$
+\begin{array}{cccc}
+N_1(h) &  &  &  \\
+N_1\!\left(\frac{h}{2}\right) & N_2(h) &  &  \\
+N_1\!\left(\frac{h}{4}\right) & N_2\!\left(\frac{h}{2}\right) & N_3(h) &  \\
+N_1\!\left(\frac{h}{8}\right) & N_2\!\left(\frac{h}{4}\right) & N_3\!\left(\frac{h}{2}\right) &  \\
+\vdots & \vdots & \vdots &  \\
+\end{array}
+$$
+
+En general se tiene que:
+
+$$
+M = N(h) + \sum_{j=1}^{m-1} K_j h^{2j} + O(h^{2m}),
+$$
+
+entonces los $N_j(h)$ se definen como:
+
+$$
+N_j(h) = \frac{4^{\,j-1} N_{j-1}\!\left(\dfrac{h}{2}\right) - N_{j-1}(h)}{4^{\,j-1} - 1},
+$$
+
+y se genera la tabla de extrapolación:
+
+$$
+\begin{array}{cccccc}
+N_1(h) &  &  &  &  &  \\
+N_1\!\left(\dfrac{h}{2}\right) & N_2(h) &  &  &  &  \\
+N_1\!\left(\dfrac{h}{4}\right) & N_2\!\left(\dfrac{h}{2}\right) & N_3(h) &  &  &  \\
+N_1\!\left(\dfrac{h}{8}\right) & N_2\!\left(\dfrac{h}{4}\right) & N_3\!\left(\dfrac{h}{2}\right) & N_4(h) &  &  \\
+N_1\!\left(\dfrac{h}{16}\right) & N_2\!\left(\dfrac{h}{8}\right) & N_3\!\left(\dfrac{h}{4}\right) & N_4\!\left(\dfrac{h}{2}\right) & N_5(h) &  \\
+\vdots & \vdots & \vdots & \vdots & \vdots & \ddots
+\end{array}
+$$
+
+::: {.callout-note title="Algoritmo 3: Simpson Compuesto para Integrales Dobles Tipo I"}
+
+**Objetivo:**  
+Calcular la integral doble de tipo I mediante la regla de Simpson compuesta:
+
+$$
+I = \int_a^b \int_{\varphi_1(x)}^{\varphi_2(x)} f(x,y)\,dy\,dx.
+$$
+
+**Entrada:**  $n, m, a, b, \varphi_1, \varphi_2, f(x,y)$
+
+**Salida:**  
+$XI$, valor aproximado de la integral.
+
+  **Paso 1.** Tomar  $h = \frac{b - a}{2n}.$
+
+  **Paso 2.** Inicializar:  
+    $XI0 = 0$ (inicial + final)  
+    $XI1 = 0$ (impares)  
+    $XI2 = 0$ (pares)
+
+  **Paso 3.** Para $i = 1$ hasta $2n$, seguir los pasos 4–10:
+
+    **Paso 4.** Calcular  $x = a + ih.$
+
+    **Paso 5.** Calcular  $k = \frac{\varphi_2(x) - \varphi_1(x)}{2m}.$
+
+    **Paso 6.** Inicializar:  
+      $YI0 = f(x, \varphi_1(x)) + f(x, \varphi_2(x))$  
+      $YI1 = 0$ (impares)  
+      $YI2 = 0$ (pares)
+
+    **Paso 7.** Para $j = 1, 2, \ldots, 2m - 1$, seguir pasos 8–9:
+
+      **Paso 8.** Calcular  $y = \varphi_1(x) + jk.$
+
+      **Paso 9.** Si $j$ es par:  
+      $$YI2 = YI2 + f(x, y),$$  
+      si no:  
+      $$YI1 = YI1 + f(x, y).$$
+
+    **Paso 10.** Calcular  $YI = \frac{k}{3}\,[\,YI0 + 2\,YI2 + 4\,YI1\,].$
+
+    **Paso 11.** Si $i = 0$ o $i = 2n$, tomar  
+    $$XI0 = XI0 + YI.$$
+
+    **Paso 12.** Si $i$ es par:  
+    $$XI2 = XI2 + YI,$$  
+    si no:  
+    $$XI1 = XI1 + YI.$$
+
+  **Paso 13.** Calcular el valor final de la integral:  $XI = \frac{h}{3}\,[\,XI0 + 2\,XI2 + 4\,XI1\,].$
+
+  **Paso 14.** Salida $(XI)$  
+
+  **Parar.**
+
+:::
+
+::: {.callout-note title="Algoritmo 4: Métodos de Extrapolación"}
+
+**Entrada:**  
+La fórmula $N(h)$, el paso $h$, y $n$ (tamaño de la tabla).
+
+**Salida:**  
+La tabla de extrapolación $Q$.
+
+  **Paso 1.** Para $i = 1$ hasta $n$:
+$$
+Q_{i1} \leftarrow N\!\left(\frac{h}{2^{i-1}}\right).
+$$
+
+  **Paso 2.** Para $i = 2$ hasta $n$:
+
+    **Paso 3.** Para $j = 2$ hasta $i$:
+$$
+Q_{ij} \leftarrow 
+\frac{4^{\,j-1}\, Q_{i,\,j-1} - Q_{i-1,\,j-1}}{4^{\,j-1} - 1}.
+$$
+
+**Paso 4.** Salida: $Q_{nn}$, aproximación de $M$.
+
+**Parar.**
+
+:::
+
+**Integración de Romberg**
