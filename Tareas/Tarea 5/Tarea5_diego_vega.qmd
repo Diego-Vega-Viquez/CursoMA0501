@@ -59,28 +59,31 @@ editor:
 # Ejercicio 1
 
 ::: {.callout-note title="Instrucción del ejercicio 1"}
-
-Implemente en **R** los algoritmos de derivación numérica vistos en clase.  
+Implemente en **R** los algoritmos de derivación numérica vistos en
+clase.\
 Se deben implementar los siguientes:
 
-- `Der2Puntos(X0, h)`  
-  (* Calcula la derivada de F usando la fórmula de 2 puntos *)
+-   `Der2Puntos(X0, h)`\
+    (\* Calcula la derivada de F usando la fórmula de 2 puntos \*)
 
-- `Der3PuntosA(X0, h)`  
-  (* Calcula la derivada de F usando la fórmula de 3 puntos - fórmula A *)
+-   `Der3PuntosA(X0, h)`\
+    (\* Calcula la derivada de F usando la fórmula de 3 puntos - fórmula
+    A \*)
 
-- `Der3PuntosB(X0, h)`  
-  (* Calcula la derivada de F usando la fórmula de 3 puntos - fórmula B *)
+-   `Der3PuntosB(X0, h)`\
+    (\* Calcula la derivada de F usando la fórmula de 3 puntos - fórmula
+    B \*)
 
-- `Der5PuntosA(X0, h)`  
-  (* Calcula la derivada de F usando la fórmula de 5 puntos - fórmula A *)
+-   `Der5PuntosA(X0, h)`\
+    (\* Calcula la derivada de F usando la fórmula de 5 puntos - fórmula
+    A \*)
 
-- `Der5PuntosB(X0, h)`  
-  (* Calcula la derivada de F usando la fórmula de 5 puntos - fórmula B *)
-
+-   `Der5PuntosB(X0, h)`\
+    (\* Calcula la derivada de F usando la fórmula de 5 puntos - fórmula
+    B \*)
 :::
 
-**Solución**  
+**Solución**
 
 ```{r}
 #| code-fold: true
@@ -108,19 +111,17 @@ Der5PuntosB <- function(f, x_0, h){
 }
 ```
 
-
 # Ejercicio 2
 
 ::: {.callout-note title="Instrucción del ejercicio 2"}
-
-Sea $f(x) = x^3 e^{x^2} - \sin x$.  
-Para $h = 0.01$ y $h = 0.001$, aproxime $f'(2.19)$ usando todos los métodos implementados en el ejercicio 1.  
-Compare con el valor exacto.  
+Sea $f(x) = x^3 e^{x^2} - \sin x$.\
+Para $h = 0.01$ y $h = 0.001$, aproxime $f'(2.19)$ usando todos los
+métodos implementados en el ejercicio 1.\
+Compare con el valor exacto.\
 ¿Cuál es la mejor aproximación?
-
 :::
 
-**Solución**  
+**Solución**
 
 ```{r}
 #| code-fold: true
@@ -149,18 +150,20 @@ Der5PuntosB(f, x, h1)
 Der5PuntosB(f, x, h2)
 
 ```
-Es claro que entre más pequeño el valor de h escogido, mejor va a ser la aproximación. Lo mismo sucede con la cantidad de nodos usados para estimar la derivada en el punto. 
+
+Es claro que entre más pequeño el valor de h escogido, mejor va a ser la
+aproximación. Lo mismo sucede con la cantidad de nodos usados para
+estimar la derivada en el punto.
 
 # Ejercicio 3
 
 ::: {.callout-note title="Instrucción del ejercicio 3"}
-
-Agregue al archivo anterior una función para la **Extrapolación de Richardson**,  
+Agregue al archivo anterior una función para la **Extrapolación de
+Richardson**,\
 que permita trabajar con fórmulas del tipo $N(x_0, h)$.
-
 :::
 
-**Solución**  
+**Solución**
 
 ```{r}
 #| code-fold: true
@@ -179,12 +182,11 @@ Richardson <- function(N, x0, h, n){
 }
 ```
 
-
 # Ejercicio 4
 
 ::: {.callout-note title="Instrucción del ejercicio 4"}
-
-Se puede probar la siguiente **fórmula progresiva** para calcular derivadas:
+Se puede probar la siguiente **fórmula progresiva** para calcular
+derivadas:
 
 $$
 f'(x_0) = \frac{1}{h}\big[f(x_0 + h) - f(x_0)\big]
@@ -193,12 +195,12 @@ f'(x_0) = \frac{1}{h}\big[f(x_0 + h) - f(x_0)\big]
 + O(h^3)
 $$
 
-Aplique **extrapolación de Richardson** para aproximar derivadas con la fórmula anterior.  
+Aplique **extrapolación de Richardson** para aproximar derivadas con la
+fórmula anterior.\
 Luego, repita el ejercicio 2 usando este método.
-
 :::
 
-**Solución**  
+**Solución**
 
 ```{r}
 #| code-fold: true
@@ -217,32 +219,35 @@ Richardson(function(x, h) formula(f, d2f, d3f, x, h), 2.19, 0.001, 2)
 
 ```
 
-
 # Ejercicio 5
 
 ::: {.callout-note title="Instrucción del ejercicio 5"}
-
-Implemente en **R** los algoritmos de **integración numérica** vistos en clase.  
+Implemente en **R** los algoritmos de **integración numérica** vistos en
+clase.\
 Se deben implementar los siguientes:
 
-- `Trapecio(a, b)`  
-  (* Calcula la integral de F de a hasta b, usando la regla del Trapecio *)
+-   `Trapecio(a, b)`\
+    (\* Calcula la integral de F de a hasta b, usando la regla del
+    Trapecio \*)
 
-- `Simpson(a, b)`  
-  (* Calcula la integral de F de a hasta b, usando la regla de Simpson *)
+-   `Simpson(a, b)`\
+    (\* Calcula la integral de F de a hasta b, usando la regla de
+    Simpson \*)
 
-- `SimpsonCompuesta(a, b, m)`  
-  (* Calcula la integral de F de a hasta b, usando la regla de Simpson Compuesta *)
+-   `SimpsonCompuesta(a, b, m)`\
+    (\* Calcula la integral de F de a hasta b, usando la regla de
+    Simpson Compuesta \*)
 
-- `Romberg(a, b, n)`  
-  (* Calcula la integral de F de a hasta b, usando el método de Romberg *)
+-   `Romberg(a, b, n)`\
+    (\* Calcula la integral de F de a hasta b, usando el método de
+    Romberg \*)
 
-- `IntegralDobleSCT(a, b, n, m)`  
-  (* Calcula la integral doble de F en regiones de tipo I usando Simpson Compuesto *)
-
+-   `IntegralDobleSCT(a, b, n, m)`\
+    (\* Calcula la integral doble de F en regiones de tipo I usando
+    Simpson Compuesto \*)
 :::
 
-**Solución**  
+**Solución**
 
 ```{r}
 #| code-fold: true
@@ -312,50 +317,58 @@ IntegralDobleSCT <- function(f, g1, g2, a, b, n, m){
 }
 ```
 
-
-
 # Ejercicio 6
 
 ::: {.callout-note title="Instrucción del ejercicio 6"}
-
 Calcule
 
 $$
 \int_0^{\pi} (4 + 2\sin x)\,dx
 $$
 
-mediante **todos los métodos programados arriba**  
+mediante **todos los métodos programados arriba**\
 (*excepto el último método de integración doble*).
-
 :::
 
-**Solución**  
+**Solución**
 
+```{r}
+f <- function(x){4 + 2*sin(x)}
+
+Trapecio(f, 0, pi)
+
+Simpson(f, 0, pi)
+
+SimpsonCompuesto(f, 0, pi, 3)
+
+Romberg(f, 0, pi, 3)
+
+```
 
 # Ejercicio 7
 
 ::: {.callout-note title="Instrucción del ejercicio 7"}
-
-Determine el valor de $n$ según las **cotas teóricas del error** para aproximar la integral:
+Determine el valor de $n$ según las **cotas teóricas del error** para
+aproximar la integral:
 
 $$
 \int_0^{\pi} (8 + 5 \sin x)\,dx
 $$
 
-con **4 cifras significativas** mediante la **regla de Simpson Compuesta**.  
-Calcule la integral con este valor de $n$.  
+con **4 cifras significativas** mediante la **regla de Simpson
+Compuesta**.\
+Calcule la integral con este valor de $n$.\
 ¿Es realmente el valor de $n$ necesario?
-
 :::
 
-**Solución**  
+**Solución**
 
 Note que el error del metodo de simpson compuesto viene dado por:
 
 $$
 |\dfrac{(b-a)^5\cdot f^{(4)}(\mu)}{2880\cdot n ^4}|
-$$
-De manera que si queremos acotarlo por $10^{-4}$, entonces hay que despejarlo tomando en cuenta lo siguiente:
+$$ De manera que si queremos acotarlo por $10^{-4}$, entonces hay que
+despejarlo tomando en cuenta lo siguiente:
 
 Note que $f^{(4)} = 5\cdot\sin(x)\leq5$ y ademas $(b-a)^5 = \pi^5$
 
@@ -363,10 +376,10 @@ $$
 \Rightarrow |\dfrac{(b-a)^5\cdot f^{(4)}(\mu)}{2880\cdot n ^4}|\leq |\dfrac{\pi^5\cdot 5}{2880\cdot n ^4}|\leq 10^{-4}\\
 \Rightarrow n \geq (\dfrac{\pi^5\cdot 5}{2880\cdot 10^{-4}})^{1/4} \approx 8.5375 \\
 \Rightarrow n \geq9
-$$
-Así pues, teóricamente, se requiere que n sea mayor o igual a 9. 
+$$ Así pues, teóricamente, se requiere que n sea mayor o igual a 9.
 
-Por otra parte, note que con n = 8 se consigue que el error sea menor a $10^{-4}$:
+Por otra parte, note que con n = 8 se consigue que el error sea menor a
+$10^{-4}$:
 
 ```{r}
 #| code-fold: true
@@ -375,7 +388,9 @@ integral_real <- integrate(function(x) 8 + 5*sin(x), 0, pi)$value
 integral_estimada <- SimpsonCompuesto(function(x) 8 + 5*sin(x), 0, pi, 8)
 abs(integral_real- integral_estimada)
 ```
+
 Esto no ocurre si n = 7:
+
 ```{r}
 #| code-fold: true
 
@@ -384,21 +399,18 @@ integral_estimada <- SimpsonCompuesto(function(x) 8 + 5*sin(x), 0, pi, 7)
 abs(integral_real- integral_estimada)
 ```
 
-
-
 # Ejercicio 8
 
 ::: {.callout-note title="Instrucción del ejercicio 8"}
-
 Calcule $\ln(2)$ usando:
 
 $$
 \ln(2) = \int_1^2 \frac{dx}{x}
 $$
 
-mediante la **regla de Simpson Compuesta**.  
-¿Cuál es el menor valor de $n$ que garantiza **6 cifras significativas** en el cálculo de $\ln(2)$?
-
+mediante la **regla de Simpson Compuesta**.\
+¿Cuál es el menor valor de $n$ que garantiza **6 cifras significativas**
+en el cálculo de $\ln(2)$?
 :::
 
 **Regla de Simpson compuesta**
@@ -411,29 +423,25 @@ $$
 
 **Cota de error**
 
-Para Simpson compuesta el error satisface
-$$
+Para Simpson compuesta el error satisface $$
 |E_n|=\left|\,-\frac{(b-a)}{180}\,h^{4}\,f^{(4)}(\xi)\right|
 \le \frac{(b-a)}{180}\,h^{4}\,\max_{[a,b]}|f^{(4)}|.
 $$
 
-Con $f(x)=x^{-1}$, $f^{(4)}(x)=24\,x^{-5}$, decreciente en $[1,2]$, por lo que
-$$
+Con $f(x)=x^{-1}$, $f^{(4)}(x)=24\,x^{-5}$, decreciente en $[1,2]$, por
+lo que $$
 \max_{[1,2]}|f^{(4)}|=24 \quad\text{(en $x=1$)}.
-$$
-Además $b-a=1$, luego
-$$
+$$ Además $b-a=1$, luego $$
 |E_n|\le \frac{1}{180}\cdot 24\,h^{4}=\frac{2}{15}\,h^{4}.
 $$
 
-Para **6 cifras significativas** pedimos un error absoluto $\le 0.5\times 10^{-6}$:
-$$
+Para **6 cifras significativas** pedimos un error absoluto
+$\le 0.5\times 10^{-6}$: $$
 \frac{2}{15}h^{4}\le 0.5\times10^{-6}
 \;\;\Longrightarrow\;\;
 h\le(3.75\times10^{-6})^{1/4}\approx 0.04401.
-$$
-Como $h=1/n$, obtenemos $n\ge 22.73$. El menor $n$ **par** que cumple esto es
-$$
+$$ Como $h=1/n$, obtenemos $n\ge 22.73$. El menor $n$ **par** que cumple
+esto es $$
 \boxed{\,n=24\,}.
 $$
 
@@ -469,44 +477,68 @@ c(n = n,
   error_abs = err)
 ```
 
-El menor número de subintervalos que garantiza 6 cifras significativas es
-$$\boxed{n=24}.$$
-Con $n=24$ se obtiene un error absoluto $<0.5\times10^{-6}$.
-
+El menor número de subintervalos que garantiza 6 cifras significativas
+es $$\boxed{n=24}.$$ Con $n=24$ se obtiene un error absoluto
+$<0.5\times10^{-6}$, cumpliendo la exigencia.
 
 # Ejercicio 9
 
 ::: {.callout-note title="Instrucción del ejercicio 9"}
-
-Use el procedimiento de **integrales dobles** para calcular el área limitada por la parábola  
-$y = 4x - x^2$, el eje $X$, y la recta $y = -3x + 6$.  
+Use el procedimiento de **integrales dobles** para calcular el área
+limitada por la parábola\
+$y = 4x - x^2$, el eje $X$, y la recta $y = -3x + 6$.\
 Resuélvalo también usando **R** directamente.
-
 :::
 
-**Solución**  
-*(Determinación de los puntos de intersección, límites de integración y cálculo del área mediante integración doble y verificación en R.)*
+**Solución**\
+*(Determinación de los puntos de intersección, límites de integración y
+cálculo del área mediante integración doble y verificación en R.)*
 
+Definimos el Área a calcular como $A=\int\int_R1dA$. Note que:
 
+-   La parábola $y_1 = 4x-x^2$ interseca al eje x en $(0,0)$ y $(4,0)$.
+-   La recta $y_2 = -3x + 6$ interseca al eje x en $(2,0)$.
+-   Las ecuaciones se intersecan entre sí en $x=1$ y $x=6$.
+-   En $[0,1]$ la región tope está dada por $y_1$ mientras que en
+    $[1,2]$ la región tope la define $y_2$.
+
+Calculando $A$:
+
+$$A= \int_0^1\int_{0}^{4x-x^2}dydx + \int_1^2\int_{0}^{-3x+6}dydx$$
+$$A= \int_0^1 (4x-x^2)dx + \int_1^2(-3x+6)dx$$
+$$A = \left(2x^2-\frac{x^3}{3}\right)\Bigg|_{x=0}^1 + \left(\frac{-3x^2}{2}+6x\right)\Bigg|_{x=1}^2=\frac{19}{6} \approx 3.1\bar6$$
+Ahora, en R:
+
+```{r}
+y1 <- function(x) 4*x - x^2
+y2 <- function(x) -3*x + 6
+
+A1 <- integrate(y1, lower = 0, upper = 1)$value
+A2 <- integrate(y2, lower = 1, upper = 2)$value
+
+A  <- A1 + A2
+A
+
+```
 
 # Ejercicio 10
 
 ::: {.callout-note title="Instrucción del ejercicio 10"}
-
-Usando el procedimiento de integración múltiple, calcule el volumen del sólido limitado por el paraboloide  
+Usando el procedimiento de integración múltiple, calcule el volumen del
+sólido limitado por el paraboloide
 
 $$
 z = 4 - x^2 - 2y^2
 $$
 
-y el plano $xy$.  
+y el plano $xy$.\
 Resuélvalo también usando **R** directamente.
-
 :::
 
-**Solución**  
+**Solución**
 
 calculo con la funcion IntegralDobleSCT
+
 ```{r}
 #| code-fold: true
 
@@ -515,7 +547,9 @@ root_safe <- function(x) pmax(0, 32 - 7*x^2)
 volumen_estimado <- IntegralDobleSCT(function(x, y) 4 - x^2 - 2*y^2 - x*y, function(x) { (-x - sqrt(root_safe(x)))/4 }, function(x) { (-x + sqrt(root_safe(x)))/4 }, -4*sqrt(2)/sqrt(7), 4*sqrt(2)/sqrt(7), 100, 100)
 volumen_estimado
 ```
+
 Calculo directo con R
+
 ```{r}
 #| code-fold: true
 
@@ -551,11 +585,11 @@ V_dxdy$value
 # Ejercicio 11
 
 ::: {.callout-note title="Instrucción del ejercicio 11"}
-
 La **Regla del Trapecio Extendida** se presenta en el siguiente teorema:
 
-> **Teorema:**  
-> Sea $f \in C^2[a,b]$, con $h = (b - a)/n$ y $x_j = a + jh$ para cada $j = 0,1,\ldots,n$.  
+> **Teorema:**\
+> Sea $f \in C^2[a,b]$, con $h = (b - a)/n$ y $x_j = a + jh$ para cada
+> $j = 0,1,\ldots,n$.\
 > La regla del trapecio para $n$ subintervalos es:
 >
 > $$
@@ -565,17 +599,19 @@ La **Regla del Trapecio Extendida** se presenta en el siguiente teorema:
 > \quad \text{para alguna } \mu \in [a,b].
 > $$
 
-(a) Pruebe el teorema anterior.  
-(b) Escriba un algoritmo en pseudo-código para la **regla del trapecio extendida**.  
+(a) Pruebe el teorema anterior.\
+(b) Escriba un algoritmo en pseudo-código para la **regla del trapecio
+    extendida**.\
 (c) Implemente en **R** la regla del trapecio extendida.
-
 :::
 
-**Solución**  
+**Solución**
 
-(a) Sea $f \in C^2[a,b]$ y subdividamos el intervalo en $n$ subintervalos de longitud $h = (b-a)/n$.
+(a) Sea $f \in C^2[a,b]$ y subdividamos el intervalo en $n$
+    subintervalos de longitud $h = (b-a)/n$.
 
-   En cada subintervalo $[x_j, x_{j+1}]$, aplicamos la regla del trapecio simple:
+   En cada subintervalo $[x_j, x_{j+1}]$, aplicamos la regla del
+trapecio simple:
 
 $$
 \int_{x_j}^{x_{j+1}} f(x)\,dx = 
@@ -592,13 +628,15 @@ $$
 - \frac{h^3}{12}\sum_{j=0}^{n-1} f''(\xi_j).
 $$
 
-   Por el **teorema del valor medio para integrales**, existe $\mu \in [a,b]$ tal que:
+   Por el **teorema del valor medio para integrales**, existe
+$\mu \in [a,b]$ tal que:
 
 $$
 \sum_{j=0}^{n-1} f''(\xi_j) = n f''(\mu).
 $$
 
-   Sustituyendo $n = \frac{b-a}{h}$, obtenemos el término de error global:
+   Sustituyendo $n = \frac{b-a}{h}$, obtenemos el término de error
+global:
 
 $$
 E(f) = -\frac{(b-a)h^2}{12}f''(\mu),
@@ -633,6 +671,7 @@ Fin Algoritmo
 ```
 
 (c) **Regla del trapecio extendida en R**
+
 ```{r}
 #| code-fold: true
 
@@ -650,11 +689,9 @@ TrapecioExtendido <- function(f, a, b, n) {
 }
 ```
 
-
 # Ejercicio 12
 
 ::: {.callout-note title="Instrucción del ejercicio 12"}
-
 Calcule:
 
 $$
@@ -662,18 +699,36 @@ $$
 $$
 
 usando la **regla del trapecio extendida** con $n = 8$.
-
 :::
 
-**Solución**  
-*(Cálculo numérico de la integral y comparación con el valor de referencia obtenido por software simbólico.)*
+**Solución**\
+*(Cálculo numérico de la integral y comparación con el valor de
+referencia obtenido por software simbólico.)*
+
+```{r}
+f <- function(x) x^2*exp(-x^2)
+
+t.e <- TrapecioExtendido(f,0,2,8)
+
+s.s <- integrate(f,0,2)$value
+
+print("Aproximación por regla del trapecio extendida:" )
+t.e
+
+print("Integral según método de R:" )
+s.s
+
+print("Error de aproximación:" )
+
+s.s - t.e
 
 
+
+```
 
 # Ejercicio 13
 
 ::: {.callout-note title="Instrucción del ejercicio 13"}
-
 Sea $f$ definida por:
 
 $$
@@ -684,13 +739,14 @@ x^3 + 1, & 0 \le x \le 2,\\[0.5em]
 \end{cases}
 $$
 
-**(a)** Aproxime $\int_0^6 f(x)\,dx$ usando la **regla del trapecio extendida**.  
-**(b)** Aproxime $\int_0^6 f(x)\,dx$ usando la **regla de Simpson compuesta**.  
+**(a)** Aproxime $\int_0^6 f(x)\,dx$ usando la **regla del trapecio
+extendida**.\
+**(b)** Aproxime $\int_0^6 f(x)\,dx$ usando la **regla de Simpson
+compuesta**.\
 **(c)** Determine cuál resultado es más preciso.
-
 :::
 
-**Solución**  
+**Solución**
 
 ```{r}
 #| code-fold: true
@@ -706,53 +762,62 @@ f <- function(x){
 }
 ```
 
+a)  
 
-a)
 ```{r}
 #| code-fold: true
 
 tr <- TrapecioExtendido(f, 0, 6, 10)
 tr
 ```
-b)
+
+b)  
+
 ```{r}
 #| code-fold: true
 
 si <- SimpsonCompuesto(f, 0, 6, 10)
 si
 ```
-c)
+
+c)  
+
 ```{r}
 #| code-fold: true
 
 valor_real <- integrate(function(x) x^3 + 1, 0, 2)$value + integrate(function(x) 2*x + 5, 2, 6)$value
 valor_real
 ```
+
 error absoluto con trapecio:
+
 ```{r}
 #| code-fold: true
 
 abs(tr - valor_real)
 ```
+
 error absoluto con simpson:
+
 ```{r}
 #| code-fold: true
 
 abs(si - valor_real)
 ```
-En este caso, el resultado obtenido con el metodo de Simpson Compuesto es más preciso, entonces es mejor.
 
+En este caso, el resultado obtenido con el metodo de Simpson Compuesto
+es más preciso, entonces es mejor.
 
 # Ejercicio 14
 
 ::: {.callout-note title="Instrucción del ejercicio 14"}
-
-Escriba un **algoritmo en pseudo-código** para calcular **integrales dobles tipo I** basado en la **Regla del Trapecio Extendida**.  
-Luego, agregue este algoritmo al módulo de integración numérica implementado anteriormente.
-
+Escriba un **algoritmo en pseudo-código** para calcular **integrales
+dobles tipo I** basado en la **Regla del Trapecio Extendida**.\
+Luego, agregue este algoritmo al módulo de integración numérica
+implementado anteriormente.
 :::
 
-**Solución**  
+**Solución**
 
 ```{text}
 Algoritmo Trapecio_Extendido_Doble(f, a, b, c, d, nx, ny)
@@ -815,7 +880,6 @@ trapecio_doble <- function(f, a, b, c, d, nx, ny) {
 }
 ```
 
-
 ```{r}
 # Ejemplo de uso:
 f <- function(x, y) x^2 + y^2  # función ejemplo
@@ -823,43 +887,70 @@ resultado <- trapecio_doble(f, 0, 1, 0, 1, nx = 10, ny = 10)
 cat("Aproximación de la integral doble:", resultado, "\n")
 ```
 
-
 # Ejercicio 15
 
 ::: {.callout-note title="Instrucción del ejercicio 15"}
-
-Repita los ejercicios 9 y 10 usando el algoritmo desarrollado en el ejercicio anterior.
-
+Repita los ejercicios 9 y 10 usando el algoritmo desarrollado en el
+ejercicio anterior.
 :::
 
-**Solución**  
-*(Aplicación del nuevo algoritmo de integración doble a los casos geométricos definidos en los ejercicios 9 y 10.)*
+**Solución**\
+*(Aplicación del nuevo algoritmo de integración doble a los casos
+geométricos definidos en los ejercicios 9 y 10.)*
+
+```{r}
+##Funciones de ejercicio 9
+y1 <- function(x) 4*x - x^2
+y2 <- function(x) -3*x + 6
+
+##Limites en x
+x1 <- 0
+x2 <- 2
+
+resultado.9 <- trapecio_doble(, 0, 2, 0, 4, nx = 10, ny = 10)
+cat("Aproximación de ej. 9:", resultado.9, "\n")
+
+## Integrando del ejercicio 10
+f <- function(x, y) 4 - x^2 - 2*y^2 - x*y
+
+## Límites en x como funciones de y
+x_lower <- function(y) (-y - sqrt(16 - 7*y^2)) / 2
+x_upper <- function(y) (-y + sqrt(16 - 7*y^2)) / 2
+
+## Borde en y
+y_min <- -4 / sqrt(7)
+y_max <-  4 / sqrt(7)
+
+```
 
 # Ejercicio 16
 
 ::: {.callout-note title="Instrucción del ejercicio 16"}
-
 Sea
 
 $$
 f(x) = \int_0^x \cos(t^2)\,dt.
 $$
 
-(a) Interpole $f(x)$ con nodos $x_0 = 0$, $x_1 = \frac{\pi}{2}$, $x_2 = \pi$,  
-$x_3 = \frac{3\pi}{2}$, $x_4 = 2\pi$, $x_5 = \frac{5\pi}{2}$, $x_6 = 3\pi$,  
-usando alguno de los métodos vistos en el curso.  
+(a) Interpole $f(x)$ con nodos $x_0 = 0$, $x_1 = \frac{\pi}{2}$,
+    $x_2 = \pi$,\
+    $x_3 = \frac{3\pi}{2}$, $x_4 = 2\pi$, $x_5 = \frac{5\pi}{2}$,
+    $x_6 = 3\pi$,\
+    usando alguno de los métodos vistos en el curso.
 
-*Sugerencia:* Recuerde que $\int \cos(t^2)\,dt$ no puede calcularse en términos de funciones elementales.
+*Sugerencia:* Recuerde que $\int \cos(t^2)\,dt$ no puede calcularse en
+términos de funciones elementales.
 
 (b) Grafique el polinomio $p(x)$ y la función $f(x)$ en un mismo plano.
 
-(c) Dé dos razones por las cuales **a priori** se sabe que la interpolación anterior para $f(x)$ es “mala”.
-
+(c) Dé dos razones por las cuales **a priori** se sabe que la
+    interpolación anterior para $f(x)$ es “mala”.
 :::
 
-**Solución**  
+**Solución**
 
 a y b)
+
 ```{r}
 #| code-fold: true
 #| warning: false
@@ -993,119 +1084,139 @@ f <- Vectorize(f_scalar)
 graficar.polinomio(nodos, 0, 3*pi, neville, f = f)
 
 ```
-c)
 
-Se puede saber desde antes de hacer la gráfica que la interpolación no va a ser buena por dos motivos.
+c)  
 
-Primero, los puntos que se eligieron están bastante separados entre sí dentro del intervalo. Eso hace que el polinomio tenga que “rellenar” grandes espacios sin información, y al hacerlo termina alejándose bastante de la forma real de la función.
+Se puede saber desde antes de hacer la gráfica que la interpolación no
+va a ser buena por dos motivos.
 
-Segundo, la función original cambia de forma muy rápido, sube y baja muchas veces. Como el polinomio tiene que pasar por todos los puntos, trata de imitar esas variaciones y termina haciendo curvas exageradas que no representan bien el comportamiento verdadero.
+Primero, los puntos que se eligieron están bastante separados entre sí
+dentro del intervalo. Eso hace que el polinomio tenga que “rellenar”
+grandes espacios sin información, y al hacerlo termina alejándose
+bastante de la forma real de la función.
+
+Segundo, la función original cambia de forma muy rápido, sube y baja
+muchas veces. Como el polinomio tiene que pasar por todos los puntos,
+trata de imitar esas variaciones y termina haciendo curvas exageradas
+que no representan bien el comportamiento verdadero.
 
 # Ejercicio 17
 
 ::: {.callout-note title="Instrucción del ejercicio 17"}
-
 Determine $a, b, c$ en la fórmula de cuadratura:
 
 $$
 \int_{-1}^{1} f(x)\,dx = a f(-\alpha) + b f(0) + c f(\alpha) + \mathcal{E}(f)
 $$
 
-en función de $\alpha$, tal que tenga una **exactitud algebraica igual a 3**, por lo menos.
-
+en función de $\alpha$, tal que tenga una **exactitud algebraica igual a
+3**, por lo menos.
 :::
 
-**Solución**  
+**Solución**
 
-Por simetría del intervalo y de los nodos $(-\alpha,0,\alpha)$, debe cumplirse que los pesos de los puntos simétricos sean iguales:
-$$a=c.$$
-Así, la fórmula queda:
-$$
+Por simetría del intervalo y de los nodos $(-\alpha,0,\alpha)$, debe
+cumplirse que los pesos de los puntos simétricos sean iguales: $$a=c.$$
+Así, la fórmula queda: $$
 \int_{-1}^{1} f(x)\,dx = a[f(-\alpha)+f(\alpha)] + b f(0) + \mathcal{E}(f).
 $$
 
-Queremos que la fórmula sea **exacta para todos los polinomios de grado $\le$ 3**.
+Queremos que la fórmula sea **exacta para todos los polinomios de
+grado** $\le$ 3.
 
-1. Para $f(x)=1$:
-$$
-\int_{-1}^{1}1\,dx=2,\qquad a(1+1)+b(1)=2a+b=2.
-$$
-Por tanto,
-\begin{equation}
-2a+b=2 \tag{1}
-\end{equation}
+1.  Para $f(x)=1$: $$
+    \int_{-1}^{1}1\,dx=2,\qquad a(1+1)+b(1)=2a+b=2.
+    $$ Por tanto, \begin{equation}
+    2a+b=2 \tag{1}
+    \end{equation}
 
-2. Para $f(x)=x$:
-$$
-\int_{-1}^{1}x\,dx=0,\qquad a(-\alpha+\alpha)+b(0)=0,
-$$
-lo cual se cumple automáticamente, como se esperaba por simetría.
+2.  Para $f(x)=x$: $$
+    \int_{-1}^{1}x\,dx=0,\qquad a(-\alpha+\alpha)+b(0)=0,
+    $$ lo cual se cumple automáticamente, como se esperaba por simetría.
 
-3. Para $f(x)=x^2$:
-$$
-\int_{-1}^{1}x^2\,dx=\frac{2}{3},\qquad a(\alpha^2+\alpha^2)+b(0^2)=2a\alpha^2.
-$$
-Por tanto,
-\begin{equation}
-2a\alpha^2=\frac{2}{3} \quad\Rightarrow\quad a=\frac{1}{3\alpha^2}. \tag{2}
-\end{equation}
+3.  Para $f(x)=x^2$: $$
+    \int_{-1}^{1}x^2\,dx=\frac{2}{3},\qquad a(\alpha^2+\alpha^2)+b(0^2)=2a\alpha^2.
+    $$ Por tanto, \begin{equation}
+    2a\alpha^2=\frac{2}{3} \quad\Rightarrow\quad a=\frac{1}{3\alpha^2}. \tag{2}
+    \end{equation}
 
-4. Para $f(x)=x^3$:
-$$
-\int_{-1}^{1}x^3\,dx=0,\qquad a(-\alpha^3+\alpha^3)+b(0^3)=0,
-$$
-lo cual también se cumple automáticamente.  
-Por tanto, la regla será exacta hasta grado 3.
+4.  Para $f(x)=x^3$: $$
+    \int_{-1}^{1}x^3\,dx=0,\qquad a(-\alpha^3+\alpha^3)+b(0^3)=0,
+    $$ lo cual también se cumple automáticamente.\
+    Por tanto, la regla será exacta hasta grado 3.
 
-5. Sustituyendo (2) en (1):
-$$
-2\left(\frac{1}{3\alpha^2}\right) + b = 2 
-\quad\Rightarrow\quad b = 2 - \frac{2}{3\alpha^2}.
-$$
+5.  Sustituyendo (2) en (1): $$
+    2\left(\frac{1}{3\alpha^2}\right) + b = 2 
+    \quad\Rightarrow\quad b = 2 - \frac{2}{3\alpha^2}.
+    $$
 
-
-Los coeficientes son:
-$$
+Los coeficientes son: $$
 \boxed{
 a=c=\frac{1}{3\alpha^2}, \qquad b=2-\frac{2}{3\alpha^2}.
 }
 $$
 
-Esta regla tiene **exactitud algebraica igual a 3** para todo $\alpha>0$ y se reduce a una familia de cuadraturas simétricas de tres puntos en $[-1,1]$.
+Esta regla tiene **exactitud algebraica igual a 3** para todo $\alpha>0$
+y se reduce a una familia de cuadraturas simétricas de tres puntos en
+$[-1,1]$.
 
 # Ejercicio 18
 
 ::: {.callout-note title="Instrucción del ejercicio 18"}
-
-Repita el ejercicio anterior pero con **exactitud algebraica igual a 5**.
-
+Repita el ejercicio anterior pero con **exactitud algebraica igual a
+5**.
 :::
 
-**Solución**  
-*(Derivación del sistema extendido para los polinomios de grado hasta 5 y cálculo de los coeficientes.)*
+**Solución**\
+*(Derivación del sistema extendido para los polinomios de grado hasta 5
+y cálculo de los coeficientes.)*
 
+Continuando desde las condiciones del ejercicio anterior, al aplicar la
+cuarta iteración, $f(x) = x^4$ obtenemos que:
 
+$$
+\int_{-1}^{1}x^4\,dx=\frac{2}{5},\qquad a(\alpha^4+\alpha^4)+b(0^2)=2a\alpha^4.
+$$
+
+En la iteración 5, $f(x) = x^5$, volvemos a obtener el resultado de
+$f(x) = x$ y $f(x) = x^3$. De la ecuación anterior, utilizando $(2)$
+tenemos que:
+
+$$
+\frac{2}{5} = 2\left(\frac{1}{3\alpha^2}\right)\alpha^4
+$$
+
+$$
+\Leftrightarrow \alpha = \sqrt{\frac{3}{5}}
+$$
+
+$$
+\Rightarrow a = \frac{5}{9} = c \quad \land \quad b = \frac{8}{9}
+$$
 
 # Ejercicio 19
 
 ::: {.callout-note title="Instrucción del ejercicio 19"}
-
 Demuestre la **regla de Simpson** a partir de la fórmula de cuadratura
 
 $$
 \int_{x_0}^{x_2} f(x)\,dx = a_0 f(x_0) + a_1 f(x_1) + a_2 f(x_2) + \mathcal{E}(f)
 $$
 
-usando el hecho de que la fórmula de Simpson tiene **exactitud algebraica igual a 3**.
-
+usando el hecho de que la fórmula de Simpson tiene **exactitud
+algebraica igual a 3**.
 :::
 
-**Solución**  
-*(Derivación paso a paso de los coeficientes $a_0$, $a_1$, $a_2$ mediante el ajuste de los momentos exactos de monomios de grado 0 a 3.)*
+**Solución**\
+*(Derivación paso a paso de los coeficientes* $a_0$, $a_1$, $a_2$
+mediante el ajuste de los momentos exactos de monomios de grado 0 a 3.)
 
-Queremos determinar los coeficientes $a_0$, $a_1$, $a_2$ de la cuadratura tal que sean los que establece la regla de simpson, asumiendo exactitud algebraica 3. 
+Queremos determinar los coeficientes $a_0$, $a_1$, $a_2$ de la
+cuadratura tal que sean los que establece la regla de simpson, asumiendo
+exactitud algebraica 3.
 
-Tome nodos igualmente espaciados: $x_1 = \dfrac{x_1 + x_2}{2}$ y longitud total $2h = x_2 - x_0$
+Tome nodos igualmente espaciados: $x_1 = \dfrac{x_1 + x_2}{2}$ y
+longitud total $2h = x_2 - x_0$
 
 Queremos que la formula sea exacta en $f(x) = 1, x, x^2, x^3$
 
@@ -1119,7 +1230,8 @@ $$\int_{x_0}^{x_2} x dx = \dfrac{{x_2}^2 - {x_0}^2}{2} = 2x_1h = a_0x_0 + a_1x_1
 
 $$\Rightarrow 2x_1h = x_1(a_0 + a_1 + a_2) + h(a_2 - a_0)$$
 
-Como ya sabemos que $a_0 + a_1 + a_2 = 2h$, entonces debe cumplirse que $a_2 - a_0 = 0 \Rightarrow a_2 = a_1$
+Como ya sabemos que $a_0 + a_1 + a_2 = 2h$, entonces debe cumplirse que
+$a_2 - a_0 = 0 \Rightarrow a_2 = a_1$
 
 3- Para $f(x) = x^2$
 
@@ -1143,8 +1255,7 @@ Despejando $a_0$:
 $$
 a_0 = \dfrac{h}{3} \\
 \Rightarrow a_1 = 2h -2a_0 = \dfrac{4h}{3}
-$$
-Asi pues, podemos ver que
+$$ Asi pues, podemos ver que
 
 $$\int_{x_0}^{x_1}f(x) \approx \dfrac{h}{3}(f(x_0) + 4f(x_1) + f(x_2))$$
 
@@ -1155,49 +1266,48 @@ lo cual es justamente la regla de simpson.
 # Ejercicio 20
 
 ::: {.callout-note title="Instrucción del ejercicio 20"}
-
-Demuestre que existe una constante positiva $c$ tal que la fórmula de cuadratura
+Demuestre que existe una constante positiva $c$ tal que la fórmula de
+cuadratura
 
 $$
 \int_{-1/2}^{1/2} f(x)\,dx = \frac{1}{3}\,[f(-c) + f(0) + f(c)] + \mathcal{E}(f)
 $$
 
 tiene **exactitud algebraica igual a 3**.
-
 :::
 
-**Solución**  
-
+**Solución**
 
 Buscamos $c>0$ tal que la regla
-$$Q[f]=\tfrac{1}{3}\,[\,f(-c)+f(0)+f(c)\,]$$
-reproduzca exactamente los momentos de $\displaystyle I[f]=\int_{-1/2}^{1/2} f(x)\,dx$ para todos los polinomios de grado $\le 3$.
+$$Q[f]=\tfrac{1}{3}\,[\,f(-c)+f(0)+f(c)\,]$$ reproduzca exactamente los
+momentos de $\displaystyle I[f]=\int_{-1/2}^{1/2} f(x)\,dx$ para todos
+los polinomios de grado $\le 3$.
 
 Por simetría del intervalo y de los nodos $(-c,0,c)$:
 
-- Para $p(x)=1$,
-$$I[p]=\int_{-1/2}^{1/2}1\,dx=1,\qquad Q[p]=\tfrac{1}{3}(1+1+1)=1.$$
+-   Para $p(x)=1$,
+    $$I[p]=\int_{-1/2}^{1/2}1\,dx=1,\qquad Q[p]=\tfrac{1}{3}(1+1+1)=1.$$
 
-- Para $p(x)=x$ y $p(x)=x^3$,
-$$I[p]=0\quad (\text{funciones impares}),\qquad 
-Q[p]=\tfrac{1}{3}\big((-c)^k+0+c^k\big)=0\quad (k=1,3).$$
+-   Para $p(x)=x$ y $p(x)=x^3$,
+    $$I[p]=0\quad (\text{funciones impares}),\qquad 
+    Q[p]=\tfrac{1}{3}\big((-c)^k+0+c^k\big)=0\quad (k=1,3).$$
 
-- Para $p(x)=x^2$,
-$$I[p]=\int_{-1/2}^{1/2}x^2\,dx=\left.\frac{x^3}{3}\right|_{-1/2}^{1/2}=\frac{1}{12},$$
-mientras que
-$$Q[p]=\tfrac{1}{3}\big(c^2+0+c^2\big)=\frac{2c^2}{3}.$$
-Exigiendo $Q[p]=I[p]$ se obtiene
-$$\frac{2c^2}{3}=\frac{1}{12}\quad\Longrightarrow\quad c^2=\frac{1}{8}\;\;\Rightarrow\;\; c=\frac{1}{2\sqrt{2}} \; (>0).$$
+-   Para $p(x)=x^2$,
+    $$I[p]=\int_{-1/2}^{1/2}x^2\,dx=\left.\frac{x^3}{3}\right|_{-1/2}^{1/2}=\frac{1}{12},$$
+    mientras que
+    $$Q[p]=\tfrac{1}{3}\big(c^2+0+c^2\big)=\frac{2c^2}{3}.$$ Exigiendo
+    $Q[p]=I[p]$ se obtiene
+    $$\frac{2c^2}{3}=\frac{1}{12}\quad\Longrightarrow\quad c^2=\frac{1}{8}\;\;\Rightarrow\;\; c=\frac{1}{2\sqrt{2}} \; (>0).$$
 
-Con este valor de $c$, la regla es exacta para $1,x,x^2,x^3$, por lo que su **exactitud algebraica es 3**. En consecuencia, el término de error $\mathcal{E}(f)$ se anula para todo polinomio de grado $\le 3$ (y, para $f\in C^4$, es de orden $O(\|f^{(4)}\|)$ por el teorema de Peano para reglas de cuadratura).
-\hfill $\blacksquare$
-
-
+Con este valor de $c$, la regla es exacta para $1,x,x^2,x^3$, por lo que
+su **exactitud algebraica es 3**. En consecuencia, el término de error
+$\mathcal{E}(f)$ se anula para todo polinomio de grado $\le 3$ (y, para
+$f\in C^4$, es de orden $O(\|f^{(4)}\|)$ por el teorema de Peano para
+reglas de cuadratura). \hfill $\blacksquare$
 
 # Ejercicio 21
 
 ::: {.callout-note title="Instrucción del ejercicio 21"}
-
 Determine las constantes $a$ y $b$ tal que la fórmula de cuadratura
 
 $$
@@ -1205,39 +1315,67 @@ $$
 $$
 
 tenga **exactitud algebraica igual a 3**, por lo menos.
-
 :::
 
-**Solución**  
-*(Empleo de la función peso $e^{-x}$, desarrollo de los momentos de Laguerre y resolución del sistema de condiciones para $a$ y $b$.)*
+**Solución**\
+*(Empleo de la función peso* $e^{-x}$, desarrollo de los momentos de
+Laguerre y resolución del sistema de condiciones para $a$ y $b$.)
 
+Planteando las condiciones tenemos que:
 
+-   $$
+    f(x) = 1 \Rightarrow\int_{0}^{\infty} e^{-x}\,dx = 1 = \frac14\,(a+b) \;\Rightarrow\; a+b=4.
+    $$
+
+-   $$
+    f(x) = x \Rightarrow \int_{0}^{\infty} x\,e^{-x}\,dx = 1 = \frac14\,(ab+ab) = \frac12\,ab \;\Rightarrow\; ab=2.
+    $$
+
+-   $$
+    f(x) = x^2 \Rightarrow \int_{0}^{\infty} x^2 e^{-x}\,dx = 2 = \frac14\,(a b^2 + b a^2)=\frac14\,ab(a+b) = \frac14\cdot2\cdot 4 = 2
+    $$
+
+$$
+f(x) = x^3 \Rightarrow \int_{0}^{\infty} x^3 e^{-x}\,dx = 6 = \frac14\,(a b^3 + b a^3) = \frac14\,ab(a^2+b^2).
+$$
+
+Note que $a^2 +b^2=(a+b) ^2-2ab=16-4=12$, por lo que la cuarta condición
+también es cierta $\left( \frac14 \cdot 2 \cdot 12 = 6\right)$.
+
+Ahora, resolviendo la siguiente ecuación tenemos que:
+
+$$
+t^2-(a+b)t+ab = t^2-4t+2=0 \Rightarrow a= 2-\sqrt{2}\ \land\  b=2+\sqrt{2}
+$$
+
+Obteniendo las constantes buscadas.
 
 # Ejercicio 22
 
 ::: {.callout-note title="Instrucción del ejercicio 22"}
-
-Demuestre que existen constantes $c_1 \in [a,b]$ y $c_2 \in [a,b]$ tal que la fórmula de cuadratura
+Demuestre que existen constantes $c_1 \in [a,b]$ y $c_2 \in [a,b]$ tal
+que la fórmula de cuadratura
 
 $$
 \int_a^b f(x)\,dx = \frac{b-a}{2} \, [f(c_1) + f(c_2)] + \mathcal{E}(f)
 $$
 
 tiene **exactitud algebraica igual a 3**, por lo menos.
-
 :::
 
-**Solución**  
+**Solución**
 
-Buscamos constantes $c_1$ y $c_2$ en $[a,b]$ tales que la fórmula de cuadratura
+Buscamos constantes $c_1$ y $c_2$ en $[a,b]$ tales que la fórmula de
+cuadratura
 
 $$
 \int_a^b f(x)\,dx = \frac{b-a}{2}\,[f(c_1) + f(c_2)]
 $$
 
-tenga exactitud algebraica igual a $3$, es decir, que sea exacta para los polinomios $f(x) = 1$, $f(x) = x$, $f(x) = x^2$ y $f(x) = x^3$.
+tenga exactitud algebraica igual a $3$, es decir, que sea exacta para
+los polinomios $f(x) = 1$, $f(x) = x$, $f(x) = x^2$ y $f(x) = x^3$.
 
- 1. Caso $f(x) = 1$
+1.  Caso $f(x) = 1$
 
 $$
 \int_a^b 1\,dx = b - a = \frac{b-a}{2}(1 + 1)
@@ -1245,7 +1383,7 @@ $$
 
 Por lo tanto, la fórmula es exacta para funciones constantes.
 
- 2. Caso $f(x) = x$
+2.  Caso $f(x) = x$
 
 $$
 \int_a^b x\,dx = \frac{b^2 - a^2}{2} = \frac{b-a}{2}(c_1 + c_2)
@@ -1257,7 +1395,7 @@ $$
 c_1 + c_2 = a + b
 $$
 
- 3. Caso $f(x) = x^2$
+3.  Caso $f(x) = x^2$
 
 $$
 \int_a^b x^2\,dx = \frac{b^3 - a^3}{3} = \frac{b-a}{2}(c_1^2 + c_2^2)
@@ -1287,9 +1425,11 @@ $$
 S_2 = \frac{a^2 + 4ab + b^2}{6}
 $$
 
- 4. Cálculo de los puntos $c_1$ y $c_2$
+4.  Cálculo de los puntos $c_1$ y $c_2$
 
-Después de desarrollar un poco el sistema de ecuaciones dado por los casos 2 y 3, se nota que los puntos $c_1$ y $c_2$ son las raíces del polinomio cuadrático
+Después de desarrollar un poco el sistema de ecuaciones dado por los
+casos 2 y 3, se nota que los puntos $c_1$ y $c_2$ son las raíces del
+polinomio cuadrático
 
 $$
 t^2 - S_1 t + S_2 = 0
@@ -1316,9 +1456,10 @@ c_2 = \frac{a+b}{2} + \frac{b-a}{2\sqrt{3}}
 }
 $$
 
-Como $0 < 1/\sqrt{3} < 1$, se cumple que $c_1$ y $c_2$ pertenecen al intervalo $[a,b]$.
+Como $0 < 1/\sqrt{3} < 1$, se cumple que $c_1$ y $c_2$ pertenecen al
+intervalo $[a,b]$.
 
- 5. Caso $f(x) = x^3$
+5.  Caso $f(x) = x^3$
 
 Usando la identidad
 
@@ -1326,7 +1467,8 @@ $$
 c_1^3 + c_2^3 = S_1^3 - 3S_1S_2
 $$
 
-y sustituyendo los valores de $S_1$ y $S_2$, se verifica que la igualdad también se cumple para $f(x) = x^3$.
+y sustituyendo los valores de $S_1$ y $S_2$, se verifica que la igualdad
+también se cumple para $f(x) = x^3$.
 
 Por tanto, existen $c_1$ y $c_2$ en $[a,b]$ tales que
 
@@ -1334,21 +1476,18 @@ $$
 \int_a^b f(x)\,dx = \frac{b-a}{2}[f(c_1) + f(c_2)] + E(f)
 $$
 
-y la fórmula tiene exactitud algebraica igual a $3$.  
+y la fórmula tiene exactitud algebraica igual a $3$.
 
 # Ejercicio 23
 
 ::: {.callout-note title="Instrucción del ejercicio 23"}
-
-Usando **integración numérica**, escriba un procedimiento en **R** que permita obtener para una función dada $f(x)$ su **polinomio trigonométrico $S_n(x)$**,  
+Usando **integración numérica**, escriba un procedimiento en **R** que
+permita obtener para una función dada $f(x)$ su **polinomio
+trigonométrico** $S_n(x)$,\
 es decir, una **aproximación a su Serie de Fourier**.
-
 :::
 
-
-
 ::: {.callout-note title="Instrucción del inciso (a)"}
-
 Si se definen:
 
 $$
@@ -1363,15 +1502,17 @@ $$
 \phi_{n+k}(x) = \frac{1}{\sqrt{\pi}} \sin(kx), \quad k = 1, 2, \ldots, n-1.
 $$
 
-Pruebe que el conjunto  
+Pruebe que el conjunto
 
 $$
 B = \{\phi_0, \phi_1, \ldots, \phi_{2n-1}\}
 $$
 
-es **ortogonal** con el producto interno integral en el intervalo $[-\pi, \pi]$.  
+es **ortogonal** con el producto interno integral en el intervalo
+$[-\pi, \pi]$.
 
-Dada $f \in C[-\pi, \pi]$, su polinomio trigonométrico $S_n(x)$ se define como:
+Dada $f \in C[-\pi, \pi]$, su polinomio trigonométrico $S_n(x)$ se
+define como:
 
 $$
 S_n(x) := \sum_{k=0}^{2n-1} a_k \, \phi_k(x),
@@ -1390,110 +1531,94 @@ $$
 $$
 
 se denomina **Serie de Fourier** de $f$.
-
 :::
 
-**Solución (a)**  
+**Solución (a)**
 
-Usaremos, para $r,s\in\mathbb{Z}_{\ge 0}$,
-$$
+Usaremos, para $r,s\in\mathbb{Z}_{\ge 0}$, $$
 \cos(rx)\cos(sx)=\tfrac12\big[\cos((r-s)x)+\cos((r+s)x)\big],\\
 \sin(rx)\sin(sx)=\tfrac12\big[\cos((r-s)x)-\cos((r+s)x)\big],\\
 \sin(rx)\cos(sx)=\tfrac12\big[\sin((r+s)x)+\sin((r-s)x)\big].
-$$
-Además, para $m\in\mathbb{Z}\setminus\{0\}$ se cumple
-$$
+$$ Además, para $m\in\mathbb{Z}\setminus\{0\}$ se cumple $$
 \int_{-\pi}^{\pi}\cos(mx)\,dx=0,\qquad \int_{-\pi}^{\pi}\sin(mx)\,dx=0,
-$$
-y $\int_{-\pi}^{\pi}1\,dx=2\pi$.
+$$ y $\int_{-\pi}^{\pi}1\,dx=2\pi$.
 
-** Productos con $\phi_0$ **
+\*\* Productos con $\phi_0$ \*\*
 
-- Con sí misma:
-$$
-\langle \phi_0,\phi_0\rangle=\int_{-\pi}^{\pi}\frac{1}{2\pi}\,dx=\frac{1}{2\pi}\cdot 2\pi=1.
-$$
+-   Con sí misma: $$
+    \langle \phi_0,\phi_0\rangle=\int_{-\pi}^{\pi}\frac{1}{2\pi}\,dx=\frac{1}{2\pi}\cdot 2\pi=1.
+    $$
 
-- Con $\phi_k=\frac{1}{\sqrt{\pi}}\cos(kx)$ ($k\ge 1$):
-$$
-\langle \phi_0,\phi_k\rangle=\frac{1}{\sqrt{2\pi\,\pi}}\int_{-\pi}^{\pi}\cos(kx)\,dx=0.
-$$
+-   Con $\phi_k=\frac{1}{\sqrt{\pi}}\cos(kx)$ ($k\ge 1$): $$
+    \langle \phi_0,\phi_k\rangle=\frac{1}{\sqrt{2\pi\,\pi}}\int_{-\pi}^{\pi}\cos(kx)\,dx=0.
+    $$
 
-- Con $\phi_{n+k}=\frac{1}{\sqrt{\pi}}\sin(kx)$ ($k\ge 1$):
-$$
-\langle \phi_0,\phi_{n+k}\rangle=\frac{1}{\sqrt{2\pi\,\pi}}\int_{-\pi}^{\pi}\sin(kx)\,dx=0.
-$$
+-   Con $\phi_{n+k}=\frac{1}{\sqrt{\pi}}\sin(kx)$ ($k\ge 1$): $$
+    \langle \phi_0,\phi_{n+k}\rangle=\frac{1}{\sqrt{2\pi\,\pi}}\int_{-\pi}^{\pi}\sin(kx)\,dx=0.
+    $$
 
 Por lo tanto, $\phi_0$ es ortogonal a todas las demás y tiene norma $1$.
 
 **Coseno con coseno**
 
-Para $k,\ell\ge 1$,
-$$
+Para $k,\ell\ge 1$, $$
 \langle \phi_k,\phi_\ell\rangle
 =\frac{1}{\pi}\int_{-\pi}^{\pi}\cos(kx)\cos(\ell x)\,dx
 =\frac{1}{2\pi}\int_{-\pi}^{\pi}\big[\cos((k-\ell)x)+\cos((k+\ell)x)\big]\,dx.
 $$
 
-- Si $k\ne \ell$, ambas integrales son $0$, así que $\langle \phi_k,\phi_\ell\rangle=0$.
+-   Si $k\ne \ell$, ambas integrales son $0$, así que
+    $\langle \phi_k,\phi_\ell\rangle=0$.
 
-- Si $k=\ell$, queda
-$$
-\langle \phi_k,\phi_k\rangle
-=\frac{1}{2\pi}\int_{-\pi}^{\pi}\big[1+\cos(2kx)\big]\,dx
-=\frac{1}{2\pi}\big[2\pi+0\big]=1.
-$$
-**Seno con seno**
+-   Si $k=\ell$, queda $$
+    \langle \phi_k,\phi_k\rangle
+    =\frac{1}{2\pi}\int_{-\pi}^{\pi}\big[1+\cos(2kx)\big]\,dx
+    =\frac{1}{2\pi}\big[2\pi+0\big]=1.
+    $$ **Seno con seno**
 
-Para $k,\ell\ge 1$,
-$$
+Para $k,\ell\ge 1$, $$
 \langle \phi_{n+k},\phi_{n+\ell}\rangle
 =\frac{1}{\pi}\int_{-\pi}^{\pi}\sin(kx)\sin(\ell x)\,dx
 =\frac{1}{2\pi}\int_{-\pi}^{\pi}\big[\cos((k-\ell)x)-\cos((k+\ell)x)\big]\,dx.
 $$
 
-- Si $k\ne \ell$, el valor es $0$.
+-   Si $k\ne \ell$, el valor es $0$.
 
-- Si $k=\ell$, entonces
-$$
-\langle \phi_{n+k},\phi_{n+k}\rangle
-=\frac{1}{2\pi}\int_{-\pi}^{\pi}\big[1-\cos(2kx)\big]\,dx
-=\frac{1}{2\pi}\big[2\pi-0\big]=1.
-$$
+-   Si $k=\ell$, entonces $$
+    \langle \phi_{n+k},\phi_{n+k}\rangle
+    =\frac{1}{2\pi}\int_{-\pi}^{\pi}\big[1-\cos(2kx)\big]\,dx
+    =\frac{1}{2\pi}\big[2\pi-0\big]=1.
+    $$
 
 **Seno con coseno**
 
-
-Para $k,\ell\ge 1$,
-$$
+Para $k,\ell\ge 1$, $$
 \langle \phi_{n+k},\phi_\ell\rangle
 =\frac{1}{\pi}\int_{-\pi}^{\pi}\sin(kx)\cos(\ell x)\,dx
 =\frac{1}{2\pi}\int_{-\pi}^{\pi}\big[\sin((k+\ell)x)+\sin((k-\ell)x)\big]\,dx=0.
 $$
 
-De los productos con $\phi_0$ y el seno con coseno se sigue que
-$$
+De los productos con $\phi_0$ y el seno con coseno se sigue que $$
 \langle \phi_i,\phi_j\rangle=
 \begin{cases}
 1,& i=j,\\[2mm]
 0,& i\ne j,
 \end{cases}
-$$
-por lo que $B=\{\phi_0,\phi_1,\ldots,\phi_{2n-1}\}$ es no solo **ortogonal** sino **ortonormal** en $L^2([-\pi,\pi])$ con el producto interno dado. \hfill $\blacksquare$
+$$ por lo que $B=\{\phi_0,\phi_1,\ldots,\phi_{2n-1}\}$ es no solo
+**ortogonal** sino **ortonormal** en $L^2([-\pi,\pi])$ con el producto
+interno dado. \hfill $\blacksquare$
 
 ::: {.callout-note title="Instrucción del inciso (b)"}
-
-Usando alguno de los métodos de integración numérica programados anteriormente,  
+Usando alguno de los métodos de integración numérica programados
+anteriormente,\
 escriba una función en **R** para calcular:
 
 $$
 a_k = \int_{-\pi}^{\pi} f(x)\phi_k(x)\,dx, \quad \text{para cada } k = 0, 1, \ldots, 2n-1.
 $$
-
 :::
 
-**Solución (b)**  
-
+**Solución (b)**
 
 ```{r}
 #| code-fold: true
@@ -1517,18 +1642,15 @@ coef.fourier <- function(f, k, tipo = "coseno") {
 }
 ```
 
-
 ::: {.callout-note title="Instrucción del inciso (c)"}
-
 Programe una función en **R** para calcular la suma:
 
 $$
 S(n, x) = \sum_{k=0}^{2n-1} a_k \phi_k(x).
 $$
-
 :::
 
-**Solución (c)**  
+**Solución (c)**
 
 ```{r}
 #| code-fold: true
@@ -1546,9 +1668,8 @@ serie.fourier <- function(f, n, x) {
 ```
 
 ::: {.callout-note title="Instrucción del inciso (d)"}
-
-Con el programa anterior, encontrar $S_n(x)$ para  
-$n = 3, 4, 5, 6, 7, 8$  
+Con el programa anterior, encontrar $S_n(x)$ para\
+$n = 3, 4, 5, 6, 7, 8$\
 para la función:
 
 $$
@@ -1559,11 +1680,11 @@ f(x) =
 \end{cases}
 $$
 
-Luego grafique $f(x)$ y $S_n(x)$ en un mismo plano para $n = 3, 4, 5, 6, 7, 8$.
-
+Luego grafique $f(x)$ y $S_n(x)$ en un mismo plano para
+$n = 3, 4, 5, 6, 7, 8$.
 :::
 
-**Solución (d)**  
+**Solución (d)**
 
 ```{r}
 #| include: false
@@ -1618,7 +1739,6 @@ graficar <- function(funciones, a, b, c = NULL, d = NULL, n = 400,
 }
 ```
 
-
 ```{r}
 #| code-fold: true
 
@@ -1636,5 +1756,6 @@ funcion.prueba <- Vectorize(funcion.prueba)
 
 graficar(list(function(x) funcion.prueba(x), function(x) serie.fourier(funcion.prueba, 3, x), function(x) serie.fourier(funcion.prueba, 4, x), function(x) serie.fourier(funcion.prueba, 5, x), function(x) serie.fourier(funcion.prueba, 6, x), function(x) serie.fourier(funcion.prueba, 7, x), function(x) serie.fourier(funcion.prueba, 8, x)), -pi, pi, -2, 2)
 ```
-En este grafico, f1 representa la funcion original, y de f2 a f7 son las series de fourier incrementando n de 3 a 8
 
+En este grafico, f1 representa la funcion original, y de f2 a f7 son las
+series de fourier incrementando n de 3 a 8
