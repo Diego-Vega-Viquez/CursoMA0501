@@ -475,6 +475,7 @@ c(n = n,
   aproximacion = S24,
   ln2 = log(2),
   error_abs = err)
+
 ```
 
 El menor número de subintervalos que garantiza 6 cifras significativas
@@ -894,32 +895,61 @@ Repita los ejercicios 9 y 10 usando el algoritmo desarrollado en el
 ejercicio anterior.
 :::
 
-**Solución**\
-*(Aplicación del nuevo algoritmo de integración doble a los casos
-geométricos definidos en los ejercicios 9 y 10.)*
+**Solución**
 
 ```{r}
-##Funciones de ejercicio 9
-y1 <- function(x) 4*x - x^2
-y2 <- function(x) -3*x + 6
+#| code-fold: true
 
-##Limites en x
-x1 <- 0
-x2 <- 2
+# Algoritmo Trapecio Extendido con límites en y dependientes de x
+trapecio_doble_variable <- function(f, a, b, yinf, ysup, nx = 200, ny = 200) {
+  hx <- (b - a) / nx
+  suma_total <- 0
+  for (i in 0:nx) {
+    x <- a + i * hx
+    ly <- yinf(x); uy <- ysup(x)
+    hy <- (uy - ly) / ny
+    for (j in 0:ny) {
+      y <- ly + j * hy
+      peso <- 1
+      if (i == 0 || i == nx) peso <- peso / 2
+      if (j == 0 || j == ny) peso <- peso / 2
+      suma_total <- suma_total + peso * f(x, y)
+    }
+  }
+  hx * ( (ysup((a+b)/2) - yinf((a+b)/2)) / ny ) * suma_total
+}
 
-resultado.9 <- trapecio_doble(, 0, 2, 0, 4, nx = 10, ny = 10)
-cat("Aproximación de ej. 9:", resultado.9, "\n")
+## ------------------------------
+## Ejercicio 9 (Área)
+## Región: y = 4x - x^2 (0<=x<=1) y y = -3x+6 (1<=x<=2), con y>=0
+f_area <- function(x, y) 1
+A1 <- trapecio_doble_variable(f_area,
+                              a = 0, b = 1,
+                              yinf = function(x) 0,
+                              ysup = function(x) 4*x - x^2,
+                              nx = 300, ny = 300)
+A2 <- trapecio_doble_variable(f_area,
+                              a = 1, b = 2,
+                              yinf = function(x) 0,
+                              ysup = function(x) -3*x + 6,
+                              nx = 300, ny = 300)
+A_num <- A1 + A2
+A_exacto <- 19/6
+cat(sprintf("Área (num): %.8f   |   Área (exacta): %.8f   |   Error: %.2e\n",
+            A_num, A_exacto, A_num - A_exacto))
 
-## Integrando del ejercicio 10
-f <- function(x, y) 4 - x^2 - 2*y^2 - x*y
-
-## Límites en x como funciones de y
-x_lower <- function(y) (-y - sqrt(16 - 7*y^2)) / 2
-x_upper <- function(y) (-y + sqrt(16 - 7*y^2)) / 2
-
-## Borde en y
-y_min <- -4 / sqrt(7)
-y_max <-  4 / sqrt(7)
+## ------------------------------
+## Ejercicio 10 (Volumen)
+## z = 4 - x^2 - 2y^2 sobre x^2 + 2y^2 <= 4  (z>=0)
+f_vol <- function(x, y) 4 - x^2 - 2*y^2
+V_num <- trapecio_doble_variable(f_vol,
+                                 a = -sqrt(2), b =  sqrt(2),
+                                 yinf = function(x) -sqrt((4 - x^2)/2),
+                                 ysup = function(x)  sqrt((4 - x^2)/2),
+                                 nx = 300, ny = 300)
+V_exacto <- 4*pi*sqrt(2)
+cat(sprintf("Volumen (num): %.8f   |   Volumen (exacto): %.8f   |   Error: %.2e\n",
+            V_num, V_exacto, V_num - V_exacto))
 
 ```
 
