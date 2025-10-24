@@ -6549,8 +6549,7 @@ f(x_0, y_{2j-1})
 + 4 \sum_{i=1}^{n} f(x_{2i-1}, y_{2m})
 + f(x_{2n}, y_{2m})
 \Bigg\}
-+ E,
-
++ E
 \end{align*}
 
 donde el término de error $E$ está dado por:
@@ -6975,3 +6974,1506 @@ $$
 :::
 
 **Integración de Romberg**
+
+# Métodos numéricos para problemas de valor inicial
+
+## Ecuaciones diferenciales
+
+### El Teorema de Picard–Lindelöf
+
+::: {.callout-note title="Definición: Solución de una ecuación diferencial de primer orden"}
+
+Sean $G \subset \mathbb{R}^2$ y $f : G \to \mathbb{R}$ una función continuamente diferenciable.  
+Una función $U : [a,b] \to \mathbb{R}$ se llama **solución** de una ecuación diferencial de primer orden:
+
+$$
+U' = f(x, U),
+$$
+
+si:
+
+- $(x, U(x)) \in G$, y  
+- $U'(x) = f(x, U(x)) \ \forall x \in [a,b]$.
+
+:::
+
+::: {.callout-note title="Definición: Problema de valor inicial"}
+
+El **problema de valor inicial** para la ecuación diferencial ordinaria
+
+$$
+U' = f(x, U),
+$$
+
+consiste en encontrar una solución $U$ continuamente diferenciable que satisfaga la condición inicial:
+
+$$
+U(x_0) = U_0.
+$$
+
+:::
+
+::: {.callout-note title="Teorema: Picard–Lindelöf"}
+
+Sea $G \subset \mathbb{R}^{n+1}$ y sea $f : G \to \mathbb{R}$ una función continuamente diferenciable que satisface la **condición de Lipschitz**:
+
+$$
+\| f(x,U) - f(x,V) \| \le L \| U - V \| ,
+$$
+
+para todo $(x,U), (x,V) \in G$ y para alguna constante $L > 0$.  
+Entonces, para cada par de valores iniciales $(x_0, U_0) \in G$, existe un intervalo $[x_0 - a, x_0 + a]$ con $a > 0$ tal que el problema de valor inicial dado por (1.2), (1.3) tiene solución única.
+
+\begin{equation*} 
+\left\{
+\begin{aligned}
+    U' &= f(x, U) \\
+    U(x_0) &= U_0
+\end{aligned}
+\right.
+\end{equation*}
+
+tiene solución única en este intervalo.
+
+::: {.callout-caution collapse="true" title="Prueba"}
+
+Se transforma el problema
+
+$$
+\begin{cases}
+U' = f(x,U) \\
+U(x_0) = U_0
+\end{cases}
+$$
+
+en un problema equivalente conocido como la **ecuación integral de Volterra**:
+
+$$
+U(x) = U_0 + \int_{x_0}^{x} f(\xi, U(\xi)) \, d\xi.
+$$
+
+Luego se escoge $D$ abierto tal que (como $G$ es abierto) $(x_0, U_0) \in G$ y $\overline{D} \subset G$.
+
+Se denota por $M$ una cota de la función continua $f$ en $\overline{D}$, es decir, para  
+$f : \overline{D} \to \mathbb{R}^n$, se cumple:
+
+$$
+\| f(x, U) \| \le M, \quad (x, U) \in \overline{D}.
+$$
+
+Como $D$ es abierto, se puede escoger $a > 0$ tal que el rectángulo:
+
+$$
+B := \{ (x, U) \in \mathbb{R}^{n+1} : |x - x_0| \le a, \ \| U - U_0 \| \le Ma \}
+$$
+
+esté contenido en $D$.
+
+La prueba consiste en demostrar que el operador:
+
+$$
+(AU)(x) := U_0 + \int_{x_0}^{x} f(\xi, U(\xi))\, d\xi, \quad |x - x_0| \le a,
+$$
+
+definido en:
+
+$$
+U := \{ x \in C[x_0 - a, x_0 + a] : \| U - U_0 \| \le Ma \},
+$$
+
+cumple las hipótesis del **teorema del punto fijo de Banach**.  
+Si $C[x_0 - a, x_0 + a]$ denota el espacio de las funciones continuas  
+$U : [x_0 - a, x_0 + a] \to \mathbb{R}^{n+1}$,
+
+entonces el punto fijo único de $A$ es la solución de la ecuación integral (1.6),  
+y por tanto, la solución del problema de valor inicial (1.5).
+
+$\blacksquare$
+
+::: 
+
+:::
+
+::: {.callout-note title="Corolario"}
+
+Tomando las mismas hipótesis del teorema anterior, la sucesión $U_n$ definida por:
+
+$$
+\begin{cases}
+U_0(x) := U_0, \\
+U_{n+1} := U_0 + \displaystyle \int_{x_0}^{x} f(\xi, U_n(\xi))\, d\xi
+\end{cases}
+$$
+
+con $|x - x_0| < a$, converge uniformemente cuando $n \to \infty$ en $[x_0 - a, x_0 + a]$  
+a la solución única $U$ del problema de valor inicial.  
+
+Además, se tiene la siguiente cota para el error a posteriori:
+
+$$
+\| U - U_{n+1} \|_\infty \le \frac{La}{1 - La} \, \| U_n - U_{n-1} \|_\infty,
+\qquad n = 1, 2, 3, \ldots
+$$
+
+
+
+::: {.callout-caution collapse="true" title="Prueba"}
+
+Es evidente que la ecuación anterior define la **solución de aproximaciones sucesivas** del teorema previo.  
+Además, en la prueba del teorema anterior se probó que:
+
+$$
+\| AU - AV \|_\infty \le La \, \| U - V \|_\infty,
+$$
+
+es decir, la constante de Lipschitz del operador $A$ es $La$, por lo que $A$ es una contracción.  
+Usando el error a posteriori del **Teorema del Punto Fijo de Banach**, se obtiene la desigualdad deseada.
+
+$\blacksquare$
+:::
+
+:::
+
+::: {.callout-tip collapse="true" title="Ejemplo: Aproximaciones sucesivas para un PVI"}
+
+Considere el problema de valor inicial
+$$
+\begin{cases}
+U' = x^2 + U^2,\\[2pt]
+U(0)=0 .
+\end{cases}
+$$
+
+- En $G = ]-0.5,0.5[\times]-0.5,0.5[$ tenemos que $f(x,U):=x^2+U^2$, y es claro que $|f(x,U)|\le 0.5$ en $G$.
+- Para cualquier $a<0.5$ y $M=0.5$, el rectángulo $B$ del teorema de Picard satisface $B\subset G$.
+- Además, $|f(x,U)-f(x,V)|=|U^2-V^2|=|(U-V)(U+V)|\le |U-V|$; luego $f$ es Lipschitz con $L=1$, y por tanto $La<0.5$.
+- La sucesión de aproximaciones sucesivas converge a la solución única del problema:
+  $$
+  \begin{cases}
+  U_0(x)=0,\\[2pt]
+  U_{n+1}(x)=\displaystyle\int_0^x\!\big[\xi^2+U_n^2(\xi)\big]\,d\xi .
+  \end{cases}
+  $$
+
+**Iteraciones y cotas de error a posteriori**
+
+1) Primera iteración:
+$$
+U_1(x)=\int_0^x \xi^2\,d\xi=\frac{x^3}{3}.
+$$
+Error a posteriori:
+$$
+\|U-U_1\|_\infty \le \frac{La}{1-La}\,\|U_1-U_0\|_\infty
+< 1\cdot \frac{1}{24}=\frac{1}{24}\approx 4.1667\times 10^{-2}.
+$$
+
+2) Segunda iteración:
+$$
+U_2(x)=\int_0^x \Big(\xi^2+U_1^2(\xi)\Big)\,d\xi
+      =\int_0^x\!\Big(\xi^2+\frac{\xi^6}{9}\Big)d\xi
+      =\frac{x^3}{3}+\frac{x^7}{63}.
+$$
+Error a posteriori:
+$$
+\|U-U_2\|_\infty \le \|U_2-U_1\|_\infty
+=\frac{1}{63\cdot 2^{7}}\approx 1.2401\times 10^{-4}.
+$$
+
+3) Tercera iteración:
+$$
+\begin{aligned}
+U_3(x)
+&=\int_0^x \Big(\xi^2+U_2^2(\xi)\Big)\,d\xi
+ =\int_0^x \left[\xi^2+\left(\frac{\xi^3}{3}+\frac{\xi^7}{63}\right)^2\right] d\xi \\[4pt]
+&=\int_0^x\!\left(\xi^2+\frac{\xi^6}{9}+\frac{2\xi^{10}}{189}+\frac{\xi^{14}}{3969}\right)d\xi
+ =\frac{x^3}{3}+\frac{x^7}{63}+\frac{2x^{11}}{2079}+\frac{x^{15}}{59535}.
+\end{aligned}
+$$
+Error a posteriori:
+$$
+\|U-U_3\|_\infty \le \|U_3-U_2\|_\infty
+=\frac{1}{59535\cdot 2^{15}}\approx 4.7024\times 10^{-7}.
+$$
+
+:::
+
+### Métodos numéricos
+
+#### El método de Euler
+
+::: {.callout-note title="Definición: Problema bien planteado (PVI)"}
+
+Se dice que el problema de valor inicial:
+
+$$
+\begin{cases}
+\dfrac{dy}{dt} = f(t,y),\\[3pt]
+y(a) = \alpha,
+\end{cases}
+\qquad a \le t \le b,
+$$
+
+es **bien planteado** si:
+
+1. Existe una solución única $y(t)$.
+
+2. Existen $k, \varepsilon \in \mathbb{R}^+$ tales que existe una solución única al **problema perturbado**:
+
+$$
+\begin{cases}
+\dfrac{dZ}{dt} = f(t,Z) + \delta(t),\\[3pt]
+Z(a) = \alpha + \varepsilon_0,
+\end{cases}
+$$
+
+donde $|Z(t) - y(t)| < k \varepsilon \quad \forall\, t \in [a,b]$, siempre que $|\varepsilon_0| < \varepsilon$ y $|\delta(t)| < \varepsilon$.
+
+- La idea es construir una partición (red) y hallar una aproximación de la función $y$ en esos puntos.
+
+- Suponga que $y(t)$ es la solución del problema bien planteado
+
+$$
+\begin{cases}
+\dfrac{dy}{dt} = f(t, y), \\[3pt]
+y(a) = \alpha,
+\end{cases}
+\qquad a \le t \le b,
+$$
+
+y que $y \in C^2[a,b]$.
+
+- Defínase una red $\{t_0, t_1, \ldots, t_N\}$ en $[a,b]$ mediante:
+
+$$
+\begin{cases}
+t_i = a + ih, \\[3pt]
+h = \dfrac{b - a}{N},
+\end{cases}
+\qquad i = 0,1,2,\ldots,N.
+$$
+
+- Aplicando el teorema de Taylor a $y(t)$ en $x_0 = t_i$ y evaluando en $t_{i+1}$:
+
+$$
+y(t_{i+1}) = y(t_i) + (t_{i+1}-t_i)y'(t_i) + \dfrac{(t_{i+1}-t_i)^2}{2!}y''(\xi_i),
+$$
+
+con $\xi_i \in ]t_i,t_{i+1}[$ y $(t_{i+1}-t_i) = h$.
+
+- Por tanto:
+
+$$
+y(t_{i+1}) = y(t_i) + h y'(t_i) + \dfrac{h^2}{2} y''(\xi_i).
+$$
+
+- Como $y$ es solución del PVI:
+
+$$
+\begin{cases}
+\dfrac{dy}{dt} = f(t, y), \\[3pt]
+y(a) = \alpha,
+\end{cases}
+$$
+
+entonces:
+
+$$
+y(t_{i+1}) = y(t_i) + h f(t_i, y(t_i)) + \dfrac{h^2}{2} y''(\xi_i).
+$$
+
+- Si se define $w_i = y(t_i)$, el **Método de Euler** consiste en calcular:
+
+$$
+\begin{cases}
+w_0 = \alpha, \\[3pt]
+w_{i+1} = w_i + h f(t_i, w_i),
+\end{cases}
+\qquad i = 0,1,\ldots,N-1.
+$$
+
+:::
+
+
+#### Ecuación de diferencias
+
+::: {.callout-note title="Algoritmo 1: Método de Euler"}
+
+**Entrada:** $a, b, N, \alpha, f(t,w)$  
+
+**Salida:** Los pares $(t_i, w_i)$ que aproximan $y(t_i) = w_i$.
+
+   **Paso 1.** Tomar:
+$$
+h = \frac{b - a}{N}, \qquad t = a, \qquad w = \alpha.
+$$
+Salida $(t, w)$.
+
+  **Paso 2.** Para $i = 1$ hasta $N$, seguir los pasos 3–5:
+
+    **Paso 3.** $w = w + h f(t, w).$  
+    **Paso 4.** $t = t + h.$  
+    **Paso 5.** Salida $(t, w).$
+
+  **Paso 6.** Parar.
+
+:::
+
+::: {.callout-tip collapse="true" title="Ejemplo: Aplicación del método de Euler"}
+
+Resolver:
+$$
+\begin{cases}
+\dfrac{dy}{dt} = \dfrac{2}{t}y + t^2 e^t, \\[3pt]
+y(1) = 0.
+\end{cases}
+$$
+
+**Datos:**
+
+- $t \in [1,2]$
+- $N = 10 \Rightarrow h = 0.1$
+- $\alpha = 0$
+- $f(t,w) = \dfrac{2}{t}w + t^2 e^t$
+
+**Solución exacta:**
+$$
+y(t) = t^2 (e^t - e).
+$$
+
+:::
+
+::: {.callout-note title="Teorema: Cota del error en el Método de Euler"}
+
+Sea $y(t)$ la solución del problema bien planteado:
+
+$$
+\begin{cases}
+y'(t) = f(t,y), & t \in [a,b], \\[3pt]
+y(a) = \alpha,
+\end{cases}
+$$
+
+y sean $w_1, w_2, \ldots, w_N$ las aproximaciones generadas por el **Método de Euler**.  
+Si además:
+
+- $f$ satisface la **condición de Lipschitz** con constante $L$ en
+$$
+D = \{(t,y)/ a \le t \le y, -\infty < y < +\infty\},
+$$
+
+- y existe una constante $M$ tal que:
+$$
+|y''(t)| \le M \qquad \forall t \in [a,b],
+$$
+
+entonces se cumple que:
+
+$$
+|y(t_i) - w_i| \le \dfrac{hM}{2L}\,\big(e^{L(t_i - a)} - 1\big),
+\qquad i = 0,1,2,\ldots,N.
+$$
+
+:::
+
+::: {.callout-note title="Lema"}
+
+Para todo $x \ge -1$ y para cualquier número positivo $m$ se tiene:
+$$
+0 \le (1+x)^m \le e^{mx}.
+$$
+
+
+
+::: {.callout-caution collapse="true" title="Prueba"}
+
+Aplicando el teorema de Taylor a $f(x)=e^x$ en $x_0=0$ con $n=1$, existe $\xi$ entre $x$ y $0$ tal que
+$$
+e^x = 1 + x + \frac{1}{2}x^2 e^{\xi}.
+$$
+Por lo tanto
+$$
+0 \le 1+x \le 1 + x + \frac{1}{2}x^2 e^{\xi} = e^x.
+$$
+Como $x \ge -1$ implica $1+x \ge 0$, elevando a la potencia $m>0$ se obtiene
+$$
+0 \le (1+x)^m \le (e^x)^m = e^{mx}.
+$$
+
+$\blacksquare$
+
+:::
+
+:::
+
+::: {.callout-note title="Lema"}
+
+Sean $s$ y $t$ números reales positivos y sea la sucesión $(a_i)_{i=0}^k$ tal que  
+$a_0 \ge -\dfrac{t}{s}$ y además cumple:
+$$
+a_{i+1} \le (1+s)a_i + t, \quad \text{para } i = 0, 1, 2, \ldots, k.
+$$
+Entonces:
+$$
+a_{i+1} \le e^{(i+1)s}\left(\frac{t}{s} + a_0\right) - \frac{t}{s}.
+$$
+
+::: {.callout-caution collapse="true" title="Prueba"}
+
+De la desigualdad anterior se tiene:
+$$
+a_{i+1} \le (1+s)a_i + t.
+$$
+Aplicando recursivamente:
+$$
+\begin{aligned}
+a_{i+1} &\le (1+s)[(1+s)a_{i-1} + t] + t \\
+&\le (1+s)^2 a_{i-1} + [(1+s) + 1]t, \\
+&\vdots \\
+&\le (1+s)^{i+1}a_0 + [1 + (1+s) + (1+s)^2 + \cdots + (1+s)^i]t.
+\end{aligned}
+$$
+
+Pero:
+$$
+1 + (1+s) + (1+s)^2 + \cdots + (1+s)^i
+= \sum_{j=0}^{i} (1+s)^j
+= \frac{(1+s)^{i+1} - 1}{(1+s) - 1}
+= \frac{1}{s}\big[(1+s)^{i+1} - 1\big].
+$$
+
+Sustituyendo, obtenemos:
+$$
+\begin{aligned}
+a_{i+1} &\le (1+s)^{i+1}a_0 + \frac{t}{s}\big[(1+s)^{i+1} - 1\big] \\
+&= (1+s)^{i+1}\left(a_0 + \frac{t}{s}\right) - \frac{t}{s}.
+\end{aligned}
+$$
+
+Finalmente, aplicando el **Lema 1**, se cumple:
+$$
+a_{i+1} \le e^{(i+1)s}\left(a_0 + \frac{t}{s}\right) - \frac{t}{s}.
+$$
+
+$\blacksquare$
+
+:::
+
+:::
+
+::: {.callout-caution collapse="true" title="Prueba del Teorema del Error en el Método de Euler"}
+
+- Para $i = 0$ es evidente, pues $y(t_0) = w_0 = \alpha$.
+
+- Para $i = 1, 2, \ldots, N-1$, por el **Teorema de Taylor**, se tiene:
+
+$$
+y(t_{i+1}) = y(t_i) + h f(t_i, y(t_i)) + \frac{h^2}{2}y''(\xi_i),
+$$
+
+mientras que, por definición del **método de Euler**:
+
+$$
+w_{i+1} = w_i + h f(t_i, w_i).
+$$
+
+Sea $y_i = y(t_i)$, entonces:
+
+$$
+|y_{i+1} - w_{i+1}| \le |y_i - w_i| + h\,|f(t_i, y_i) - f(t_i, w_i)| + \frac{h^2}{2}|y''(\xi_i)|.
+$$
+
+Como $f$ es **Lipschitz** en la segunda variable y $|y''(t)| \le M$, se cumple:
+
+$$
+|y_{i+1} - w_{i+1}| \le |y_i - w_i|(1 + hL) + \frac{h^2 M}{2}.
+$$
+
+Aplicando el **Lema 2** con $a_i = |y_i - w_i|$, $s = hL$ y $t = \dfrac{h^2 M}{2}$, se deduce que:
+
+$$
+|y_{i+1} - w_{i+1}| \le e^{(i+1)hL}\left(|y_0 - w_0| + \frac{hM}{2L}\right) - \frac{hM}{2L}.
+$$
+
+Dado que $|y_0 - w_0| = 0$ y $t_i = a + i h$, se tiene:
+
+$$
+(1 + i)h = t_{i+1} - t_0 = t_{i+1} - a.
+$$
+
+Por lo tanto:
+
+$$
+|y_{i+1} - w_{i+1}| \le \frac{hM}{2L}\left(e^{(t_{i+1}-a)L} - 1\right),
+\qquad \text{para } i = 1, 2, \ldots, N-1.
+$$
+
+$\blacksquare$
+
+:::
+
+::: {.callout-tip collapse="true" title="Ejemplo: Cotas del error para el Método de Euler"}
+
+Encuentre las cotas del error para el PVI
+$$
+\begin{cases}
+\dfrac{dy}{dt}=\dfrac{2}{t}y+t^2e^t,\\[3pt]
+y(1)=0,
+\end{cases}
+\qquad t\in[1,2].
+$$
+
+**Solución**
+
+- $\displaystyle \left|\frac{\partial f}{\partial y}\right|=\left|\frac{2}{t}\right|\le 2$ para $t\in[1,2]\;\Rightarrow$ tome $L=2$.
+
+- Como $y(t)=t^2(e^t-e)$, entonces
+  $$
+  y''(t)=e^t(2+4t+t^2)-2e.
+  $$
+
+- $y''(t)$ es creciente en $[1,2]$, por lo que
+  $$
+  y''(t)\le e^2(2+4\cdot 2+2^2)-2e\le 100.
+  $$
+  Tome $M=100$.
+
+- Por el teorema de cota del error en Euler:
+  $$
+  |y(t_i)-w_i|\le \frac{hM}{2L}\big(e^{L(t_i-a)}-1\big).
+  $$
+  Con $h=0.1$, $L=2$, $a=1$, $M=100$:
+  $$
+  |y_i-w_i|\le \frac{0.1\cdot100}{2\cdot2}\big(e^{2(t_i-1)}-1\big)
+  =\frac{5}{2}\big(e^{2t_i-2}-1\big).
+  $$
+
+$\blacksquare$
+
+:::
+
+#### Método de Euler Implícito
+
+En la ecuación integral de Volterra:
+
+$$
+U(x_1) \;=\; U_0 \;+\; \int_{x_0}^{x_1} f(\xi, U(\xi))\, d\xi,
+$$
+
+se puede utilizar la **Regla del Trapecio** para aproximar la integral, de modo que:
+
+$$
+\int_{x_0}^{x_1} f(\xi, U(\xi))\, d\xi \;\approx\; \frac{h}{2}\,\big[\,f(x_0, U(x_0)) \;+\; f(x_1, U(x_1))\,\big].
+$$
+
+Así:
+
+$$
+U_1 \;=\; U_0 \;+\; \frac{h}{2}\,\big[\,f(x_0, U_0) \;+\; f(x_1, U_1)\,\big],
+$$
+
+aplicando esto repetidamente se puede dar la siguiente definición:
+
+::: {.callout-note title="Definición: Método de Euler Implícito"}
+
+El método de **Euler implícito** para la solución del problema de valor inicial (1.5) construye una aproximación $U_j$ para $U(x_j)$ en la malla de puntos equidistantes $x_j := x_0 + jh$, $j = 0, 1, 2, \ldots$, con paso $h$, usando la ecuación:
+
+$$
+U_{j+1} := U_j + \frac{h}{2}\,[\,f(x_j, U_j) + f(x_{j+1}, U_{j+1})\,], \quad j = 0, 1, 2, \ldots
+$$
+
+:::
+
+::: {.callout-note title="Definición: Método Predictor–Corrector de Euler (Método de Heun o Euler Mejorado)"}
+
+El método **Predictor–Corrector de Euler** construye las aproximaciones $U_j$ para $U(x_j)$ en la malla $x_j := x_0 + jh$, $j = 0, 1, 2, \ldots$, usando la ecuación:
+
+$$
+U_{j+1} := U_j + \frac{h}{2}\,[\,f(x_j, U_j) + f(x_{j+1}, U_j + h f(x_j, U_j))\,], \quad j = 0, 1, 2, \ldots
+$$
+
+:::
+
+::: {.callout-important collapse="true" title="Observación"}
+
+Se puede usar el método de Euler para calcular (predecir) $U_{j+1}$ y luego aplicar Euler implícito para recalcularlo, obteniendo un valor corregido de $U_{j+1}$.
+
+:::
+
+::: {.callout-note title="Algoritmo: Método de Euler Predictor–Corrector"}
+
+**Entrada:** $a, b, N, \alpha, f(t, w)$  
+**Salida:** Los pares $(t_i, w_i)$ que aproximan $y(t_i) = w_i$, para $i = 0, 1, 2, \ldots, N$.
+
+  **Paso 1.** Tomar:
+$$
+h = \frac{b - a}{N}, \quad t_0 = a, \quad w_0 = \alpha.
+$$  
+      Salida $(t_0, w_0)$.
+
+  **Paso 2.** Para $i = 1$ hasta $N$, seguir pasos 3–6:
+
+    **Paso 3.** $w_i = w_{i-1} + h f(t_{i-1}, w_{i-1})$  (Predictor).  
+    **Paso 4.** $t_i = t_{i-1} + h$.  
+    **Paso 5.** $w_i = w_{i-1} + \dfrac{h}{2}\,[\,f(t_{i-1}, w_{i-1}) + f(t_i, w_i)\,]$  (Corrector).  
+    **Paso 6.** Salida $(t_i, w_i)$.
+
+  **Paso 7.** Parar.
+
+:::
+
+#### Métodos de un Paso
+
+::: {.callout-note title="Definición: Método de un paso"}
+
+Un **método de un paso** para resolver el problema de valor inicial
+
+$$
+u' = f(x, u), \quad u(x_0) = u_0,
+$$
+
+construye aproximaciones $u_j$ para $u(x_j)$ en una malla de puntos equidistantes:
+
+$$
+x_j := x_0 + jh, \quad j = 1, 2, 3, \ldots,
+$$
+
+mediante una relación del tipo:
+
+$$
+u_{j+1} := u_j + h\,\varphi(x_j, u_j; h), \quad j = 0, 1, 2, \ldots,
+$$
+
+en la cual la función $\varphi : G \times ]0, +\infty[ \to \mathbb{R}$ está definida en términos de  
+$f : G \to \mathbb{R}$ (la parte derecha de la ecuación diferencial).
+
+:::
+
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
+- En el **método de Euler**, se tiene $\varphi(x, u; h) = f(x, u)$.
+
+- En el **método de Euler Mejorado**, se define:
+
+$$
+\varphi(x, u; h) = \frac{1}{2}\,[\,f(x, u) + f(x + h, u + h f(x, u))\,].
+$$
+
+:::
+
+::: {.callout-important collapse="true" title="Observación"}
+
+Como $\varphi$ describe la ecuación diferencial $u' = f(x, u)$, es razonable pensar que:
+
+$$
+\frac{1}{h}\,[\,u(x + h) - u(x)\,] - \varphi(x, u; h) \to 0
+\quad \text{cuando } h \to 0.
+$$
+
+:::
+
+::: {.callout-note title="Definición: Error de discretización local"}
+
+Para cada $(x, u) \in G$, se denota por $\eta' = f(\xi, \eta)$, donde $\eta(x) = u$ son condiciones iniciales $(x, u)$.  
+Entonces:
+
+$$
+\Delta(x, u; h) := \frac{1}{h}\,[\,\eta(x + h) - \eta(x)\,] - \varphi(x, u; h),
+$$
+
+y se llama **Error de discretización local**.
+
+:::
+
+::: {.callout-note title="Definición: Método consistente"}
+
+Un método de un paso se dice **consistente** con el problema de valor inicial si:
+
+$$
+\lim_{h \to 0} \Delta(x, u; h) = 0,
+$$
+
+uniformemente con $(x, u) \in G$.
+
+:::
+
+::: {.callout-note title="Definición: Orden de consistencia"}
+
+Se dice que el método es **consistente de orden $p$** si:
+
+$$
+|\Delta(x, u; h)| \leq k h^p,
+$$
+
+para todo $(x, u) \in G$, para todo $h > 0$ y para alguna constante $k$.
+
+:::
+
+::: {.callout-important collapse="true" title="Observación"}
+
+En adelante se asume que $f$ y sus derivadas son uniformemente continuas y acotadas en $G$,  
+pues de no serlo, entonces se reduce el dominio $G$.
+
+:::
+
+::: {.callout-note title="Teorema: Criterio de consistencia"}
+
+Un método de un paso es **consistente si y solo si**:
+
+$$
+\lim_{h \to 0} \varphi(x, u; h) = f(x, u),
+$$
+
+uniformemente en $(x, u) \in G$.
+
+::: {.callout-caution collapse="true" title="Prueba"}
+
+Como se asume que $f$ es acotado, se tiene que:
+
+$$
+\eta(x + t) - \eta(x)
+= \int_0^t \eta'(x + s)\, ds
+= \int_0^t f(x + s, \eta(x + s))\, ds
+\;\;\xrightarrow[t \to 0]{}\;\; 0,
+$$
+
+uniformemente $\forall (x, u) \in G$ (ya que $\eta' = f(\xi, \eta)$).  
+Por lo tanto, como se asume que $f$ es uniformemente continua, se tiene que:
+
+$$
+\frac{1}{h}\int_0^h [\,\eta'(x + t) - \eta'(x)\,]\, dt
+\le \max_{0 \le t \le h} |\,\eta'(x + t) - \eta'(x)\,|
+= \max_{0 \le t \le h} |\,f(x + t, \eta(x + t)) - f(x, \eta(x))\,|
+\;\;\xrightarrow[h \to 0]{}\;\; 0,
+$$
+
+uniformemente $\forall (x, u) \in G$.  
+De aquí se tiene que:
+
+$$
+\begin{aligned}
+\Delta(x, u; h) + \varphi(x, u; h) - f(x, u)
+&= \frac{1}{h}\,[\,\eta(x + h) - \eta(x)\,] - \varphi(x, u; h) + \varphi(x, u; h) - f(x, u) \\
+&= \frac{1}{h}\,[\,\eta(x + h) - \eta(x)\,] - f(x, u) \\
+&= \frac{1}{h}\int_0^h [\,\eta'(x + t) - \eta'(x)\,]\, dt \;\;\xrightarrow[h \to 0]{}\;\; 0,
+\end{aligned}
+$$
+
+uniformemente $\forall (x, u) \in G$ cuando $h \to 0$.  
+Entonces:
+
+$$
+\lim_{h \to 0} \Delta(x, u; h) = 0
+\;\;\Longleftrightarrow\;\;
+\varphi(x, u; h) \xrightarrow[h \to 0]{} f(x, u).
+$$
+
+$\blacksquare$
+
+:::
+
+:::
+
+::: {.callout-note title="Teorema: Consistencia del método de Euler y orden 1"}
+
+El método de **Euler** es consistente. Además, si $f$ es continuamente diferenciable en $G$, entonces el método de Euler tiene **orden de consistencia uno**.
+
+::: {.callout-caution collapse="true" title="Prueba"}
+
+- **Consistencia.**  
+Se debe probar que $\displaystyle \lim_{h\to 0}\varphi(x,u;h)=f(x,u)$.  
+Esto es inmediato por la definición del método de Euler, pues $\varphi(x,u;h)=f(x,u)$.
+
+- **Orden uno.**  
+Se debe mostrar que $\big|\Delta(x,u_j;h)\big|\le kh$.  
+Si $f$ es continuamente diferenciable, de la ecuación diferencial $\eta' = f(\xi,\eta)$ se deduce que $\eta$ es dos veces continuamente diferenciable y que
+$$
+\eta''=f_x(\xi,\eta)+f_u(\xi,\eta)\,f(\xi,\eta),
+$$
+ya que $u' = f(\xi,\eta)$. Por la fórmula de Taylor:
+$$
+\begin{aligned}
+\big|\Delta(x,u_j;h)\big|
+&=\left|\frac{1}{h}\,[\eta(x+h)-\eta(x)]-\eta'(x)\right|
+\qquad\text{[pues } \varphi(x,u_j;h)=f(x,u)=\eta'(x)\text{]} \\
+&=\frac{h}{2}\,|\eta''(x+\theta h)| \le kh,
+\end{aligned}
+$$
+para algún $0<\theta<1$ y alguna cota $k$ de la función $2(f_x+f_u f)$.  
+$\blacksquare$
+
+:::
+
+:::
+
+::: {.callout-note title="Teorema: Consistencia del método de Euler Mejorado y orden 2"}
+
+El método de **Euler Mejorado** es consistente. Además, si $f$ es dos veces continuamente diferenciable en $G$, entonces este método tiene **orden de consistencia igual a 2**.
+
+::: {.callout-caution collapse="true" title="Prueba (Euler Mejorado: consistencia y orden 2)"}
+
+- **Consistencia.**  
+Para el método de Euler Mejorado
+$$
+\varphi(x,u;h)=\frac{1}{2}\,[\,f(x,u)+f(x+h,u+h f(x,u))\,]\xrightarrow[h\to 0]{} f(x,u).
+$$
+
+- **Orden de convergencia.**  
+Si $f$ es dos veces continuamente diferenciable, entonces la solución $\eta$ del PVI es **tres veces** continuamente diferenciable y, como
+$$
+\eta''=f_x(\xi,\eta)+f_u(\xi,\eta)\,f(\xi,\eta),
+$$
+se tiene (por regla de la cadena) que
+$$
+\begin{aligned}
+\eta''' \;&=\; f_{xx}(\xi,\eta) \;+\; f_{xu}(\xi,\eta)\,\eta' \;+\;[\,f_{ux}(\xi,\eta)+f_{uu}(\xi,\eta)\,\eta'\,]\,f(\xi,\eta) \\[2pt]
+&\qquad {} + f_u(\xi,\eta)\big[f_x(\xi,\eta)+f_u(\xi,\eta)\eta'\big] \\[2pt]
+&=\; f_{xx}(\xi,\eta)+f_{xu}(\xi,\eta)f(\xi,\eta)+f_{ux}(\xi,\eta)f(\xi,\eta)+f_{uu}(\xi,\eta)f(\xi,\eta)^2 \\[2pt]
+&\qquad {}+f_u(\xi,\eta)f_x(\xi,\eta)+f_u(\xi,\eta)^2 f(\xi,\eta).
+\end{aligned}
+$$
+
+Aplicando Taylor (en $x$) se obtiene
+$$
+\left|\,\eta(x+h)-\eta(x)-h\eta'(x)-\frac{h^2}{2}\eta''(x)\,\right|
+= \frac{h^3}{6}\,|\eta'''(x+\theta h)| \;\le\; k_1 h^3, \qquad (1.11)
+$$
+para algún $0<\theta<1$ y $k_1$ una cota de $6(f_{xx}+2f_{xu}+f_{uu}f^2+f_u f_x+f_u^2 f)$.
+
+Asimismo, usando la fórmula de Taylor **para dos variables**,
+$$
+\big|\,f(x+h,u+k)-f(x,u)-h f_x(x,u)-k f_u(x,u)\,\big|
+\;\le\; \frac{1}{2}\,k_2\,(|h|+|k|)^2,
+$$
+donde $k_2$ es una constante apropiada que acota $f_{xx}$, $f_{xu}$ y $f_{uu}$ (completar detalles).
+
+
+Tomando $k = h f(x,u)$ y usando que
+$$
+\eta'' = f_x(\xi,\eta) + f_u(\xi,\eta) f(\xi,\eta),
+$$
+se tiene que
+$$
+\big|\,f(x+h, u + h f(x,u)) - f(x,u) - h \eta''(x)\,\big|
+\le \frac{1}{2} k_2 (1+k_0)^2 h^2,
+$$
+donde $k_0$ es una cota de $f$.  
+Por tanto:
+$$
+\frac{1}{2}\,\big|\,f(x,u) + f(x+h, u + h f(x,u)) - 2 f(x,u) - h \eta''(x)\,\big|
+\le \frac{1}{4}\,k_2 (1+k_0)^2 h^2,
+$$
+y se deduce que:
+$$
+\left|\frac{1}{2}\,[\,f(x,u) + f(x+h, u + h f(x,u))\,] - f(x,u) - \frac{h}{2}\,\eta''(x)\right|
+\le \frac{1}{4}\,k_2 (1+k_0)^2 h^2.
+$$
+
+Como
+$$
+\varphi(x,u_j;h)=\frac{1}{2}\,[\,f(x,u)+f(x+h,u+h f(x,u))\,],
+$$
+entonces:
+$$
+\left|\,\varphi(x,u_j;h) - f(x,u) - \frac{h}{2}\eta''(x)\,\right|
+\le \frac{1}{4}\,k_2 (1+k_0)^2 h^2. \tag{1.12}
+$$
+
+Por otro lado, de (1.11) se tiene que:
+$$
+\left|\frac{1}{h}\,[\,\eta(x+h)-\eta(x)\,] - \eta'(x) - \frac{h}{2}\eta''(x)\right|
+\le k_1 h^2. \tag{1.13}
+$$
+
+Combinando (1.12) y (1.13), y usando que $\eta'(x)=f(x,u)$, aplicando la desigualdad triangular se obtiene:
+$$
+\left|\frac{1}{h}\,[\,\eta(x+h)-\eta(x)\,] - \varphi(x,u;h)\right|
+\le \left(\frac{1}{4}k_2(1+k_0)^2 + k_1\right)h^2.
+$$
+
+Por lo tanto:
+$$
+\boxed{\Delta(x,u;h) \le k h^2, \quad\text{con} \quad k = \frac{1}{4}k_2(1+k_0)^2 + k_1.}
+$$
+
+$\blacksquare$
+
+:::
+
+:::
+
+::: {.callout-note title="Definición: Convergencia"}
+
+Sea $[a,b]$ un intervalo y una malla de puntos equidistantes
+$$
+x_j := x_0 + jh, \quad j = 0,1,2,\ldots,n,
+$$
+con $x_0 = a$ y $x_n = b$.
+
+Sea $u_j$ la **solución aproximada** de $u(x_j)$ para el problema de valor inicial
+$$
+\begin{cases}
+u' = f(x,u), \\
+u(x_0) = u_0,
+\end{cases}
+$$
+obtenida mediante un método de un paso, entonces se definen:
+
+1. **Error Global:**  
+   $$
+   e_j = e_j(h) := u_j - u(x_j), \quad j = 1,2,\ldots,n.
+   $$
+
+2. **Error Global Máximo:**  
+   $$
+   E = E(h) := \max_{j=1,2,\ldots,n} |e_j(h)|.
+   $$
+
+3. **Convergencia:**  
+   Un método de un paso se dice **convergente** si
+   $$
+   \lim_{h\to 0} E(h) = 0.
+   $$
+
+4. **Orden de convergencia:**  
+   Un método de un paso tiene **orden de convergencia $p$** si
+   $$
+   E(h) \le H h^p
+   $$
+   para todo $h > 0$ y alguna constante $H > 0$.
+
+:::
+
+::: {.callout-note title="Lema"}
+
+Sea $(\xi_j)$ una sucesión en $\mathbb{R}$ con la propiedad
+
+$$
+|\xi_{j+1}| \le (1+A)\,|\xi_j| + B, \qquad j=0,1,2,\ldots,
+$$
+
+para algunas constantes $A>0$ y $B\ge 0$. Entonces, para todo $j\ge 0$ se cumple
+
+$$
+|\xi_j| \le |\xi_0|\,e^{jA} + \frac{B}{A}\big(e^{jA}-1\big).
+$$
+
+::: {.callout-caution collapse="true" title="Prueba"}
+
+Sea $a_j := |\xi_j| \ge 0$. La hipótesis dice
+$$
+a_{j+1} \le (1+A)\,a_j + B, \qquad j\ge 0.
+$$
+
+**Paso 1 (desenrollando la recurrencia).**  
+Probamos por inducción que para todo $j\ge 0$,
+$$
+a_j \le (1+A)^j a_0 + B\sum_{k=0}^{j-1}(1+A)^k. \tag{1}
+$$
+
+- Para $j=0$, la afirmación es trivial:
+  $a_0 \le (1+A)^0 a_0 + 0$.
+
+- Suponga que vale para $j$. Entonces, usando la recurrencia,
+  $$
+  \begin{aligned}
+  a_{j+1}
+  &\le (1+A)\,a_j + B \\
+  &\le (1+A)\Big[(1+A)^j a_0 + B\sum_{k=0}^{j-1}(1+A)^k\Big] + B \\
+  &= (1+A)^{j+1} a_0 + B\sum_{k=1}^{j}(1+A)^k + B \\
+  &= (1+A)^{j+1} a_0 + B\sum_{k=0}^{j}(1+A)^k,
+  \end{aligned}
+  $$
+  que es la fórmula (1) con $j$ reemplazado por $j+1$. Queda probado por inducción.
+
+De (1) y la suma geométrica,
+$$
+\sum_{k=0}^{j-1}(1+A)^k=\frac{(1+A)^j-1}{A},
+$$
+obtenemos
+$$
+a_j \le (1+A)^j a_0 + \frac{B}{A}\big((1+A)^j-1\big). \tag{2}
+$$
+
+**Paso 2 (paso de \((1+A)^j\) a \(e^{Aj}\)).**  
+Usando que $(1+A)^j \le e^{Aj}$ para $A>0$ (por $1+x\le e^x$), en (2) se concluye
+$$
+a_j \le a_0\,e^{Aj} + \frac{B}{A}\big(e^{Aj}-1\big).
+$$
+
+Recordando que $a_j=|\xi_j|$ y $a_0=|\xi_0|$, queda
+$$
+|\xi_j| \le |\xi_0|\,e^{jA} + \frac{B}{A}\big(e^{jA}-1\big), \qquad j=0,1,2,\ldots
+$$
+como se quería. $\blacksquare$
+
+:::
+
+:::
+
+::: {.callout-note title="Teorema"}
+
+Si la función $\varphi$ en un método de un paso es continua (con respecto a $h$) y satisface la **condición de Lipschitz**
+
+$$
+|\varphi(x,u;h) - \varphi(x,v;h)| \le M\,|u - v|,
+$$
+
+para todo $(x,u),(x,v)\in G$ y para $h$ suficientemente pequeño,  
+entonces **un método de un paso es convergente si y solo si el método es consistente.**
+
+::: {.callout-caution collapse="true" title="Prueba"}
+
+**1. (Consistencia $\Rightarrow$ Convergencia)**
+
+Sea $e_j = u_j - u(x_j)$ el error global en el nodo $x_j$.  
+Se tiene que:
+
+$$
+\begin{aligned}
+e_{j+1} - e_j
+&= [u_{j+1} - u_j] - [u(x_{j+1}) - u(x_j)] \\
+&= h\,\varphi(x_j,u_j;h) - [u(x_{j+1}) - u(x_j)] \\
+&= h\,[\,\varphi(x_j,u_j;h) - \varphi(x_j,u(x_j);h) - \Delta(x_j,u(x_j);h)\,].
+\end{aligned}
+$$
+
+Por la condición de Lipschitz, se obtiene:
+
+$$
+|e_{j+1} - e_j| \le h\,[\,M\,|u_j - u(x_j)| + c(h)\,], \tag{1.14}
+$$
+
+donde
+$$
+c(h) := \max_{a \le x \le b} |\Delta(x,u(x);h)|.
+$$
+
+Nótese que $c(h)\to 0$ cuando $h\to 0$, pues el método es consistente.
+
+**2. (Aplicación del Lema 3)**
+
+Como $e_j = u_j - u(x_j)$, la desigualdad (1.14) implica que:
+
+$$
+|e_{j+1}| \le (1 + hM)\,|e_j| + h\,c(h), \qquad j = 0,1,2,\ldots,n.
+$$
+
+Aplicando el **Lema 3** con $A = hM$, $B = h\,c(h)$ y observando que $e_0 = 0$, se deduce:
+
+$$
+|e_j| \le \frac{h\,c(h)}{hM}\,\big(e^{j hM} - 1\big), \qquad j=0,1,2,\ldots,n.
+$$
+
+Como $x_j = x_0 + jh$, esto se puede reescribir como:
+
+$$
+|e_j| \le \frac{c(h)}{M}\,\big(e^{M(x_j - x_0)} - 1\big), \qquad j=0,1,2,\ldots,n. \tag{1.15}
+$$
+
+Por tanto, el **error global máximo** cumple:
+
+$$
+E(h) = \max_j |e_j|
+\le \frac{c(h)}{M}\,\big(e^{M(b-a)} - 1\big)
+\longrightarrow 0 \quad \text{cuando } h\to 0.
+$$
+
+Esto prueba que el método es **convergente**.
+
+
+
+**3. (Convergencia $\Rightarrow$ Consistencia)**
+
+
+Recordemos (Def. 7) que el **error de discretización local** en un punto $(x,u)$ se
+define por
+$$
+\Delta(x,u;h)=\frac{\eta(x+h)-\eta(x)}{h}-\varphi(x,u;h),
+$$
+donde $\eta$ es la solución del problema auxiliar
+$\eta' = f(\xi,\eta)$ con condición inicial $\eta(x)=u$.
+Además, por el Teorema 3, un método de un paso es **consistente**
+si y sólo si
+$$
+\lim_{h\to0}\varphi(x,u;h)=f(x,u)
+\qquad(\text{uniformemente en }(x,u)\in G).
+$$
+
+Sea ahora un método de un paso **convergente** en el sentido de la Def. 10.
+Fijemos $(x,u)\in G$ y apliquemos el método sobre el intervalo corto
+$[x,x+h]$ partiendo exactamente de $u(x)=u$.
+Denotemos por
+$$
+U_1 := u + h\,\varphi(x,u;h)
+$$
+la aproximación numérica al valor exacto $\eta(x+h)$ tras un solo paso.
+El error en ese único nodo es
+$$
+e_1 \;=\; U_1-\eta(x+h)
+      \;=\; h\Big(\varphi(x,u;h)-\frac{\eta(x+h)-\eta(x)}{h}\Big)
+      \;=\; -\,h\,\Delta(x,u;h).                                  \tag{1}
+$$
+
+Como el método es convergente, aplicado al problema en $[x,x+h]$
+(se trata de un problema del mismo tipo pero en un intervalo de longitud $h$),
+se tiene que el error global máximo en ese intervalo, que aquí coincide con
+$|e_1|$, satisface
+$$
+|e_1| \longrightarrow 0 \qquad \text{cuando } h\to0 .
+$$
+
+Dividiendo (1) entre $h$ obtenemos
+$$
+|\Delta(x,u;h)| \;=\; \frac{|e_1|}{h}.
+$$
+
+Usando que $\varphi$ es Lipschitz en la segunda variable y continua en $h$
+y que $f$ es localmente acotada, el error tras un paso satisface
+la cota estándar (obtenida con Grönwall)
+$$
+|e_1| \;\le\; C\,h \qquad \text{para $h$ suficientemente pequeño,}
+$$
+con $C$ independiente de $h$ y de $(x,u)$ en compactos de $G$.
+Por lo tanto
+$$
+|\Delta(x,u;h)|
+ \;=\; \frac{|e_1|}{h}
+ \;\le\; C \qquad\text{y, además,}\qquad
+\lim_{h\to0} |\Delta(x,u;h)|=\lim_{h\to0}\frac{|e_1|}{h}=0,
+$$
+ya que $|e_1|=o(h)$ cuando $h\to0$ (convergencia en un paso).
+
+Con ello se concluye que
+$$
+\lim_{h\to0}\Delta(x,u;h)=0
+\quad\Longleftrightarrow\quad
+\lim_{h\to0}\varphi(x,u;h)=\lim_{h\to0}\frac{\eta(x+h)-\eta(x)}{h}
+= \eta'(x)=f(x,u),
+$$
+uniformemente en $(x,u)\in G$. Es decir, el método es **consistente**.
+
+$\blacksquare$
+
+:::
+
+:::
+
+::: {.callout-note title="Teorema"}
+ 
+Asumiendo todas las hipótesis del teorema anterior, si además el método de un paso tiene **consistencia de orden** $p$  
+(es decir, $|\Delta(x,u;h)| \le K h^p$), entonces:
+
+$$
+|e_j| \le \frac{K}{M}\big(e^{M(x_j - x_0)} - 1\big) h^p, 
+\qquad j = 0,1,2,\ldots,n.
+$$
+
+Por lo tanto, la **convergencia** del método también tiene **orden $p$**.
+
+::: {.callout-caution collapse="true" title="Prueba"}
+
+De la ecuación $(1.15)$ se tiene:
+
+$$
+|e_j| \le \frac{c(h)}{M}\big(e^{M(x_j - x_0)} - 1\big), 
+\qquad j = 0,1,2,\ldots,n,
+$$
+
+donde $c(h)$ está definido como:
+
+$$
+c(h) = \max_{a \le x \le b} |\Delta(x, u(x); h)|.
+$$
+
+Pero, por hipótesis de **consistencia de orden $p$**, se cumple:
+
+$$
+|\Delta(x_j, u(x_j); h)| \le K h^p.
+$$
+
+Entonces, sustituyendo en la desigualdad anterior:
+
+$$
+|e_j| \le \frac{K h^p}{M}\big(e^{M(x_j - x_0)} - 1\big).
+$$
+
+Así, el error global máximo satisface:
+
+$$
+E(h) = \max_j |e_j| \le \frac{K}{M}\big(e^{M(b - a)} - 1\big)h^p,
+$$
+
+lo cual demuestra que el método de un paso **convergente de orden $p$**.
+
+$\blacksquare$
+
+:::
+
+:::
+
+::: {.callout-note title="Corolario"}
+
+1. El **método de Euler** es convergente y, si $f$ es continuamente diferenciable, entonces el **orden de convergencia** es $1$.
+
+2. El **método de Euler modificado** (o de Heun) es convergente y, si $f$ es dos veces continuamente diferenciable, entonces el **orden de convergencia** es $2$.
+
+::: {.callout-caution collapse="true" title="Prueba"}
+
+**Para 1. (Euler clásico).**  
+El método de Euler tiene
+$$
+\varphi(x,u;h)=f(x,u).
+$$
+
+- **Lipschitz en $u$:** Si $f$ es Lipschitz en su segunda variable con constante $L$ (uniforme en $x$), entonces
+$$
+|\varphi(x,u;h)-\varphi(x,v;h)|=|f(x,u)-f(x,v)|\le L\,|u-v|.
+$$
+
+- **Consistencia y orden:** Por el **Teorema 4** (ya demostrado), Euler es consistente y, si $f$ es $C^1$, su **orden de consistencia es $1$**.
+
+Aplicando el **Teorema 6** (consistencia $\Longleftrightarrow$ convergencia bajo Lipschitz) y el **Teorema 7** (el orden de convergencia coincide con el orden de consistencia), se concluye que Euler **converge con orden $1$**.
+
+**Para 2. (Euler modificado / Heun).**  
+En este caso
+$$
+\varphi(x,u;h)=\frac12\Big[f(x,u)+f\!\big(x+h,\,u+h\,f(x,u)\big)\Big].
+$$
+
+- **Lipschitz en $u$:** Suponga que $f$ es Lipschitz en su segunda variable con constante $L$ (uniforme en $x$). Entonces, para $u,v$ cualesquiera,
+
+\begin{align*}
+|\varphi(x,u;h)-\varphi(x,v;h)|
+&\le \tfrac12\,|f(x,u)-f(x,v)|
+   +\tfrac12\,\Big|f\!\big(x+h,\,u+h f(x,u)\big)-f\!\big(x+h,\,v+h f(x,v)\big)\Big| \\
+&\le \tfrac12\,L|u-v|
+   +\tfrac12\,L\,\big|[u-v]+h\,[f(x,u)-f(x,v)]\big| \\
+&\le \tfrac12\,L|u-v|
+   +\tfrac12\,L\,(|u-v|+h\,L|u-v|) \\
+&= L\Big(1+\tfrac12\,hL\Big)\,|u-v|.
+\end{align*}
+
+Así, $\varphi$ es Lipschitz en $u$ con constante $M=L(1+\tfrac12 hL)$ (válida para $h$ pequeño).
+
+- **Consistencia y orden:** Por el resultado demostrado para Euler mejorado, si $f\in C^2$ entonces el método es **consistente de orden $2$**.
+
+Aplicando de nuevo el **Teorema 6** (bajo Lipschitz hay equivalencia entre consistencia y convergencia) y el **Teorema 7** (el orden de convergencia coincide con el de consistencia), se concluye que el método de Euler modificado **converge con orden $2$**.
+
+$\blacksquare$
+
+:::
+
+:::
+
+::: {.callout-important collapse="true" title="Observación"}
+Es importante notar que todos los **métodos de un paso** se construyen como sigue. Sean
+
+- $s_l \in \mathbb{R}$ con $l=2,\ldots,m$,
+- $c_{li}\in\mathbb{R}$ con $i=1,2,\ldots,l-1$; $l=2,\ldots,m$,
+- $\alpha_l\in\mathbb{R}$ con $l=1,\ldots,m$,
+
+y defínanse
+
+$$
+\begin{aligned}
+k_1 &= f(x_j,u_j),\\
+k_2 &= f\big(x_j+s_2h,\;u_j + c_{21}h\,k_1\big),\\
+k_3 &= f\big(x_j+s_3h,\;u_j + c_{31}h\,k_1 + c_{32}h\,k_2\big),\\
+&\ \ \vdots \\
+k_m &= f\!\left(x_j+s_mh,\;u_j + h\sum_{i=1}^{m-1} c_{mi}k_i\right).
+\end{aligned}
+$$
+
+Luego, recursivamente se calcula
+
+$$
+u_{j+1}=u_j + h\sum_{i=1}^{m}\alpha_i k_i.
+$$
+:::
+
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
+- **Método de Euler.** Basta tomar $m=1$ y $\alpha_1=1$.
+
+- **Método de Euler Mejorado (Heun).** Tomar $m=2$, $s_2=1$, $c_{21}=1$ y
+  $$
+  \alpha_1=\alpha_2=\tfrac12.
+  $$
+
+- **Runge–Kutta del Punto Medio.** Tomar $s_1=\tfrac12$ y $c_{m1}=\tfrac12$.
+  En forma recursiva se obtiene
+
+  $$
+  \begin{cases}
+  w_0=\alpha,\\[2mm]
+  w_{i+1}=w_i+h\,f\!\left(t_i+\tfrac{h}{2},\,w_i+\tfrac{h}{2}f(t_i,w_i)\right),
+  \end{cases}
+  \qquad i=1,2,\ldots,N.
+  $$
+:::
+
+::: {.callout-note title="Algoritmo: Método de Runge–Kutta del Punto Medio"}
+
+**Entrada:** $a, b, N, \alpha, f(t,y)$  
+
+**Salida:** Los pares $(t_i, w_i)$.
+
+**Paso 1.** Tomar  
+$$
+h = \frac{b - a}{N}, \qquad t = a, \qquad w = \alpha.
+$$  
+     Salida $(t, w)$.
+
+**Paso 2.**  
+Para $i = 1, 2, 3, \ldots, N$ siga los pasos 3–6:
+
+   **Paso 3.**  
+\begin{align*}
+k_1 &= h f(t, w), \\
+k_2 &= h f\!\left(t + \frac{h}{2},\, w + \frac{k_1}{2}\right), \\
+k_3 &= h f\!\left(t + \frac{h}{2},\, w + \frac{k_2}{2}\right), \\
+k_4 &= h f(t + h,\, w + k_3).
+\end{align*}
+
+   **Paso 4.**  
+$$
+w = w + \frac{1}{6}\,(k_1 + 2k_2 + 2k_3 + k_4).
+$$
+
+   **Paso 5.**  
+$$
+t = t + h.
+$$
+
+   **Paso 6.**  Salida $(t, w)$.
+
+**Paso 7.**  
+Parar.
+
+
+:::
+
+::: {.callout-note title="Definición: Método de Runge–Kutta de 4º Orden"}
+
+El método de **Runge–Kutta de cuarto orden (RK4)** para resolver el problema de valor inicial:
+
+$$
+\begin{cases}
+u' = f(x, u), \\
+u(x_0) = u_0,
+\end{cases}
+$$
+
+construye una aproximación $u_j$ de $u(x_j)$ en la malla de puntos equidistantes  
+$x_j := x_0 + jh$ para $j = 1, 2, \ldots$, usando las siguientes ecuaciones:
+
+\begin{align*}
+k_1 &= f(x_j, u_j), \\
+k_2 &= f\!\left(x_j + \frac{h}{2},\, u_j + \frac{h}{2}k_1\right), \\
+k_3 &= f\!\left(x_j + \frac{h}{2},\, u_j + \frac{h}{2}k_2\right), \\
+k_4 &= f(x_j + h,\, u_j + h k_3), \\
+u_{j+1} &= u_j + \frac{h}{6}\,(k_1 + 2k_2 + 2k_3 + k_4).
+\end{align*}
+
+::: {.callout-important collapse="true" title="Observaciones"}
+
+1. El método fue introducido por **Runge** en 1895 y extendido por **Kutta** en 1901 para sistemas de ecuaciones diferenciales.
+
+2. Si $u' = f(x)$, el método de Runge–Kutta y la **regla de Simpson** son equivalentes (pruébelo).
+
+3. Resumiendo, el método de **Runge–Kutta** se puede escribir como:
+
+$$
+\begin{cases}
+w_0 = \alpha, \\
+w_{i+1} = w_i + \dfrac{1}{6}\,(k_1 + 2k_2 + 2k_3 + k_4),
+\end{cases}
+$$
+
+donde:
+
+\begin{align*}
+k_1 &= h f(t_i, w_i), \\[0.5em]
+k_2 &= h f\!\left(t_i + \frac{h}{2},\, w_i + \frac{k_1}{2}\right), \\[0.5em]
+k_3 &= h f\!\left(t_i + \frac{h}{2},\, w_i + \frac{k_2}{2}\right), \\[0.5em]
+k_4 &= h f(t_i + h,\, w_i + k_3).
+\end{align*}
+
+:::
+
+:::
+
+::: {.callout-note title="Algoritmo: Método de Runge–Kutta de 4º Orden"}
+
+**Entrada:** $a, b, N, \alpha, f(t,y)$  
+
+**Salida:** Los pares $(t_i, w_i)$.
+
+**Paso 1.**  
+Tomar
+$$
+h=\frac{b-a}{N}, \qquad t=a, \qquad w=\alpha.
+$$
+      Salida $(t,w)$.
+
+**Paso 2.** Para $i=1,2,3,\ldots,N$ siga pasos 3–6:
+
+   **Paso 3.**
+\begin{align*}
+k_1 &= h\,f(t,w),\\
+k_2 &= h\,f\!\left(t+\frac{h}{2},\, w+\frac{k_1}{2}\right),\\
+k_3 &= h\,f\!\left(t+\frac{h}{2},\, w+\frac{k_2}{2}\right),\\
+k_4 &= h\,f(t+h,\, w+k_3).
+\end{align*}
+
+   **Paso 4.**  
+$$
+w \;=\; w + \frac{1}{6}\,(k_1 + 2k_2 + 2k_3 + k_4).
+$$
+
+   **Paso 5.**  
+$$
+t \;=\; t + h.
+$$
+
+   **Paso 6.** Salida $(t,w)$.
+
+**Paso 7.** Parar.
+
+:::
+
+::: {.callout-tip collapse="true" title="Ejemplo"}
+Resolver numéricamente con RK4
+$$
+\begin{cases}
+y'=\dfrac{2}{t}\,y + t^{2}e^{t},\\[2mm]
+y(1)=0,
+\end{cases}
+\qquad 1\le t\le 2,
+$$
+usando $N=10$, $a=1$, $b=2$, $\alpha=0$.
+:::
+
+::: {.callout-note title="Teorema"}
+El método de Runge–Kutta (clásico de 4º orden) es **consistente**; además, si $f$ es $4$ veces continuamente diferenciable entonces su **orden de consistencia** es $4$.
+
+::: {.callout-caution collapse="true" title="Prueba"}
+Como
+$$
+\varphi \;=\; \frac{1}{6}\big(\varphi_1 + 2\varphi_2 + 2\varphi_3 + \varphi_4\big),
+$$
+donde
+
+\begin{align*}
+\varphi_1(x,u;h) &= f(x,u),\\[2mm]
+\varphi_2(x,u;h) &= f\!\left(x+\frac{h}{2},\,u+\frac{h}{2}\,\varphi_1(x,u;h)\right),\\[2mm]
+\varphi_3(x,u;h) &= f\!\left(x+\frac{h}{2},\,u+\frac{h}{2}\,\varphi_2(x,u;h)\right),\\[2mm]
+\varphi_4(x,u;h) &= f\!\left(x+h,\,u+h\,\varphi_3(x,u;h)\right),
+\end{align*}
+
+es claro que, si $h\to 0$, entonces $\varphi \to f(x,u)$, de donde el método es **consistente**.
+
+Probar que el orden es $4$ queda como ejercicio; sugerencia: utilice expansiones de Taylor y la ecuación diferencial. $\blacksquare$
+:::
+
+:::
