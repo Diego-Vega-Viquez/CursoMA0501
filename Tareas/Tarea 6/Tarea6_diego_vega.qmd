@@ -80,8 +80,367 @@ Complete los detalles de las demostraciones que quedaron pendientes en este cap�
 
 **Solución**
 
-*(Desarrollo formal de las demostraciones teóricas omitidas, incluyendo la consistencia, estabilidad y convergencia de los métodos estudiados.)*
+::: {.callout-note title="Lema 3"}
 
+Sea $(\xi_j)$ una sucesión en $\mathbb{R}$ con la propiedad
+
+$$
+|\xi_{j+1}| \le (1+A)\,|\xi_j| + B, \qquad j=0,1,2,\ldots,
+$$
+
+para algunas constantes $A>0$ y $B\ge 0$. Entonces, para todo $j\ge 0$ se cumple
+
+$$
+|\xi_j| \le |\xi_0|\,e^{jA} + \frac{B}{A}\big(e^{jA}-1\big).
+$$
+
+::: {.callout-caution collapse="true" title="Prueba"}
+
+Sea $a_j := |\xi_j| \ge 0$. La hipótesis dice
+$$
+a_{j+1} \le (1+A)\,a_j + B, \qquad j\ge 0.
+$$
+
+**Paso 1 (desenrollando la recurrencia).**  
+Probamos por inducción que para todo $j\ge 0$,
+$$
+a_j \le (1+A)^j a_0 + B\sum_{k=0}^{j-1}(1+A)^k. \tag{1}
+$$
+
+- Para $j=0$, la afirmación es trivial:
+  $a_0 \le (1+A)^0 a_0 + 0$.
+
+- Suponga que vale para $j$. Entonces, usando la recurrencia,
+  $$
+  \begin{aligned}
+  a_{j+1}
+  &\le (1+A)\,a_j + B \\
+  &\le (1+A)\Big[(1+A)^j a_0 + B\sum_{k=0}^{j-1}(1+A)^k\Big] + B \\
+  &= (1+A)^{j+1} a_0 + B\sum_{k=1}^{j}(1+A)^k + B \\
+  &= (1+A)^{j+1} a_0 + B\sum_{k=0}^{j}(1+A)^k,
+  \end{aligned}
+  $$
+  que es la fórmula (1) con $j$ reemplazado por $j+1$. Queda probado por inducción.
+
+De (1) y la suma geométrica,
+$$
+\sum_{k=0}^{j-1}(1+A)^k=\frac{(1+A)^j-1}{A},
+$$
+obtenemos
+$$
+a_j \le (1+A)^j a_0 + \frac{B}{A}\big((1+A)^j-1\big). \tag{2}
+$$
+
+**Paso 2 (paso de $(1+A)^j$ a $e^{Aj}$).**  
+Usando que $(1+A)^j \le e^{Aj}$ para $A>0$ (por $1+x\le e^x$), en (2) se concluye
+$$
+a_j \le a_0\,e^{Aj} + \frac{B}{A}\big(e^{Aj}-1\big).
+$$
+
+Recordando que $a_j=|\xi_j|$ y $a_0=|\xi_0|$, queda
+$$
+|\xi_j| \le |\xi_0|\,e^{jA} + \frac{B}{A}\big(e^{jA}-1\big), \qquad j=0,1,2,\ldots
+$$
+como se quería. $\blacksquare$
+
+:::
+
+:::
+
+
+::: {.callout-note title="Teorema 6"}
+
+Si la función $\varphi$ en un método de un paso es continua (con respecto a $h$) y satisface la **condición de Lipschitz**
+
+$$
+|\varphi(x,u;h) - \varphi(x,v;h)| \le M\,|u - v|,
+$$
+
+para todo $(x,u),(x,v)\in G$ y para $h$ suficientemente pequeño,  
+entonces **un método de un paso es convergente si y solo si el método es consistente.**
+
+::: {.callout-caution collapse="true" title="Prueba"}
+
+**1. (Consistencia $\Rightarrow$ Convergencia)**
+
+Sea $e_j = u_j - u(x_j)$ el error global en el nodo $x_j$.  
+Se tiene que:
+
+$$
+\begin{aligned}
+e_{j+1} - e_j
+&= [u_{j+1} - u_j] - [u(x_{j+1}) - u(x_j)] \\
+&= h\,\varphi(x_j,u_j;h) - [u(x_{j+1}) - u(x_j)] \\
+&= h\,[\,\varphi(x_j,u_j;h) - \varphi(x_j,u(x_j);h) - \Delta(x_j,u(x_j);h)\,].
+\end{aligned}
+$$
+
+Por la condición de Lipschitz, se obtiene:
+
+$$
+|e_{j+1} - e_j| \le h\,[\,M\,|u_j - u(x_j)| + c(h)\,], \tag{1.14}
+$$
+
+donde
+$$
+c(h) := \max_{a \le x \le b} |\Delta(x,u(x);h)|.
+$$
+
+Nótese que $c(h)\to 0$ cuando $h\to 0$, pues el método es consistente.
+
+**2. (Aplicación del Lema 3)**
+
+Como $e_j = u_j - u(x_j)$, la desigualdad (1.14) implica que:
+
+$$
+|e_{j+1}| \le (1 + hM)\,|e_j| + h\,c(h), \qquad j = 0,1,2,\ldots,n.
+$$
+
+Aplicando el **Lema 3** con $A = hM$, $B = h\,c(h)$ y observando que $e_0 = 0$, se deduce:
+
+$$
+|e_j| \le \frac{h\,c(h)}{hM}\,\big(e^{j hM} - 1\big), \qquad j=0,1,2,\ldots,n.
+$$
+
+Como $x_j = x_0 + jh$, esto se puede reescribir como:
+
+$$
+|e_j| \le \frac{c(h)}{M}\,\big(e^{M(x_j - x_0)} - 1\big), \qquad j=0,1,2,\ldots,n. \tag{1.15}
+$$
+
+Por tanto, el **error global máximo** cumple:
+
+$$
+E(h) = \max_j |e_j|
+\le \frac{c(h)}{M}\,\big(e^{M(b-a)} - 1\big)
+\longrightarrow 0 \quad \text{cuando } h\to 0.
+$$
+
+Esto prueba que el método es **convergente**.
+
+
+
+**3. (Convergencia $\Rightarrow$ Consistencia)**
+
+
+Recordemos (Def. 7) que el **error de discretización local** en un punto $(x,u)$ se
+define por
+$$
+\Delta(x,u;h)=\frac{\eta(x+h)-\eta(x)}{h}-\varphi(x,u;h),
+$$
+donde $\eta$ es la solución del problema auxiliar
+$\eta' = f(\xi,\eta)$ con condición inicial $\eta(x)=u$.
+Además, por el Teorema 3, un método de un paso es **consistente**
+si y sólo si
+$$
+\lim_{h\to0}\varphi(x,u;h)=f(x,u)
+\qquad(\text{uniformemente en }(x,u)\in G).
+$$
+
+Sea ahora un método de un paso **convergente** en el sentido de la Def. 10.
+Fijemos $(x,u)\in G$ y apliquemos el método sobre el intervalo corto
+$[x,x+h]$ partiendo exactamente de $u(x)=u$.
+Denotemos por
+$$
+U_1 := u + h\,\varphi(x,u;h)
+$$
+la aproximación numérica al valor exacto $\eta(x+h)$ tras un solo paso.
+El error en ese único nodo es
+$$
+e_1 \;=\; U_1-\eta(x+h)
+      \;=\; h\Big(\varphi(x,u;h)-\frac{\eta(x+h)-\eta(x)}{h}\Big)
+      \;=\; -\,h\,\Delta(x,u;h).                                  \tag{1}
+$$
+
+Como el método es convergente, aplicado al problema en $[x,x+h]$
+(se trata de un problema del mismo tipo pero en un intervalo de longitud $h$),
+se tiene que el error global máximo en ese intervalo, que aquí coincide con
+$|e_1|$, satisface
+$$
+|e_1| \longrightarrow 0 \qquad \text{cuando } h\to0 .
+$$
+
+Dividiendo (1) entre $h$ obtenemos
+$$
+|\Delta(x,u;h)| \;=\; \frac{|e_1|}{h}.
+$$
+
+Usando que $\varphi$ es Lipschitz en la segunda variable y continua en $h$
+y que $f$ es localmente acotada, el error tras un paso satisface
+la cota estándar (obtenida con Grönwall)
+$$
+|e_1| \;\le\; C\,h \qquad \text{para $h$ suficientemente pequeño,}
+$$
+con $C$ independiente de $h$ y de $(x,u)$ en compactos de $G$.
+Por lo tanto
+$$
+|\Delta(x,u;h)|
+ \;=\; \frac{|e_1|}{h}
+ \;\le\; C \qquad\text{y, además,}\qquad
+\lim_{h\to0} |\Delta(x,u;h)|=\lim_{h\to0}\frac{|e_1|}{h}=0,
+$$
+ya que $|e_1|=o(h)$ cuando $h\to0$ (convergencia en un paso).
+
+Con ello se concluye que
+$$
+\lim_{h\to0}\Delta(x,u;h)=0
+\quad\Longleftrightarrow\quad
+\lim_{h\to0}\varphi(x,u;h)=\lim_{h\to0}\frac{\eta(x+h)-\eta(x)}{h}
+= \eta'(x)=f(x,u),
+$$
+uniformemente en $(x,u)\in G$. Es decir, el método es **consistente**.
+
+$\blacksquare$
+
+:::
+
+:::
+
+
+::: {.callout-note title="Corolario 2"}
+
+1. El **método de Euler** es convergente y, si $f$ es continuamente diferenciable, entonces el **orden de convergencia** es $1$.
+
+2. El **método de Euler modificado** (o de Heun) es convergente y, si $f$ es dos veces continuamente diferenciable, entonces el **orden de convergencia** es $2$.
+
+::: {.callout-caution collapse="true" title="Prueba"}
+
+**Para 1. (Euler clásico).**  
+El método de Euler tiene
+$$
+\varphi(x,u;h)=f(x,u).
+$$
+
+- **Lipschitz en $u$:** Si $f$ es Lipschitz en su segunda variable con constante $L$ (uniforme en $x$), entonces
+$$
+|\varphi(x,u;h)-\varphi(x,v;h)|=|f(x,u)-f(x,v)|\le L\,|u-v|.
+$$
+
+- **Consistencia y orden:** Por el **Teorema 4** (ya demostrado), Euler es consistente y, si $f$ es $C^1$, su **orden de consistencia es $1$**.
+
+Aplicando el **Teorema 6** (consistencia $\Longleftrightarrow$ convergencia bajo Lipschitz) y el **Teorema 7** (el orden de convergencia coincide con el orden de consistencia), se concluye que Euler **converge con orden $1$**.
+
+**Para 2. (Euler modificado / Heun).**  
+En este caso
+$$
+\varphi(x,u;h)=\frac12\Big[f(x,u)+f\!\big(x+h,\,u+h\,f(x,u)\big)\Big].
+$$
+
+- **Lipschitz en $u$:** Suponga que $f$ es Lipschitz en su segunda variable con constante $L$ (uniforme en $x$). Entonces, para $u,v$ cualesquiera,
+
+\begin{align*}
+|\varphi(x,u;h)-\varphi(x,v;h)|
+&\le \tfrac12\,|f(x,u)-f(x,v)|
+   +\tfrac12\,\Big|f\!\big(x+h,\,u+h f(x,u)\big)-f\!\big(x+h,\,v+h f(x,v)\big)\Big| \\
+&\le \tfrac12\,L|u-v|
+   +\tfrac12\,L\,\big|[u-v]+h\,[f(x,u)-f(x,v)]\big| \\
+&\le \tfrac12\,L|u-v|
+   +\tfrac12\,L\,(|u-v|+h\,L|u-v|) \\
+&= L\Big(1+\tfrac12\,hL\Big)\,|u-v|.
+\end{align*}
+
+Así, $\varphi$ es Lipschitz en $u$ con constante $M=L(1+\tfrac12 hL)$ (válida para $h$ pequeño).
+
+- **Consistencia y orden:** Por el resultado demostrado para Euler mejorado, si $f\in C^2$ entonces el método es **consistente de orden $2$**.
+
+Aplicando de nuevo el **Teorema 6** (bajo Lipschitz hay equivalencia entre consistencia y convergencia) y el **Teorema 7** (el orden de convergencia coincide con el de consistencia), se concluye que el método de Euler modificado **converge con orden $2$**.
+
+$\blacksquare$
+
+:::
+
+:::
+
+
+::: {.callout-note title="Definición 11"}
+
+El método de **Runge–Kutta de cuarto orden (RK4)** para resolver el problema de valor inicial:
+
+$$
+\begin{cases}
+u' = f(x, u), \\
+u(x_0) = u_0,
+\end{cases}
+$$
+
+construye una aproximación $u_j$ de $u(x_j)$ en la malla de puntos equidistantes  
+$x_j := x_0 + jh$ para $j = 1, 2, \ldots$, usando las siguientes ecuaciones:
+
+\begin{align*}
+k_1 &= f(x_j, u_j), \\
+k_2 &= f\!\left(x_j + \frac{h}{2},\, u_j + \frac{h}{2}k_1\right), \\
+k_3 &= f\!\left(x_j + \frac{h}{2},\, u_j + \frac{h}{2}k_2\right), \\
+k_4 &= f(x_j + h,\, u_j + h k_3), \\
+u_{j+1} &= u_j + \frac{h}{6}\,(k_1 + 2k_2 + 2k_3 + k_4).
+\end{align*}
+
+::: {.callout-important collapse="true" title="Observaciones"}
+
+1. El método fue introducido por **Runge** en 1895 y extendido por **Kutta** en 1901 para sistemas de ecuaciones diferenciales.
+
+2. Si $u' = f(x)$, el método de Runge–Kutta y la **regla de Simpson** son equivalentes (pruébelo).
+
+
+::: {.callout-caution collapse="true" title="Prueba"}
+
+Sea $u' = f(x)$, es decir, $u(x)$ es una primitiva de $f(x)$. Entonces, la solución exacta cumple:
+$$
+u(x_{j+1}) = u(x_j) + \int_{x_j}^{x_{j+1}} f(x) \, dx.
+$$
+
+El método de Runge–Kutta de orden 4 estima $u_{j+1}$ mediante:
+\begin{align*}
+k_1 &= f(x_j), \\
+k_2 &= f\left(x_j + \frac{h}{2} \right), \\
+k_3 &= f\left(x_j + \frac{h}{2} \right), \\
+k_4 &= f(x_j + h), \\
+u_{j+1} &= u_j + \frac{h}{6}(k_1 + 2k_2 + 2k_3 + k_4).
+\end{align*}
+
+Observamos que como $u' = f(x)$, la evaluación de $f$ no depende de $u_j$, por lo tanto:
+$$
+k_2 = k_3 = f\left(x_j + \frac{h}{2} \right).
+$$
+
+Sustituyendo:
+\begin{align*}
+u_{j+1} &= u_j + \frac{h}{6} \left[ f(x_j) + 2f\left(x_j + \frac{h}{2} \right) + 2f\left(x_j + \frac{h}{2} \right) + f(x_j + h) \right] \\
+&= u_j + \frac{h}{6} \left[ f(x_j) + 4f\left(x_j + \frac{h}{2} \right) + f(x_j + h) \right].
+\end{align*}
+
+Esto coincide exactamente con la **regla de Simpson** para la integral de $f$ en el intervalo $[x_j, x_{j+1}]$, que aproxima:
+$$
+\int_{x_j}^{x_{j+1}} f(x)\,dx \approx \frac{h}{6}\left[f(x_j) + 4f\left(x_j + \frac{h}{2}\right) + f(x_j + h)\right].
+$$
+
+Luego:
+$$
+u_{j+1} = u_j + \int_{x_j}^{x_{j+1}} f(x)\,dx \approx u_j + \text{(Simpson)} = \text{RK4}.
+$$
+
+:::
+
+3. Resumiendo, el método de **Runge–Kutta** se puede escribir como:
+
+$$
+\begin{cases}
+w_0 = \alpha, \\
+w_{i+1} = w_i + \dfrac{1}{6}\,(k_1 + 2k_2 + 2k_3 + k_4),
+\end{cases}
+$$
+
+donde:
+
+\begin{align*}
+k_1 &= h f(t_i, w_i), \\[0.5em]
+k_2 &= h f\!\left(t_i + \frac{h}{2},\, w_i + \frac{k_1}{2}\right), \\[0.5em]
+k_3 &= h f\!\left(t_i + \frac{h}{2},\, w_i + \frac{k_2}{2}\right), \\[0.5em]
+k_4 &= h f(t_i + h,\, w_i + k_3).
+\end{align*}
+
+:::
+
+:::
 
 
 # Ejercicio 3

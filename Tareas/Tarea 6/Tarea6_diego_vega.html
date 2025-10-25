@@ -3150,7 +3150,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Fecha de publicación</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">18 de octubre de 2025</p>
+      <p class="date">25 de octubre de 2025</p>
     </div>
   </div>
   
@@ -3196,7 +3196,345 @@ Instrucción del ejercicio 2
 </div>
 </div>
 <p><strong>Solución</strong></p>
-<p><em>(Desarrollo formal de las demostraciones teóricas omitidas, incluyendo la consistencia, estabilidad y convergencia de los métodos estudiados.)</em></p>
+<div class="callout callout-style-default callout-note callout-titled" title="Lema 3">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Lema 3
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">(\xi_j)</span> una sucesión en <span class="math inline">\mathbb{R}</span> con la propiedad</p>
+<p><span class="math display">
+|\xi_{j+1}| \le (1+A)\,|\xi_j| + B, \qquad j=0,1,2,\ldots,
+</span></p>
+<p>para algunas constantes <span class="math inline">A&gt;0</span> y <span class="math inline">B\ge 0</span>. Entonces, para todo <span class="math inline">j\ge 0</span> se cumple</p>
+<p><span class="math display">
+|\xi_j| \le |\xi_0|\,e^{jA} + \frac{B}{A}\big(e^{jA}-1\big).
+</span></p>
+<div class="callout callout-style-default callout-caution callout-titled" title="Prueba">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">a_j := |\xi_j| \ge 0</span>. La hipótesis dice <span class="math display">
+a_{j+1} \le (1+A)\,a_j + B, \qquad j\ge 0.
+</span></p>
+<p><strong>Paso 1 (desenrollando la recurrencia).</strong><br>
+Probamos por inducción que para todo <span class="math inline">j\ge 0</span>, <span class="math display">
+a_j \le (1+A)^j a_0 + B\sum_{k=0}^{j-1}(1+A)^k. \tag{1}
+</span></p>
+<ul>
+<li><p>Para <span class="math inline">j=0</span>, la afirmación es trivial: <span class="math inline">a_0 \le (1+A)^0 a_0 + 0</span>.</p></li>
+<li><p>Suponga que vale para <span class="math inline">j</span>. Entonces, usando la recurrencia, <span class="math display">
+\begin{aligned}
+a_{j+1}
+&amp;\le (1+A)\,a_j + B \\
+&amp;\le (1+A)\Big[(1+A)^j a_0 + B\sum_{k=0}^{j-1}(1+A)^k\Big] + B \\
+&amp;= (1+A)^{j+1} a_0 + B\sum_{k=1}^{j}(1+A)^k + B \\
+&amp;= (1+A)^{j+1} a_0 + B\sum_{k=0}^{j}(1+A)^k,
+\end{aligned}
+</span> que es la fórmula (1) con <span class="math inline">j</span> reemplazado por <span class="math inline">j+1</span>. Queda probado por inducción.</p></li>
+</ul>
+<p>De (1) y la suma geométrica, <span class="math display">
+\sum_{k=0}^{j-1}(1+A)^k=\frac{(1+A)^j-1}{A},
+</span> obtenemos <span class="math display">
+a_j \le (1+A)^j a_0 + \frac{B}{A}\big((1+A)^j-1\big). \tag{2}
+</span></p>
+<p><strong>Paso 2 (paso de <span class="math inline">(1+A)^j</span> a <span class="math inline">e^{Aj}</span>).</strong><br>
+Usando que <span class="math inline">(1+A)^j \le e^{Aj}</span> para <span class="math inline">A&gt;0</span> (por <span class="math inline">1+x\le e^x</span>), en (2) se concluye <span class="math display">
+a_j \le a_0\,e^{Aj} + \frac{B}{A}\big(e^{Aj}-1\big).
+</span></p>
+<p>Recordando que <span class="math inline">a_j=|\xi_j|</span> y <span class="math inline">a_0=|\xi_0|</span>, queda <span class="math display">
+|\xi_j| \le |\xi_0|\,e^{jA} + \frac{B}{A}\big(e^{jA}-1\big), \qquad j=0,1,2,\ldots
+</span> como se quería. <span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Teorema 6">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Teorema 6
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si la función <span class="math inline">\varphi</span> en un método de un paso es continua (con respecto a <span class="math inline">h</span>) y satisface la <strong>condición de Lipschitz</strong></p>
+<p><span class="math display">
+|\varphi(x,u;h) - \varphi(x,v;h)| \le M\,|u - v|,
+</span></p>
+<p>para todo <span class="math inline">(x,u),(x,v)\in G</span> y para <span class="math inline">h</span> suficientemente pequeño,<br>
+entonces <strong>un método de un paso es convergente si y solo si el método es consistente.</strong></p>
+<div class="callout callout-style-default callout-caution callout-titled" title="Prueba">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>1. (Consistencia <span class="math inline">\Rightarrow</span> Convergencia)</strong></p>
+<p>Sea <span class="math inline">e_j = u_j - u(x_j)</span> el error global en el nodo <span class="math inline">x_j</span>.<br>
+Se tiene que:</p>
+<p><span class="math display">
+\begin{aligned}
+e_{j+1} - e_j
+&amp;= [u_{j+1} - u_j] - [u(x_{j+1}) - u(x_j)] \\
+&amp;= h\,\varphi(x_j,u_j;h) - [u(x_{j+1}) - u(x_j)] \\
+&amp;= h\,[\,\varphi(x_j,u_j;h) - \varphi(x_j,u(x_j);h) - \Delta(x_j,u(x_j);h)\,].
+\end{aligned}
+</span></p>
+<p>Por la condición de Lipschitz, se obtiene:</p>
+<p><span class="math display">
+|e_{j+1} - e_j| \le h\,[\,M\,|u_j - u(x_j)| + c(h)\,], \tag{1.14}
+</span></p>
+<p>donde <span class="math display">
+c(h) := \max_{a \le x \le b} |\Delta(x,u(x);h)|.
+</span></p>
+<p>Nótese que <span class="math inline">c(h)\to 0</span> cuando <span class="math inline">h\to 0</span>, pues el método es consistente.</p>
+<p><strong>2. (Aplicación del Lema 3)</strong></p>
+<p>Como <span class="math inline">e_j = u_j - u(x_j)</span>, la desigualdad (1.14) implica que:</p>
+<p><span class="math display">
+|e_{j+1}| \le (1 + hM)\,|e_j| + h\,c(h), \qquad j = 0,1,2,\ldots,n.
+</span></p>
+<p>Aplicando el <strong>Lema 3</strong> con <span class="math inline">A = hM</span>, <span class="math inline">B = h\,c(h)</span> y observando que <span class="math inline">e_0 = 0</span>, se deduce:</p>
+<p><span class="math display">
+|e_j| \le \frac{h\,c(h)}{hM}\,\big(e^{j hM} - 1\big), \qquad j=0,1,2,\ldots,n.
+</span></p>
+<p>Como <span class="math inline">x_j = x_0 + jh</span>, esto se puede reescribir como:</p>
+<p><span class="math display">
+|e_j| \le \frac{c(h)}{M}\,\big(e^{M(x_j - x_0)} - 1\big), \qquad j=0,1,2,\ldots,n. \tag{1.15}
+</span></p>
+<p>Por tanto, el <strong>error global máximo</strong> cumple:</p>
+<p><span class="math display">
+E(h) = \max_j |e_j|
+\le \frac{c(h)}{M}\,\big(e^{M(b-a)} - 1\big)
+\longrightarrow 0 \quad \text{cuando } h\to 0.
+</span></p>
+<p>Esto prueba que el método es <strong>convergente</strong>.</p>
+<p><strong>3. (Convergencia <span class="math inline">\Rightarrow</span> Consistencia)</strong></p>
+<p>Recordemos (Def. 7) que el <strong>error de discretización local</strong> en un punto <span class="math inline">(x,u)</span> se define por <span class="math display">
+\Delta(x,u;h)=\frac{\eta(x+h)-\eta(x)}{h}-\varphi(x,u;h),
+</span> donde <span class="math inline">\eta</span> es la solución del problema auxiliar <span class="math inline">\eta&#39; = f(\xi,\eta)</span> con condición inicial <span class="math inline">\eta(x)=u</span>. Además, por el Teorema 3, un método de un paso es <strong>consistente</strong> si y sólo si <span class="math display">
+\lim_{h\to0}\varphi(x,u;h)=f(x,u)
+\qquad(\text{uniformemente en }(x,u)\in G).
+</span></p>
+<p>Sea ahora un método de un paso <strong>convergente</strong> en el sentido de la Def. 10. Fijemos <span class="math inline">(x,u)\in G</span> y apliquemos el método sobre el intervalo corto <span class="math inline">[x,x+h]</span> partiendo exactamente de <span class="math inline">u(x)=u</span>. Denotemos por <span class="math display">
+U_1 := u + h\,\varphi(x,u;h)
+</span> la aproximación numérica al valor exacto <span class="math inline">\eta(x+h)</span> tras un solo paso. El error en ese único nodo es <span class="math display">
+e_1 \;=\; U_1-\eta(x+h)
+      \;=\; h\Big(\varphi(x,u;h)-\frac{\eta(x+h)-\eta(x)}{h}\Big)
+      \;=\; -\,h\,\Delta(x,u;h).                                  \tag{1}
+</span></p>
+<p>Como el método es convergente, aplicado al problema en <span class="math inline">[x,x+h]</span> (se trata de un problema del mismo tipo pero en un intervalo de longitud <span class="math inline">h</span>), se tiene que el error global máximo en ese intervalo, que aquí coincide con <span class="math inline">|e_1|</span>, satisface <span class="math display">
+|e_1| \longrightarrow 0 \qquad \text{cuando } h\to0 .
+</span></p>
+<p>Dividiendo (1) entre <span class="math inline">h</span> obtenemos <span class="math display">
+|\Delta(x,u;h)| \;=\; \frac{|e_1|}{h}.
+</span></p>
+<p>Usando que <span class="math inline">\varphi</span> es Lipschitz en la segunda variable y continua en <span class="math inline">h</span> y que <span class="math inline">f</span> es localmente acotada, el error tras un paso satisface la cota estándar (obtenida con Grönwall) <span class="math display">
+|e_1| \;\le\; C\,h \qquad \text{para $h$ suficientemente pequeño,}
+</span> con <span class="math inline">C</span> independiente de <span class="math inline">h</span> y de <span class="math inline">(x,u)</span> en compactos de <span class="math inline">G</span>. Por lo tanto <span class="math display">
+|\Delta(x,u;h)|
+\;=\; \frac{|e_1|}{h}
+\;\le\; C \qquad\text{y, además,}\qquad
+\lim_{h\to0} |\Delta(x,u;h)|=\lim_{h\to0}\frac{|e_1|}{h}=0,
+</span> ya que <span class="math inline">|e_1|=o(h)</span> cuando <span class="math inline">h\to0</span> (convergencia en un paso).</p>
+<p>Con ello se concluye que <span class="math display">
+\lim_{h\to0}\Delta(x,u;h)=0
+\quad\Longleftrightarrow\quad
+\lim_{h\to0}\varphi(x,u;h)=\lim_{h\to0}\frac{\eta(x+h)-\eta(x)}{h}
+= \eta&#39;(x)=f(x,u),
+</span> uniformemente en <span class="math inline">(x,u)\in G</span>. Es decir, el método es <strong>consistente</strong>.</p>
+<p><span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Corolario 2">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Corolario 2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p>El <strong>método de Euler</strong> es convergente y, si <span class="math inline">f</span> es continuamente diferenciable, entonces el <strong>orden de convergencia</strong> es <span class="math inline">1</span>.</p></li>
+<li><p>El <strong>método de Euler modificado</strong> (o de Heun) es convergente y, si <span class="math inline">f</span> es dos veces continuamente diferenciable, entonces el <strong>orden de convergencia</strong> es <span class="math inline">2</span>.</p></li>
+</ol>
+<div class="callout callout-style-default callout-caution callout-titled" title="Prueba">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Para 1. (Euler clásico).</strong><br>
+El método de Euler tiene <span class="math display">
+\varphi(x,u;h)=f(x,u).
+</span></p>
+<ul>
+<li><p><strong>Lipschitz en <span class="math inline">u</span>:</strong> Si <span class="math inline">f</span> es Lipschitz en su segunda variable con constante <span class="math inline">L</span> (uniforme en <span class="math inline">x</span>), entonces <span class="math display">
+|\varphi(x,u;h)-\varphi(x,v;h)|=|f(x,u)-f(x,v)|\le L\,|u-v|.
+</span></p></li>
+<li><p><strong>Consistencia y orden:</strong> Por el <strong>Teorema 4</strong> (ya demostrado), Euler es consistente y, si <span class="math inline">f</span> es <span class="math inline">C^1</span>, su <strong>orden de consistencia es <span class="math inline">1</span></strong>.</p></li>
+</ul>
+<p>Aplicando el <strong>Teorema 6</strong> (consistencia <span class="math inline">\Longleftrightarrow</span> convergencia bajo Lipschitz) y el <strong>Teorema 7</strong> (el orden de convergencia coincide con el orden de consistencia), se concluye que Euler <strong>converge con orden <span class="math inline">1</span></strong>.</p>
+<p><strong>Para 2. (Euler modificado / Heun).</strong><br>
+En este caso <span class="math display">
+\varphi(x,u;h)=\frac12\Big[f(x,u)+f\!\big(x+h,\,u+h\,f(x,u)\big)\Big].
+</span></p>
+<ul>
+<li><strong>Lipschitz en <span class="math inline">u</span>:</strong> Suponga que <span class="math inline">f</span> es Lipschitz en su segunda variable con constante <span class="math inline">L</span> (uniforme en <span class="math inline">x</span>). Entonces, para <span class="math inline">u,v</span> cualesquiera,</li>
+</ul>
+<p><span class="math display">\begin{align*}
+|\varphi(x,u;h)-\varphi(x,v;h)|
+&amp;\le \tfrac12\,|f(x,u)-f(x,v)|
+   +\tfrac12\,\Big|f\!\big(x+h,\,u+h f(x,u)\big)-f\!\big(x+h,\,v+h f(x,v)\big)\Big| \\
+&amp;\le \tfrac12\,L|u-v|
+   +\tfrac12\,L\,\big|[u-v]+h\,[f(x,u)-f(x,v)]\big| \\
+&amp;\le \tfrac12\,L|u-v|
+   +\tfrac12\,L\,(|u-v|+h\,L|u-v|) \\
+&amp;= L\Big(1+\tfrac12\,hL\Big)\,|u-v|.
+\end{align*}</span></p>
+<p>Así, <span class="math inline">\varphi</span> es Lipschitz en <span class="math inline">u</span> con constante <span class="math inline">M=L(1+\tfrac12 hL)</span> (válida para <span class="math inline">h</span> pequeño).</p>
+<ul>
+<li><strong>Consistencia y orden:</strong> Por el resultado demostrado para Euler mejorado, si <span class="math inline">f\in C^2</span> entonces el método es <strong>consistente de orden <span class="math inline">2</span></strong>.</li>
+</ul>
+<p>Aplicando de nuevo el <strong>Teorema 6</strong> (bajo Lipschitz hay equivalencia entre consistencia y convergencia) y el <strong>Teorema 7</strong> (el orden de convergencia coincide con el de consistencia), se concluye que el método de Euler modificado <strong>converge con orden <span class="math inline">2</span></strong>.</p>
+<p><span class="math inline">\blacksquare</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Definición 11">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definición 11
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El método de <strong>Runge–Kutta de cuarto orden (RK4)</strong> para resolver el problema de valor inicial:</p>
+<p><span class="math display">
+\begin{cases}
+u&#39; = f(x, u), \\
+u(x_0) = u_0,
+\end{cases}
+</span></p>
+<p>construye una aproximación <span class="math inline">u_j</span> de <span class="math inline">u(x_j)</span> en la malla de puntos equidistantes<br>
+<span class="math inline">x_j := x_0 + jh</span> para <span class="math inline">j = 1, 2, \ldots</span>, usando las siguientes ecuaciones:</p>
+<p><span class="math display">\begin{align*}
+k_1 &amp;= f(x_j, u_j), \\
+k_2 &amp;= f\!\left(x_j + \frac{h}{2},\, u_j + \frac{h}{2}k_1\right), \\
+k_3 &amp;= f\!\left(x_j + \frac{h}{2},\, u_j + \frac{h}{2}k_2\right), \\
+k_4 &amp;= f(x_j + h,\, u_j + h k_3), \\
+u_{j+1} &amp;= u_j + \frac{h}{6}\,(k_1 + 2k_2 + 2k_3 + k_4).
+\end{align*}</span></p>
+<div class="callout callout-style-default callout-important callout-titled" title="Observaciones">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Observaciones
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p>El método fue introducido por <strong>Runge</strong> en 1895 y extendido por <strong>Kutta</strong> en 1901 para sistemas de ecuaciones diferenciales.</p></li>
+<li><p>Si <span class="math inline">u&#39; = f(x)</span>, el método de Runge–Kutta y la <strong>regla de Simpson</strong> son equivalentes (pruébelo).</p></li>
+</ol>
+<div class="callout callout-style-default callout-caution callout-titled" title="Prueba">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prueba
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">u&#39; = f(x)</span>, es decir, <span class="math inline">u(x)</span> es una primitiva de <span class="math inline">f(x)</span>. Entonces, la solución exacta cumple: <span class="math display">
+u(x_{j+1}) = u(x_j) + \int_{x_j}^{x_{j+1}} f(x) \, dx.
+</span></p>
+<p>El método de Runge–Kutta de orden 4 estima <span class="math inline">u_{j+1}</span> mediante: <span class="math display">\begin{align*}
+k_1 &amp;= f(x_j), \\
+k_2 &amp;= f\left(x_j + \frac{h}{2} \right), \\
+k_3 &amp;= f\left(x_j + \frac{h}{2} \right), \\
+k_4 &amp;= f(x_j + h), \\
+u_{j+1} &amp;= u_j + \frac{h}{6}(k_1 + 2k_2 + 2k_3 + k_4).
+\end{align*}</span></p>
+<p>Observamos que como <span class="math inline">u&#39; = f(x)</span>, la evaluación de <span class="math inline">f</span> no depende de <span class="math inline">u_j</span>, por lo tanto: <span class="math display">
+k_2 = k_3 = f\left(x_j + \frac{h}{2} \right).
+</span></p>
+<p>Sustituyendo: <span class="math display">\begin{align*}
+u_{j+1} &amp;= u_j + \frac{h}{6} \left[ f(x_j) + 2f\left(x_j + \frac{h}{2} \right) + 2f\left(x_j + \frac{h}{2} \right) + f(x_j + h) \right] \\
+&amp;= u_j + \frac{h}{6} \left[ f(x_j) + 4f\left(x_j + \frac{h}{2} \right) + f(x_j + h) \right].
+\end{align*}</span></p>
+<p>Esto coincide exactamente con la <strong>regla de Simpson</strong> para la integral de <span class="math inline">f</span> en el intervalo <span class="math inline">[x_j, x_{j+1}]</span>, que aproxima: <span class="math display">
+\int_{x_j}^{x_{j+1}} f(x)\,dx \approx \frac{h}{6}\left[f(x_j) + 4f\left(x_j + \frac{h}{2}\right) + f(x_j + h)\right].
+</span></p>
+<p>Luego: <span class="math display">
+u_{j+1} = u_j + \int_{x_j}^{x_{j+1}} f(x)\,dx \approx u_j + \text{(Simpson)} = \text{RK4}.
+</span></p>
+</div>
+</div>
+</div>
+<ol start="3" type="1">
+<li>Resumiendo, el método de <strong>Runge–Kutta</strong> se puede escribir como:</li>
+</ol>
+<p><span class="math display">
+\begin{cases}
+w_0 = \alpha, \\
+w_{i+1} = w_i + \dfrac{1}{6}\,(k_1 + 2k_2 + 2k_3 + k_4),
+\end{cases}
+</span></p>
+<p>donde:</p>
+<p><span class="math display">\begin{align*}
+k_1 &amp;= h f(t_i, w_i), \\[0.5em]
+k_2 &amp;= h f\!\left(t_i + \frac{h}{2},\, w_i + \frac{k_1}{2}\right), \\[0.5em]
+k_3 &amp;= h f\!\left(t_i + \frac{h}{2},\, w_i + \frac{k_2}{2}\right), \\[0.5em]
+k_4 &amp;= h f(t_i + h,\, w_i + k_3).
+\end{align*}</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="ejercicio-3" class="level1">
 <h1>Ejercicio 3</h1>

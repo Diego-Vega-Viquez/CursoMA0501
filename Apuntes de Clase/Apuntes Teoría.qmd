@@ -7994,7 +7994,7 @@ $$
 a_j \le (1+A)^j a_0 + \frac{B}{A}\big((1+A)^j-1\big). \tag{2}
 $$
 
-**Paso 2 (paso de \((1+A)^j\) a \(e^{Aj}\)).**  
+**Paso 2 (paso de $(1+A)^j$ a $e^{Aj}$).**  
 Usando que $(1+A)^j \le e^{Aj}$ para $A>0$ (por $1+x\le e^x$), en (2) se concluye
 $$
 a_j \le a_0\,e^{Aj} + \frac{B}{A}\big(e^{Aj}-1\big).
