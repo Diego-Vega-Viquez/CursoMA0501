@@ -499,8 +499,39 @@ Explique por qué falla.
 
 **Solución**
 
-*(Análisis de la discontinuidad del término $u^{1/3}$ en $u=0$, que causa que el método de Euler no satisfaga la hipótesis de Lipschitz y por tanto diverja.)*
+La ecuación diferencial es de la forma:
 
+$$
+u' = u^{1/3}, \quad u(0) = 0.
+$$
+
+Podemos obtener la solución exacta de la ecuación diferencial. La solución es:
+
+$$
+u(x) = \left( \frac{2}{3}x \right)^{3/2}.
+$$
+
+El método de Euler se basa en la siguiente fórmula:
+
+$$
+u_{i+1} = u_i + h f(x_i, u_i),
+$$
+
+donde $f(x, u) = u^{1/3}$, y el valor inicial es $u(0) = 0$.
+
+Partimos del valor inicial $u_0 = 0$. En el primer paso, aplicamos la fórmula de Euler:
+
+$$
+u_1 = u_0 + h f(x_0, u_0) = 0 + h(0^{1/3}) = 0.
+$$
+
+El valor de $u_1$ no avanza, ya que el valor de la derivada en el primer paso es cero, $f(0, 0) = 0$. Esto hace que el método de Euler falle, ya que no obtiene ningún avance, y por lo tanto no sigue la forma de la solución exacta.
+
+El fallo ocurre debido a la singularidad de la ecuación diferencial en $u = 0$. La función $u^{1/3}$ no es suficientemente suave en $u = 0$, lo que hace que el método de Euler no pueda avanzar adecuadamente. Es un ejemplo clásico de un método numérico que falla cuando se aplica a ecuaciones diferenciales con condiciones iniciales en puntos donde la solución es no diferenciable o tiene un comportamiento singular.
+
+El método de Euler no puede manejar este tipo de singularidades y, por lo tanto, no proporciona una aproximación precisa de la solución.
+
+$\blacksquare$
 
 
 # Ejercicio 5

@@ -3628,7 +3628,27 @@ u&#39; = u^{1/3}, \quad u(0) = 0.
 </div>
 </div>
 <p><strong>Solución</strong></p>
-<p><em>(Análisis de la discontinuidad del término <span class="math inline">u^{1/3}</span> en <span class="math inline">u=0</span>, que causa que el método de Euler no satisfaga la hipótesis de Lipschitz y por tanto diverja.)</em></p>
+<p>La ecuación diferencial es de la forma:</p>
+<p><span class="math display">
+u&#39; = u^{1/3}, \quad u(0) = 0.
+</span></p>
+<p>Podemos obtener la solución exacta de la ecuación diferencial. La solución es:</p>
+<p><span class="math display">
+u(x) = \left( \frac{2}{3}x \right)^{3/2}.
+</span></p>
+<p>El método de Euler se basa en la siguiente fórmula:</p>
+<p><span class="math display">
+u_{i+1} = u_i + h f(x_i, u_i),
+</span></p>
+<p>donde <span class="math inline">f(x, u) = u^{1/3}</span>, y el valor inicial es <span class="math inline">u(0) = 0</span>.</p>
+<p>Partimos del valor inicial <span class="math inline">u_0 = 0</span>. En el primer paso, aplicamos la fórmula de Euler:</p>
+<p><span class="math display">
+u_1 = u_0 + h f(x_0, u_0) = 0 + h(0^{1/3}) = 0.
+</span></p>
+<p>El valor de <span class="math inline">u_1</span> no avanza, ya que el valor de la derivada en el primer paso es cero, <span class="math inline">f(0, 0) = 0</span>. Esto hace que el método de Euler falle, ya que no obtiene ningún avance, y por lo tanto no sigue la forma de la solución exacta.</p>
+<p>El fallo ocurre debido a la singularidad de la ecuación diferencial en <span class="math inline">u = 0</span>. La función <span class="math inline">u^{1/3}</span> no es suficientemente suave en <span class="math inline">u = 0</span>, lo que hace que el método de Euler no pueda avanzar adecuadamente. Es un ejemplo clásico de un método numérico que falla cuando se aplica a ecuaciones diferenciales con condiciones iniciales en puntos donde la solución es no diferenciable o tiene un comportamiento singular.</p>
+<p>El método de Euler no puede manejar este tipo de singularidades y, por lo tanto, no proporciona una aproximación precisa de la solución.</p>
+<p><span class="math inline">\blacksquare</span></p>
 </section>
 <section id="ejercicio-5" class="level1">
 <h1>Ejercicio 5</h1>
