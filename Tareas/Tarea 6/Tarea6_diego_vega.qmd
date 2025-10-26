@@ -432,9 +432,9 @@ $$
 donde:
 
 \begin{align*}
-k_1 &= h f(t_i, w_i), \\[0.5em]
-k_2 &= h f\!\left(t_i + \frac{h}{2},\, w_i + \frac{k_1}{2}\right), \\[0.5em]
-k_3 &= h f\!\left(t_i + \frac{h}{2},\, w_i + \frac{k_2}{2}\right), \\[0.5em]
+k_1 &= h f(t_i, w_i), \$$0.5em]
+k_2 &= h f\!\left(t_i + \frac{h}{2},\, w_i + \frac{k_1}{2}\right), \$$0.5em]
+k_3 &= h f\!\left(t_i + \frac{h}{2},\, w_i + \frac{k_2}{2}\right), \$$0.5em]
 k_4 &= h f(t_i + h,\, w_i + k_3).
 \end{align*}
 
@@ -522,7 +522,145 @@ Implemente este método en **R** y resuelva las ecuaciones diferenciales del pro
 
 **Solución**
 
-*(Demostración de la consistencia mediante expansión en serie de Taylor y verificación del error local de orden $O(h^3)$. Implementación en R y comparación gráfica con otros métodos.)*
+
+::: {.callout-caution collapse="true" title="Prueba"}
+
+Sea $u(x)$ la solución exacta de la EDO $u' = f(x, u)$ con $u(x_j) = u_j$.
+
+Definimos:
+$$
+\phi(x_j, u_j; h) = f\left( x_j + \frac{h}{2}, u_j + \frac{h}{2} f(x_j, u_j) \right).
+$$
+
+**Consistencia**
+
+El método es consistente si:
+$$
+\lim_{h \to 0} \phi(x_j, u_j; h) = f(x_j, u_j).
+$$
+
+Como $f$ es continua, y el argumento de $f$ tiende a $(x_j, u_j)$ cuando $h \to 0$, entonces:
+$$
+\lim_{h \to 0} f\left( x_j + \frac{h}{2}, u_j + \frac{h}{2} f(x_j, u_j) \right) = f(x_j, u_j).
+$$
+
+Por lo tanto, el método es consistente.
+
+**Orden de consistencia 2**
+
+Recordemos que el error de discretización local se define por:
+$$
+\Delta(x_j, u_j; h) = \frac{1}{h}[u(x_j + h) - u(x_j)] - \phi(x_j, u_j; h).
+$$
+
+Expandiendo $u(x_j + h)$ en serie de Taylor:
+\begin{align*}
+u(x_j + h) &= u(x_j) + h u'(x_j) + \frac{h^2}{2} u''(x_j) + \mathcal{O}(h^3) \\
+&= u_j + h f(x_j, u_j) + \frac{h^2}{2} \left( f_x + f_u f \right) + \mathcal{O}(h^3),
+\end{align*}
+
+donde:
+$$
+u'' = \frac{d}{dx} f(x, u) = f_x + f_u u' = f_x + f_u f.
+$$
+
+Por otro lado, expandimos $\phi(x_j, u_j; h)$ usando la fórmula de Taylor multivariable:
+\begin{align*}
+\phi(x_j, u_j; h) &= f\left( x_j + \frac{h}{2}, u_j + \frac{h}{2} f(x_j, u_j) \right) \\
+&= f(x_j, u_j) + \frac{h}{2} f_x + \frac{h}{2} f_u f + \mathcal{O}(h^2).
+\end{align*}
+
+Entonces:
+\begin{align*}
+\Delta(x_j, u_j; h) &= \frac{1}{h} \left[ u(x_j + h) - u(x_j) \right] - \phi(x_j, u_j; h) \\
+&= f + \frac{h}{2} (f_x + f_u f) - \left[ f + \frac{h}{2} (f_x + f_u f) \right] + \mathcal{O}(h^2) \\
+&= \mathcal{O}(h^2).
+\end{align*}
+
+Por lo tanto, el método tiene **orden de consistencia 2**.
+
+:::
+
+Código
+```{r}
+#| code-fold: true
+
+# Método de Euler Modificado (RK2)
+euler_modificado <- function(f, a, b, y0, N) {
+  h <- (b - a) / N
+  t <- numeric(N + 1)
+  y <- numeric(N + 1)
+  t[1] <- a
+  y[1] <- y0
+  
+  for (i in 1:N) {
+    k1 <- f(t[i], y[i])
+    k2 <- f(t[i] + h/2, y[i] + (h/2) * k1)
+    y[i + 1] <- y[i] + h * k2
+    t[i + 1] <- t[i] + h
+  }
+  
+  data.frame(t = t, y = y)
+}
+```
+Problema 1: $y^\prime = -2ty^2,\quad y(0) = 1$
+```{r}
+#| code-fold: true
+
+f1 <- function(t, y) {
+  -2 * t * y^2
+}
+
+# Parámetros
+a1 <- 0; b1 <- 1; y01 <- 1; N <- 20
+res1 <- euler_modificado(f1, a1, b1, y01, N)
+
+# Solución exacta: y(t) = 1 / (1 + t^2)
+y1_exacta <- function(t) {
+  1 / (1 + t^2)
+}
+
+# Graficar
+plot(res1$t, y1_exacta(res1$t), type = "l", col = "blue", lwd = 2,
+     main = "Problema 1: Euler Modificado vs Solución Exacta", xlab = "t", ylab = "y(t)")
+lines(res1$t, res1$y, col = "red", lty = 2, lwd = 2)
+legend("topright", legend = c("Exacta", "Euler Modificado"),
+       col = c("blue", "red"), lty = c(1,2), lwd = 2)
+```
+Problema 2: $y^\prime - y = \cos(t),\quad y(0) = \tfrac{1}{2}$
+```{r}
+#| code-fold: true
+
+f2 <- function(t, y) {
+  cos(t) + y
+}
+
+# Parámetros
+a2 <- 0; b2 <- 1; y02 <- 0.5
+res2 <- euler_modificado(f2, a2, b2, y02, N)
+
+# No hay solución exacta elemental, graficamos solo la aproximada
+plot(res2$t, res2$y, type = "l", col = "darkgreen", lwd = 2,
+     main = "Problema 2: Euler Modificado", xlab = "t", ylab = "y(t)")
+```
+Problema 3: Ecuación implícita transformada
+```{r}
+#| code-fold: true
+f3 <- function(x, y) {
+  if (is.na(x) || is.na(y) || is.nan(x) || is.nan(y)) return(NA)
+  if ((1 - x^2) <= 0 || (1 - y^2) <= 0 || abs(y) < 1e-8) return(NA)
+  
+  - (x * sqrt(1 - y^2)) / (y * sqrt(1 - x^2))
+}
+
+a3 <- 0; b3 <- 1; y03 <- 0.9  # <- cambiado
+res3 <- euler_modificado(f3, a3, b3, y03, N)
+
+validos <- !is.na(res3$y)
+plot(res3$t[validos], res3$y[validos], type = "l", col = "purple", lwd = 2,
+     main = "Problema 3: Euler Modificado", xlab = "x", ylab = "y(x)")
+```
+
 
 
 
@@ -584,7 +722,133 @@ Implemente este método en **R** y resuelva las ecuaciones diferenciales del pro
 
 **Solución**
 
-*(Demostración del orden del método mediante expansión en series de Taylor, comparación con la solución exacta y verificación de la cancelación de términos hasta $O(h^4)$. Implementación en R y análisis gráfico de la convergencia frente a métodos de orden menor.)*
+Sea $u(t)$ la solución exacta de la ecuación diferencial. Su expansión de Taylor en torno a $x_j$ es:
+
+$$
+u(x_{j+1}) = u(x_j) + h u'(x_j) + \frac{h^2}{2} u''(x_j) + \frac{h^3}{6} u^{(3)}(x_j) + O(h^4)
+$$
+
+El primer coeficiente $k_1$ es simplemente:
+
+$$
+k_1 = f(x_j, u_j)
+$$
+
+Usamos la expansión de Taylor para los siguientes coeficientes:
+
+$$
+k_2 = f\left(x_j + \frac{h}{2}, u_j + \frac{h}{2} k_1 \right) = f(x_j, u_j) + \frac{h}{2} f_x + \frac{h^2}{4} f_{xx} + O(h^3)
+$$
+
+$$
+k_3 = f\left(x_j + h, u_j - h k_1 + 2 h k_2 \right) = f(x_j, u_j) + h f_x + \frac{h^2}{2} f_{xx} + O(h^3)
+$$
+
+La fórmula de actualización para $u_{j+1}$ es:
+
+$$
+u_{j+1} = u_j + \frac{h}{6} (k_1 + 4 k_2 + k_3)
+$$
+
+Sustituyendo las expansiones de $k_1$, $k_2$ y $k_3$, obtenemos:
+
+$$
+u_{j+1} = u_j + h f(x_j, u_j) + \frac{h^2}{2} f_x + \frac{h^3}{6} f_{xx} + O(h^4)
+$$
+
+Comparando la expansión obtenida con la expansión de Taylor de la solución exacta, podemos ver que el error truncado es de orden $O(h^3)$, lo que demuestra que el método es **consistente de orden tres**.
+
+$\blacksquare$
+
+Código
+```{r}
+#| code-fold: true
+
+# Método de Euler Modificado (RK2)
+runge_kutta_3 <- function(f, a, b, y0, N) {
+  h <- (b - a) / N
+  t <- numeric(N + 1)
+  y <- numeric(N + 1)
+  t[1] <- a
+  y[1] <- y0
+  
+  for (i in 1:N) {
+    k1 <- f(t[i], y[i])
+    k2 <- f(t[i] + h/2, y[i] + h/2 * k1)
+    k3 <- f(t[i] + h, y[i] - h * k1 + 2 * h * k2)
+    y[i + 1] <- y[i] + h / 6 * (k1 + 4 * k2 + k3)
+    t[i + 1] <- t[i] + h
+  }
+  
+  data.frame(t = t, y = y)
+}
+```
+Problema 1: $y^\prime = -2ty^2,\quad y(0) = 1$
+```{r}
+#| code-fold: true
+
+# Función del problema 1
+f1 <- function(t, y) {
+  -2 * t * y^2
+}
+
+# Parámetros
+a1 <- 0; b1 <- 1; y01 <- 1; N <- 20
+res1 <- runge_kutta_3(f1, a1, b1, y01, N)
+
+# Solución exacta: y(t) = 1 / (1 + t^2)
+y1_exacta <- function(t) {
+  1 / (1 + t^2)
+}
+
+# Graficar
+plot(res1$t, y1_exacta(res1$t), type = "l", col = "blue", lwd = 2,
+     main = "Problema 1: Runge-Kutta de 3er Orden vs Solución Exacta", xlab = "t", ylab = "y(t)")
+lines(res1$t, res1$y, col = "red", lty = 2, lwd = 2)
+legend("topright", legend = c("Exacta", "Runge-Kutta 3er Orden"),
+       col = c("blue", "red"), lty = c(1,2), lwd = 2)
+```
+Problema 2: $y^\prime - y = \cos(t),\quad y(0) = \tfrac{1}{2}$
+```{r}
+#| code-fold: true
+
+# Función del problema 2
+f2 <- function(t, y) {
+  cos(t) + y
+}
+
+# Parámetros
+a2 <- 0; b2 <- 1; y02 <- 0.5
+res2 <- runge_kutta_3(f2, a2, b2, y02, N)
+
+# No hay solución exacta elemental, graficamos solo la aproximada
+plot(res2$t, res2$y, type = "l", col = "darkgreen", lwd = 2,
+     main = "Problema 2: Runge-Kutta de 3er Orden", xlab = "t", ylab = "y(t)")
+```
+Problema 3: Ecuación implícita transformada
+```{r}
+#| code-fold: true
+
+# Función del problema 3
+f3 <- function(x, y) {
+  if (is.na(x) || is.na(y) || is.nan(x) || is.nan(y)) return(NA)
+  if ((1 - x^2) <= 0 || (1 - y^2) <= 0 || abs(y) < 1e-8) return(NA)
+  
+  - (x * sqrt(1 - y^2)) / (y * sqrt(1 - x^2))
+}
+
+# Parámetros
+a3 <- 0; b3 <- 1; y03 <- 0.9
+res3 <- runge_kutta_3(f3, a3, b3, y03, N)
+
+# Graficar, filtrando NA
+validos <- !is.na(res3$y)
+plot(res3$t[validos], res3$y[validos], type = "l", col = "purple", lwd = 2,
+     main = "Problema 3: Runge-Kutta de 3er Orden", xlab = "x", ylab = "y(x)")
+```
+
+
+
 
 
 
