@@ -1,0 +1,220 @@
+---
+title: "MA0501 – Tarea 7"
+author: 
+  - name: "Diego Alberto Vega Víquez - C38367" 
+    email: "diegovv13@gmail.com"
+  - name: "José Carlos Quintero Cedeño - C26152" 
+    email: "jose.quinterocedeno@ucr.ac.cr"
+  - name: "Gabriel Valverde Guzmán - C38060"
+    email: "GABRIEL.VALVERDEGUZMAN@ucr.ac.cr"
+date: today
+lang: es
+format:
+  pdf:
+    documentclass: article
+    fontsize: 11pt
+    linestretch: 1.3
+    geometry:
+      - top=2.5cm
+      - bottom=2.5cm
+      - left=2.5cm
+      - right=2.5cm
+      - headheight=15pt
+      - footskip=1.25cm
+    toc: true
+    toc-depth: 1
+    number-sections: false
+    classoption:
+      - oneside
+      - titlepage 
+    openany: true
+    colorlinks: false   
+    top-level-division: section
+    include-in-header: 
+      text: |
+        \usepackage[most]{tcolorbox}
+        \usepackage[hidelinks]{hyperref}
+        \usepackage{setspace}
+        \AtBeginDocument{\setstretch{1.0}} % ← interlineado
+  html:
+    code-annotations: hover
+    toc: true
+    toc-depth: 1
+    toc-location: left
+    toc_float: yes
+    html-math-method: katex
+    css: styles.css
+    df_print: paged
+    theme: flatly
+    highlight: tango
+    embed-resources: true
+    page-layout: full
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+\newpage
+
+# Ejercicio 1
+
+::: {.callout-note title="Instrucción del ejercicio 1"}
+
+Programe en **R** los algoritmos de **Punto Fijo** y del **método de Newton–Raphson** para sistemas de ecuaciones no lineales de $n$ variables vistos en clase.
+
+:::
+
+**Solución**
+
+
+
+# Ejercicio 2
+
+::: {.callout-note title="Instrucción del ejercicio 2"}
+
+El **Método Simplificado de Newton** o de **Newton–Kantorovich** tiene el siguiente esquema de iteración:
+
+$$
+x_{n+1} = x_n - [df(x_0)]^{-1} f(x_n), \qquad n = 0, 1, 2, \dots
+$$
+
+donde $df(x)$ es la matriz Jacobiana de $f$.
+
+**a)** Escriba una función en **R** para este método.
+
+**b)** Sea $C \subset \mathbb{R}^n$ un abierto y sea $f : \Omega \to \mathbb{R}^n$ una aplicación diferenciable, sea $C \subset \Omega$ convexo y cerrado y sea $x_0$ en el interior de $C$.  
+Se supone que $df$ verifica la **condición de Lipschitz** dentro de $C$ con parámetro $\lambda > 0$ y que $df(x_0)$ es invertible. Se denota:
+
+$$
+A_0 = [df(x_0)]^{-1}, 
+\quad 
+\alpha = \|A_0\|, 
+\quad 
+\beta = \|A_0 f(x_0)\|,
+\quad 
+\gamma = \alpha \beta \lambda.
+$$
+
+Se supone además que $\beta \ne 0$ y que $\gamma < \tfrac{1}{4}$.  
+Se denota por $t_0 < 1$ las raíces de la ecuación $\gamma t^2 - t + 1 = 0$  
+y se supone que la bola cerrada $B_0$ de centro $x_0$ y radio $\beta t_0$ está contenida en $C$.
+
+Finalmente, denotamos por $g$ la aplicación definida en $\Omega$ por:
+
+$$
+g(x) := x - A_0 f(x).
+$$
+
+1. Muestre que $\forall x, y \in C$:
+
+   $$
+   \|f(x) - f(y) - df(y)(x - y)\| \le \frac{\lambda}{2} \|x - y\|^2.
+   $$
+
+   [Sugerencia: Considere $\varphi : [0,1] \to \mathbb{R}^n$ definida por $\varphi(t) := f(y + t(x - y))$ y use el hecho de que $df$ verifica la condición de Lipschitz.]
+
+2. Muestre que $g(B_0) \subset B_0$.  
+   [Sugerencia: Use el inciso anterior y la definición de $t_0$.]
+
+3. Muestre que $\forall x, y \in B_0$:
+
+   $$
+   \|g(x) - g(y)\| \le \frac{1 - \sqrt{1 - 4\gamma}}{2} \|x - y\|.
+   $$
+
+   [Sugerencia: Pruebe que $\|dg(x)\| \le t_0 = \tfrac{1 - \sqrt{1 - 4\gamma}}{2}$.]
+
+4. Muestre que la sucesión $(x_k)$ definida en $B_0$ por:
+
+   $$
+   x_{k+1} := x_k - A_0 f(x_k), \qquad k = 0, 1, 2, \dots
+   $$
+
+   converge a $x$, la **solución única** de la ecuación $f(x) = 0$ con $x \in B_0$.
+
+5. Muestre que se tiene la siguiente **cota para el error absoluto**:
+
+   $$
+   \|x_k - x\| \le \frac{\beta t_0}{1 - \delta} \, \delta^k, 
+   \qquad k = 0, 1, 2, \dots
+   $$
+
+   donde:
+   $$
+   \delta := \frac{1 - \sqrt{1 - 4\gamma}}{2}.
+   $$
+
+:::
+
+**Solución**
+
+
+
+# Ejercicio 3
+
+::: {.callout-note title="Instrucción del ejercicio 3"}
+
+Resuelva el siguiente sistema de ecuaciones usando el **método de punto fijo** (pruebe antes que se cumplen las hipótesis del teorema):
+
+$$
+\begin{cases}
+F_1(x, y) = 2x^2 - xy - 5x + 1 = 0, \\
+F_2(x, y) = x + 3\log_{10}x - y^2 = 0.
+\end{cases}
+$$
+
+:::
+
+**Solución**
+
+
+
+# Ejercicio 4
+
+::: {.callout-note title="Instrucción del ejercicio 4"}
+
+El sistema no lineal:
+
+$$
+\begin{cases}
+x_1(1 - x_1) + 4x_2 = 12, \\
+(x_1 - 2)^2 + (2x_2 - 3)^2 = 25,
+\end{cases}
+$$
+
+tiene dos soluciones.
+
+**a)** Aproxime estas dos soluciones gráficamente.
+
+**b)** Use las aproximaciones encontradas en (a) para encontrar las soluciones usando el **método de Newton** y el **método de Newton–Kantorovich**.
+
+:::
+
+**Solución**
+
+
+
+# Ejercicio 5
+
+::: {.callout-note title="Instrucción del ejercicio 5"}
+
+Usando el **método de Newton** y el **método de Newton–Kantorovich**, resuelva el sistema:
+
+$$
+\begin{cases}
+15x_1 + x_2^2 - 4x_3 = 13, \\
+x_1^2 + 10x_2 - x_3 = 11, \\
+x_2^3 - 25x_3 = -22,
+\end{cases}
+$$
+
+en 
+
+$$
+D := \{(x_1, x_2, x_3)^t \in \mathbb{R}^3 \text{ tal que } 0 \le x_i \le 2 \text{ para } i = 1, 2, 3\}.
+$$
+
+:::
+
+**Solución**
+
