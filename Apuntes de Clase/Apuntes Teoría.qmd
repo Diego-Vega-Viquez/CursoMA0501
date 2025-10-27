@@ -1908,7 +1908,7 @@ $\blacksquare$
 :::
  - Te dice: si hago $n$ pasos, el error máximo respecto a la solución verdadera $x$ estará acotado por esa fórmula.
  - Es útil porque permite decidir de antemano cuántas iteraciones necesito para alcanzar una precisión deseada.
- - Ejemplo: “si quiero error menor que $10^{-6}$, necesito al menos $n = 15$ iteraciones”.
+ - Ejemplo: "si quiero error menor que $10^{-6}$, necesito al menos $n = 15$ iteraciones".
 :::
 
 ::: {.callout-note title="Corolario: Cota del Error a Posteriori"}
@@ -2123,7 +2123,7 @@ El Teorema se ilustra en la Figura.
      - **Parar**  
    - $i \leftarrow i+1$  
    - $x_0 \leftarrow x$  
-3. Mensaje de error: *“Número máximo de iteraciones excedido”*.  
+3. Mensaje de error: *"Número máximo de iteraciones excedido"*.  
    **Parar**
    
 Una implementación en R es la siguiente:
@@ -2210,7 +2210,7 @@ g <- function(x) exp(-x)
 sol3 <- punto.fijo(p0 = 0.55, tol = 1e-6, n = 30, g = g)
 ```
 
-es decir, tomando $x_0 = 0.55$ como aproximación inicial, con $\varepsilon = Tol = 10^{-6}$ para el algoritmo anterior obtenemos que el “punto fijo” de $F$ es  
+es decir, tomando $x_0 = 0.55$ como aproximación inicial, con $\varepsilon = Tol = 10^{-6}$ para el algoritmo anterior obtenemos que el "punto fijo" de $F$ es  
 
 $$
 x = x_{19} = 0.567143650676,
@@ -2467,7 +2467,7 @@ La idea es encontrar una sucesión $(x_n)$ tal que $x_n \to x$ cuando $n \to \in
    - $a \leftarrow x$  
    -  Si no  
    -  $b \leftarrow x$  
-7. Salida (“Número máximo de iteraciones excedido”)  
+7. Salida ("Número máximo de iteraciones excedido")  
     **Parar**
 
 
@@ -2664,7 +2664,7 @@ $$
   Parar  
    5 $i \leftarrow i + 1$  
    6 $x_0 \leftarrow x$  
-7 Salida (“Número máximo de iteraciones excedido”)  
+7 Salida ("Número máximo de iteraciones excedido")  
  Parar
 :::
 
@@ -2849,7 +2849,7 @@ $$
 
      $x_1 \leftarrow x$  
   Paso 6. $i \leftarrow i + 1$  
-  Paso 7. Salida (“Número máximo de iteraciones excedido”)  
+  Paso 7. Salida ("Número máximo de iteraciones excedido")  
  Parar
 :::
 
@@ -2925,7 +2925,7 @@ y con **constante asintótica** $\lambda$.
 ::: {.callout-important collapse="true" title="Observación"}
 
 
-- Entre mayor sea el orden de convergencia, o sea entre mayor sea $\alpha$, mayor será la “velocidad” de convergencia.
+- Entre mayor sea el orden de convergencia, o sea entre mayor sea $\alpha$, mayor será la "velocidad" de convergencia.
 - Si $\alpha = 1$, se dice que el método tiene **orden lineal**.
 - Si $\alpha = 2$, se dice que el método tiene **orden cuadrático**.
 :::
@@ -3228,7 +3228,7 @@ $$
 \frac{x_{n+1} - x}{x_n - x} \approx \frac{x_{n+2} - x}{x_{n+1} - x}.
 $$
 
-La idea es encontrar una sucesión $(\tilde{x}_n)$ la cual converge “más rápidamente” a $x$ que la sucesión $(x_n)$. Note que de la expresión anterior:
+La idea es encontrar una sucesión $(\tilde{x}_n)$ la cual converge "más rápidamente" a $x$ que la sucesión $(x_n)$. Note que de la expresión anterior:
 
 \begin{align*}
 &\Rightarrow (x_{n+1} - x)(x_n - x) \approx (x_n - x)(x_{n+2} - x) \\
@@ -3248,7 +3248,7 @@ $$
 \tilde{x}_{n+3} := x_n - \frac{(x_{n+1} - x_n)^2}{x_{n+2} - 2x_{n+1} + x_n},
 $$
 
-bajo ciertas condiciones, converge “más rápidamente” a $x$ que la sucesión $(x_n)$.
+bajo ciertas condiciones, converge "más rápidamente" a $x$ que la sucesión $(x_n)$.
 
 
 ::: {.callout-note title="Notación: Diferencia Progresiva"}
@@ -4641,7 +4641,7 @@ z_5 = x_2 & f[z_5] = f(x_2) & f[z_4,z_5] \approx f'(z_2) & f[z_3,z_4,z_5] & \cdo
 \end{align*}
 
 A partir de la tercera columna de la matriz anterior el cálculo se hace exactamente igual que en el método de Neville.  
-Además, nótese que $f[z_0, z_1]$ no se puede calcular usando la definición, pues daría $\frac{0}{0}$, pero resulta “razonable” tomar $f[z_0, z_1] \approx f'(x_0)$. ¿Por qué?
+Además, nótese que $f[z_0, z_1]$ no se puede calcular usando la definición, pues daría $\frac{0}{0}$, pero resulta "razonable" tomar $f[z_0, z_1] \approx f'(x_0)$. ¿Por qué?
 
 Luego:
 
@@ -8477,3 +8477,1051 @@ Probar que el orden es $4$ queda como ejercicio; sugerencia: utilice expansiones
 :::
 
 :::
+
+# Algebra lineal numérica – Solución numérica de sistemas de ecuaciones.
+
+## Sistemas de Ecuaciones no Lineales
+
+### Método de Punto Fijo
+
+- Un sistema de ecuaciones **no lineal** tiene la forma:
+
+$$
+\begin{cases}
+f_1(x_1, x_2, \dots, x_n) = 0, \\
+f_2(x_1, x_2, \dots, x_n) = 0, \\
+\vdots \\
+f_n(x_1, x_2, \dots, x_n) = 0,
+\end{cases}
+$$
+
+donde cada $f_i : \mathbb{R}^n \to \mathbb{R}$.
+
+- Este sistema puede ser transformado definiendo:
+
+$$
+F : \mathbb{R}^n \longrightarrow \mathbb{R}^n,
+$$
+
+$$
+F(x_1, x_2, \dots, x_n) = (f_1(x_1, \dots, x_n), f_2(x_1, \dots, x_n), \dots, f_n(x_1, \dots, x_n))^t.
+$$
+
+Entonces, el sistema anterior se escribe como:
+
+$$
+F(\mathbf{x}) = 0, \quad \text{con } \mathbf{x} = (x_1, x_2, \dots, x_n)^t.
+$$
+
+::: {.callout-note title="Definición: Límite de una función vectorial"}
+Sea $F : D \subseteq \mathbb{R}^n \to \mathbb{R}^n$ de la forma
+
+$$
+F(\mathbf{x}) = (f_1(\mathbf{x}), f_2(\mathbf{x}), \dots, f_n(\mathbf{x}))^t,
+$$
+
+y sean $\mathbf{x}_0 \in D$ y $\mathbf{L} = (L_1, L_2, \dots, L_n)^t$.  
+Se define:
+
+$$
+\lim_{\mathbf{x} \to \mathbf{x}_0} F(\mathbf{x}) = \mathbf{L}
+\iff
+\lim_{\mathbf{x} \to \mathbf{x}_0} f_i(\mathbf{x}) = L_i, \quad i = 1, 2, \dots, n,
+$$
+
+donde 
+
+$$
+F(\mathbf{x}) = (f_1(\mathbf{x}), f_2(\mathbf{x}), \dots, f_n(\mathbf{x}))^t.
+$$
+:::
+
+::: {.callout-note title="Definición: Continuidad"}
+Sea $F : D \subseteq \mathbb{R}^n \to \mathbb{R}^n$.  
+Decimos que $F$ es continua en $\mathbf{x}_0 \in D$ si existe $\lim_{\mathbf{x} \to \mathbf{x}_0} F(\mathbf{x})$ y
+
+$$
+\lim_{\mathbf{x} \to \mathbf{x}_0} F(\mathbf{x}) = F(\mathbf{x}_0).
+$$
+
+Además, $F$ es continua en $D$ si es continua en todo $\mathbf{x} \in D$.
+:::
+
+::: {.callout-note title="Teorema"}
+Sea $f : D \subseteq \mathbb{R}^n \to \mathbb{R}$ y $\mathbf{x}_0 \in D$.  
+Si existen constantes $\delta > 0$ y $K > 0$ tales que:
+
+$$
+\left| \frac{\partial f(\mathbf{x})}{\partial x_j} \right| \le K
+\quad \text{para todo } j = 1, 2, \dots, n,
+$$
+
+siempre que $\|\mathbf{x} - \mathbf{x}_0\| < \delta$ y $\mathbf{x} \in D$,  
+entonces $f$ es continua en $\mathbf{x}_0$.
+
+::: {.callout-caution collapse="true" title="Demostración"}
+Sea $f : D \subseteq \mathbb{R}^n \to \mathbb{R}$ y $\mathbf{x}_0 \in D$.
+Supongamos que existen constantes $\delta > 0$ y $K > 0$ tales que
+
+$$
+\left| \frac{\partial f(\mathbf{x})}{\partial x_j} \right| \le K,
+\quad \text{para todo } j = 1, 2, \dots, n,
+$$
+
+siempre que $|\mathbf{x} - \mathbf{x}_0| < \delta$ y $\mathbf{x} \in D$.
+
+Queremos probar que $f$ es continua en $\mathbf{x}0$, es decir, que
+$$
+\lim{\mathbf{x} \to \mathbf{x}_0} f(\mathbf{x}) = f(\mathbf{x}_0).
+$$
+
+Si $f$ es diferenciable en una vecindad de $\mathbf{x}_0$, entonces para todo
+$\mathbf{x} \in D$ tal que $|\mathbf{x} - \mathbf{x}_0| < \delta$, existe un punto
+$\mathbf{c}$ en el segmento que une $\mathbf{x}_0$ con $\mathbf{x}$ tal que
+
+$$
+f(\mathbf{x}) - f(\mathbf{x}_0) = \nabla f(\mathbf{c}) \cdot (\mathbf{x} - \mathbf{x}_0).
+$$
+
+Por definición de producto punto, esto implica que
+
+$$
+|f(\mathbf{x}) - f(\mathbf{x}0)| \le |\nabla f(\mathbf{c})|\infty , |\mathbf{x} - \mathbf{x}_0|,
+$$
+
+donde $|\nabla f(\mathbf{c})|_\infty = \max_j \left| \frac{\partial f(\mathbf{c})}{\partial x_j} \right|$.
+
+De la hipótesis se tiene que para todo $\mathbf{c}$ suficientemente cercano a $\mathbf{x}_0$,
+
+$$
+\left| \frac{\partial f(\mathbf{c})}{\partial x_j} \right| \le K,
+\quad \forall j = 1, 2, \dots, n,
+$$
+
+por lo tanto, $|\nabla f(\mathbf{c})|_\infty \le K$.
+
+Sustituyendo en la desigualdad anterior, obtenemos
+
+$$
+|f(\mathbf{x}) - f(\mathbf{x}_0)| \le K , |\mathbf{x} - \mathbf{x}_0|.
+$$
+
+Dado que $K$ es una constante, para toda $\varepsilon > 0$ basta elegir
+$\delta = \varepsilon / K$ (o cualquier número positivo menor) para asegurar que,
+si $|\mathbf{x} - \mathbf{x}_0| < \delta$, entonces
+
+$$
+|f(\mathbf{x}) - f(\mathbf{x}_0)| < \varepsilon.
+$$
+
+Esto prueba que $f$ es continua en $\mathbf{x}_0$. $\blacksquare$
+
+:::
+
+:::
+
+::: {.callout-note title="Teorema"}
+Sea $D \subset \mathbb{R}^n$ un conjunto abierto y convexo, y sea $F : D \to \mathbb{R}^n$ la función:
+
+$$
+F(\mathbf{x}) = (f_1(x_1, x_2, \dots, x_n), f_2(x_1, x_2, \dots, x_n), \dots, f_n(x_1, x_2, \dots, x_n))^t,
+$$
+
+donde cada $f_j : D \to \mathbb{R}$, $j = 1, 2, \dots, n$, es continuamente diferenciable.  
+
+Se denota:
+
+$$
+F'(\mathbf{x}) = 
+\left( \frac{\partial f_j}{\partial x_k}(\mathbf{x}) \right)_{j,k=1,2,\dots,n}
+$$
+
+como la matriz **Jacobiana** de $F$.  
+Entonces se cumple el **Teorema del Valor Medio**:
+
+$$
+\| F(\mathbf{x}) - F(\mathbf{y}) \|
+\le
+\max_{0 \le \lambda \le 1} \| F'[\lambda \mathbf{x} + (1 - \lambda)\mathbf{y}] \| \, \|\mathbf{x} - \mathbf{y}\|,
+$$
+
+para todo $\mathbf{x}, \mathbf{y} \in D$.
+
+::: {.callout-caution collapse="true" title="Demostración"}
+Sea $D \subset \mathbb{R}^n$ abierto y convexo, y $F : D \to \mathbb{R}^n$ de la forma
+
+$$
+F(\mathbf{x}) = (f_1(\mathbf{x}), f_2(\mathbf{x}), \dots, f_n(\mathbf{x}))^t,
+$$
+
+donde cada $f_j$ es continuamente diferenciable en $D$.
+
+Tomemos $\mathbf{x}, \mathbf{y} \in D$.
+Como $D$ es convexo, para todo $\lambda \in [0,1]$ se tiene
+$$
+\mathbf{z}(\lambda) := \lambda \mathbf{x} + (1 - \lambda)\mathbf{y} \in D.
+$$
+
+Definimos la función auxiliar $\Phi : [0,1] \to \mathbb{R}^n$ dada por
+$$
+\Phi(\lambda) := F(\mathbf{z}(\lambda)) = F(\lambda \mathbf{x} + (1-\lambda)\mathbf{y}).
+$$
+
+Entonces:
+	•	$\Phi$ es continuamente diferenciable en $[0,1]$ porque $F$ lo es en $D$ y $\mathbf{z}(\lambda)$ es diferenciable.
+	•	Notemos que
+$$
+\Phi(1) = F(\mathbf{x}), \qquad \Phi(0) = F(\mathbf{y}).
+$$
+
+Por lo tanto:
+$$
+F(\mathbf{x}) - F(\mathbf{y}) = \Phi(1) - \Phi(0) = \int_0^1 \Phi’(\lambda), d\lambda.
+$$
+
+Ahora calculemos $\Phi’(\lambda)$ usando la regla de la cadena.
+Para $\mathbf{z}(\lambda) = \lambda \mathbf{x} + (1-\lambda)\mathbf{y}$ se tiene
+$$
+\frac{d\mathbf{z}}{d\lambda} = \mathbf{x} - \mathbf{y}.
+$$
+
+Luego, por la regla de la cadena en dimensión múltiple:
+$$
+\Phi’(\lambda)
+= F’(\mathbf{z}(\lambda)) , \frac{d\mathbf{z}}{d\lambda}
+= F’(\mathbf{z}(\lambda))(\mathbf{x} - \mathbf{y}),
+$$
+donde $F’(\mathbf{z}(\lambda))$ es la matriz Jacobiana de $F$ evaluada en $\mathbf{z}(\lambda)$.
+
+Así,
+$$
+F(\mathbf{x}) - F(\mathbf{y})
+= \int_0^1 F’(\mathbf{z}(\lambda))(\mathbf{x} - \mathbf{y}), d\lambda.
+$$
+
+Tomando norma en ambos lados y usando la desigualdad triangular:
+$$
+|F(\mathbf{x}) - F(\mathbf{y})|
+\le \int_0^1 | F’(\mathbf{z}(\lambda))(\mathbf{x} - \mathbf{y}) | , d\lambda.
+$$
+
+Usando submultiplicatividad de la norma matricial (i.e. $|A\mathbf{v}| \le |A|,|\mathbf{v}|$):
+$$
+|F(\mathbf{x}) - F(\mathbf{y})|
+\le \int_0^1 |F’(\mathbf{z}(\lambda))| ,|\mathbf{x} - \mathbf{y}| , d\lambda
+= |\mathbf{x} - \mathbf{y}| \int_0^1 |F’(\mathbf{z}(\lambda))| , d\lambda.
+$$
+
+Como $\lambda \mapsto |F’(\mathbf{z}(\lambda))|$ es continua en $[0,1]$, está acotada. Por lo tanto,
+$$
+\int_0^1 |F’(\mathbf{z}(\lambda))| , d\lambda
+\le \max_{0 \le \lambda \le 1} |F’(\mathbf{z}(\lambda))|.
+$$
+
+Sustituyendo,
+$$
+|F(\mathbf{x}) - F(\mathbf{y})|
+\le
+\left( \max_{0 \le \lambda \le 1} |F’(\lambda \mathbf{x} + (1-\lambda)\mathbf{y})| \right)
+|\mathbf{x} - \mathbf{y}|.
+$$
+
+Esto prueba que
+$$
+| F(\mathbf{x}) - F(\mathbf{y}) |
+\le
+\max_{0 \le \lambda \le 1} | F’[\lambda \mathbf{x} + (1 - \lambda)\mathbf{y}] | , |\mathbf{x} - \mathbf{y}|,
+$$
+para todo $\mathbf{x}, \mathbf{y} \in D$, que es exactamente la afirmación del teorema. $\blacksquare$
+
+:::
+
+:::
+
+::: {.callout-note title="Teorema"}
+Sea $D \subset \mathbb{R}^n$ un conjunto cerrado y convexo (con $\overset{\circ}{D} \ne \emptyset$), y sea  
+$F : D \to D$ una función continua. Además, se asume que $F$ es continuamente diferenciable en el interior de $D$, y que su jacobiano puede ser continuamente extendido a todo $D$, de modo que:
+
+$$
+\sup_{\mathbf{x} \in D} \|F'(\mathbf{x})\| < 1,
+$$
+
+donde $\|\cdot\|$ denota alguna norma en $\mathbb{R}^n$.  
+Entonces:
+
+- La ecuación $F(\mathbf{x}) = \mathbf{x}$ tiene una solución única en $D$.
+
+- Las aproximaciones sucesivas
+
+$$
+\mathbf{x}_{n+1} = F(\mathbf{x}_n), \quad n = 0, 1, 2, \dots,
+$$
+
+con $\mathbf{x}_0 \in D$, convergen a este punto fijo.
+
+- Se cumple el error *a priori*:
+
+$$
+\|\mathbf{x}_n - \mathbf{x}\| \le \frac{q^n}{1 - q} \|\mathbf{x}_1 - \mathbf{x}_0\|, 
+\quad \forall n \in \mathbb{N},
+$$
+
+donde $q = \sup_{\mathbf{x} \in D} \|F'(\mathbf{x})\|$.
+
+- Se tiene el error *a posteriori*:
+
+$$
+\|\mathbf{x}_n - \mathbf{x}\| \le \frac{q}{1 - q} \|\mathbf{x}_n - \mathbf{x}_{n-1}\|, 
+\quad \forall n \in \mathbb{N}.
+$$
+
+::: {.callout-caution collapse="true" title="Prueba"}
+Por el teorema anterior, $F : D \to D$, y usando que  
+$\displaystyle \sup_{\mathbf{x} \in D} \|F'(\mathbf{x})\| < 1$,  
+se tiene que $F$ es una **contracción**.  
+Luego, aplicando el **Teorema del Punto Fijo de Banach**, se obtiene el resultado. $\blacksquare$
+:::
+
+::: 
+
+::: {.callout-important collapse="true" title="Observación"}
+Cualquiera de las siguientes condiciones garantiza la convergencia de las aproximaciones sucesivas:
+
+$$
+\sup_{\mathbf{x} \in D} 
+\max_{j = 1, 2, \dots, n}
+\sum_{k=1}^n \left| \frac{\partial f_j(\mathbf{x})}{\partial x_k} \right| < 1,
+$$
+
+$$
+\sup_{\mathbf{x} \in D} 
+\max_{k = 1, 2, \dots, n}
+\sum_{j=1}^n \left| \frac{\partial f_j(\mathbf{x})}{\partial x_k} \right| < 1,
+$$
+
+$$
+\sup_{\mathbf{x} \in D} 
+\left[
+\sum_{j,k=1}^n
+\left(
+\frac{\partial f_j(\mathbf{x})}{\partial x_k}
+\right)^2
+\right]^{1/2}
+< 1.
+$$
+:::
+
+::: {.callout-note title="Teorema"}
+Sea $\mathbf{x}$ un punto fijo de una función continuamente diferenciable $F$ tal que
+$|F’(\mathbf{x})| < 1$ para alguna norma $|\cdot|$ en $\mathbb{R}^n$.
+Entonces, el método de aproximaciones sucesivas:
+
+$$
+\mathbf{x}_{n+1} = F(\mathbf{x}_n)
+$$
+
+es localmente convergente.
+
+Es decir, existe un vecindario $B$ del punto fijo $\mathbf{x}$ tal que las aproximaciones sucesivas convergen a $\mathbf{x}$ para todo $\mathbf{x}_0 \in B$.
+
+::: {.callout-caution collapse="true" title="Demostración"}
+Sea $\mathbf{x}^{*}$ un punto fijo de $F$, es decir, $F(\mathbf{x}^{*}) = \mathbf{x}^{*}$.
+Dado que $F$ es continuamente diferenciable en un entorno de $\mathbf{x}^{*}$, podemos aplicar el Teorema del Valor Medio en varias variables.
+Así, para todo $\mathbf{x}$ cercano a $\mathbf{x}^{*}$, existe un punto $\boldsymbol{\xi}$ en el segmento que une $\mathbf{x}$ y $\mathbf{x}^{*}$ tal que:
+
+$$
+F(\mathbf{x}) - F(\mathbf{x}^{*}) = F’(\boldsymbol{\xi})(\mathbf{x} - \mathbf{x}^{*}).
+$$
+
+Tomando norma en ambos lados:
+
+$$
+|F(\mathbf{x}) - F(\mathbf{x}^{*})| \le |F^\prime(\boldsymbol{\xi})| , |\mathbf{x} - \mathbf{x}^{*}|.
+$$
+
+Por hipótesis, $|F’(\mathbf{x}^{*})| < 1$.
+Como $F’$ es continua, existe un entorno $B$ de $\mathbf{x}^{*}$ tal que
+
+$$
+|F^\prime(\mathbf{x})| \le q < 1, \quad \forall \mathbf{x} \in B.
+$$
+
+Entonces, para todo $\mathbf{x} \in B$:
+
+$$
+|F(\mathbf{x}) - F(\mathbf{x}^{*})| \le q , |\mathbf{x} - \mathbf{x}^{*}|.
+$$
+
+Esto muestra que $F$ es una contracción local en $B$.
+
+Por el Teorema del Punto Fijo de Banach, toda función contracción tiene un único punto fijo en $B$, y las iteraciones
+
+$$
+\mathbf{x}_{n+1} = F(\mathbf{x}_n)
+$$
+
+convergen a $\mathbf{x}^{*}$ para todo $\mathbf{x}_0 \in B$.
+
+Por lo tanto, el método de aproximaciones sucesivas es localmente convergente. $\blacksquare$
+:::
+
+:::
+
+::: {.callout-note title="Definición: Punto fijo"}
+Una función $G : D \subseteq \mathbb{R}^n \to \mathbb{R}^n$ tiene un **punto fijo** en $\mathbf{p} \in D$ si  
+
+$$
+G(\mathbf{p}) = \mathbf{p}.
+$$
+:::
+
+::: {.callout-note title="Teorema: Funciones contractivas"}
+Sea  
+
+$$
+D = \{(x_1, x_2, \dots, x_n)^t \mid a_i \le x_i \le b_i, \, i = 1, 2, \dots, n\},
+$$
+
+donde los $a_i$ y $b_i$ son constantes.  
+Además, sea $G : D \subseteq \mathbb{R}^n \to \mathbb{R}^n$ una función continua tal que $G(\mathbf{x}) \in D$ para todo $\mathbf{x} \in D$.  
+
+**Entonces**, $G$ tiene un punto fijo en $D$.
+
+Si además $G$ tiene derivadas parciales continuas y existe una constante $K < 1$ tal que:
+
+$$
+\left| \frac{\partial g_i(\mathbf{x})}{\partial x_j} \right| \le \frac{K}{n}, 
+\quad \forall \mathbf{x} \in D, \, j = 1, 2, \dots, n,
+$$
+
+entonces la sucesión $\{\mathbf{x}_k\}_{k \in \mathbb{N}}$ definida por  
+
+$$
+\mathbf{x}_k = G(\mathbf{x}_{k-1}), 
+\quad k \ge 1, \, \mathbf{x}_0 \in D,
+$$
+
+converge al punto fijo único de $G$, denotado por $\mathbf{p} \in D$.
+
+Además, se cumple el **error a priori**:
+
+$$
+\|\mathbf{x}_k - \mathbf{p}\|_\infty \le \frac{K^k}{1 - K} \, \|\mathbf{x}_1 - \mathbf{x}_0\|_\infty.
+$$
+
+::: {.callout-caution collapse="true" title="Demostración"}
+**1. Existencia del punto fijo**
+
+Como $G$ es continua y transforma el conjunto cerrado y convexo $D$ en sí mismo, por el **Teorema del Punto Fijo de Brouwer**, existe al menos un punto $\mathbf{p} \in D$ tal que  
+
+$$
+G(\mathbf{p}) = \mathbf{p}.
+$$
+
+**2. Unicidad y convergencia**
+
+De la hipótesis, las derivadas parciales satisfacen  
+
+$$
+\left| \frac{\partial g_i(\mathbf{x})}{\partial x_j} \right| \le \frac{K}{n}, 
+\quad \text{para todo } \mathbf{x} \in D,
+$$
+
+lo que implica que la norma del Jacobiano $\|G'(\mathbf{x})\|_\infty \le K < 1$.  
+Por tanto, $G$ es una **contracción** en $D$ con constante de contracción $K$:
+
+$$
+\|G(\mathbf{x}) - G(\mathbf{y})\|_\infty \le K \|\mathbf{x} - \mathbf{y}\|_\infty, 
+\quad \forall \mathbf{x}, \mathbf{y} \in D.
+$$
+
+Aplicando el **Teorema del Punto Fijo de Banach**, se concluye que:
+
+- $G$ tiene un único punto fijo $\mathbf{p}$ en $D$,
+- y la sucesión $\mathbf{x}_{k+1} = G(\mathbf{x}_k)$ converge a $\mathbf{p}$ para cualquier $\mathbf{x}_0 \in D$.
+
+**3. Cota de error**
+
+Del carácter contractivo de $G$, se tiene:
+
+$$
+\|\mathbf{x}_k - \mathbf{p}\|_\infty 
+\le K \|\mathbf{x}_{k-1} - \mathbf{p}\|_\infty 
+\le K^k \|\mathbf{x}_0 - \mathbf{p}\|_\infty.
+$$
+
+Sumando las desigualdades de manera telescópica y usando que  
+
+$$
+\|\mathbf{x}_1 - \mathbf{p}\|_\infty 
+\le K \|\mathbf{x}_0 - \mathbf{p}\|_\infty,
+$$
+
+se obtiene la cota de error a priori:
+
+$$
+\|\mathbf{x}_k - \mathbf{p}\|_\infty 
+\le \frac{K^k}{1 - K} \|\mathbf{x}_1 - \mathbf{x}_0\|_\infty.
+$$
+
+De este modo, la sucesión converge geométricamente hacia el punto fijo único $\mathbf{p}$. $\blacksquare$
+
+:::
+
+:::
+
+::: {.callout-note title="Algoritmo: Método de Iteración de Punto Fijo para funciones vectoriales"}
+
+**Datos:**
+- Función $G : D \subseteq \mathbb{R}^n \to \mathbb{R}^n$  
+- Punto inicial $\mathbf{x}_0 \in D$  
+- Tolerancia $\varepsilon > 0$  
+- Número máximo de iteraciones $N_{\max}$  
+
+**Resultado:**  
+Aproximación al punto fijo $\mathbf{p}$ tal que $G(\mathbf{p}) = \mathbf{p}$.
+
+**Procedimiento:**
+
+Para $k = 1, 2, \dots, N_{\max}$ hacer:
+
+1. Calcular  
+   $$
+   \mathbf{x}_k = G(\mathbf{x}_{k-1}).
+   $$
+
+2. Si  
+   $$
+   \|\mathbf{x}_k - \mathbf{x}_{k-1}\|_\infty < \varepsilon,
+   $$  
+   entonces detener y asignar $\mathbf{p} = \mathbf{x}_k$.
+
+Si no se cumple la condición en $N_{\max}$ iteraciones, imprimir:  
+**"No converge en $N_{\max}$ iteraciones."**
+
+::: {.callout-caution collapse="true" title="Algoritmo R"}
+
+#### Punto Fijo en Varias Variables
+
+```{r}
+#| code-fold: true
+
+# Iteración de Punto Fijo para funciones vectoriales
+# P0      : vector inicial c(x1, x2, ..., xn)
+# tol     : tolerancia
+# n.max   : número máximo de iteraciones
+# G       : lista de n funciones (g1, g2, ..., gn)
+#           Cada g_j puede ser g_j(x) (vector) o g_j(x1, ..., xn) (escalares).
+# desplegar : imprimir o no el progreso
+
+punto.fijo.vv <- function(P0, tol = 1e-8, n.max = 100, G, desplegar = TRUE) {
+  x.prev <- as.numeric(P0)
+  m <- length(x.prev)
+  if (length(G) != m) 
+    stop("G debe tener la misma longitud que P0.")
+  x.next <- x.prev
+  # Evalúa la j-ésima componente de G en x 
+  evaluar.componente <- function(gj, x) {
+    # 1) gj(x) (vector)
+    v <- try(gj(x), silent = TRUE)
+    if (!inherits(v, "try-error") && length(v) == 1 && is.finite(v)) 
+      return(as.numeric(v))
+    # 2) gj(x1, ..., xn)
+    as.numeric(do.call(gj, as.list(x)))
+  }
+  for (i in seq_len(n.max)) {
+    for (j in seq_len(m)) 
+      x.next[j] <- evaluar.componente(G[[j]], x.prev)
+    if (desplegar) {
+      cat(sprintf("Iteración %d: P = (%s)\n",
+                  i, paste(formatC(x.next, digits = 15, format = "g"), collapse = ", ")))
+    }
+    if (max(abs(x.next - x.prev)) < tol) 
+      return(x.next)
+    x.prev <- x.next
+  }
+  message("El método no converge")
+  return(x.next)
+}
+```
+
+##### Ejemplo
+
+```{r}
+#| code-fold: true
+
+g1 <- function(x1, x2, x3) (1/3)*cos(x2*x3) + 1/6
+g2 <- function(x1, x2, x3) (1/9)*sqrt(x1^2 + sin(x3) + 1.06) - 0.1
+g3 <- function(x1, x2, x3) - (1/20)*exp(-x1*x2) - (10*pi - 3)/60
+
+G <- list(g1, g2, g3)
+
+p0    <- c(0, 0, 0)
+sol   <- punto.fijo.vv(p0, tol = 1e-8, n.max = 100, G = G, desplegar = TRUE)
+
+sol   # ≈ (0.5, 0, pi/6)
+
+pi/6
+```
+
+##### Ejemplo: $x^2−10x+y^2+8=0$,$xy^2+x−10y+8=0$. Solución $(1,1)$
+
+```{r}
+#| code-fold: true
+
+g1 <- function(x1, x2) 0.1 * (x1^2 + x2^2 + 8)
+g2 <- function(x1, x2) 0.1 * (x1 * x2^2 + x1 + 8)
+
+G  <- list(g1, g2)
+P0 <- c(0, 0)
+
+punto.fijo.vv(P0, tol = 1e-10, n.max = 100, G = G, desplegar = TRUE)
+
+
+```
+
+:::
+
+:::
+
+::: {.callout-tip collapse="true" title="Ejemplo"}
+Resuelva usando iteración de punto fijo el sistema:
+
+$$
+\begin{cases}
+3x_1 - \cos(x_2 x_3) - \dfrac{1}{2} = 0, \\
+x_1^2 - 81(x_2 + 0.1)^2 + \sin x_3 + 1.06 = 0, \\
+e^{-x_1 x_2} + 20x_3 + \dfrac{10\pi - 3}{3} = 0.
+\end{cases}
+$$
+
+**Solución:**  
+Este sistema se puede transformar en un problema de punto fijo como sigue:
+
+$$
+\begin{cases}
+x_1 = \dfrac{1}{3}\cos(x_2 x_3) + \dfrac{1}{6} = g_1(x_1, x_2, x_3), \\
+x_2 = \dfrac{1}{9}\sqrt{x_1^2 + \sin x_3 + 1.06} - 0.1 = g_2(x_1, x_2, x_3), \\
+x_3 = -\dfrac{1}{20}e^{-x_1 x_2} - \dfrac{10\pi - 3}{60} = g_3(x_1, x_2, x_3).
+\end{cases}
+$$
+
+Sea  
+
+$$
+G : \mathbb{R}^3 \to \mathbb{R}^3, \quad \mathbf{x} = (x_1, x_2, x_3)^t,
+$$
+
+tal que  
+
+$$
+G(\mathbf{x}) = (g_1(\mathbf{x}), g_2(\mathbf{x}), g_3(\mathbf{x})) = (x_1, x_2, x_3) = \mathbf{x}.
+$$
+
+Demostraremos que $G(\mathbf{x})$ tiene un punto fijo único en:
+
+$$
+D = \{(x_1, x_2, x_3)^t \mid -1 \le x_i \le 1, \; i = 1, 2, 3\}.
+$$
+
+Veamos:
+
+$$
+|g_1(x_1, x_2, x_3)| = \left|\dfrac{1}{3}\cos(x_2 x_3) + \dfrac{1}{6}\right|
+\le \dfrac{1}{3} + \dfrac{1}{6} \le \dfrac{1}{2},
+$$
+
+$$
+|g_2(x_1, x_2, x_3)| = \left|\dfrac{1}{9}\sqrt{x_1^2 + \sin x_3 + 1.06} - 0.1\right|
+\le \dfrac{1}{9}\sqrt{1 + 1 + 1.06} - 0.1 < 0.09,
+$$
+
+$$
+|g_3(x_1, x_2, x_3)| = \left| -\dfrac{1}{20}e^{-x_1 x_2} - \dfrac{10\pi - 3}{60} \right|
+\le \dfrac{1}{20}e + \dfrac{10\pi - 3}{60} < 0.61.
+$$
+
+Por lo tanto, $G(\mathbf{x}) \in D$ para todo $\mathbf{x} \in D$.
+
+Las derivadas son acotadas en $D$:
+
+**Acotación de la Jacobiana y contracción en** $D = [-1, 1]^3$
+
+Recordemos:
+
+$$
+g_1(\mathbf{x}) = \tfrac{1}{3}\cos(x_2 x_3) + \tfrac{1}{6}, \quad
+g_2(\mathbf{x}) = \tfrac{1}{9}\sqrt{x_1^2 + \sin x_3 + 1.06} - 0.1, \quad
+g_3(\mathbf{x}) = -\tfrac{1}{20} e^{-x_1 x_2} - \tfrac{10\pi - 3}{60},
+$$
+
+con $\mathbf{x} = (x_1, x_2, x_3)^t$, $D = [-1, 1]^3$.
+
+Calculamos la **Jacobiana** $G'(\mathbf{x})$ y sus cotas en $D$.
+
+Usaremos que $|\sin(u)| \le \sin(1)$ para $|u| \le 1$ y $e^{|u|} \le e$ para $|u| \le 1$.
+
+| Parcial | Expresión | Cota en $D$ |
+|:--:|:--|:--:|
+| $\dfrac{\partial g_1}{\partial x_1}$ | $0$ | $0$ |
+| $\dfrac{\partial g_1}{\partial x_2}$ | $-\tfrac{1}{3}\sin(x_2 x_3)x_3$ | $\le \tfrac{1}{3}\sin(1)$ $(<0.281)$ |
+| $\dfrac{\partial g_1}{\partial x_3}$ | $-\tfrac{1}{3}\sin(x_2 x_3)x_2$ | $\le \tfrac{1}{3}\sin(1)$ $(<0.281)$ |
+| $\dfrac{\partial g_2}{\partial x_1}$ | $\tfrac{1}{9} \dfrac{x_1}{\sqrt{x_1^2 + \sin x_3 + 1.06}}$ | $\le \tfrac{1}{9\sqrt{1.06}}$ $(<0.108)$ |
+| $\dfrac{\partial g_2}{\partial x_2}$ | $0$ | $0$ |
+| $\dfrac{\partial g_2}{\partial x_3}$ | $\tfrac{1}{18}\dfrac{\cos x_3}{\sqrt{x_1^2 + \sin x_3 + 1.06}}$ | $\le \tfrac{1}{18\sqrt{1.06}}$ $(<0.054)$ |
+| $\dfrac{\partial g_3}{\partial x_1}$ | $\tfrac{1}{20}x_2 e^{-x_1 x_2}$ | $\le \tfrac{e}{20}$ $(<0.136)$ |
+| $\dfrac{\partial g_3}{\partial x_2}$ | $\tfrac{1}{20}x_1 e^{-x_1 x_2}$ | $\le \tfrac{e}{20}$ $(<0.136)$ |
+| $\dfrac{\partial g_3}{\partial x_3}$ | $0$ | $0$ |
+
+Para la norma infinito:
+
+$$
+\| G'(\mathbf{x}) \|_\infty = \max_i \sum_{j=1}^3 \left| \frac{\partial g_i}{\partial x_j}(\mathbf{x}) \right|.
+$$
+
+Con las cotas anteriores:
+
+
+- Fila 1: $\le \tfrac{1}{3}\sin(1) + \tfrac{1}{3}\sin(1) < 0.562,$  
+- Fila 2: $\le \tfrac{1}{9\sqrt{1.06}} + \tfrac{1}{18\sqrt{1.06}} < 0.162,$  
+- Fila 3: $\le \tfrac{e}{20} + \tfrac{e}{20} < 0.272.$  
+
+Por lo tanto:
+
+$$
+K_\infty := \sup_{\mathbf{x} \in D} \|G'(\mathbf{x})\|_\infty \le 0.562 < 1.
+$$
+
+**En Conclusión**
+
+Con $K := \sup_{\mathbf{x} \in D} \|G'(\mathbf{x})\| < 1$ (por ejemplo, con la norma $\infty$),  
+la aplicación $G : D \to D$ es una **contracción** en $D$.  
+
+En consecuencia, por el **Teorema del Punto Fijo de Banach**:
+
+- Existe un **único punto fijo** $\mathbf{p} \in D$ tal que $G(\mathbf{p}) = \mathbf{p}$.
+- La **iteración de punto fijo** $\mathbf{x}_{k+1} = G(\mathbf{x}_k)$, con cualquier $\mathbf{x}_0 \in D$, **converge a** $\mathbf{p}$.
+- Se verifican los **errores a priori** y **a posteriori**:
+
+$$
+\|\mathbf{x}_n - \mathbf{p}\| \le \frac{K^n}{1 - K} \|\mathbf{x}_1 - \mathbf{x}_0\|,
+\qquad
+\|\mathbf{x}_n - \mathbf{p}\| \le \frac{K}{1 - K} \|\mathbf{x}_n - \mathbf{x}_{n-1}\|.
+$$
+
+- Usando la **cota teórica del error**, se tiene:
+
+$$
+\|\mathbf{x}_5 - \mathbf{p}\|_\infty 
+\le \frac{(0.843)^5(0.423)}{1 - 0.843} < 1.15.
+$$
+
+- El punto fijo es (según el programa en R):
+
+$$
+\mathbf{p} = (0.5,\, 0,\, \tfrac{\pi}{6})^t.
+$$
+
+- Por lo tanto, el **error real en** $\mathbf{x}_5$ es:
+
+$$
+\|\mathbf{x}_5 - \mathbf{p}\|_\infty \le 2 \times 10^{-8}.
+$$
+
+:::
+
+### Método de Newton Raphson
+
+::: {.callout-note title="Definición: Método de Newton para sistemas no lineales"}
+
+Sea $D \subset \mathbb{R}^n$ abierto y sea $F : D \to \mathbb{R}^n$ una función continuamente diferenciable tal que su matriz Jacobiana $F'(\mathbf{x})$ es no singular para todo $\mathbf{x} \in D$.
+
+Entonces, el **método de Newton** para la solución del sistema de ecuaciones
+
+$$
+F(\mathbf{x}) = 0,
+$$
+
+está dado por el siguiente **esquema iterativo**:
+
+$$
+\mathbf{x}_{n+1} = \mathbf{x}_n - [F'(\mathbf{x}_n)]^{-1} F(\mathbf{x}_n), 
+\qquad n = 0, 1, 2, \dots,
+$$
+
+con $\mathbf{x}_0 \in D$.
+:::
+
+::: {.callout-note title="Teorema: Convergencia del método de Newton"}
+
+Sea $D \subset \mathbb{R}^n$ abierto y convexo, y sea $F : D \to \mathbb{R}^n$ continuamente diferenciable.  Sea $\|\cdot\|$ alguna norma en $\mathbb{R}^n$ y $\mathbf{x}_0 \in D$. Supóngase que se cumplen las siguientes condiciones:
+
+**(a)** $F$ satisface:
+
+$$
+\|F'(\mathbf{x}) - F'(\mathbf{y})\| \le \gamma \|\mathbf{x} - \mathbf{y}\|, 
+\qquad \forall\, \mathbf{x}, \mathbf{y} \in D,
+$$
+
+ para alguna constante $\gamma > 0$.
+
+**(b)** La matriz Jacobiana $F'(\mathbf{x})$ es no singular para todo $\mathbf{x} \in D$,  y existe una constante $\beta > 0$ tal que:
+
+$$
+\|[F'(\mathbf{x})]^{-1}\| \le \beta, \qquad \mathbf{x} \in D.
+$$
+
+**(c)** Para las constantes:
+
+$$
+\alpha := \|[F'(\mathbf{x}_0)]^{-1}F(\mathbf{x}_0)\|, 
+\qquad q := \alpha \beta \gamma,
+$$
+
+ se cumple la desigualdad:
+
+$$
+q < \tfrac{1}{2}.
+$$
+
+**(d)** Sea $r := 2\alpha$.  Entonces la bola cerrada:
+
+$$
+B[\mathbf{x}_0, r] := \{\mathbf{x} : \|\mathbf{x} - \mathbf{x}_0\| \le r\} \subset D.
+$$
+
+
+**Entonces:**
+
+1. El **método de Newton** es convergente y $F$ tiene un **cero único** $\mathbf{x}^* \in B[\mathbf{x}_0, r]$.
+
+2. Si $\mathbf{x}_0 \in D$, la sucesión
+
+$$
+\mathbf{x}_{n+1} := \mathbf{x}_n - [F'(\mathbf{x}_n)]^{-1}F(\mathbf{x}_n), 
+\qquad n = 0, 1, 2, \dots,
+$$
+
+  está bien definida y converge al cero de $F$, es decir:
+
+$$
+\lim_{n \to \infty} \mathbf{x}_n = \mathbf{x}^*.
+$$
+
+3. Se tiene el siguiente **estimado del error**:
+
+$$
+\|\mathbf{x}_n - \mathbf{x}^*\| \le 2\alpha q^{2^n - 1}, 
+\qquad n = 0, 1, 2, \dots
+$$
+
+4. El método de Newton **converge cuadráticamente**.
+
+:::
+
+::: {.callout-important collapse="true" title="Observación"}
+Este es uno de los teoremas más generales de **convergencia del método de Newton**.  
+El problema práctico es que resulta muy poco aplicable debido a la dificultad para calcular los valores de $\alpha$, $\beta$ y $\gamma$.
+:::
+
+En la práctica, es más usado el siguiente teorema.
+
+::: {.callout-note title="Teorema: Convergencia cuadrática del método de Newton"}
+
+Sea $\mathbf{x}^*$ la solución de la ecuación:
+
+$$
+F(\mathbf{x}) = \mathbf{x},
+$$
+
+para $F = (f_1, f_2, \dots, f_n)^t$ una función de $\mathbb{R}^n$ en $\mathbb{R}^n$.  
+Si existe un número $\delta > 0$ con las siguientes propiedades:
+
+(a) $\dfrac{\partial f_i}{\partial x_j}$ es continua en:
+
+$$
+N_\delta := \{\mathbf{x} : \|\mathbf{x} - \mathbf{x}^*\| < \delta\}, 
+\qquad i, j = 1, 2, \dots, n.
+$$
+
+(b) $\dfrac{\partial^2 f_i}{\partial x_j \partial x_k}$ es continua y satisface:
+
+$$
+\left| \frac{\partial^2 f_i}{\partial x_j \partial x_k}(\mathbf{x}) \right| \le M,
+$$
+
+  para alguna constante $M > 0$ y $i, j, k = 1, 2, \dots, n$.
+
+(c) $\dfrac{\partial f_i}{\partial x_k}(\mathbf{x}^*) = 0$,  para $i, j, k = 1, 2, \dots, n$.
+
+**Entonces:**
+
+1. Existe $\hat{\delta} \le \delta$ tal que la **sucesión de Newton** converge cuadráticamente a $\mathbf{x}^*$, siempre que:
+
+$$
+\|\mathbf{x}_0 - \mathbf{x}^*\| < \hat{\delta}.
+$$
+
+2. El **error satisface**:
+
+$$
+\|\mathbf{x}_k - \mathbf{x}^*\|_\infty 
+\le 
+\frac{n^2 M}{2} 
+\|\mathbf{x}_{k-1} - \mathbf{x}^*\|_\infty^2,
+\qquad k \ge 1.
+$$
+
+:::
+
+::: {.callout-note title="Algoritmo: Método de Newton para sistemas no lineales"}
+
+**Entrada:**  
+- Un sistema de $n$ ecuaciones $F(\mathbf{x}) = (f_1, \dots, f_n)^t$.  
+- Aproximación inicial $\mathbf{x} = (x_1, \dots, x_n)^t$.  
+- Tolerancia `tol`.  
+- Número máximo de iteraciones $N$.
+
+**Salida:**  
+- Solución aproximada $\mathbf{x}$ o mensaje de error.
+
+**Algoritmo:**
+
+1. $k \leftarrow 1$  
+2. **Mientras** $k \le N$ **hacer**  
+   1. Calcular $F(\mathbf{x})$ y $F'(\mathbf{x})$ (Jacobiano).  
+   2. Resolver el sistema lineal  
+      $$
+      F'(\mathbf{x}) \, \mathbf{y} = F(\mathbf{x}).
+      $$  
+   3. Actualizar  
+      $$
+      \mathbf{x} \leftarrow \mathbf{x} - \mathbf{y}.
+      $$  
+   4. **Si** $\|\mathbf{y}\|_\infty < \text{tol}$ **entonces**  
+      - **Salida:** $\mathbf{x}$  
+      - **Parar**  
+   5. $k \leftarrow k + 1$  
+3. **Fin mientras**  
+4. **Salida:** “Número máximo de iteraciones excedido”.
+
+::: {.callout-caution collapse="true" title="Algoritmo R"}
+
+#### Método de Newton Raphson en Varias Variables
+
+```{r}
+#| code-fold: true
+
+# ---------------------------------------------
+# Utilidades: evaluar componente y G(x)
+# Admite g_j(x) (vector) o g_j(x1, ..., xn) (escalares)
+# ---------------------------------------------
+evaluar.componente <- function(gj, x) {
+  v <- try(gj(x), silent = TRUE)    # firma vectorial
+  if (!inherits(v, "try-error") && length(v) == 1 && is.finite(v)) return(as.numeric(v))
+  as.numeric(do.call(gj, as.list(x)))  # firma escalar
+}
+
+evaluar.G <- function(G, x) {
+  vapply(G, evaluar.componente, numeric(1), x = x)
+}
+
+# ---------------------------------------------
+# Jacobiana numérica por diferencias centrales
+# J_ij = d g_i / d x_j (x)
+# ---------------------------------------------
+calcula.jacobiano <- function(G, x, h = sqrt(.Machine$double.eps)) {
+  x <- as.numeric(x)
+  m <- length(x)
+  J <- matrix(0, nrow = m, ncol = m)
+  for (j in seq_len(m)) {
+    ej <- rep(0, m); ej[j] <- 1
+    fp <- evaluar.G(G, x + h * ej)
+    fm <- evaluar.G(G, x - h * ej)
+    J[, j] <- (fp - fm) / (2 * h)
+  }
+  J
+}
+
+# ---------------------------------------------
+# Newton para varias variables (vector)
+# P0    : punto inicial
+# tol   : tolerancia (máx. norma-infinito del salto)
+# n.max : iteraciones máximas
+# G     : lista de funciones (g1, ..., gn)
+# ---------------------------------------------
+newton.vv <- function(P0, tol = 1e-8, n.max = 50, G, desplegar = TRUE) {
+  x.prev <- as.numeric(P0)
+  for (i in seq_len(n.max)) {
+    J   <- calcula.jacobiano(G, x.prev)
+    Fx  <- evaluar.G(G, x.prev)
+    # Resolver J * delta = F(x)  (mejor que invertir)
+    delta <- try(solve(J, Fx), silent = TRUE)
+    if (inherits(delta, "try-error") || any(!is.finite(delta))) {
+      stop("Falla al resolver el sistema lineal: jacobiana singular o mal condicionada.")
+    }
+    x.next <- x.prev - as.numeric(delta)
+    if (desplegar) {
+      cat(sprintf("Iteración %d: x = (%s)\n",
+          i, paste(formatC(x.next, digits = 15, format = "g"), collapse = ", ")))
+    }
+    if (max(abs(x.next - x.prev)) < tol) return(x.next)
+    x.prev <- x.next
+  }
+  message("Número máximo de iteraciones excedido")
+  return(x.prev)
+}
+```
+
+##### Ejemplo
+
+$$f(x, y) = x^2 + y^2 + 0.6y - 0.16 = 0, $$
+$$g(x, y) = x^2 - y^2 + x - 1.6y - 0.14 = 0$$
+
+```{r}
+#| code-fold: true
+
+f1 <- function(x1, x2) x1^2 + x2^2 + 0.6*x2 - 0.16
+f2 <- function(x1, x2) x1^2 - x2^2 + x1 - 1.6*x2 - 0.14
+
+F  <- list(f1, f2)
+p0 <- c(0.6, 0.25)
+
+sol <- newton.vv(p0, tol = 1e-10, n.max = 50, G = F, desplegar = TRUE)
+
+cat("\nSolución aproximada:\n")
+
+print(sol)
+
+# --- Malla y evaluación para las curvas implícitas ---
+# Rango (ajústalo si querés ver más área)
+xr <- seq(-0.5, 1.5, length.out = 400)
+yr <- seq(-0.5, 1.0, length.out = 400)
+
+grid <- expand.grid(x = xr, y = yr)
+grid$zf <- with(grid, f1(x, y))
+grid$zg <- with(grid, f2(x, y))
+
+# --- Gráfico: f(x,y)=0 (azul) y g(x,y)=0 (rojo) ---
+ggplot(grid, aes(x, y)) +
+  geom_contour(aes(z = zf, color = "f(x,y) = 0"), breaks = 0, linewidth = 1) +
+  geom_contour(aes(z = zg, color = "g(x,y) = 0"), breaks = 0, linewidth = 1) +
+  geom_point(data = data.frame(x = sol[1], y = sol[2]),
+             aes(x, y), size = 3) +
+  annotate("text", x = sol[1], y = sol[2], label = "  raíz",
+           hjust = 0, vjust = -0.7, size = 4) +
+  coord_fixed() +
+  scale_color_manual(values = c("f(x,y) = 0" = "blue", "g(x,y) = 0" = "red"), name = NULL) +
+  labs(title = "Intersección de f(x,y)=0 y g(x,y)=0",
+       subtitle = sprintf("Solución ≈ (%.6f, %.6f)", sol[1], sol[2]),
+       x = "x", y = "y") +
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "bottom")
+```
+
+
+:::
+
+:::
+
+## Sistemas de Ecuaciones Lineales
