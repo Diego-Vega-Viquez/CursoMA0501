@@ -9525,3 +9525,804 @@ ggplot(grid, aes(x, y)) +
 :::
 
 ## Sistemas de Ecuaciones Lineales
+
+
+Es frecuente, en todas las disciplinas científicas, tener que resolver sistemas lineales de la forma
+$$
+A\mathbf{x}=\mathbf{b},
+$$
+donde $A$ es una matriz cuadrada de dimensión $n\times n$ cuyos elementos $a_{ij}$ son reales o complejos, y $\mathbf{x}$ y $\mathbf{b}$ son vectores columna de dimensión $n$, donde $\mathbf{x}$ es la incógnita y $\mathbf{b}$ un vector dado.
+
+La ecuación anterior también puede escribirse como
+$$
+\begin{aligned}
+a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n &= b_1,\\
+a_{21}x_1 + a_{22}x_2 + \cdots + a_{2n}x_n &= b_2,\\
+&\vdots\\
+a_{n1}x_1 + a_{n2}x_2 + \cdots + a_{nn}x_n &= b_n.
+\end{aligned}
+$$
+
+### Sistemas lineales y complejidad
+
+La solución del sistema anterior existe y es única si y sólo si $A$ no es singular. En teoría, la solución puede calcularse utilizando las **fórmulas de Cramer**:
+$$
+x_i=\frac{\det(A_i)}{\det(A)},\qquad i=1,\ldots,n,
+$$
+donde $A_i$ es la matriz que se obtiene sustituyendo la $i$-ésima columna de $A$ por el vector $\mathbf{b}$, y donde $\det(A)$ denota el determinante de $A$.  
+Si los $n + 1$ determinantes se calculan por el método usual, se requieren aproximadamente $3(n + 1)!$ operaciones.
+
+Como de costumbre, se entiende por operación una suma, una resta, un producto o una división.
+
+
+### Factorización LU
+
+Sea $A \in \mathbb{R}^{n \times n}$.  
+Supongamos que existen dos matrices, $L$ y $U$, respectivamente triangular inferior y superior, tales que:
+
+$$
+A = LU
+$$
+
+A esta igualdad se le llama **factorización** (o **descomposición**) LU de $A$.  
+Si $A$ es invertible, entonces claramente $L$ y $U$ también lo son, y sus términos diagonales son no nulos.
+
+En este caso, resolver $A\mathbf{x} = \mathbf{b}$ equivale a resolver dos sistemas triangulares:
+
+$$
+L\mathbf{y} = \mathbf{b}, \qquad U\mathbf{x} = \mathbf{y}.
+$$
+
+Estos dos sistemas son fáciles de resolver.  
+En efecto, como $L$ es triangular inferior, la primera fila del sistema $L\mathbf{y} = \mathbf{b}$ tiene la forma:
+
+$$
+l_{11}y_1 = b_1,
+$$
+
+lo que da el valor de $y_1$, ya que $l_{11} \ne 0$.  
+Sustituyendo este valor de $y_1$ en las $n - 1$ ecuaciones siguientes, se obtiene un nuevo sistema cuyas incógnitas son $y_2, \dots, y_n$, sobre las cuales se puede proceder de la misma manera.  
+Avanzando ecuación por ecuación, se calculan así todas las incógnitas mediante el algoritmo denominado de **descenso** (o **sustitución progresiva**).
+
+El algoritmo de descenso (o sustitución progresiva) se expresa mediante las siguientes fórmulas recursivas:
+
+$$
+\begin{cases}
+y_1 = \dfrac{1}{l_{11}} b_1, \\[1em]
+y_i = \dfrac{1}{l_{ii}} \left(b_i - \displaystyle\sum_{j=1}^{i-1} l_{ij} y_j \right), \quad i = 2, \dots, n.
+\end{cases}
+$$
+
+Estas expresiones permiten calcular las componentes del vector $\mathbf{y}$ una por una, desde $y_1$ hasta $y_n$.
+
+Evaluemos el número de operaciones requeridas por la ecuación (2.5).  
+Para calcular la incógnita $y_i$, se realizan $i-1$ sumas, $i-1$ productos y una división.  
+El número total de operaciones es, por tanto:
+
+$$
+\sum_{i=1}^n 1 + 2 \sum_{i=1}^n (i - 1) 
+= 2 \sum_{i=1}^n i - n 
+= n^2.
+$$
+
+::: {.callout-tip collapse="true" title="Ejemplo"}
+Resolver el sistema $L\mathbf{y} = \mathbf{b}$ cuando $L$ es una matriz triangular inferior de orden 3.
+
+Sea
+
+$$
+L = 
+\begin{bmatrix}
+2 & 0 & 0 \\
+3 & 1 & 0 \\
+1 & -4 & 5
+\end{bmatrix}, 
+\quad 
+\mathbf{y} = 
+\begin{bmatrix}
+y_1 \\ y_2 \\ y_3
+\end{bmatrix}, 
+\quad 
+\mathbf{b} = 
+\begin{bmatrix}
+4 \\ 5 \\ -1
+\end{bmatrix}.
+$$
+
+Deseamos resolver el sistema $L\mathbf{y} = \mathbf{b}$ mediante el **algoritmo de descenso** (o **sustitución progresiva**):
+
+$$
+y_1 = \frac{b_1}{l_{11}} = \frac{4}{2} = 2
+$$
+(1 división)
+
+$$
+y_2 = \frac{b_2 - l_{21}y_1}{l_{22}} = \frac{5 - 3\cdot2}{1} = \frac{5 - 6}{1} = -1
+$$
+(1 producto, 1 resta, 1 división)
+
+$$
+y_3 = \frac{b_3 - l_{31}y_1 - l_{32}y_2}{l_{33}} 
+= \frac{-1 - 1\cdot2 - (-4)\cdot(-1)}{5} 
+= \frac{-1 - 2 - 4}{5} 
+= -\frac{7}{5}
+$$
+(2 productos, 2 restas, 1 división)
+
+Por lo tanto, el resultado es:
+
+$$
+\mathbf{y} = 
+\begin{bmatrix}
+2 \\ -1 \\ -\tfrac{7}{5}
+\end{bmatrix}.
+$$
+
+El número total de operaciones elementales (sumas/restas, productos y divisiones) es:
+
+$$
+1 + 3 + 5 = 9 = 3^2,
+$$
+
+lo cual coincide con la fórmula general:
+
+$$
+\sum_{i=1}^n 1 + 2\sum_{i=1}^n (i - 1) = n^2.
+$$
+
+Podemos resolver el sistema $U\mathbf{x}=\mathbf{y}$ de manera similar.  
+Esta vez se comienza por determinar $x_n$ y luego, paso a paso hacia atrás, las demás incógnitas $x_i$ para $i=n-1,\dots,1$:
+
+$$
+\left\{
+\begin{aligned}
+x_n &= \frac{1}{u_{nn}}\,y_n,\\[4pt]
+x_i &= \frac{1}{u_{ii}}\!\left(\,y_i-\sum_{j=i+1}^{n} u_{ij}\,x_j\right), \qquad i=n-1,\dots,1 .
+\end{aligned}
+\right.
+\tag{2.6}
+$$
+
+Este procedimiento es el **algoritmo de ascenso** (sustitución regresiva) y necesita también $n^2$ operaciones.
+
+:::
+
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
+Resolver $U\mathbf{x}=\mathbf{y}$ por sustitución regresiva (triangular superior, $n=3$)
+
+Sea
+$$
+U=\begin{bmatrix}
+3 & -1 & 2\\
+0 & 2 & -4\\
+0 & 0 & 5
+\end{bmatrix},\qquad
+\mathbf{x}=\begin{bmatrix}x_1\\x_2\\x_3\end{bmatrix},\qquad
+\mathbf{y}=\begin{bmatrix}10\\-2\\15\end{bmatrix}.
+$$
+
+Procedemos de atrás hacia adelante:
+
+1) $5x_3=15 \Rightarrow x_3=\dfrac{15}{5}=3$.
+
+2) $2x_2-4x_3=-2 \Rightarrow 2x_2-4\cdot3=-2 \Rightarrow 2x_2=10 \Rightarrow x_2=\dfrac{10}{2}=5$.
+
+3) $3x_1-x_2+2x_3=10 \Rightarrow 3x_1-5+2\cdot3=10 \Rightarrow 3x_1+1=10
+\Rightarrow 3x_1=9 \Rightarrow x_1=\dfrac{9}{3}=3$.
+
+Por lo tanto,
+$$
+\mathbf{x}=\begin{bmatrix}3\\5\\3\end{bmatrix}.
+$$
+
+**Conteo de operaciones.** Para $n=3$ se realizan $1+3+5=9=3^2$ operaciones elementales (sumas/restas, productos y divisiones).
+:::
+
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
+Resolver $A\mathbf{x}=\mathbf{b}$ con la factorización $A=LU$ (descenso + ascenso)
+
+Tomemos
+$$
+L=\begin{bmatrix}
+2&0&0\\
+3&1&0\\
+1&-4&5
+\end{bmatrix},
+\qquad
+U=\begin{bmatrix}
+3&-1&2\\
+0&2&-4\\
+0&0&5
+\end{bmatrix},
+\qquad
+A=LU=\begin{bmatrix}
+6&-2&4\\
+9&-1&2\\
+3&-9&43
+\end{bmatrix}.
+$$
+
+Sea
+$$
+\mathbf{b}=\begin{bmatrix}20\\[2pt]28\\[2pt]93\end{bmatrix}.
+$$
+
+** Paso 1: Descenso $L\mathbf{y}=\mathbf{b}$ **
+Calculamos $\mathbf{y}$ componente a componente (sustitución progresiva):
+$$
+y_1=\frac{b_1}{\;l_{11}\;}=\frac{20}{2}=10,
+$$
+$$
+y_2=\frac{\,b_2-l_{21}y_1\,}{\;l_{22}\;}=\frac{28-3\cdot10}{1}=28-30=-2,
+$$
+$$
+y_3=\frac{\,b_3-l_{31}y_1-l_{32}y_2\,}{\;l_{33}\;}
+=\frac{\,93-1\cdot10-(-4)\cdot(-2)\,}{5}
+=\frac{\,93-10-8\,}{5}=\frac{75}{5}=15.
+$$
+
+Por tanto,
+$$
+\mathbf{y}=\begin{bmatrix}10\\[2pt]-2\\[2pt]15\end{bmatrix}.
+$$
+
+**Paso 2: Ascenso $U\mathbf{x}=\mathbf{y}$**
+Resolvemos de atrás hacia adelante (sustitución regresiva):
+$$
+x_3=\frac{y_3}{\;u_{33}\;}=\frac{15}{5}=3,
+$$
+$$
+x_2=\frac{\,y_2-u_{23}x_3\,}{\;u_{22}\;}
+=\frac{-2-(-4)\cdot3}{2}
+=\frac{-2+12}{2}=\frac{10}{2}=5,
+$$
+$$
+x_1=\frac{\,y_1-u_{12}x_2-u_{13}x_3\,}{\;u_{11}\;}
+=\frac{\,10-(-1)\cdot5-2\cdot3\,}{3}
+=\frac{10+5-6}{3}=\frac{9}{3}=3.
+$$
+
+**Solución**
+$$
+\mathbf{x}=\begin{bmatrix}3\\[2pt]5\\[2pt]3\end{bmatrix}.
+$$
+
+**Verificación**
+$$
+A\mathbf{x}=
+\begin{bmatrix}
+6&-2&4\\
+9&-1&2\\
+3&-9&43
+\end{bmatrix}
+\begin{bmatrix}3\\[2pt]5\\[2pt]3\end{bmatrix}
+=
+\begin{bmatrix}20\\[2pt]28\\[2pt]93\end{bmatrix}
+=\mathbf{b}.
+$$
+
+Con esto se confirma que la solución obtenida por el esquema $A=LU$ (descenso + ascenso) es correcta.
+:::
+
+::: {.callout-tip collapse="true" title="Ejemplo"}
+Factorización $LU$ para $A\in\mathbb{R}^{2\times2}$
+
+**Solución**
+
+Escribamos la relación $A=LU$ para una matriz cualquiera $A\in\mathbb{R}^{2\times2}$:
+
+$$
+\begin{bmatrix}
+l_{11} & 0\\
+l_{21} & l_{22}
+\end{bmatrix}
+\begin{bmatrix}
+u_{11} & u_{12}\\
+0 & u_{22}
+\end{bmatrix}
+=
+\begin{bmatrix}
+a_{11} & a_{12}\\
+a_{21} & a_{22}
+\end{bmatrix}.
+$$
+
+Los seis elementos desconocidos de $L$ y $U$ deben satisfacer las siguientes ecuaciones (no lineales):
+
+$$
+\begin{aligned}
+(e_1)\;& l_{11}u_{11}=a_{11}, 
+\qquad
+(e_2)\; l_{11}u_{12}=a_{12},\\[2pt]
+(e_3)\;& l_{21}u_{11}=a_{21},
+\qquad
+(e_4)\; l_{21}u_{12}+l_{22}u_{22}=a_{22}.
+\end{aligned}
+$$
+
+El sistema anterior es **subdeterminado** (hay menos ecuaciones que incógnitas). Podemos completarlo fijando arbitrariamente los coeficientes diagonales de $L$; por ejemplo, tomamos $l_{11}=1$ y $l_{22}=1$.
+
+Con esta elección puede resolverse así:
+1) Primero se determinan $u_{11}$ y $u_{12}$ (primera fila de $U$) usando $(e_1)$ y $(e_2)$.
+2) Si $u_{11}\neq 0$, de $(e_3)$ se obtiene $l_{21}$ (primer elemento de la segunda fila de $L$, con $l_{11}$ ya conocido).
+3) Finalmente, usando $(e_4)$, se determina el único elemento no nulo $u_{22}$ de la segunda fila de $U$.
+:::
+
+::: {.callout-tip collapse="true" title="Ejemplo"}
+
+Retomemos los cálculos en el caso de una matriz $3\times 3$. Para determinar los 12 coeficientes desconocidos de $L$ y $U$ en $A=LU$, se dispone de las 9 ecuaciones
+$$
+\begin{aligned}
+(e_1)\;& l_{11}u_{11}=a_{11}, 
+& (e_2)\;& l_{11}u_{12}=a_{12}, 
+& (e_3)\;& l_{11}u_{13}=a_{13},\\
+(e_4)\;& l_{21}u_{11}=a_{21},
+& (e_5)\;& l_{21}u_{12}+l_{22}u_{22}=a_{22},
+& (e_6)\;& l_{21}u_{13}+l_{22}u_{23}=a_{23},\\
+(e_7)\;& l_{31}u_{11}=a_{31},
+& (e_8)\;& l_{31}u_{12}+l_{32}u_{22}=a_{32},
+& (e_9)\;& l_{31}u_{13}+l_{32}u_{23}+l_{33}u_{33}=a_{33}.
+\end{aligned}
+$$
+
+El sistema es **subdeterminado**. Se completa imponiendo $l_{ii}=1$ para $i=1,2,3$.
+
+- Con $(e_1)$, $(e_2)$, $(e_3)$ se obtienen $u_{11},u_{12},u_{13}$ (primera fila de $U$).
+- Usando $(e_4)$ y $(e_7)$ se determinan $l_{21}$ y $l_{31}$ (primera columna de $L$).
+- Con $(e_5)$ y $(e_6)$ se calculan $u_{22},u_{23}$ (segunda fila de $U$).
+- Usando $(e_8)$ se determina $l_{32}$ (segunda columna de $L$).
+- Finalmente, $(e_9)$ determina $u_{33}$ (última fila/columna de $U$).
+
+**Caso general $n\times n$.**
+
+1. Los elementos de $L$ y $U$ satisfacen, para $i,j=1,\dots,n$,
+\begin{equation}
+\sum_{r=1}^{\min(i,j)} l_{ir}u_{rj} = a_{ij}.
+\tag{2.7}
+\end{equation}
+2. El sistema $(2.7)$ es **subdeterminado**; en efecto, hay $n^2$ ecuaciones y $n^2 + n$ incógnitas.  
+Por tanto, la factorización $LU$ no puede ser única; de hecho, existe una **infinidad** de matrices $L$ y $U$ que satisfacen $(2.7)$.
+
+3. Fijando el valor $1$ para los $n$ elementos diagonales de $L$, el sistema $(2.7)$ se convierte en un sistema determinado que puede resolverse mediante el *Algoritmo de Gauss*.  
+
+Sea $A^{(1)} = A$, es decir, $a_{ij}^{(1)} = a_{ij}$ para $i, j = 1, \dots, n$:
+
+\begin{equation}
+\begin{cases}
+\text{para } k = 1, \dots, n-1, \\[3pt]
+\quad \text{para } i = k + 1, \dots, n, \\[3pt]
+\qquad l_{ik} = \dfrac{a_{ik}^{(k)}}{a_{kk}^{(k)}}, \\[8pt]
+\quad \text{para } j = k + 1, \dots, n, \\[3pt]
+\qquad a_{ij}^{(k+1)} = a_{ij}^{(k)} - l_{ik} a_{kj}^{(k)}.
+\end{cases}
+\tag{2.8}
+\end{equation}
+
+Los términos $a_{kk}^{(k)}$, llamados pivotes, deben ser todos no nulos.  
+Para $k = 1, \dots, n-1$, la matriz $A^{(k+1)} = (a_{ij}^{(k+1)})$ tiene $n - k$ filas y columnas.
+
+:::
+
+::: {.callout-important collapse="true" title="Observación"}
+
+No es necesario almacenar todas las matrices $A^{(k)}$ durante el algoritmo $(2.8)$.  
+De hecho, es posible sobrescribir los últimos $(n - k) \times (n - k)$ elementos de la matriz original $A$ con los $(n - k) \times (n - k)$ elementos de $A^{(k+1)}$.
+
+Además, en la etapa $k$, los elementos situados **bajo la diagonal** de la $k$-ésima columna no afectan a la matriz final $U$; por tanto, pueden reemplazarse por los coeficientes de la $k$-ésima columna de $L$ (los **multiplicadores**).  
+Esto es precisamente lo que se realiza en la implementación de `LU.html` en **R**.
+
+En la etapa $k$ del algoritmo, los elementos almacenados en lugar de los coeficientes originales de $A$ son:
+
+$$
+\begin{bmatrix}
+a^{(1)}_{11} & a^{(1)}_{12} & \cdots & a^{(1)}_{1n} \\
+l_{21} & a^{(2)}_{22} & & a^{(2)}_{2n} \\
+\vdots & \ddots & \ddots & \vdots \\
+l_{k1} & \cdots & l_{k,k-1} & 
+\boxed{
+\begin{matrix}
+a^{(k)}_{kk} & \cdots & a^{(k)}_{kn} \\
+\vdots & \ddots & \vdots \\
+a^{(k)}_{nk} & \cdots & a^{(k)}_{nn}
+\end{matrix}
+}
+\end{bmatrix}
+$$
+
+donde la submatriz en el recuadro corresponde a $A^{(k)}$.
+
+Así, el algoritmo puede implementarse **almacenando una sola matriz**, inicializada con $A$, que se actualiza en cada iteración $k \ge 2$ sobrescribiendo los nuevos términos $a^{(k)}_{ij}$ (para $i, j \ge k + 1$) y los multiplicadores $l_{ik}$ (para $i \ge k + 1$).  Nótese que **no es necesario almacenar los elementos diagonales** $l_{ii}$, ya que se sabe que todos valen $1$.
+
+:::
+
+::: {.callout-important collapse="true" title="Observación: Cálculo de un determinante"}
+
+La factorización $LU$ permite calcular el determinante de $A$ con aproximadamente $\mathcal{O}(n^2)$ operaciones (si ya se tienen calculadas $L$ y $U$).  
+Basta con notar que:
+
+$$
+\det(A) = \det(L)\det(U) = \prod_{k=1}^{n} u_{kk}.
+$$
+
+:::
+
+::: {.callout-tip collapse="true" title="Ejemplo 7"}
+
+Supongamos que se desea resolver el sistema $A\mathbf{x} = \mathbf{b}$ con:
+
+$$
+A = 
+\begin{bmatrix}
+1 & 1 - \varepsilon & 3 \\
+2 & 2 & 2 \\
+3 & 6 & 4
+\end{bmatrix},
+\quad
+\mathbf{b} =
+\begin{bmatrix}
+5 - \varepsilon \\
+6 \\
+13
+\end{bmatrix},
+\quad
+\varepsilon \in \mathbb{R}.
+$$
+
+La solución del sistema es:
+
+$$
+\mathbf{x} = (1, 1, 1)^t,
+$$
+
+independientemente del valor de $\varepsilon$.
+
+Sea ahora $\varepsilon = 1$.  
+La factorización de Gauss de $A$ obtenida con el programa en **R** es:
+
+$$
+L =
+\begin{bmatrix}
+1 & 0 & 0 \\
+2 & 1 & 0 \\
+3 & 3 & 1
+\end{bmatrix},
+\quad
+U =
+\begin{bmatrix}
+1 & 0 & 3 \\
+0 & 2 & -4 \\
+0 & 0 & 7
+\end{bmatrix}.
+$$
+
+Si se toma $\varepsilon = 0$, no es posible efectuar la factorización de Gauss  
+(aunque $A$ no sea singular, i.e., invertible), ya que el algoritmo $(2.8)$ provocaría una división por cero.
+
+El ejemplo anterior muestra que la factorización de Gauss $A = LU$ no existe para toda matriz invertible $A$.  
+Sin embargo, puede establecerse el siguiente resultado:
+
+:::
+
+::: {.callout-note title="Proposición"}
+
+Sea $A \in \mathbb{R}^{n \times n}$ una matriz cualquiera.  
+La factorización de Gauss existe y es **única si y sólo si** las submatrices principales $A_i$ de $A$, de orden $i = 1, \dots, n-1$ (aquellas obtenidas al restringir $A$ a sus $i$ primeras filas y columnas), no son singulares (i.e., son invertibles).  
+
+En otras palabras, si los **menores principales**, es decir, los determinantes de las submatrices principales, son todos no nulos.
+
+:::
+
+Con mayor detalle, se tiene el siguiente resultado:
+
+::: {.callout-note title="Proposición"}
+
+Sea $A \in \mathbb{F}^{n \times n}$, con $\mathbb{F} = \mathbb{R}$ o $\mathbb{C}$.  
+Las siguientes afirmaciones son equivalentes:
+
+1. Todos los **menores principales líderes** son no nulos, es decir,  
+   $\det(A_{1:k,\,1:k}) \ne 0$ para $k = 1, \dots, n$.
+
+2. Existe una factorización $A = LU$ con $L$ triangular inferior **unitaria** (diagonal de unos)  
+   y $U$ triangular superior con **diagonal no nula**.
+
+Además, cuando existen, $L$ y $U$ son **únicas**.
+
+::: {.callout-caution collapse="true" title="Prueba"}
+
+**$(2 \Rightarrow 1)$**.  
+Suponga $A = LU$ con $L$ triangular inferior unitaria y $U$ triangular superior.  
+Para cada $k$ el menor principal líder de orden $k$ se escribe como
+$$
+A_{1:k,\,1:k}=L_{1:k,\,1:k}\,U_{1:k,\,1:k},
+$$
+donde $L_{1:k,\,1:k}$ es triangular inferior unitaria y $U_{1:k,\,1:k}$ triangular superior.  
+Tomando determinantes,
+$$
+\det(A_{1:k,\,1:k})
+=\det(L_{1:k,\,1:k})\,\det(U_{1:k,\,1:k})
+=\Big(\prod_{i=1}^k 1\Big)\Big(\prod_{i=1}^k u_{ii}\Big)
+=\prod_{i=1}^k u_{ii}.
+$$
+Como $u_{ii}\neq 0$ (la diagonal de una triangular superior invertible es no nula), se concluye $\det(A_{1:k,\,1:k})\neq 0$ para todo $k$.
+
+**$(1 \Rightarrow 2)$**.  
+Procedemos por inducción en $n$ (equivalentemente, por eliminación de Gauss sin permutaciones).
+
+- Para $n=1$ es trivial.
+
+- Suponga el enunciado cierto hasta tamaño $n-1$ y sea $A\in\mathbb{F}^{n\times n}$ con $\det(A_{1:k,\,1:k})\neq 0$ para $k=1,\dots,n$.  
+En particular $a_{11}\neq 0$. Escriba $A$ en bloques
+$$
+A=\begin{bmatrix}
+a_{11} & a_{12}^t\\
+a_{21} & A_{22}
+\end{bmatrix},\qquad a_{11}\neq 0 .
+$$
+Defina los **multiplicadores** $\ell=a_{21}/a_{11}\in\mathbb{F}^{n-1}$ y forme el **complemento de Schur**
+$$
+S \;=\; A_{22}-\ell\, a_{12}^t .
+$$
+Entonces
+$$
+\underbrace{\begin{bmatrix}
+1 & 0\\[2pt]
+-\ell & I_{n-1}
+\end{bmatrix}}_{L_1^{-1}}
+\;A\;=\;
+\begin{bmatrix}
+a_{11} & a_{12}^t\\
+0 & S
+\end{bmatrix}.
+$$
+Como $L_1=\begin{bmatrix}1&0\\ \ell&I\end{bmatrix}$ es triangular inferior unitaria, basta factorizar el bloque superior derecho.  
+Además, para cada $k=2,\dots,n$, el menor principal líder de orden $k$ de $A$ se descompone como
+$$
+\det(A_{1:k,\,1:k}) \;=\; a_{11}\,\det\!\big(S_{1:(k-1),\,1:(k-1)}\big),
+$$
+
+
+Dado que por hipótesis $\det(A_{1:k,\,1:k}) \neq 0$ y $a_{11} \neq 0$, concluimos que  
+$\det(S_{1:(k-1),\,1:(k-1)}) \neq 0$ para toda orden $k - 1 = 1, \dots, n - 1$.  
+
+Por hipótesis inductiva, $S$ admite una factorización $S = L_2 U_2$ con $L_2$ unitaria inferior y $U_2$ superior.  
+Poniendo todo junto,
+
+$$
+A
+= L_1
+\begin{bmatrix}
+a_{11} & a_{12}^t \\
+0 & L_2 U_2
+\end{bmatrix}
+=
+\underbrace{
+\begin{bmatrix}
+1 & 0 \\
+\ell & L_2
+\end{bmatrix}}_{L}
+\underbrace{
+\begin{bmatrix}
+a_{11} & a_{12}^t \\
+0 & U_2
+\end{bmatrix}}_{U},
+$$
+
+donde $L$ es triangular inferior unitaria y $U$ triangular superior.  
+Esto prueba la **existencia**.
+
+**(Unicidad).**  
+Suponga $A = L_1 U_1 = L_2 U_2$, con $L_1, L_2$ unitarias inferiores y $U_1, U_2$ superiores.  
+Entonces:
+
+$$
+L_2^{-1} L_1 = U_2 U_1^{-1}.
+$$
+
+El miembro izquierdo es triangular inferior unitaria y el derecho triangular superior.  
+La única matriz que es simultáneamente triangular superior e inferior y con diagonal de unos es la identidad.  
+Por tanto, $L_1 = L_2$ y $U_1 = U_2$.  
+
+$\blacksquare$
+
+
+:::
+
+:::
+
+Volviendo al **Ejemplo 7**, se observa que cuando $\varepsilon = 0$, la segunda submatriz principal $A_2$ de $A$ es singular.
+
+Podemos identificar clases particulares de matrices para las cuales se satisfacen las hipótesis de la **Proposición 1** o **2**.  
+
+Por ejemplo:
+
+1. **Las matrices con diagonal estrictamente dominante.**
+
+Una matriz se dice de **diagonal dominante por filas** si
+
+$$
+|a_{ii}| \ge \sum_{\substack{j=1 \\ j \ne i}}^n |a_{ij}|, \quad i = 1, \dots, n,
+$$
+
+y **por columnas** si
+
+$$
+|a_{ii}| \ge \sum_{\substack{j=1 \\ j \ne i}}^n |a_{ji}|, \quad i = 1, \dots, n.
+$$
+
+Cuando se puede reemplazar el signo “$\ge$” por “$>$” en las desigualdades anteriores,  
+la matriz $A$ se denomina de **diagonal estrictamente dominante** (ya sea por filas o por columnas).
+
+2. **Las matrices reales simétricas definidas positivas.**
+
+Una matriz simétrica $A \in \mathbb{R}^{n \times n}$ se dice **definida positiva** si
+
+$$
+\forall x \in \mathbb{R}^n, \, x \ne 0, \quad x^T A x > 0.
+$$
+
+::: {.callout-tip collapse="true" title="Ejemplo: Matriz con diagonal estrictamente dominante por filas"}
+
+Sea:
+
+$$
+A =
+\begin{bmatrix}
+10 & -1 & 2 \\
+1 & 8 & -2 \\
+1 & 1 & 6
+\end{bmatrix}.
+$$
+
+Para cada fila se cumple:
+
+$$
+|a_{11}| = 10 > |-1| + |2| = 3, \quad
+|a_{22}| = 8 > |1| + |-2| = 3, \quad
+|a_{33}| = 6 > |1| + |1| = 2.
+$$
+
+Por tanto, $A$ es de **diagonal estrictamente dominante por filas**  
+y cumple las condiciones de la **Proposición 1**;  
+en consecuencia, posee una factorización $A = LU$ sin necesidad de pivoteo  
+(más adelante se presentará el algoritmo con pivoteo).
+
+:::
+
+::: {.callout-tip collapse="true" title="Ejemplo: Matriz simétrica definida positiva"}
+
+Sea:
+
+$$
+B =
+\begin{bmatrix}
+4 & 2 & -2 \\
+2 & 5 & 1 \\
+-2 & 1 & 6
+\end{bmatrix}.
+$$
+
+Es simétrica ($B = B^T$). Verifiquemos los menores principales:
+
+$$
+\det(B_1) = 4 > 0, \quad
+\det(B_2) = 16 > 0, \quad
+\det(B_3) = 92 > 0.
+$$
+
+Todos los menores principales son positivos,  
+por lo que $B$ es **definida positiva**.  
+Además, admite la **factorización de Cholesky** $B = LL^T$, con:
+
+$$
+L =
+\begin{bmatrix}
+2 & 0 & 0 \\
+1 & 2 & 0 \\
+-1 & 1 & 2
+\end{bmatrix}.
+$$
+
+---
+
+Si $A \in \mathbb{R}^{n \times n}$ es simétrica definida positiva, puede construirse una factorización particular:
+
+$$
+A = R^T R,
+$$
+
+donde $R$ es una matriz triangular superior con elementos diagonales positivos.  
+Esta descomposición se denomina **factorización de Cholesky** y requiere aproximadamente $\tfrac{n^3}{3}$ operaciones (la mitad de las necesarias para la factorización $LU$ de Gauss).
+
+Además, gracias a la simetría, sólo es necesario almacenar la parte superior de $A$,  
+y los coeficientes de $R$ pueden colocarse en el mismo espacio de memoria.
+
+Los coeficientes de $R$ pueden calcularse mediante el siguiente algoritmo:
+
+Se define $r_{11} = \sqrt{a_{11}}$, y para $i = 2, \dots, n$, se tiene:
+
+$$
+\begin{cases}
+r_{ji} = \dfrac{1}{r_{jj}} \left(a_{ij} - \displaystyle\sum_{k=1}^{j-1} r_{ki} r_{kj}\right), & j = 1, \dots, i-1, \\
+\\
+r_{ii} = \sqrt{a_{ii} - \displaystyle\sum_{k=1}^{i-1} r_{ki}^2}.
+\end{cases}
+\tag{2.10}
+$$
+
+:::
+
+
+::: {.callout-tip collapse="true" title="Ejemplo: Cálculo de la factorización de Cholesky"}
+
+Sea
+
+$$
+B =
+\begin{bmatrix}
+4 & 2 & -2 \\
+2 & 5 & 1 \\
+-2 & 1 & 6
+\end{bmatrix},
+\quad B = B^t,
+$$
+
+por lo tanto $B$ es **definida positiva**.  
+Calcularemos su factorización de Cholesky $B = R^T R$,  
+con $R$ triangular superior (diagonal positiva), siguiendo (2.10).
+
+**Paso $i = 1$**
+
+$$
+r_{11} = \sqrt{a_{11}} = \sqrt{4} = 2.
+$$
+
+**Paso $i = 2$**
+
+$$
+r_{12} = \frac{1}{r_{11}} (a_{12} - \sum_{k=1}^{0} r_{k2} r_{k1}) = \frac{a_{12}}{r_{11}} = \frac{2}{2} = 1,
+$$
+
+$$
+r_{22} = \sqrt{a_{22} - \sum_{k=1}^{1} r_{k2}^2} = \sqrt{5 - r_{12}^2} = \sqrt{5 - 1} = 2.
+$$
+
+**Paso $i = 3$**
+
+$$
+r_{13} = \frac{1}{r_{11}} (a_{13} - \sum_{k=1}^{0} r_{k3} r_{k1}) = \frac{a_{13}}{r_{11}} = \frac{-2}{2} = -1,
+$$
+
+$$
+r_{23} = \frac{1}{r_{22}} (a_{23} - \sum_{k=1}^{1} r_{k3} r_{k2}) = \frac{1 - r_{13} r_{12}}{2} = \frac{1 - (-1)\cdot1}{2} = \frac{2}{2} = 1,
+$$
+
+$$
+r_{33} = \sqrt{a_{33} - \sum_{k=1}^{2} r_{k3}^2} = \sqrt{6 - (r_{13}^2 + r_{23}^2)} = \sqrt{6 - (1 + 1)} = 2.
+$$
+
+**Resultado**
+
+La matriz triangular superior $R$ es:
+
+$$
+R =
+\begin{bmatrix}
+2 & 1 & -1 \\
+0 & 2 & 1 \\
+0 & 0 & 2
+\end{bmatrix},
+\quad \text{y por tanto} \quad
+R^T R =
+\begin{bmatrix}
+4 & 2 & -2 \\
+2 & 5 & 1 \\
+-2 & 1 & 6
+\end{bmatrix}
+= B.
+$$
+
+Esto verifica la factorización de Cholesky $B = R^t R$.
+
+:::
