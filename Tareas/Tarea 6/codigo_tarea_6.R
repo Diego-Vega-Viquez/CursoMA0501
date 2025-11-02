@@ -297,3 +297,59 @@ nodos.e.mod <- pba.e.mod$t
 valores.e.mod <- pba.e.mod$w
 
 graficar.polinomio(nodos.e.mod, 1, 2, neville, valores = valores.e.mod, f.referencia = function(x) x^2*(exp(x)-exp(1)))
+
+tercer.orden.huen <- function(a, b, N, alfa, f){
+  h <- (b - a) / N
+  t <- a
+  w <- alfa
+  T <- numeric(N + 1)
+  W <- numeric(N + 1)
+  T[1] <- t
+  W[1] <- w
+  for (i in 2:(N+1)) {
+    k1 <- f(T[i-1], W[i-1])
+    k2 <- f(T[i-1] + h/3, W[i-1] + k1*(h/3))
+    k3 <- f(T[i-1] + (2/3)*h, W[i-1] + (2*h/3)*k2)
+
+    W[i] <- W[i-1] + (h/4)*(k1 + 3*k3)
+    T[i] <- T[i - 1] + h
+  }
+  
+  tabla <- data.frame(t = T, w = W)
+  
+  return(list(t = T, w = W, tabla = tabla))
+}
+
+pba.huen <- euler.modificado(1, 2, 3, 0, function(t, w) (2/t)*w + t^2*exp(t))
+nodos.huen <- pba.huen$t
+valores.huen <- pba.huen$w
+
+graficar.polinomio(nodos.huen, 1, 2, neville, valores = valores.huen, f.referencia = function(x) x^2*(exp(x)-exp(1)))
+
+tercer.orden.runge.kutta <- function(a, b, N, alfa, f){
+  h <- (b - a) / N
+  t <- a
+  w <- alfa
+  T <- numeric(N + 1)
+  W <- numeric(N + 1)
+  T[1] <- t
+  W[1] <- w
+  for (i in 2:(N+1)) {
+    k1 <- f(T[i-1], W[i-1])
+    k2 <- f(T[i-1] + h/2, W[i-1] + k1*(h/2))
+    k3 <- f(T[i-1] + h, W[i-1] - h*k1 + 2*h*k2)
+    
+    W[i] <- W[i-1] + (h/6)*(k1 + 4*k2 + k3)
+    T[i] <- T[i - 1] + h
+  }
+  
+  tabla <- data.frame(t = T, w = W)
+  
+  return(list(t = T, w = W, tabla = tabla))
+}
+
+pba.runge.kutta.3 <- euler.modificado(1, 2, 3, 0, function(t, w) (2/t)*w + t^2*exp(t))
+nodos.runge.kutta.3 <- pba.runge.kutta.3$t
+valores.runge.kutta.3 <- pba.runge.kutta.3$w
+
+graficar.polinomio(nodos.runge.kutta.3, 1, 2, neville, valores = valores.runge.kutta.3, f.referencia = function(x) x^2*(exp(x)-exp(1)))
