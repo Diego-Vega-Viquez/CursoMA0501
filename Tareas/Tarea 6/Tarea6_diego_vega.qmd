@@ -56,6 +56,258 @@ editor:
 
 \newpage
 
+```{r}
+#| include: false
+
+library(tidyverse)
+neville <- function(nodos, valores, x) {
+  stopifnot(is.numeric(nodos),
+            is.numeric(valores),
+            length(nodos) == length(valores))
+  n <- length(nodos)
+  Q <- matrix(NA_real_, nrow = n, ncol = n)
+  
+  # Columna inicial con valores de Y
+  Q[, 1] <-  valores
+  
+  # Construccion de la tabla de Neville
+  for (i in 2:n) {
+    for (j in 2:i) {
+      numerador <- ((x - nodos[i - j + 1]) * Q[i, j - 1] - (x - nodos[i]) * Q[i -
+                                                                                1, j - 1])
+      denominador <- nodos[i] - nodos[i - j + 1]
+      Q[i, j] <-  numerador / denominador
+    }
+  }
+  return(list(valor = Q[n, n], tabla = Q))
+}
+
+
+graficar.polinomio <- function(nodos1,
+                               a,
+                               b,
+                               metodo1,
+                               f1 = NULL,
+                               valores1 = NULL,
+                               nodos2 = NULL,
+                               metodo2 = metodo1,
+                               f2 = NULL,
+                               valores2 = NULL,
+                               f.referencia = NULL) {
+  stopifnot(is.numeric(nodos1), length(nodos1) >= 2)
+
+  if (is.null(f1) == is.null(valores1)) {
+    stop("Para el primer conjunto debe proveer exactamente uno: 'f1' o 'valores1'.")
+  }
+
+  tiene.segundo <- !is.null(nodos2)
+
+  if (tiene.segundo) {
+    stopifnot(is.numeric(nodos2), length(nodos2) >= 2)
+    if (is.null(f2) == is.null(valores2)) {
+      stop("Para el segundo conjunto debe proveer exactamente uno: 'f2' o 'valores2'.")
+    }
+  }
+
+  if (!is.null(f1)) {
+    stopifnot(is.function(f1))
+    valores_nodos_1 <- f1(nodos1)
+  } else {
+    stopifnot(is.numeric(valores1), length(valores1) == length(nodos1))
+    valores_nodos_1 <- valores1
+  }
+
+  if (tiene.segundo) {
+    if (!is.null(f2)) {
+      stopifnot(is.function(f2))
+      valores_nodos_2 <- f2(nodos2)
+    } else {
+      stopifnot(is.numeric(valores2), length(valores2) == length(nodos2))
+      valores_nodos_2 <- valores2
+    }
+  } else {
+    valores_nodos_2 <- NULL
+  }
+
+  H1 <- function(x) {
+    vapply(
+      x,
+      function(xx)
+        metodo1(nodos1, valores_nodos_1, xx)$valor,
+      numeric(1)
+    )
+  }
+
+  if (tiene.segundo) {
+    H2 <- function(x) {
+      vapply(
+        x,
+        function(xx)
+          metodo2(nodos2, valores_nodos_2, xx)$valor,
+        numeric(1)
+      )
+    }
+  } else {
+    H2 <- NULL
+  }
+
+  xi <- seq(a, b, length.out = 400)
+
+  fx1.col <- if (!is.null(f1)) f1(xi) else NA_real_
+
+  if (tiene.segundo) {
+    fx2.col <- if (!is.null(f2)) f2(xi) else NA_real_
+  } else {
+    fx2.col <- NA_real_
+  }
+
+  fx.ref.col <- if (!is.null(f.referencia)) {
+    stopifnot(is.function(f.referencia))
+    f.referencia(xi)
+  } else {
+    NA_real_
+  }
+
+  df_plot <- data.frame(
+    x        = xi,
+    H1x      = H1(xi),
+    H2x      = if (tiene.segundo) H2(xi) else NA_real_,
+    fx1      = fx1.col,
+    fx2      = fx2.col,
+    fx.ref   = fx.ref.col
+  )
+
+  df_nodos_1 <- data.frame(x = nodos1, y = valores_nodos_1)
+
+  if (tiene.segundo) {
+    df_nodos_2 <- data.frame(x = nodos2, y = valores_nodos_2)
+  }
+
+  p <- ggplot(df_plot, aes(x = x))
+  
+  if (!is.null(f.referencia)) {
+    p <- p +
+      geom_line(
+        aes(y = fx.ref,
+            color = "Referencia",
+            linetype = "Referencia"),
+        linewidth = 1
+      )
+  }
+
+  if (!is.null(f1)) {
+    p <- p +
+      geom_line(
+        aes(y = fx1,
+            color = "Original 1",
+            linetype = "Original 1"),
+        linewidth = 1
+      )
+  }
+
+  if (tiene.segundo && !is.null(f2)) {
+    p <- p +
+      geom_line(
+        aes(y = fx2,
+            color = "Original 2",
+            linetype = "Original 2"),
+        linewidth = 1
+      )
+  }
+
+  p <- p +
+    geom_line(
+      aes(y = H1x,
+          color = "Interpolación 1",
+          linetype = "Interpolación 1"),
+      linewidth = 1
+    )
+
+  if (tiene.segundo) {
+    p <- p +
+      geom_line(
+        aes(y = H2x,
+            color = "Interpolación 2",
+            linetype = "Interpolación 2"),
+        linewidth = 1
+      )
+  }
+
+  p <- p +
+    geom_point(
+      data = df_nodos_1,
+      aes(x = x, y = y, fill = "Nodos 1"),
+      shape = 21,
+      size = 3,
+      stroke = .6,
+      color = "black"
+    )
+
+  if (tiene.segundo) {
+    p <- p +
+      geom_point(
+        data = df_nodos_2,
+        aes(x = x, y = y, fill = "Nodos 2"),
+        shape = 21,
+        size = 3,
+        stroke = .6,
+        color = "black"
+      )
+  }
+
+  p <- p +
+    scale_color_manual(
+      values = c(
+        "Original 1"        = "blue",
+        "Original 2"        = "darkgreen",
+        "Interpolación 1"   = "red",
+        "Interpolación 2"   = "purple",
+        "Referencia"        = "orange"
+      ),
+      name = "Serie"
+    ) +
+    scale_linetype_manual(
+      values = c(
+        "Original 1"        = "solid",
+        "Original 2"        = "solid",
+        "Interpolación 1"   = "dashed",
+        "Interpolación 2"   = "dashed",
+        "Referencia"        = "solid"
+      ),
+      guide = "none"
+    ) +
+    scale_fill_manual(
+      values = c(
+        "Nodos 1" = "white",
+        "Nodos 2" = "grey70"
+      ),
+      name = "Nodos"
+    ) +
+    labs(
+      title = if (tiene.segundo) {
+        paste0(
+          "Interpolación 1: ",
+          deparse(substitute(metodo1)),
+          " | Interpolación 2: ",
+          deparse(substitute(metodo2))
+        )
+      } else {
+        paste0(
+          "Interpolación por ",
+          deparse(substitute(metodo1))
+        )
+      },
+      y = "Valor",
+      x = "x"
+    ) +
+    theme_minimal(base_size = 14)
+
+  p
+}
+
+```
+
+
 # Ejercicio 1
 
 ::: {.callout-note title="Instrucción del ejercicio 1"}
@@ -68,8 +320,92 @@ Implemente en **R** funciones para todos los algoritmos numéricos de resolució
 
 *(Implementación en R de los métodos numéricos básicos: Euler, Euler modificado, Heun, Runge–Kutta de orden 4, etc.)*
 
-
-
+*Metodo de Euler*
+```{r}
+metodo.euler <- function(a, b, N, alfa, f){
+  h <- (b - a) / N
+  t <- a
+  w <- alfa
+  T <- numeric(N + 1)
+  W <- numeric(N + 1)
+  T[1] <- t
+  W[1] <- w
+  for (i in 2:(N+1)) {
+    W[i] <- W[i-1] + h*f(T[i-1],W[i-1])
+    T[i] <- t + (i - 1)*h
+  }
+  
+  tabla <- data.frame(t = T, w = W)
+  
+  return(list(t = T, w = W, tabla = tabla))
+}
+```
+**Metodo de Euler predictor-corrector**
+```{r}
+metodo.euler.predictor.corrector <- function(a, b, N, alfa, f){
+  h <- (b - a) / N
+  t <- a
+  w <- alfa
+  T <- numeric(N + 1)
+  W <- numeric(N + 1)
+  T[1] <- t
+  W[1] <- w
+  for (i in 2:(N+1)) {
+    W[i] <- W[i-1] + h*f(T[i-1],W[i-1]) #predictor
+    T[i] <- T[i - 1] + h
+    W[i] <- W[i-1] + (h/2)*(f(T[i-1], W[i-1]) + f(T[i], W[i])) #corrector
+  }
+  
+  tabla <- data.frame(t = T, w = W)
+  
+  return(list(t = T, w = W, tabla = tabla))
+}
+```
+**Metodo de Runge-Kutta de punto medio**
+```{r}
+runge.kutta.punto.medio <- function(a, b, N, alfa, f){
+  h <- (b - a) / N
+  t <- a
+  w <- alfa
+  T <- numeric(N + 1)
+  W <- numeric(N + 1)
+  T[1] <- t
+  W[1] <- w
+  for (i in 2:(N+1)) {
+    W[i] <- W[i-1] + h*f(T[i-1] + (h/2),W[i-1] + (h/2)*f(T[i-1], W[i-1])) #predictor
+    T[i] <- T[i - 1] + h
+  }
+  
+  tabla <- data.frame(t = T, w = W)
+  
+  return(list(t = T, w = W, tabla = tabla))
+}
+```
+**Mertodo de Runge-Kutta de cuarto orden**
+```{r}
+runge.kutta.cuarto.orden <- function(a, b, N, alfa, f){
+  h <- (b - a) / N
+  t <- a
+  w <- alfa
+  T <- numeric(N + 1)
+  W <- numeric(N + 1)
+  T[1] <- t
+  W[1] <- w
+  for (i in 2:(N+1)) {
+    k1 <- h*f(T[i-1], W[i-1])
+    k2 <- h*f(T[i-1] + h/2, W[i-1] + k1/2)
+    k3 <- h*f(T[i-1] + h/2, W[i-1] + k2/2)
+    k4 <- h*f(T[i-1] + h, W[i-1] + k3)
+    
+    W[i] <- W[i-1] + (1/6)*(k1 + 2*k2 + 2*k3 + k4)
+    T[i] <- T[i - 1] + h
+  }
+  
+  tabla <- data.frame(t = T, w = W)
+  
+  return(list(t = T, w = W, tabla = tabla))
+}
+```
 # Ejercicio 2
 
 ::: {.callout-note title="Instrucción del ejercicio 2"}
@@ -475,7 +811,102 @@ $$
 
 *(Implementación de los tres problemas en R, aplicación de los métodos numéricos de Euler, Heun y Runge–Kutta, comparación con la solución exacta e interpolación de resultados.)*
 
+```{r}
+library(deSolve)
+```
 
+
+a)
+Problema 1:
+```{r}
+p1.euler <- metodo.euler(0, 1, 10, 1, function(t, y) -2*t*y^2)
+p1.euler.pc <- metodo.euler.predictor.corrector(0, 1, 10, 1, function(t, y) -2*t*y^2)
+p1.rkpm <- runge.kutta.punto.medio(0, 1, 10, 1, function(t, y) -2*t*y^2)
+p1.rk4o <- runge.kutta.cuarto.orden(0, 1, 10, 1, function(t, y) -2*t*y^2)
+
+data.frame(nodos = p1.euler$t, euler = p1.euler$w, euler.pred.corrector = p1.euler.pc$w, runge.kutta.punto.medio = p1.rkpm$w, runge.kutta.cuarto.orden = p1.rk4o$w)
+```
+Problema 2:
+```{r}
+p2.euler <- metodo.euler(0, 1, 10, 1/2, function(x, y) cos(x) + y)
+p2.euler.pc <- metodo.euler.predictor.corrector(0, 1, 10, 1/2, function(x, y) cos(x) + y)
+p2.rkpm <- runge.kutta.punto.medio(0, 1, 10, 1/2, function(x, y) cos(x) + y)
+p2.rk4o <- runge.kutta.cuarto.orden(0, 1, 10, 1/2, function(x, y) cos(x) + y)
+
+data.frame(nodos = p2.euler$t, euler = p2.euler$w, euler.pred.corrector = p2.euler.pc$w, runge.kutta.punto.medio = p2.rkpm$w, runge.kutta.cuarto.orden = p2.rk4o$w)
+```
+Problema 3:
+```{r}
+p3.euler <- metodo.euler(0, 1, 10, 1, function(t, y)- ( t * sqrt(1 - y^2) ) / ( y * sqrt(1 - t^2) ))
+p3.euler.pc <- metodo.euler.predictor.corrector(0, 1, 10, 1, function(t, y)- ( t * sqrt(1 - y^2) ) / ( y * sqrt(1 - t^2) ))
+p3.rkpm <- runge.kutta.punto.medio(0, 1, 10, 1, function(t, y)- ( t * sqrt(1 - y^2) ) / ( y * sqrt(1 - t^2) ))
+p3.rk4o <- runge.kutta.cuarto.orden(0, 1, 10, 1, function(t, y)- ( t * sqrt(1 - y^2) ) / ( y * sqrt(1 - t^2) ))
+
+data.frame(nodos = p3.euler$t, euler = p3.euler$w, euler.pred.corrector = p3.euler.pc$w, runge.kutta.punto.medio = p3.rkpm$w, runge.kutta.cuarto.orden = p3.rk4o$w)
+```
+
+b y c)
+Problema 1:
+```{r}
+edo <- function(t, y, parms) {
+  dydt <- -2 * t * y^2
+  list(dydt)
+}
+
+y0 <- 1
+tiempos <- seq(0, 1, by = 0.1)
+
+sol <- ode(y = y0, times = tiempos, func = edo, parms = NULL)
+```
+```{r}
+graficar.polinomio(sol[,1], 0, 1, neville, valores1 = sol[,2], nodos2 =  p1.euler$t, valores2 = p1.euler$w)
+graficar.polinomio(sol[,1], 0, 1, neville, valores1 = sol[,2], nodos2 =  p1.euler.pc$t, valores2 = p1.euler.pc$w)
+graficar.polinomio(sol[,1], 0, 1, neville, valores1 = sol[,2], nodos2 =  p1.rkpm$t, valores2 = p1.rkpm$w)
+graficar.polinomio(sol[,1], 0, 1, neville, valores1 = sol[,2], nodos2 =  p1.rk4o$t, valores2 = p1.rk4o$w)
+```
+Problema 2:
+```{r}
+edo <- function(t, y, parms) {
+  dydt <- cos(t) + y
+  list(dydt)
+}
+
+y0 <- 1/2
+tiempos <- seq(0, 1, by = 0.1)
+
+sol <- ode(y = y0, times = tiempos, func = edo, parms = NULL)
+```
+```{r}
+graficar.polinomio(sol[,1], 0, 1, neville, valores1 = sol[,2], nodos2 =  p2.euler$t, valores2 = p2.euler$w)
+graficar.polinomio(sol[,1], 0, 1, neville, valores1 = sol[,2], nodos2 =  p2.euler.pc$t, valores2 = p2.euler.pc$w)
+graficar.polinomio(sol[,1], 0, 1, neville, valores1 = sol[,2], nodos2 =  p2.rkpm$t, valores2 = p2.rkpm$w)
+graficar.polinomio(sol[,1], 0, 1, neville, valores1 = sol[,2], nodos2 =  p2.rk4o$t, valores2 = p2.rk4o$w)
+```
+Problema 3:
+```{r}
+edo <- function(t, y, parms) {
+  dydt <- - ( t * sqrt(1 - y^2) ) / ( y * sqrt(1 - t^2) )
+  list(dydt)
+}
+
+y0 <- 1
+tiempos <- seq(0, 0.999, by = 0.1)
+
+sol <- ode(y = y0,
+           times = tiempos,
+           func = edo,
+           parms = NULL)
+
+sol
+
+```
+```{r}
+graficar.polinomio(sol[,1], 0, 1, neville, valores1 = sol[,2], nodos2 =  p3.euler$t, valores2 = p3.euler$w)
+graficar.polinomio(sol[,1], 0, 1, neville, valores1 = sol[,2], nodos2 =  p3.euler.pc$t, valores2 = p3.euler.pc$w)
+graficar.polinomio(sol[,1], 0, 1, neville, valores1 = sol[,2], nodos2 =  p3.rkpm$t, valores2 = p3.rkpm$w)
+graficar.polinomio(sol[,1], 0, 1, neville, valores1 = sol[,2], nodos2 =  p3.rk4o$t, valores2 = p3.rk4o$w)
+```
+d) El mejor método parece ser el de Runge-Kuta de cuarto orden
 
 # Ejercicio 4
 
@@ -724,6 +1155,56 @@ Implemente este método en **R** y resuelva las ecuaciones diferenciales del pro
 **Solución**
 
 *(Demostración de la consistencia mediante comparación con la expansión de Taylor hasta términos de $O(h^4)$, y verificación del orden 3. Implementación en R y análisis de error global con respecto a métodos de orden inferior.)*
+
+**Codigo en R**
+```{r}
+tercer.orden.huen <- function(a, b, N, alfa, f){
+  h <- (b - a) / N
+  t <- a
+  w <- alfa
+  T <- numeric(N + 1)
+  W <- numeric(N + 1)
+  T[1] <- t
+  W[1] <- w
+  for (i in 2:(N+1)) {
+    k1 <- f(T[i-1], W[i-1])
+    k2 <- f(T[i-1] + h/3, W[i-1] + k1*(h/3))
+    k3 <- f(T[i-1] + (2/3)*h, W[i-1] + (2*h/3)*k2)
+
+    W[i] <- W[i-1] + (h/4)*(k1 + 3*k3)
+    T[i] <- T[i - 1] + h
+  }
+  
+  tabla <- data.frame(t = T, w = W)
+  
+  return(list(t = T, w = W, tabla = tabla))
+}
+```
+Problema 1: $y^\prime = -2ty^2,\quad y(0) = 1$
+```{r}
+p1 <- tercer.orden.huen(0, 1, 10, 1, function(x, y) -2*x*y^2)
+p1$tabla
+
+graficar.polinomio(p1$t, 0, 1, neville, valores1 = p1$w, f.referencia = function(t) 1 / (1 + t^2))
+```
+
+Problema 2: $y^\prime - y = \cos(t),\quad y(0) = \tfrac{1}{2}$
+```{r}
+p2 <- tercer.orden.huen(0, 1, 10, 1/2, function(x, y) cos(x) + y)
+p1$tabla
+
+graficar.polinomio(p1$t, 0, 1, neville, valores1 = p1$w, f.referencia = function(t) 1 / (1 + t^2))
+```
+
+Problema 3: Ecuación implícita transformada
+```{r}
+p3 <- tercer.orden.huen(0, 1, 10, 1, function(t, y)- ( t * sqrt(1 - y^2) ) / ( y * sqrt(1 - t^2) ))
+p3$tabla
+
+graficar.polinomio(p3$t, 0, 1, neville, valores1 = p3$w, f.referencia = function(x) 1)
+```
+
+
 
 # Ejercicio 7
 
