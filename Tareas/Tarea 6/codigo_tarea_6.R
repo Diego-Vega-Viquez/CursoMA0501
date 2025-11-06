@@ -353,3 +353,38 @@ nodos.runge.kutta.3 <- pba.runge.kutta.3$t
 valores.runge.kutta.3 <- pba.runge.kutta.3$w
 
 graficar.polinomio(nodos.runge.kutta.3, 1, 2, neville, valores = valores.runge.kutta.3, f.referencia = function(x) x^2*(exp(x)-exp(1)))
+
+
+exp_matriz <- function(A, t) {
+  eig <- eigen(A)
+  C <- eig$vectors
+  D <- diag(exp(t * eig$values))
+  C %*% D %*% solve(C)
+}
+
+A <- matrix(c(3, -1, -2, 2), nrow = 2, byrow = TRUE)
+t <- 1
+exp_matriz(A, t)
+
+resolver.sistema.diferencial <- function(A, condiciones.iniciales, t.puntos) {
+  nombres <- sapply(condiciones.iniciales, function(x) as.character(x[[1]]))
+  B <- matrix(as.numeric(sapply(condiciones.iniciales, function(x) x[[2]])), ncol = 1)
+  sol.mat <- sapply(t.puntos, function(t) exp_matriz(A, t) %*% B)
+  if (is.vector(sol.mat)) sol.mat <- matrix(sol.mat, nrow = nrow(A))
+  rownames(sol.mat) <- nombres
+  soluciones <- lapply(seq_len(nrow(sol.mat)), function(i) as.numeric(sol.mat[i, ]))
+  names(soluciones) <- nombres
+  list(tiempos = t.puntos, soluciones = soluciones)
+}
+
+A <- matrix(c(3, -1, -2, 2), nrow = 2, byrow = TRUE)
+condiciones <- list(list("x1", 90), list("x2", 150))
+t.grid <- seq(0, 1, by = 0.25)
+res <- resolver.sistema.diferencial(A, condiciones, t.grid)
+data.frame(t = res$tiempos, do.call(cbind, res$soluciones))
+
+A <- matrix(c(3,-2,0,-2,3,0,0,0,5), 3, 3, byrow = TRUE)
+cond <- list(list("x1",2), list("x2",1), list("x3",3))
+ts <- seq(0, 1, by = 0.25)
+res <- resolver.sistema.puntos(A, cond, ts)
+data.frame(t = res$tiempos, do.call(cbind, res$soluciones))
