@@ -283,6 +283,116 @@ $$
 
 **Solución**
 
+Verificación de la hipótesis de convergencia para el método de punto fijo
+
+Sea el sistema de ecuaciones dado por:
+
+$$
+\begin{cases}
+F_1(x,y) = 2x^2 - xy - 5x + 1 = 0, \\[4pt]
+F_2(x,y) = x + 3\log_{10}x - y^2 = 0,
+\end{cases}
+$$
+
+que puede escribirse en forma de punto fijo mediante las funciones:
+
+$$
+\begin{cases}
+f_1(x,y) = \sqrt{\dfrac{xy + 5x - 1}{2}}, \\[8pt]
+f_2(x,y) = \sqrt{x + 3\log_{10}(x)}.
+\end{cases}
+$$
+
+De este modo, el mapeo de punto fijo es **G(x,y) = (f₁(x,y), f₂(x,y))**, y su jacobiano viene dado por:
+
+$$
+J_G(x,y) =
+\begin{pmatrix}
+\dfrac{\partial f_1}{\partial x} & \dfrac{\partial f_1}{\partial y} \\[8pt]
+\dfrac{\partial f_2}{\partial x} & \dfrac{\partial f_2}{\partial y}
+\end{pmatrix}
+=
+\begin{pmatrix}
+\dfrac{y + 5}{4 f_1} & \dfrac{x}{4 f_1} \\[8pt]
+\dfrac{1 + \dfrac{3}{x\ln 10}}{2\sqrt{x + 3\log_{10}x}} & 0
+\end{pmatrix}.
+$$
+
+---
+
+Región de análisis
+
+Consideremos un rectángulo **D = [3.2, 3.8] × [2.0, 2.6]** que contiene la solución positiva aproximada **(x, y) ≈ (3.487, 2.262)**.
+
+En este dominio, el valor mínimo de f₁ ocurre en (x, y) = (3.2, 2.0):
+
+$$
+f_{1,\min} = \sqrt{\dfrac{3.2 \cdot 2.0 + 5 \cdot 3.2 - 1}{2}} = \sqrt{10.7} \approx 3.272.
+$$
+
+---
+
+Cotas de las derivadas parciales
+
+$$
+\begin{aligned}
+\left|\frac{\partial f_1}{\partial x}\right| &\le \frac{2.6 + 5}{4 \cdot 3.272} = 0.581, \\[4pt]
+\left|\frac{\partial f_1}{\partial y}\right| &\le \frac{3.8}{4 \cdot 3.272} = 0.291.
+\end{aligned}
+$$
+
+Para **∂f₂/∂x**, el máximo ocurre en x = 3.2:
+
+$$
+\begin{aligned}
+v &= 3.2 + 3\log_{10}(3.2) \approx 4.715, \quad \sqrt{v} \approx 2.172, \\[4pt]
+1 + \frac{3}{x \ln 10} &\le 1 + \frac{3}{3.2 \cdot 2.3026} \approx 1.407, \\[4pt]
+\Rightarrow \left|\frac{\partial f_2}{\partial x}\right| &\le \frac{1.407}{2 \cdot 2.172} \approx 0.324.
+\end{aligned}
+$$
+
+---
+
+Criterio de contracción (Observación 1)
+
+Usando la norma 1 (suma máxima por columnas):
+
+$$
+\begin{aligned}
+\text{Columna 1: } &\left|\frac{\partial f_1}{\partial x}\right| + \left|\frac{\partial f_2}{\partial x}\right| \le 0.581 + 0.324 = 0.905 < 1, \\[4pt]
+\text{Columna 2: } &\left|\frac{\partial f_1}{\partial y}\right| \le 0.291 < 1.
+\end{aligned}
+$$
+
+También se cumple con la norma infinito (suma máxima por filas):
+
+$$
+\begin{aligned}
+\text{Fila 1: } &0.581 + 0.291 = 0.872 < 1, \\[4pt]
+\text{Fila 2: } &0.324 < 1.
+\end{aligned}
+$$
+
+---
+
+Conclusión
+
+En el dominio D se cumple que:
+
+$$
+\sup_{(x,y)\in D} \|J_G(x,y)\|_1 < 1 \quad \text{y} \quad \sup_{(x,y)\in D} \|J_G(x,y)\|_\infty < 1.
+$$
+
+Por tanto, según la **Observación 1**, el mapeo G(x,y) es una contracción en D, lo cual garantiza que el **método de punto fijo converge localmente** hacia la solución positiva del sistema.
+
+
+```{r}
+f1 <- function(x) sqrt((x[1]*x[2] + 5*x[1] - 1)/(2))
+f2 <- function(x) sqrt(x[1] + 3*log10(x[1]))
+
+F <- list(f1, f2)
+punto.fijo.vv(c(1,1), F)
+```
 
 
 
