@@ -528,7 +528,81 @@ tiene dos soluciones.
 
 a)
 
-si se grafican ambas ecuaciones en un programa como GeoGebra, se obtiene que las dos posibles soluciones estan en $(-1, 3)$ y $(2.5, 4)$
+```{r}
+#| echo: false
+
+# Raíz lineal:
+x1_lin <- -1
+
+# Raíces del cúbico con polyroot:
+coef_cub <- c(-48, 20, -3, 1)  # -48 + 20 x + (-3) x^2 + 1 x^3
+r <- polyroot(coef_cub)
+
+# Quedarse con las reales
+x1_cub_real <- Re(r[abs(Im(r)) < 1e-10])
+
+# Juntar raíces reales de todo el polinomio:
+x1_solutions <- c(x1_lin, x1_cub_real)
+
+# 2) Recuperar x2 desde la fórmula x2 = 3 + (x1^2 - x1)/4
+x2_from_x1 <- function(x1) 3 + (x1^2 - x1)/4
+x2_solutions <- x2_from_x1(x1_solutions)
+
+sol <- data.frame(
+  x1 = x1_solutions,
+  x2 = x2_solutions
+)
+
+```
+
+
+```{r}
+#| echo: false
+library(ggplot2)
+
+# Curva 1: x2 = 3 + (x1^2 - x1)/4
+xgrid <- seq(-3, 6, length.out = 600)
+curve1 <- data.frame(
+  x1 = xgrid,
+  x2 = 3 + (xgrid^2 - xgrid)/4,
+  curve = "x2 = 3 + (x1^2 - x1)/4"
+)
+
+# Curva 2 (elipse): (x1-2)^2 + 4(x2-1.5)^2 = 25
+rhs <- 25 - (xgrid - 2)^2
+mask <- rhs >= 0
+ell_top <- data.frame(
+  x1 = xgrid[mask],
+  x2 = 1.5 + 0.5 * sqrt(rhs[mask]),
+  curve = "Elipse (arriba)"
+)
+ell_bot <- data.frame(
+  x1 = xgrid[mask],
+  x2 = 1.5 - 0.5 * sqrt(rhs[mask]),
+  curve = "Elipse (abajo)"
+)
+
+# Intersecciones
+pts <- data.frame(
+  x1 = x1_solutions,
+  x2 = x2_solutions
+)
+
+ggplot() +
+  geom_line(data = curve1, aes(x = x1, y = x2, linetype = curve)) +
+  geom_line(data = ell_top, aes(x = x1, y = x2, linetype = curve)) +
+  geom_line(data = ell_bot, aes(x = x1, y = x2, linetype = curve)) +
+  geom_point(data = pts, aes(x = x1, y = x2), size = 3) +
+  geom_text(data = pts,
+            aes(x = x1, y = x2, label = sprintf("(%.4f, %.4f)", x1, x2)),
+            hjust = -0.1, vjust = -0.8) +
+  labs(x = expression(x[1]), y = expression(x[2]),
+       title = "Aproximación gráfica de las dos soluciones") +
+  theme_minimal()
+```
+
+
+si se grafican ambas ecuaciones se obtiene que las dos posibles soluciones estan en $(-1, 3.5)$ y $(2.5, 4)$
 
 b)
 
@@ -581,3 +655,87 @@ newton.raphson.vv(c(0, 0, 0), F)
 newton.kantorovich.vv(c(0, 0, 0), F)
 ```
 
+#### 1) Método de Newton 
+
+La iteración es $x^{(k+1)}=x^{(k)}-J(x^{(k)})^{-1}F(x^{(k)})$, es decir, en cada paso se resuelve
+$$
+J(x^{(k)})\,s^{(k)}=-F(x^{(k)}),\qquad x^{(k+1)}=x^{(k)}+s^{(k)}.
+$$
+
+Tomemos $x^{(0)}=(1,1,1)\in D$.
+
+**Paso 0**
+
+- $F(x^{(0)})=(-1,-1,-2)^t$.
+- $J(x^{(0)})=
+\begin{pmatrix}
+15 & 2 &-4\\
+2 & 10 & -1\\
+0 & 3 & -25 \end{pmatrix}$
+- Resolver $J(x^{(0)})s^{(0)}=-F(x^{(0)})=(1,1,2)^t$ (por eliminación de Gauss):
+  $$s^{(0)}\approx(0.03664921, 0.08569854, -0.06971618)^t.$$
+- Actualizar:
+  $$x^{(1)}=x^{(0)}+s^{(0)}\approx(1.03664921, 1.08569854, 0.93028382).$$
+
+**Paso 1**
+
+- $F(x^{(1)})\approx(0.00734424, 0.00134316, 0.02266211)^t$.
+- $J(x^{(1)})=
+\begin{pmatrix}
+15&2x_2^{(1)}&-4\\
+2x_1^{(1)}&10&-1\\
+0&3(x_2^{(1)})^2&-25
+\end{pmatrix}
+\approx
+\begin{pmatrix}
+15&2.17139708&-4\\
+2.07329842&10&-1\\
+0&3.536928&-25
+\end{pmatrix}.
+$
+- Resolver $J(x^{(1)})s^{(1)}=-F(x^{(1)})$:
+  $$s^{(1)}\approx(-2.48745\times10^{-4}, 8.01762\times10^{-6}, 9.07618\times10^{-4}).$$
+- Actualizar:
+  $$x^{(2)}=x^{(1)}+s^{(1)}\approx(1.03640047, 1.08570656, 0.93119144).$$
+
+Con un paso más, $F(x^{(2)})$ queda del orden de $10^{-8}$ y la iteración ya está en la solución (precisión a $\sim 10^{-8}$).
+
+**Solución (en $D$):**
+$$
+\boxed{x^*\approx(1.036400470329, 1.085706550742, 0.931191442315)}.
+$$
+
+
+
+#### 2) Verificación de Newton–Kantoróvich en $D$
+
+Usamos el marco estándar con $A_0=J(x^{(0)})^{-1}$, $\alpha=\lVert A_0\rVert$, $\beta=\lVert A_0F(x^{(0)})\rVert=\lVert s^{(0)}\rVert$ y $\gamma=\alpha\beta\lambda$, donde $\lambda$ es una constante de Lipschitz para $J$ en $D$.
+
+La hessiana (derivadas segundas) no nulas son:
+- De $F_1$: $\partial^2F_1/\partial x_2^2=2$.
+- De $F_2$: $\partial^2F_2/\partial x_1^2=2$.
+- De $F_3$: $\partial^2F_3/\partial x_2^2=6x_2\le 12$ en $D$.
+
+Con la norma de Frobenius, un cota válida es
+$$
+\lVert J(x)-J(y)\rVert\le \sqrt{(2\lvert x_1-y_1\rvert)^2+(2\lvert x_2-y_2\rvert)^2+(12\lvert x_2-y_2\rvert)^2}
+\le \sqrt{148}\,\lVert x-y\rVert.
+$$
+Tomamos $\lambda=\sqrt{148}\approx 12.165$.
+
+- $A_0=J(x^{(0)})^{-1}$ $\Rightarrow$ $\alpha=\lVert A_0\rVert\approx 0.1078875$.
+- $\beta=\lVert s^{(0)}\rVert\approx 0.1163948$.
+- $\gamma=\alpha\beta\lambda\approx 0.152769<\tfrac{1}{4}$.
+
+Entonces
+$$
+t_0=\frac{1-\sqrt{1-4\gamma}}{2\gamma}\approx 1.231802,\qquad
+\delta=\frac{1-\sqrt{1-4\gamma}}{2}\approx 0.188181.
+$$
+El radio garantizado es $\beta t_0\approx 0.143375$.
+
+Como $\lVert x^*-x^{(0)}\rVert\approx 0.115781<0.143375$, la solución pertenece a la bola $B(x^{(0)},\beta t_0)\subset D$ y es **única** allí. Además, Newton con $x^{(0)}$ **converge** y vale la cota de error
+$$
+\lVert x^{(k)}-x^*\rVert\le \frac{\beta t_0}{1-\delta}\,\delta^k
+\approx 0.17661\,\delta^k.
+$$
