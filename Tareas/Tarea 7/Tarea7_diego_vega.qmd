@@ -68,6 +68,8 @@ Programe en **R** los algoritmos de **Punto Fijo** y del **método de Newton–R
 
 **Punto fijo**
 ```{r}
+#| code-fold: true
+
 punto.fijo.vv <- function(p0, F, tol = 1e-8, N = 100){
   x.prev <- as.numeric(p0)
   m <- length(p0)
@@ -97,6 +99,8 @@ sol
 ```
 **Newton Raphson**
 ```{r}
+#| code-fold: true
+
 #funciones auxiliares
 evaluar.componente <- function(gj, x){
   return(gj(x))
@@ -163,9 +167,9 @@ $$
 
 donde $df(x)$ es la matriz Jacobiana de $f$.
 
-**a)** Escriba una función en **R** para este método.
+a) Escriba una función en **R** para este método.
 
-**b)** Sea $C \subset \mathbb{R}^n$ un abierto y sea $f : \Omega \to \mathbb{R}^n$ una aplicación diferenciable, sea $C \subset \Omega$ convexo y cerrado y sea $x_0$ en el interior de $C$.  
+b) Sea $C \subset \mathbb{R}^n$ un abierto y sea $f : \Omega \to \mathbb{R}^n$ una aplicación diferenciable, sea $C \subset \Omega$ convexo y cerrado y sea $x_0$ en el interior de $C$.  
 Se supone que $df$ verifica la **condición de Lipschitz** dentro de $C$ con parámetro $\lambda > 0$ y que $df(x_0)$ es invertible. Se denota:
 
 $$
@@ -230,10 +234,12 @@ $$
 :::
 
 **Solución**
-a)
-La diferencia entre este metodo y el de Newton-Raphson es que el jacobiano se toma como constante (a partir del punto de partida que se tome), de modo que la funcion quedaria de la siguiente manera:
+
+a) La diferencia entre este metodo y el de Newton-Raphson es que el jacobiano se toma como constante (a partir del punto de partida que se tome), de modo que la funcion quedaria de la siguiente manera:
 
 ```{r}
+#| code-fold: true
+
 newton.kantorovich.vv <- function(p0, F, tol = 1e-8, N = 50){
   x.prev <- as.numeric(p0)
   J <- calcular.jacobiano(F, p0)
@@ -263,6 +269,105 @@ p0 <- c(0.6, 0.25)
 sol <- newton.kantorovich.vv(p0, R)
 sol
 ```
+
+b)
+
+  1. Defina $\varphi:[0,1]\to\mathbb{R}^n$ por $\varphi(t)=f\big(y+t(x-y)\big)$. Entonces
+$\varphi'(t)=df\big(y+t(x-y)\big)(x-y)$ y, por el teorema fundamental del cálculo,
+
+$$
+f(x)-f(y)=\int_0^1 df\big(y+t(x-y)\big)(x-y)\,dt.
+$$
+    Restando $df(y)(x-y)$ y usando Lipschitz para $df$,
+
+\begin{align*}
+\lVert f(x)-f(y)-df(y)(x-y)\rVert
+&=\left\lVert\int_0^1 \big(df(y+t(x-y))-df(y)\big)(x-y)\,dt\right\rVert \\
+&\le \int_0^1 \lambda t \lVert x-y\rVert^2\,dt
+= \frac{\lambda}{2}\lVert x-y\rVert^2.
+\end{align*}
+    $\blacksquare$
+
+  2. Sea $x\in B_0$ y ponga $\Delta=x-x_0$. Por el punto anterior con $y=x_0$,
+  $$
+  f(x)-f(x_0)-df(x_0)\Delta=:r(x), \qquad \lVert r(x)\rVert\le \frac{\lambda}{2}\lVert\Delta\rVert^2.
+  $$
+    Entonces
+  
+  \begin{align*}
+  g(x)-x_0
+  &= (x-x_0)-A_0\big(f(x)-f(x_0)\big)-A_0f(x_0) \\
+  &= \underbrace{\big(I-A_0df(x_0)\big)}_{=\,0}\Delta - A_0 r(x) - A_0 f(x_0),
+  \end{align*}
+  
+    de donde
+  $$
+  \lVert g(x)-x_0\rVert \le \alpha\,\frac{\lambda}{2}\lVert\Delta\rVert^2 + \beta
+  \le \alpha\,\frac{\lambda}{2}(\beta t_0)^2 + \beta
+  = \beta\!\left(1+\frac{\gamma}{2}t_0^2\right).
+  $$
+    Como $t_0$ satisface $\gamma t_0^2-t_0+1=0$, se tiene $t_0=1+\gamma t_0^2$, y por tanto
+  $1+\frac{\gamma}{2}t_0^2\le t_0$. Luego
+  $$
+  \lVert g(x)-x_0\rVert \le \beta t_0,
+  $$
+    es decir, $g(x)\in B_0$. Por arbitrariedad de $x$, $g(B_0)\subset B_0$. 
+
+    $\blacksquare$
+
+  3. $g$ es una contracción en $B_0$
+
+    Note que $dg(x)=I-A_0df(x)$. Para $x\in B_0$,
+$$
+\lVert dg(x)\rVert \le \lVert A_0\rVert \,\lVert df(x)-df(x_0)\rVert
+\le \alpha\lambda \lVert x-x_0\rVert
+\le \alpha\lambda\,\beta t_0=\gamma t_0.
+$$
+    Con $t_0=\dfrac{1-\sqrt{1-4\gamma}}{2\gamma}$ se obtiene
+$$
+\sup_{x\in B_0}\lVert dg(x)\rVert \le \gamma t_0
+= \frac{1-\sqrt{1-4\gamma}}{2} =: \delta \in (0,1).
+$$
+    Por el teorema del valor medio en espacios de Banach,
+$$
+\lVert g(x)-g(y)\rVert \le \delta\,\lVert x-y\rVert
+\qquad \forall\,x,y\in B_0,
+$$
+    que es la cota solicitada:
+$$
+\lVert g(x)-g(y)\rVert \le \frac{1-\sqrt{1-4\gamma}}{2}\,\lVert x-y\rVert.
+$$
+    $\blacksquare$
+
+  4. Existencia y unicidad de solución en $B_0$ y convergencia de $x_{k+1}=g(x_k)$
+
+    De (2.) y (3.), $g:B_0\to B_0$ es una contracción con constante $\delta\in(0,1)$. 
+
+    Por el **teorema del punto fijo de Banach**, existe un único $x\in B_0$ tal que $g(x)=x$. 
+
+    Como $A_0$ es invertible, $g(x)=x$ implica $A_0 f(x)=0$, luego $f(x)=0$.
+
+    Si definimos $x_{k+1}=g(x_k)$ con $x_0\in B_0$, entonces $(x_k)$ converge a dicho punto fijo $x$, que es la solución única de $f(x)=0$ en $B_0$. 
+    
+    $\blacksquare$
+
+  5. Cota para el error absoluto
+
+    Para una contracción con constante $\delta$, vale (estimación a posteriori de Banach)
+$$
+\lVert x_k-x\rVert \le \frac{\delta^k}{1-\delta}\,\lVert x_1-x_0\rVert
+\qquad (k=0,1,2,\dots).
+$$
+    Aquí $x_1-x_0=g(x_0)-x_0=-A_0 f(x_0)$, por lo que $\lVert x_1-x_0\rVert=\beta$. Además, como $t_0\ge 1$, tenemos $\beta\le \beta t_0$, y por lo tanto
+$$
+\boxed{\;\lVert x_k-x\rVert \le \frac{\beta t_0}{1-\delta}\,\delta^k,\qquad
+\delta=\frac{1-\sqrt{1-4\gamma}}{2}\;}
+$$
+    que es exactamente la cota pedida. 
+    
+    $\blacksquare$
+
+
 
 
 
@@ -318,7 +423,7 @@ J_G(x,y) =
 \end{pmatrix}.
 $$
 
----
+
 
 Región de análisis
 
@@ -330,7 +435,7 @@ $$
 f_{1,\min} = \sqrt{\dfrac{3.2 \cdot 2.0 + 5 \cdot 3.2 - 1}{2}} = \sqrt{10.7} \approx 3.272.
 $$
 
----
+
 
 Cotas de las derivadas parciales
 
@@ -351,7 +456,7 @@ v &= 3.2 + 3\log_{10}(3.2) \approx 4.715, \quad \sqrt{v} \approx 2.172, \\[4pt]
 \end{aligned}
 $$
 
----
+
 
 Criterio de contracción (Observación 1)
 
@@ -373,7 +478,7 @@ $$
 \end{aligned}
 $$
 
----
+
 
 Conclusión
 
@@ -387,6 +492,8 @@ Por tanto, según la **Observación 1**, el mapeo G(x,y) es una contracción en 
 
 
 ```{r}
+#| code-fold: true
+
 f1 <- function(x) sqrt((x[1]*x[2] + 5*x[1] - 1)/(2))
 f2 <- function(x) sqrt(x[1] + 3*log10(x[1]))
 
@@ -426,6 +533,8 @@ si se grafican ambas ecuaciones en un programa como GeoGebra, se obtiene que las
 b)
 
 ```{r}
+#| code-fold: true
+
 f1 <- function(x) x[1]*(1-x[1]) + 4*x[2] - 12
 f2 <- function(x) (x[1] - 2)^2 + (2*x[2] - 3)^2 - 25
 F <- list(f1, f2)
@@ -461,6 +570,8 @@ $$
 **Solución**
 
 ```{r}
+#| code-fold: true
+
 f1 <- function(x) 15*x[1] + x[2]^2 - 4*x[3] - 13
 f2 <- function(x) x[1]^2 + 10*x[2] - x[3] - 11
 f3 <- function(x) x[2]^3 -25*x[3] + 22

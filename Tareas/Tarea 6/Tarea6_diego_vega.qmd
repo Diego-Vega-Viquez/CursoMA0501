@@ -322,6 +322,8 @@ Implemente en **R** funciones para todos los algoritmos numéricos de resolució
 
 *Metodo de Euler*
 ```{r}
+#| code-fold: true
+
 metodo.euler <- function(a, b, N, alfa, f){
   h <- (b - a) / N
   t <- a
@@ -342,6 +344,8 @@ metodo.euler <- function(a, b, N, alfa, f){
 ```
 **Metodo de Euler predictor-corrector**
 ```{r}
+#| code-fold: true
+
 metodo.euler.predictor.corrector <- function(a, b, N, alfa, f){
   h <- (b - a) / N
   t <- a
@@ -363,6 +367,8 @@ metodo.euler.predictor.corrector <- function(a, b, N, alfa, f){
 ```
 **Metodo de Runge-Kutta de punto medio**
 ```{r}
+#| code-fold: true
+
 runge.kutta.punto.medio <- function(a, b, N, alfa, f){
   h <- (b - a) / N
   t <- a
@@ -383,6 +389,8 @@ runge.kutta.punto.medio <- function(a, b, N, alfa, f){
 ```
 **Mertodo de Runge-Kutta de cuarto orden**
 ```{r}
+#| code-fold: true
+
 runge.kutta.cuarto.orden <- function(a, b, N, alfa, f){
   h <- (b - a) / N
   t <- a
@@ -819,6 +827,8 @@ library(deSolve)
 a)
 Problema 1:
 ```{r}
+#| code-fold: true
+
 p1.euler <- metodo.euler(0, 1, 10, 1, function(t, y) -2*t*y^2)
 p1.euler.pc <- metodo.euler.predictor.corrector(0, 1, 10, 1, function(t, y) -2*t*y^2)
 p1.rkpm <- runge.kutta.punto.medio(0, 1, 10, 1, function(t, y) -2*t*y^2)
@@ -828,6 +838,8 @@ data.frame(nodos = p1.euler$t, euler = p1.euler$w, euler.pred.corrector = p1.eul
 ```
 Problema 2:
 ```{r}
+#| code-fold: true
+
 p2.euler <- metodo.euler(0, 1, 10, 1/2, function(x, y) cos(x) + y)
 p2.euler.pc <- metodo.euler.predictor.corrector(0, 1, 10, 1/2, function(x, y) cos(x) + y)
 p2.rkpm <- runge.kutta.punto.medio(0, 1, 10, 1/2, function(x, y) cos(x) + y)
@@ -837,6 +849,8 @@ data.frame(nodos = p2.euler$t, euler = p2.euler$w, euler.pred.corrector = p2.eul
 ```
 Problema 3:
 ```{r}
+#| code-fold: true
+
 p3.euler <- metodo.euler(0, 1, 10, 1, function(t, y)- ( t * sqrt(1 - y^2) ) / ( y * sqrt(1 - t^2) ))
 p3.euler.pc <- metodo.euler.predictor.corrector(0, 1, 10, 1, function(t, y)- ( t * sqrt(1 - y^2) ) / ( y * sqrt(1 - t^2) ))
 p3.rkpm <- runge.kutta.punto.medio(0, 1, 10, 1, function(t, y)- ( t * sqrt(1 - y^2) ) / ( y * sqrt(1 - t^2) ))
@@ -848,6 +862,8 @@ data.frame(nodos = p3.euler$t, euler = p3.euler$w, euler.pred.corrector = p3.eul
 b y c)
 Problema 1:
 ```{r}
+#| code-fold: true
+
 edo <- function(t, y, parms) {
   dydt <- -2 * t * y^2
   list(dydt)
@@ -866,6 +882,8 @@ graficar.polinomio(sol[,1], 0, 1, neville, valores1 = sol[,2], nodos2 =  p1.rk4o
 ```
 Problema 2:
 ```{r}
+#| code-fold: true
+
 edo <- function(t, y, parms) {
   dydt <- cos(t) + y
   list(dydt)
@@ -877,6 +895,8 @@ tiempos <- seq(0, 1, by = 0.1)
 sol <- ode(y = y0, times = tiempos, func = edo, parms = NULL)
 ```
 ```{r}
+#| code-fold: true
+
 graficar.polinomio(sol[,1], 0, 1, neville, valores1 = sol[,2], nodos2 =  p2.euler$t, valores2 = p2.euler$w)
 graficar.polinomio(sol[,1], 0, 1, neville, valores1 = sol[,2], nodos2 =  p2.euler.pc$t, valores2 = p2.euler.pc$w)
 graficar.polinomio(sol[,1], 0, 1, neville, valores1 = sol[,2], nodos2 =  p2.rkpm$t, valores2 = p2.rkpm$w)
@@ -884,6 +904,8 @@ graficar.polinomio(sol[,1], 0, 1, neville, valores1 = sol[,2], nodos2 =  p2.rk4o
 ```
 Problema 3:
 ```{r}
+#| code-fold: true
+
 edo <- function(t, y, parms) {
   dydt <- - ( t * sqrt(1 - y^2) ) / ( y * sqrt(1 - t^2) )
   list(dydt)
@@ -901,6 +923,8 @@ sol
 
 ```
 ```{r}
+#| code-fold: true
+
 graficar.polinomio(sol[,1], 0, 1, neville, valores1 = sol[,2], nodos2 =  p3.euler$t, valores2 = p3.euler$w)
 graficar.polinomio(sol[,1], 0, 1, neville, valores1 = sol[,2], nodos2 =  p3.euler.pc$t, valores2 = p3.euler.pc$w)
 graficar.polinomio(sol[,1], 0, 1, neville, valores1 = sol[,2], nodos2 =  p3.rkpm$t, valores2 = p3.rkpm$w)
@@ -1158,6 +1182,7 @@ Implemente este método en **R** y resuelva las ecuaciones diferenciales del pro
 
 **Codigo en R**
 ```{r}
+#| code-fold: true
 tercer.orden.huen <- function(a, b, N, alfa, f){
   h <- (b - a) / N
   t <- a
@@ -1182,6 +1207,8 @@ tercer.orden.huen <- function(a, b, N, alfa, f){
 ```
 Problema 1: $y^\prime = -2ty^2,\quad y(0) = 1$
 ```{r}
+#| code-fold: true
+
 p1 <- tercer.orden.huen(0, 1, 10, 1, function(x, y) -2*x*y^2)
 p1$tabla
 
@@ -1190,6 +1217,8 @@ graficar.polinomio(p1$t, 0, 1, neville, valores1 = p1$w, f.referencia = function
 
 Problema 2: $y^\prime - y = \cos(t),\quad y(0) = \tfrac{1}{2}$
 ```{r}
+#| code-fold: true
+
 p2 <- tercer.orden.huen(0, 1, 10, 1/2, function(x, y) cos(x) + y)
 p1$tabla
 
@@ -1198,6 +1227,8 @@ graficar.polinomio(p1$t, 0, 1, neville, valores1 = p1$w, f.referencia = function
 
 Problema 3: Ecuación implícita transformada
 ```{r}
+#| code-fold: true
+
 p3 <- tercer.orden.huen(0, 1, 10, 1, function(t, y)- ( t * sqrt(1 - y^2) ) / ( y * sqrt(1 - t^2) ))
 p3$tabla
 
@@ -2044,6 +2075,8 @@ e^{tA}=C\,e^{tD}\,C^{-1}.
 $$
 k)
 ```{r}
+#| code-fold: true
+
 exp_matriz <- function(A, t) {
   eig <- eigen(A)
   C <- eig$vectors
@@ -2168,6 +2201,8 @@ $$
 
 m)
 ```{r}
+#| code-fold: true
+
 resolver.sistema.diferencial <- function(A, condiciones.iniciales, t.puntos) {
   nombres <- sapply(condiciones.iniciales, function(x) as.character(x[[1]]))
   B <- matrix(as.numeric(sapply(condiciones.iniciales, function(x) x[[2]])), ncol = 1)
@@ -2188,6 +2223,8 @@ data.frame(t = res$tiempos, do.call(cbind, res$soluciones))
 ```
 n)
 ```{r}
+#| code-fold: true
+
 A <- matrix(c(3,-2,0,-2,3,0,0,0,5), 3, 3, byrow = TRUE)
 cond <- list(list("x1",2), list("x2",1), list("x3",3))
 ts <- seq(0, 1, by = 0.1)
