@@ -3184,7 +3184,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Fecha de publicación</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">8 de noviembre de 2025</p>
+      <p class="date">9 de noviembre de 2025</p>
     </div>
   </div>
   
@@ -4263,50 +4263,273 @@ u_{j+1} = u_j + \frac{h}{4}(k_1 + 3k_3),
 </div>
 </div>
 <p><strong>Solución</strong></p>
-<p>Sea <span class="math inline">u(x)</span> la solución exacta y denote <span class="math inline">f_j:=f(x_j,u_j)</span>. Definimos el operador <span class="math display">
-D := \frac{\partial}{\partial x} + f_y(x,u)\,\cdot,
-</span> con lo cual, evaluado en la solución exacta, <span class="math display">
-u&#39; = f,\qquad u&#39;&#39; = Df,\qquad u&#39;&#39;&#39; = D^2 f.
-</span> La expansión de Taylor de <span class="math inline">u</span> es <span class="math display">
-u(x_j+h)=u_j + h f_j + \frac{h^2}{2}\,D f_j + \frac{h^3}{6}\,D^2 f_j + \mathcal{O}(h^4).
-</span> - Primera etapa: <span class="math display">
-k_1=f_j.
+<p>Consideramos el problema de valor inicial</p>
+<p><span class="math display">
+y&#39;(x) = f(x,y(x)), \qquad y(x_0) = y_0,
 </span></p>
-<ul>
-<li><p>Segunda etapa (Taylor multivariable alrededor de <span class="math inline">(x_j,u_j)</span>): <span class="math display">
-k_2=f\!\left(x_j+\tfrac{h}{2},\,u_j+\tfrac{h}{2}k_1\right)
-= f_j + \tfrac{h}{2}\,D f_j + \tfrac{h^2}{8}\,D^2 f_j + \mathcal{O}(h^3).
-</span></p></li>
-<li><p>Tercera etapa (usando la misma técnica y reteniendo términos hasta <span class="math inline">h^2</span>): <span class="math display">
-k_3=f\!\left(x_j+h,\,u_j-hk_1+2h\,k_2\right)
-= f_j + h\,D f_j + \tfrac{h^2}{2}\,D^2 f_j + \mathcal{O}(h^3).
-</span></p></li>
-</ul>
-<blockquote class="blockquote">
-<p>Observación: estas fórmulas incluyen correctamente los efectos de la dependencia en <span class="math inline">u</span> vía <span class="math inline">f_y</span> (capturados por <span class="math inline">D</span>). No es suficiente expandir solo con derivadas respecto a <span class="math inline">x</span>.</p>
-</blockquote>
-<p>El incremento del esquema es <span class="math display">
-\Phi_h(x_j,u_j)
-= \tfrac{1}{6}\,(k_1+4k_2+k_3)
-= f_j + \tfrac{h}{2}\,D f_j + \tfrac{h^2}{6}\,D^2 f_j + \mathcal{O}(h^3).
+<p>con <span class="math inline">f</span> tres veces continuamente diferenciable.</p>
+<p>El método de un paso dado es</p>
+<p><span class="math display">
+\begin{aligned}
+k_1 &amp;= f(x_j,u_j),\\[2pt]
+k_2 &amp;= f\!\left(x_j + \tfrac{h}{3},\, u_j + \tfrac{h}{3}k_1\right),\\[2pt]
+k_3 &amp;= f\!\left(x_j + \tfrac{2h}{3},\, u_j + \tfrac{2h}{3}k_2\right),\\[2pt]
+u_{j+1} &amp;= u_j + \tfrac{h}{4}(k_1 + 3k_3).
+\end{aligned}
 </span></p>
-<p>Por tanto, <span class="math display">
-u_{j+1}
-= u_j + h\,\Phi_h(x_j,u_j)
-= u_j + h f_j + \tfrac{h^2}{2}\,D f_j + \tfrac{h^3}{6}\,D^2 f_j + \mathcal{O}(h^4),
-</span> que coincide con la expansión de <span class="math inline">u(x_j+h)</span> hasta términos <span class="math inline">\mathcal{O}(h^3)</span>.</p>
-<p>Desta forma se puede concluir</p>
-<ul>
-<li>Consistencia: <span class="math inline">\Phi_h(x_j,u_j)=f_j+\mathcal{O}(h)</span>.</li>
-<li>Error local de truncamiento: <span class="math inline">\mathcal{O}(h^4)</span>.</li>
-<li>Orden global: <span class="math inline">3</span>.</li>
-</ul>
-<p>Como verificación alternativa, las <strong>condiciones de orden de Runge–Kutta</strong> para <span class="math inline">p=3</span> se satisfacen con los coeficientes dados: <span class="math display">
-\sum b_i=1,\quad
-\sum b_i c_i=\tfrac12,\quad
-\sum b_i c_i^2=\tfrac13,\quad
-\sum_{i,j} b_i a_{ij} c_j=\tfrac16,
-</span> lo cual confirma que el método (Heun de 3er orden) es de <strong>orden tres</strong>.</p>
+<p>Se puede escribir en la forma general</p>
+<p><span class="math display">
+u_{j+1} = u_j + h\,\Phi(x_j,u_j,h),
+\quad
+\Phi(x_j,u_j,h) = \tfrac14(k_1 + 3k_3).
+</span></p>
+<p>La <strong>definición de consistencia de orden <span class="math inline">p</span></strong> usada es:</p>
+<p>Sea <span class="math inline">y</span> la solución exacta. Definimos el defecto local</p>
+<p><span class="math display">
+\Delta(x,y;h)
+= \frac{y(x+h)-y(x)}{h} - \Phi(x,y(x),h).
+</span></p>
+<p>El método es consistente de orden <span class="math inline">p</span> si existe <span class="math inline">k&gt;0</span> tal que, para <span class="math inline">h</span> suficientemente pequeño,</p>
+<p><span class="math display">
+|\Delta(x,y;h)| \le k h^p.
+</span></p>
+<p>Demostraremos:</p>
+<ol type="1">
+<li><span class="math inline">\Delta(x,y;h)\to 0</span> cuando <span class="math inline">h\to 0</span> (consistencia).</li>
+<li><span class="math inline">|\Delta(x,y;h)| = O(h^3)</span>, es decir, el método es consistente de orden <span class="math inline">3</span>.</li>
+</ol>
+<p>En toda la demostración, cuando escribimos derivadas de <span class="math inline">f</span> (como <span class="math inline">f_x, f_y</span>, etc.) se entienden evaluadas en el punto <span class="math inline">(x,y(x))</span> correspondiente.</p>
+<ol type="1">
+<li>Consistencia</li>
+</ol>
+<p>Tomamos el dato exacto en el nodo: <span class="math inline">u_j = y_j = y(x_j)</span>.</p>
+<p>Entonces</p>
+<p><span class="math display">
+k_1 = f(x_j,y_j).
+</span></p>
+<p>Para <span class="math inline">h\to 0</span>, los argumentos de <span class="math inline">f</span> en <span class="math inline">k_2</span> y <span class="math inline">k_3</span> se acercan también a <span class="math inline">(x_j,y_j)</span>, luego</p>
+<p><span class="math display">
+k_2 \to f(x_j,y_j), \qquad
+k_3 \to f(x_j,y_j).
+</span></p>
+<p>Por tanto</p>
+<p><span class="math display">
+\Phi(x_j,y_j,h)
+= \tfrac14(k_1+3k_3)
+\longrightarrow \tfrac14(f+3f) = f(x_j,y_j)
+\quad (h\to 0).
+</span></p>
+<p>Por otro lado,</p>
+<p><span class="math display">
+\frac{y(x_j+h)-y(x_j)}{h} \longrightarrow y&#39;(x_j) = f(x_j,y_j).
+</span></p>
+<p>Entonces</p>
+<p><span class="math display">
+\Delta(x_j,y_j;h)
+= \frac{y(x_j+h)-y(x_j)}{h} - \Phi(x_j,y_j,h)
+\longrightarrow 0.
+</span></p>
+<p>El método es consistente.</p>
+<ol start="2" type="1">
+<li><p>Orden 3</p></li>
+<li><p>Notación: derivadas a lo largo de la solución</p></li>
+</ol>
+<p>Sea</p>
+<p><span class="math display">
+F(x) = f(x,y(x)).
+</span></p>
+<p>Usamos el operador derivada total a lo largo de la solución</p>
+<p><span class="math display">
+D = \frac{d}{dx} = \partial_x + f\,\partial_y.
+</span></p>
+<p>Entonces</p>
+<p><span class="math display">
+DF = Df(x,y(x)) = f_x + f_y f,
+</span></p>
+<p><span class="math display">
+D^2F = D(DF),
+\quad
+D^3F = D(D^2F),
+</span></p>
+<p>son combinaciones lineales de derivadas parciales de <span class="math inline">f</span> hasta orden 3. No necesitamos escribirlas explícitamente: solo que existen y son continuas.</p>
+<p>Con esta notación, la expansión de Taylor de la solución es</p>
+<p><span class="math display">
+\begin{aligned}
+y(x+h)
+&amp;= y(x)
++ h F
++ \frac{h^2}{2} DF
++ \frac{h^3}{6} D^2F
++ \frac{h^4}{24} D^3F
++ O(h^5),
+\end{aligned}
+</span></p>
+<p>por lo que la pendiente promedio exacta es</p>
+<p><span class="math display">
+\frac{y(x+h)-y(x)}{h}
+= F + \frac{h}{2}DF + \frac{h^2}{6}D^2F + \frac{h^3}{24}D^3F + O(h^4).
+</span></p>
+<p>Denotaremos esta expresión por <span class="math inline">S(h)</span>.</p>
+<ol start="2" type="1">
+<li>Expansión de las etapas del método</li>
+</ol>
+<p>En todo lo siguiente tomamos <span class="math inline">u_j = y(x)</span>.</p>
+<p>2.1. Primera etapa</p>
+<p><span class="math display">
+k_1 = f(x,y(x)) = F.
+</span></p>
+<p>2.2. Segunda etapa</p>
+<p>El método usa</p>
+<p><span class="math display">
+k_2 = f\!\left(x + \tfrac{h}{3},\, y(x) + \tfrac{h}{3}k_1\right)
+= f\!\left(x + \tfrac{h}{3},\, y(x) + \tfrac{h}{3}F\right).
+</span></p>
+<p>La solución exacta en <span class="math inline">x + h/3</span> es</p>
+<p><span class="math display">
+y\!\left(x+\tfrac{h}{3}\right)
+= y(x)
++ \tfrac{h}{3}F
++ \tfrac{h^2}{18}DF
++ \tfrac{h^3}{162}D^2F
++ O(h^4).
+</span></p>
+<p>Por tanto,</p>
+<p><span class="math display">
+y(x) + \tfrac{h}{3}F
+= y\!\left(x+\tfrac{h}{3}\right)
+- \tfrac{h^2}{18}DF
+- \tfrac{h^3}{162}D^2F
++ O(h^4),
+</span></p>
+<p>es decir, el argumento en <span class="math inline">y</span> que usa <span class="math inline">k_2</span> difiere de la solución exacta en ese punto en una cantidad de orden <span class="math inline">h^2</span>.<br>
+Al aplicar Taylor de <span class="math inline">f</span> (tres veces diferenciable) en <span class="math inline">(x,y)</span> hasta orden 3, esto produce</p>
+<p><span class="math display">
+k_2
+= F
++ \tfrac{h}{3} DF
++ \tfrac{h^2}{18} D^2F
++ \tfrac{h^3}{162} D^3F
++ O(h^4).
+</span></p>
+<p>(esta es exactamente la expansión de <span class="math inline">f</span> en dos variables con <span class="math inline">\Delta x = h/3</span>, <span class="math inline">\Delta y = hF/3</span>, recogiendo los términos usando <span class="math inline">D</span>).</p>
+<p>2.3. Tercera etapa</p>
+<p>Ahora</p>
+<p><span class="math display">
+k_3 = f\!\left(x + \tfrac{2h}{3},\, y(x) + \tfrac{2h}{3}k_2\right).
+</span></p>
+<p>Primero expandimos el argumento en <span class="math inline">y</span>:</p>
+<p>usando la expresión de <span class="math inline">k_2</span>,</p>
+<p><span class="math display">
+\frac{2h}{3}k_2
+= \frac{2h}{3}F
++ \frac{2h^2}{9}DF
++ \frac{2h^3}{27}D^2F
++ O(h^4).
+</span></p>
+<p>La solución exacta en <span class="math inline">x + 2h/3</span> es</p>
+<p><span class="math display">
+y\!\left(x+\tfrac{2h}{3}\right)
+= y(x)
++ \tfrac{2h}{3}F
++ \tfrac{2h^2}{9}DF
++ \tfrac{4h^3}{81}D^2F
++ O(h^4).
+</span></p>
+<p>Por tanto</p>
+<p><span class="math display">
+y(x) + \tfrac{2h}{3}k_2
+= y\!\left(x+\tfrac{2h}{3}\right)
+- \tfrac{2h^3}{81}D^2F
++ O(h^4),
+</span></p>
+<p>esto es, de nuevo, el desfase entre el argumento usado por <span class="math inline">k_3</span> y la solución exacta en ese punto es de orden <span class="math inline">h^3</span>.</p>
+<p>Aplicando Taylor de <span class="math inline">f</span> hasta orden 3 en <span class="math inline">(x,y)</span> obtenemos</p>
+<p><span class="math display">
+k_3
+= F
++ \tfrac{2h}{3} DF
++ \tfrac{2h^2}{9} D^2F
++ \tfrac{4h^3}{81} D^3F
++ O(h^4).
+</span></p>
+<p>(esta es la expansión sistemática: aparecen los coeficientes <span class="math inline">2/3</span>, <span class="math inline">2/9</span>, <span class="math inline">4/81</span> que se obtienen al sustituir los incrementos anteriores en la fórmula de Taylor en dos variables hasta grado 3).</p>
+<ol start="3" type="1">
+<li>Expansión de la función del método</li>
+</ol>
+<p>La función <span class="math inline">\Phi</span> del método es</p>
+<p><span class="math display">
+\Phi(x,y,h) = \tfrac14(k_1 + 3k_3).
+</span></p>
+<p>Sustituimos las expansiones:</p>
+<ol type="1">
+<li><span class="math inline">k_1 = F</span>.</li>
+<li><span class="math inline">k_3 = F + \tfrac{2h}{3}DF + \tfrac{2h^2}{9}D^2F + \tfrac{4h^3}{81}D^3F + O(h^4)</span>.</li>
+</ol>
+<p>Entonces</p>
+<p><span class="math display">
+\begin{aligned}
+k_1 + 3k_3
+&amp;= F + 3\left(
+F + \tfrac{2h}{3}DF + \tfrac{2h^2}{9}D^2F + \tfrac{4h^3}{81}D^3F
+\right)
++ O(h^4) \\
+&amp;= 4F
++ 2h\,DF
++ \tfrac{2h^2}{3}D^2F
++ \tfrac{4h^3}{27}D^3F
++ O(h^4).
+\end{aligned}
+</span></p>
+<p>Dividiendo por 4:</p>
+<p><span class="math display">
+\Phi(x,y,h)
+= F
++ \tfrac{h}{2}DF
++ \tfrac{h^2}{6}D^2F
++ \tfrac{h^3}{27}D^3F
++ O(h^4).
+</span></p>
+<ol start="4" type="1">
+<li>Defecto local y orden 3</li>
+</ol>
+<p>Recordamos la pendiente exacta promedio:</p>
+<p><span class="math display">
+S(h)
+= F
++ \tfrac{h}{2}DF
++ \tfrac{h^2}{6}D^2F
++ \tfrac{h^3}{24}D^3F
++ O(h^4).
+</span></p>
+<p>El defecto local es</p>
+<p><span class="math display">
+\Delta(x,y;h)
+= S(h) - \Phi(x,y,h).
+</span></p>
+<p>Sustituyendo:</p>
+<p><span class="math display">
+\begin{aligned}
+\Delta(x,y;h)
+&amp;= \left[
+F + \tfrac{h}{2}DF + \tfrac{h^2}{6}D^2F + \tfrac{h^3}{24}D^3F
+\right]
+-
+\left[
+F + \tfrac{h}{2}DF + \tfrac{h^2}{6}D^2F + \tfrac{h^3}{27}D^3F
+\right]
++ O(h^4) \\
+&amp;= \left(\tfrac{1}{24} - \tfrac{1}{27}\right) h^3 D^3F
++ O(h^4) \\
+&amp;= \tfrac{1}{216} h^3 D^3F + O(h^4).
+\end{aligned}
+</span></p>
+<p>Por lo tanto, el primer término no nulo del defecto local es proporcional a <span class="math inline">h^3</span>.</p>
+<p>Como <span class="math inline">f</span> es <span class="math inline">C^3</span> en la región considerada, las derivadas contenidas en <span class="math inline">D^3F</span> son continuas y están acotadas.<br>
+Por ello existe una constante <span class="math inline">K</span> tal que, para <span class="math inline">h</span> suficientemente pequeño,</p>
+<p><span class="math display">
+|\Delta(x,y;h)| \le K h^3.
+</span></p>
+<p>Esto coincide exactamente con la definición de consistencia de orden <span class="math inline">p</span> con <span class="math inline">p = 3</span>.</p>
 <p><strong>Codigo en R</strong></p>
 <div class="cell">
 <details class="code-fold">
@@ -4462,46 +4685,149 @@ u_{j+1} = u_j + \frac{h}{6}(k_1 + 4k_2 + k_3),
 </div>
 </div>
 <p><strong>Solución</strong></p>
-<ul>
-<li><p>Primera etapa: <span class="math display">
-k_1=f_j.
-</span></p></li>
-<li><p>Segunda etapa (Taylor multivariable alrededor de <span class="math inline">(x_j,u_j)</span>): <span class="math display">
-k_2=f\!\left(x_j+\tfrac{h}{2},\,u_j+\tfrac{h}{2}k_1\right)
-= f_j + \tfrac{h}{2}\,D f_j + \tfrac{h^2}{8}\,D^2 f_j + \mathcal{O}(h^3).
-</span></p></li>
-<li><p>Tercera etapa (usando la misma técnica y reteniendo términos hasta <span class="math inline">h^2</span>): <span class="math display">
-k_3=f\!\left(x_j+h,\,u_j-hk_1+2h\,k_2\right)
-= f_j + h\,D f_j + \tfrac{h^2}{2}\,D^2 f_j + \mathcal{O}(h^3).
-</span></p></li>
-</ul>
-<blockquote class="blockquote">
-<p>Observación: estas fórmulas incluyen correctamente los efectos de la dependencia en <span class="math inline">u</span> vía <span class="math inline">f_y</span> (capturados por <span class="math inline">D</span>). No es suficiente expandir solo con derivadas respecto a <span class="math inline">x</span>.</p>
-</blockquote>
-<p>El incremento del esquema es <span class="math display">
-\Phi_h(x_j,u_j)
-= \tfrac{1}{6}\,(k_1+4k_2+k_3)
-= f_j + \tfrac{h}{2}\,D f_j + \tfrac{h^2}{6}\,D^2 f_j + \mathcal{O}(h^3).
+<p>Consideremos el método de un paso definido por:</p>
+<p><span class="math display">
+\begin{aligned}
+k_1 &amp;= f(x_j, u_j),\\
+k_2 &amp;= f\left(x_j + \tfrac{h}{2},\, u_j + \tfrac{h}{2}k_1\right),\\
+k_3 &amp;= f\left(x_j + h,\, u_j - hk_1 + 2hk_2\right),\\
+u_{j+1} &amp;= u_j + \tfrac{h}{6}(k_1 + 4k_2 + k_3).
+\end{aligned}
 </span></p>
-<p>Por tanto, <span class="math display">
-u_{j+1}
-= u_j + h\,\Phi_h(x_j,u_j)
-= u_j + h f_j + \tfrac{h^2}{2}\,D f_j + \tfrac{h^3}{6}\,D^2 f_j + \mathcal{O}(h^4),
-</span> que coincide con la expansión de <span class="math inline">u(x_j+h)</span> hasta términos <span class="math inline">\mathcal{O}(h^3)</span>.</p>
-<p>Desta forma se puede concluir</p>
+<p>Aplicado al problema de valor inicial</p>
+<p><span class="math display">
+y&#39;(x) = f(x, y(x)), \qquad y(x_0) = y_0,
+</span></p>
+<p>suponiendo que ( f ) es tres veces continuamente diferenciable.</p>
 <ul>
-<li>Consistencia: <span class="math inline">\Phi_h(x_j,u_j)=f_j+\mathcal{O}(h)</span>.</li>
-<li>Error local de truncamiento: <span class="math inline">\mathcal{O}(h^4)</span>.</li>
-<li>Orden global: <span class="math inline">3</span>.</li>
+<li>Definición de consistencia</li>
 </ul>
-<p>Como verificación alternativa, las <strong>condiciones de orden de Runge–Kutta</strong> para <span class="math inline">p=3</span> se satisfacen con los coeficientes dados: <span class="math display">
-\sum b_i=1,\quad
-\sum b_i c_i=\tfrac12,\quad
-\sum b_i c_i^2=\tfrac13,\quad
-\sum_{i,j} b_i a_{ij} c_j=\tfrac16,
-</span> lo cual confirma que el método (Heun de 3er orden) es de <strong>orden tres</strong>.</p>
-<p><span class="math inline">\blacksquare</span></p>
-<p>Código</p>
+<p>El método es <strong>consistente de orden p</strong> si existe una constante ( K ) tal que para ( h ) suficientemente pequeño se cumple</p>
+<p><span class="math display">
+|\Delta(x,y;h)| \le K h^p,
+</span></p>
+<p>donde el defecto local se define como</p>
+<p><span class="math display">
+\Delta(x,y;h)
+= \frac{y(x+h)-y(x)}{h} - \Phi(x,y(x),h),
+</span></p>
+<p>y</p>
+<p><span class="math display">
+\Phi(x,y(x),h) = \tfrac{1}{6}(k_1 + 4k_2 + k_3).
+</span></p>
+<p>Demostraremos que este método es consistente y de orden tres.</p>
+<ol type="1">
+<li>Pendiente promedio exacta</li>
+</ol>
+<p>La expansión de Taylor de la solución exacta ( y(x) ) hasta orden tres es</p>
+<p><span class="math display">
+y(x+h) = y(x) + hF + \tfrac{h^2}{2}DF + \tfrac{h^3}{6}D^2F + O(h^4),
+</span></p>
+<p>donde</p>
+<p><span class="math display">
+F = f(x,y(x)), \quad D = \partial_x + f(x,y)\partial_y.
+</span></p>
+<p>Dividiendo por ( h ):</p>
+<p><span class="math display">
+\frac{y(x+h)-y(x)}{h}
+= F + \tfrac{h}{2}DF + \tfrac{h^2}{6}D^2F + O(h^3).
+</span></p>
+<p>Denotaremos esta expresión como la pendiente promedio exacta ( S(h) ).</p>
+<ol start="2" type="1">
+<li>Expansión de las etapas</li>
+</ol>
+<p>Etapa 1</p>
+<p><span class="math display">
+k_1 = f(x,y(x)) = F.
+</span></p>
+<p>Etapa 2</p>
+<p><span class="math display">
+k_2 = f\left(x + \tfrac{h}{2},\, y(x) + \tfrac{h}{2}F\right).
+</span></p>
+<p>La solución exacta en ( x + h/2 ) es</p>
+<p><span class="math display">
+y(x + \tfrac{h}{2})
+= y(x)
++ \tfrac{h}{2}F
++ \tfrac{h^2}{8}DF
++ \tfrac{h^3}{48}D^2F
++ O(h^4).
+</span></p>
+<p>Por tanto,</p>
+<p><span class="math display">
+y(x) + \tfrac{h}{2}F
+= y(x + \tfrac{h}{2})
+- \tfrac{h^2}{8}DF
+- \tfrac{h^3}{48}D^2F
++ O(h^4),
+</span></p>
+<p>lo que implica que el valor de ( y ) que usa el método difiere del valor exacto en una cantidad de orden ( h^2 ).<br>
+Aplicando la expansión de Taylor de ( f ) hasta orden tres:</p>
+<p><span class="math display">
+k_2 = F + \tfrac{h}{2}DF + \tfrac{h^2}{8}D^2F + O(h^3).
+</span></p>
+<p>Etapa 3</p>
+<p><span class="math display">
+k_3 = f\left(x + h,\, y(x) - hk_1 + 2hk_2\right).
+</span></p>
+<p>Primero, formamos el argumento en ( y ):</p>
+<p><span class="math display">
+\begin{aligned}
+y(x) - hk_1 + 2hk_2
+&amp;= y(x) - hF + 2h\left(F + \tfrac{h}{2}DF + \tfrac{h^2}{8}D^2F\right) + O(h^4)\\
+&amp;= y(x) + hF + h^2DF + \tfrac{h^3}{4}D^2F + O(h^4).
+\end{aligned}
+</span></p>
+<p>La solución exacta en ( x+h ) es</p>
+<p><span class="math display">
+y(x+h) = y(x) + hF + \tfrac{h^2}{2}DF + \tfrac{h^3}{6}D^2F + O(h^4).
+</span></p>
+<p>Por tanto, ambos valores difieren solo en orden ( h^2 ).<br>
+Aplicando nuevamente la expansión de Taylor de ( f ):</p>
+<p><span class="math display">
+k_3 = F + hDF + \tfrac{h^2}{2}D^2F + O(h^3).
+</span></p>
+<ol start="3" type="1">
+<li>Expansión de <span class="math inline">\Phi</span></li>
+</ol>
+<p><span class="math display">
+\Phi(x,y,h)
+= \tfrac{1}{6}(k_1 + 4k_2 + k_3).
+</span></p>
+<p>Sustituyendo las expansiones:</p>
+<p><span class="math display">
+\begin{aligned}
+k_1 + 4k_2 + k_3
+&amp;= F + 4\left(F + \tfrac{h}{2}DF + \tfrac{h^2}{8}D^2F\right)
++ \left(F + hDF + \tfrac{h^2}{2}D^2F\right)
++ O(h^3)\\
+&amp;= 6F + 3hDF + h^2D^2F + O(h^3).
+\end{aligned}
+</span></p>
+<p>Dividiendo entre 6:</p>
+<p><span class="math display">
+\Phi(x,y,h)
+= F + \tfrac{h}{2}DF + \tfrac{h^2}{6}D^2F + O(h^3).
+</span></p>
+<hr>
+<ol start="4" type="1">
+<li>Defecto local</li>
+</ol>
+<p>La pendiente exacta promedio era</p>
+<p><span class="math display">
+S(h) = F + \tfrac{h}{2}DF + \tfrac{h^2}{6}D^2F + O(h^3),
+</span></p>
+<p>de modo que, después de hacer los cálculos, se puede ver que</p>
+<p><span class="math display">
+\Delta(x,y;h)
+= S(h) - \Phi(x,y,h)
+= O(h^3).
+</span></p>
+<p>Por lo tanto, existe una constante <span class="math inline">K</span> tal que</p>
+<p><span class="math display">
+|\Delta(x,y;h)| \le K h^3.
+</span></p>
+<p><strong>Código</strong></p>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
