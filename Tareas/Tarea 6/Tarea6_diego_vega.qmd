@@ -1176,67 +1176,356 @@ Implemente este método en **R** y resuelva las ecuaciones diferenciales del pro
 
 **Solución**
 
+Consideramos el problema de valor inicial
 
-Sea $u(x)$ la solución exacta y denote $f_j:=f(x_j,u_j)$. Definimos el operador
 $$
-D := \frac{\partial}{\partial x} + f_y(x,u)\,\cdot,
-$$
-con lo cual, evaluado en la solución exacta,
-$$
-u' = f,\qquad u'' = Df,\qquad u''' = D^2 f.
-$$
-La expansión de Taylor de $u$ es
-$$
-u(x_j+h)=u_j + h f_j + \frac{h^2}{2}\,D f_j + \frac{h^3}{6}\,D^2 f_j + \mathcal{O}(h^4).
-$$
-- Primera etapa:
-$$
-k_1=f_j.
+y'(x) = f(x,y(x)), \qquad y(x_0) = y_0,
 $$
 
-- Segunda etapa (Taylor multivariable alrededor de $(x_j,u_j)$):
+con $f$ tres veces continuamente diferenciable.
+
+El método de un paso dado es
+
 $$
-k_2=f\!\left(x_j+\tfrac{h}{2},\,u_j+\tfrac{h}{2}k_1\right)
-   = f_j + \tfrac{h}{2}\,D f_j + \tfrac{h^2}{8}\,D^2 f_j + \mathcal{O}(h^3).
+\begin{aligned}
+k_1 &= f(x_j,u_j),\\[2pt]
+k_2 &= f\!\left(x_j + \tfrac{h}{3},\, u_j + \tfrac{h}{3}k_1\right),\\[2pt]
+k_3 &= f\!\left(x_j + \tfrac{2h}{3},\, u_j + \tfrac{2h}{3}k_2\right),\\[2pt]
+u_{j+1} &= u_j + \tfrac{h}{4}(k_1 + 3k_3).
+\end{aligned}
 $$
 
-- Tercera etapa (usando la misma técnica y reteniendo términos hasta $h^2$):
+Se puede escribir en la forma general
+
 $$
-k_3=f\!\left(x_j+h,\,u_j-hk_1+2h\,k_2\right)
-   = f_j + h\,D f_j + \tfrac{h^2}{2}\,D^2 f_j + \mathcal{O}(h^3).
+u_{j+1} = u_j + h\,\Phi(x_j,u_j,h),
+\quad
+\Phi(x_j,u_j,h) = \tfrac14(k_1 + 3k_3).
 $$
 
-> Observación: estas fórmulas incluyen correctamente los efectos de la dependencia en $u$ vía $f_y$ (capturados por $D$). No es suficiente expandir solo con derivadas respecto a $x$.
+La **definición de consistencia de orden $p$** usada es:
 
-El incremento del esquema es
+Sea $y$ la solución exacta. Definimos el defecto local
+
 $$
-\Phi_h(x_j,u_j)
-= \tfrac{1}{6}\,(k_1+4k_2+k_3)
-= f_j + \tfrac{h}{2}\,D f_j + \tfrac{h^2}{6}\,D^2 f_j + \mathcal{O}(h^3).
+\Delta(x,y;h)
+= \frac{y(x+h)-y(x)}{h} - \Phi(x,y(x),h).
+$$
+
+El método es consistente de orden $p$ si existe $k>0$ tal que, para $h$ suficientemente pequeño,
+
+$$
+|\Delta(x,y;h)| \le k h^p.
+$$
+
+Demostraremos:
+
+1. $\Delta(x,y;h)\to 0$ cuando $h\to 0$ (consistencia).
+2. $|\Delta(x,y;h)| = O(h^3)$, es decir, el método es consistente de orden $3$.
+
+En toda la demostración, cuando escribimos derivadas de $f$ (como $f_x, f_y$, etc.) se entienden evaluadas en el punto $(x,y(x))$ correspondiente.
+
+
+
+1. Consistencia
+
+Tomamos el dato exacto en el nodo: $u_j = y_j = y(x_j)$.
+
+Entonces
+
+$$
+k_1 = f(x_j,y_j).
+$$
+
+Para $h\to 0$, los argumentos de $f$ en $k_2$ y $k_3$ se acercan también a $(x_j,y_j)$, luego
+
+$$
+k_2 \to f(x_j,y_j), \qquad
+k_3 \to f(x_j,y_j).
+$$
+
+Por tanto
+
+$$
+\Phi(x_j,y_j,h)
+= \tfrac14(k_1+3k_3)
+\longrightarrow \tfrac14(f+3f) = f(x_j,y_j)
+\quad (h\to 0).
+$$
+
+Por otro lado,
+
+$$
+\frac{y(x_j+h)-y(x_j)}{h} \longrightarrow y'(x_j) = f(x_j,y_j).
+$$
+
+Entonces
+
+$$
+\Delta(x_j,y_j;h)
+= \frac{y(x_j+h)-y(x_j)}{h} - \Phi(x_j,y_j,h)
+\longrightarrow 0.
+$$
+
+El método es consistente.
+
+2. Orden 3
+
+ 1. Notación: derivadas a lo largo de la solución
+
+Sea
+
+$$
+F(x) = f(x,y(x)).
+$$
+
+Usamos el operador derivada total a lo largo de la solución
+
+$$
+D = \frac{d}{dx} = \partial_x + f\,\partial_y.
+$$
+
+Entonces
+
+$$
+DF = Df(x,y(x)) = f_x + f_y f,
+$$
+
+$$
+D^2F = D(DF),
+\quad
+D^3F = D(D^2F),
+$$
+
+son combinaciones lineales de derivadas parciales de $f$ hasta orden 3. No necesitamos escribirlas explícitamente: solo que existen y son continuas.
+
+Con esta notación, la expansión de Taylor de la solución es
+
+$$
+\begin{aligned}
+y(x+h)
+&= y(x)
++ h F
++ \frac{h^2}{2} DF
++ \frac{h^3}{6} D^2F
++ \frac{h^4}{24} D^3F
++ O(h^5),
+\end{aligned}
+$$
+
+por lo que la pendiente promedio exacta es
+
+$$
+\frac{y(x+h)-y(x)}{h}
+= F + \frac{h}{2}DF + \frac{h^2}{6}D^2F + \frac{h^3}{24}D^3F + O(h^4).
+$$
+
+Denotaremos esta expresión por $S(h)$.
+
+
+
+ 2. Expansión de las etapas del método
+
+En todo lo siguiente tomamos $u_j = y(x)$.
+
+ 2.1. Primera etapa
+
+$$
+k_1 = f(x,y(x)) = F.
+$$
+
+ 2.2. Segunda etapa
+
+El método usa
+
+$$
+k_2 = f\!\left(x + \tfrac{h}{3},\, y(x) + \tfrac{h}{3}k_1\right)
+= f\!\left(x + \tfrac{h}{3},\, y(x) + \tfrac{h}{3}F\right).
+$$
+
+La solución exacta en $x + h/3$ es
+
+$$
+y\!\left(x+\tfrac{h}{3}\right)
+= y(x)
++ \tfrac{h}{3}F
++ \tfrac{h^2}{18}DF
++ \tfrac{h^3}{162}D^2F
++ O(h^4).
 $$
 
 Por tanto,
-$$
-u_{j+1}
-= u_j + h\,\Phi_h(x_j,u_j)
-= u_j + h f_j + \tfrac{h^2}{2}\,D f_j + \tfrac{h^3}{6}\,D^2 f_j + \mathcal{O}(h^4),
-$$
-que coincide con la expansión de $u(x_j+h)$ hasta términos $\mathcal{O}(h^3)$.
 
-Desta forma se puede concluir
-
-- Consistencia: $\Phi_h(x_j,u_j)=f_j+\mathcal{O}(h)$.
-- Error local de truncamiento: $\mathcal{O}(h^4)$.
-- Orden global: $3$.
-
-Como verificación alternativa, las **condiciones de orden de Runge–Kutta** para $p=3$ se satisfacen con los coeficientes dados:
 $$
-\sum b_i=1,\quad
-\sum b_i c_i=\tfrac12,\quad
-\sum b_i c_i^2=\tfrac13,\quad
-\sum_{i,j} b_i a_{ij} c_j=\tfrac16,
+y(x) + \tfrac{h}{3}F
+= y\!\left(x+\tfrac{h}{3}\right)
+- \tfrac{h^2}{18}DF
+- \tfrac{h^3}{162}D^2F
++ O(h^4),
 $$
-lo cual confirma que el método (Heun de 3er orden) es de **orden tres**.
+
+es decir, el argumento en $y$ que usa $k_2$ difiere de la solución exacta en ese punto en una cantidad de orden $h^2$.  
+Al aplicar Taylor de $f$ (tres veces diferenciable) en $(x,y)$ hasta orden 3, esto produce
+
+$$
+k_2
+= F
++ \tfrac{h}{3} DF
++ \tfrac{h^2}{18} D^2F
++ \tfrac{h^3}{162} D^3F
++ O(h^4).
+$$
+
+(esta es exactamente la expansión de $f$ en dos variables con $\Delta x = h/3$, $\Delta y = hF/3$, recogiendo los términos usando $D$).
+
+ 2.3. Tercera etapa
+
+Ahora
+
+$$
+k_3 = f\!\left(x + \tfrac{2h}{3},\, y(x) + \tfrac{2h}{3}k_2\right).
+$$
+
+Primero expandimos el argumento en $y$:
+
+usando la expresión de $k_2$,
+
+$$
+\frac{2h}{3}k_2
+= \frac{2h}{3}F
++ \frac{2h^2}{9}DF
++ \frac{2h^3}{27}D^2F
++ O(h^4).
+$$
+
+La solución exacta en $x + 2h/3$ es
+
+$$
+y\!\left(x+\tfrac{2h}{3}\right)
+= y(x)
++ \tfrac{2h}{3}F
++ \tfrac{2h^2}{9}DF
++ \tfrac{4h^3}{81}D^2F
++ O(h^4).
+$$
+
+Por tanto
+
+$$
+y(x) + \tfrac{2h}{3}k_2
+= y\!\left(x+\tfrac{2h}{3}\right)
+- \tfrac{2h^3}{81}D^2F
++ O(h^4),
+$$
+
+esto es, de nuevo, el desfase entre el argumento usado por $k_3$ y la solución exacta en ese punto es de orden $h^3$.
+
+Aplicando Taylor de $f$ hasta orden 3 en $(x,y)$ obtenemos
+
+$$
+k_3
+= F
++ \tfrac{2h}{3} DF
++ \tfrac{2h^2}{9} D^2F
++ \tfrac{4h^3}{81} D^3F
++ O(h^4).
+$$
+
+(esta es la expansión sistemática: aparecen los coeficientes $2/3$, $2/9$, $4/81$ que se obtienen al sustituir los incrementos anteriores en la fórmula de Taylor en dos variables hasta grado 3).
+
+
+
+ 3. Expansión de la función del método
+
+La función $\Phi$ del método es
+
+$$
+\Phi(x,y,h) = \tfrac14(k_1 + 3k_3).
+$$
+
+Sustituimos las expansiones:
+
+1. $k_1 = F$.
+2. $k_3 = F + \tfrac{2h}{3}DF + \tfrac{2h^2}{9}D^2F + \tfrac{4h^3}{81}D^3F + O(h^4)$.
+
+Entonces
+
+$$
+\begin{aligned}
+k_1 + 3k_3
+&= F + 3\left(
+F + \tfrac{2h}{3}DF + \tfrac{2h^2}{9}D^2F + \tfrac{4h^3}{81}D^3F
+\right)
++ O(h^4) \\
+&= 4F
++ 2h\,DF
++ \tfrac{2h^2}{3}D^2F
++ \tfrac{4h^3}{27}D^3F
++ O(h^4).
+\end{aligned}
+$$
+
+Dividiendo por 4:
+
+$$
+\Phi(x,y,h)
+= F
++ \tfrac{h}{2}DF
++ \tfrac{h^2}{6}D^2F
++ \tfrac{h^3}{27}D^3F
++ O(h^4).
+$$
+
+
+ 4. Defecto local y orden 3
+
+Recordamos la pendiente exacta promedio:
+
+$$
+S(h)
+= F
++ \tfrac{h}{2}DF
++ \tfrac{h^2}{6}D^2F
++ \tfrac{h^3}{24}D^3F
++ O(h^4).
+$$
+
+El defecto local es
+
+$$
+\Delta(x,y;h)
+= S(h) - \Phi(x,y,h).
+$$
+
+Sustituyendo:
+
+$$
+\begin{aligned}
+\Delta(x,y;h)
+&= \left[
+F + \tfrac{h}{2}DF + \tfrac{h^2}{6}D^2F + \tfrac{h^3}{24}D^3F
+\right]
+-
+\left[
+F + \tfrac{h}{2}DF + \tfrac{h^2}{6}D^2F + \tfrac{h^3}{27}D^3F
+\right]
++ O(h^4) \\
+&= \left(\tfrac{1}{24} - \tfrac{1}{27}\right) h^3 D^3F
++ O(h^4) \\
+&= \tfrac{1}{216} h^3 D^3F + O(h^4).
+\end{aligned}
+$$
+
+Por lo tanto, el primer término no nulo del defecto local es proporcional a $h^3$.  
+
+Como $f$ es $C^3$ en la región considerada, las derivadas contenidas en $D^3F$ son continuas y están acotadas.  
+Por ello existe una constante $K$ tal que, para $h$ suficientemente pequeño,
+
+$$
+|\Delta(x,y;h)| \le K h^3.
+$$
+
+Esto coincide exactamente con la definición de consistencia de orden $p$ con $p = 3$.
 
 **Codigo en R**
 ```{r}
@@ -1323,59 +1612,201 @@ Implemente este método en **R** y resuelva las ecuaciones diferenciales del pro
 
 **Solución**
 
-- Primera etapa:
+Consideremos el método de un paso definido por:
+
 $$
-k_1=f_j.
+\begin{aligned}
+k_1 &= f(x_j, u_j),\\
+k_2 &= f\left(x_j + \tfrac{h}{2},\, u_j + \tfrac{h}{2}k_1\right),\\
+k_3 &= f\left(x_j + h,\, u_j - hk_1 + 2hk_2\right),\\
+u_{j+1} &= u_j + \tfrac{h}{6}(k_1 + 4k_2 + k_3).
+\end{aligned}
 $$
 
-- Segunda etapa (Taylor multivariable alrededor de $(x_j,u_j)$):
+Aplicado al problema de valor inicial
+
 $$
-k_2=f\!\left(x_j+\tfrac{h}{2},\,u_j+\tfrac{h}{2}k_1\right)
-   = f_j + \tfrac{h}{2}\,D f_j + \tfrac{h^2}{8}\,D^2 f_j + \mathcal{O}(h^3).
+y'(x) = f(x, y(x)), \qquad y(x_0) = y_0,
 $$
 
-- Tercera etapa (usando la misma técnica y reteniendo términos hasta $h^2$):
-$$
-k_3=f\!\left(x_j+h,\,u_j-hk_1+2h\,k_2\right)
-   = f_j + h\,D f_j + \tfrac{h^2}{2}\,D^2 f_j + \mathcal{O}(h^3).
-$$
-
-> Observación: estas fórmulas incluyen correctamente los efectos de la dependencia en $u$ vía $f_y$ (capturados por $D$). No es suficiente expandir solo con derivadas respecto a $x$.
+suponiendo que \( f \) es tres veces continuamente diferenciable.
 
 
-El incremento del esquema es
+- Definición de consistencia
+
+El método es **consistente de orden p** si existe una constante \( K \) tal que para \( h \) suficientemente pequeño se cumple
+
 $$
-\Phi_h(x_j,u_j)
-= \tfrac{1}{6}\,(k_1+4k_2+k_3)
-= f_j + \tfrac{h}{2}\,D f_j + \tfrac{h^2}{6}\,D^2 f_j + \mathcal{O}(h^3).
+|\Delta(x,y;h)| \le K h^p,
+$$
+
+donde el defecto local se define como
+
+$$
+\Delta(x,y;h)
+= \frac{y(x+h)-y(x)}{h} - \Phi(x,y(x),h),
+$$
+
+y
+
+$$
+\Phi(x,y(x),h) = \tfrac{1}{6}(k_1 + 4k_2 + k_3).
+$$
+
+Demostraremos que este método es consistente y de orden tres.
+
+
+
+ 1. Pendiente promedio exacta
+
+La expansión de Taylor de la solución exacta \( y(x) \) hasta orden tres es
+
+$$
+y(x+h) = y(x) + hF + \tfrac{h^2}{2}DF + \tfrac{h^3}{6}D^2F + O(h^4),
+$$
+
+donde
+
+$$
+F = f(x,y(x)), \quad D = \partial_x + f(x,y)\partial_y.
+$$
+
+Dividiendo por \( h \):
+
+$$
+\frac{y(x+h)-y(x)}{h}
+= F + \tfrac{h}{2}DF + \tfrac{h^2}{6}D^2F + O(h^3).
+$$
+
+Denotaremos esta expresión como la pendiente promedio exacta \( S(h) \).
+
+
+
+ 2. Expansión de las etapas
+
+Etapa 1
+
+$$
+k_1 = f(x,y(x)) = F.
+$$
+
+Etapa 2
+
+$$
+k_2 = f\left(x + \tfrac{h}{2},\, y(x) + \tfrac{h}{2}F\right).
+$$
+
+La solución exacta en \( x + h/2 \) es
+
+$$
+y(x + \tfrac{h}{2})
+= y(x)
++ \tfrac{h}{2}F
++ \tfrac{h^2}{8}DF
++ \tfrac{h^3}{48}D^2F
++ O(h^4).
 $$
 
 Por tanto,
+
 $$
-u_{j+1}
-= u_j + h\,\Phi_h(x_j,u_j)
-= u_j + h f_j + \tfrac{h^2}{2}\,D f_j + \tfrac{h^3}{6}\,D^2 f_j + \mathcal{O}(h^4),
+y(x) + \tfrac{h}{2}F
+= y(x + \tfrac{h}{2})
+- \tfrac{h^2}{8}DF
+- \tfrac{h^3}{48}D^2F
++ O(h^4),
 $$
-que coincide con la expansión de $u(x_j+h)$ hasta términos $\mathcal{O}(h^3)$.
 
-Desta forma se puede concluir
+lo que implica que el valor de \( y \) que usa el método difiere del valor exacto en una cantidad de orden \( h^2 \).  
+Aplicando la expansión de Taylor de \( f \) hasta orden tres:
 
-- Consistencia: $\Phi_h(x_j,u_j)=f_j+\mathcal{O}(h)$.
-- Error local de truncamiento: $\mathcal{O}(h^4)$.
-- Orden global: $3$.
-
-Como verificación alternativa, las **condiciones de orden de Runge–Kutta** para $p=3$ se satisfacen con los coeficientes dados:
 $$
-\sum b_i=1,\quad
-\sum b_i c_i=\tfrac12,\quad
-\sum b_i c_i^2=\tfrac13,\quad
-\sum_{i,j} b_i a_{ij} c_j=\tfrac16,
+k_2 = F + \tfrac{h}{2}DF + \tfrac{h^2}{8}D^2F + O(h^3).
 $$
-lo cual confirma que el método (Heun de 3er orden) es de **orden tres**.
 
-$\blacksquare$
+Etapa 3
 
-Código
+$$
+k_3 = f\left(x + h,\, y(x) - hk_1 + 2hk_2\right).
+$$
+
+Primero, formamos el argumento en \( y \):
+
+$$
+\begin{aligned}
+y(x) - hk_1 + 2hk_2
+&= y(x) - hF + 2h\left(F + \tfrac{h}{2}DF + \tfrac{h^2}{8}D^2F\right) + O(h^4)\\
+&= y(x) + hF + h^2DF + \tfrac{h^3}{4}D^2F + O(h^4).
+\end{aligned}
+$$
+
+La solución exacta en \( x+h \) es
+
+$$
+y(x+h) = y(x) + hF + \tfrac{h^2}{2}DF + \tfrac{h^3}{6}D^2F + O(h^4).
+$$
+
+Por tanto, ambos valores difieren solo en orden \( h^2 \).  
+Aplicando nuevamente la expansión de Taylor de \( f \):
+
+$$
+k_3 = F + hDF + \tfrac{h^2}{2}D^2F + O(h^3).
+$$
+
+
+
+3. Expansión de $\Phi$
+
+$$
+\Phi(x,y,h)
+= \tfrac{1}{6}(k_1 + 4k_2 + k_3).
+$$
+
+Sustituyendo las expansiones:
+
+$$
+\begin{aligned}
+k_1 + 4k_2 + k_3
+&= F + 4\left(F + \tfrac{h}{2}DF + \tfrac{h^2}{8}D^2F\right)
++ \left(F + hDF + \tfrac{h^2}{2}D^2F\right)
++ O(h^3)\\
+&= 6F + 3hDF + h^2D^2F + O(h^3).
+\end{aligned}
+$$
+
+Dividiendo entre 6:
+
+$$
+\Phi(x,y,h)
+= F + \tfrac{h}{2}DF + \tfrac{h^2}{6}D^2F + O(h^3).
+$$
+
+---
+
+4. Defecto local
+
+La pendiente exacta promedio era
+
+$$
+S(h) = F + \tfrac{h}{2}DF + \tfrac{h^2}{6}D^2F + O(h^3),
+$$
+
+de modo que, después de hacer los cálculos, se puede ver que
+
+$$
+\Delta(x,y;h)
+= S(h) - \Phi(x,y,h)
+= O(h^3).
+$$
+
+Por lo tanto, existe una constante $K$ tal que
+
+$$
+|\Delta(x,y;h)| \le K h^3.
+$$
+
+
+**Código**
 ```{r}
 #| code-fold: true
 
