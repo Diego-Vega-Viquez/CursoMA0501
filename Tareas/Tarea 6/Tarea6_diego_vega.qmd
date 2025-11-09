@@ -318,8 +318,6 @@ Implemente en **R** funciones para todos los algoritmos numéricos de resolució
 
 **Solución**
 
-*(Implementación en R de los métodos numéricos básicos: Euler, Euler modificado, Heun, Runge–Kutta de orden 4, etc.)*
-
 *Metodo de Euler*
 ```{r}
 #| code-fold: true
@@ -776,9 +774,9 @@ $$
 donde:
 
 \begin{align*}
-k_1 &= h f(t_i, w_i), \$$0.5em]
-k_2 &= h f\!\left(t_i + \frac{h}{2},\, w_i + \frac{k_1}{2}\right), \$$0.5em]
-k_3 &= h f\!\left(t_i + \frac{h}{2},\, w_i + \frac{k_2}{2}\right), \$$0.5em]
+k_1 &= h f(t_i, w_i), \\[0.5em]
+k_2 &= h f\!\left(t_i + \frac{h}{2},\, w_i + \frac{k_1}{2}\right), \\[0.5em]
+k_3 &= h f\!\left(t_i + \frac{h}{2},\, w_i + \frac{k_2}{2}\right), \\[0.5em]
 k_4 &= h f(t_i + h,\, w_i + k_3).
 \end{align*}
 
@@ -816,8 +814,6 @@ $$
 :::
 
 **Solución**
-
-*(Implementación de los tres problemas en R, aplicación de los métodos numéricos de Euler, Heun y Runge–Kutta, comparación con la solución exacta e interpolación de resultados.)*
 
 ```{r}
 library(deSolve)
@@ -1133,18 +1129,20 @@ Problema 3: Ecuación implícita transformada
 ```{r}
 #| code-fold: true
 f3 <- function(x, y) {
-  if (is.na(x) || is.na(y) || is.nan(x) || is.nan(y)) return(NA)
-  if ((1 - x^2) <= 0 || (1 - y^2) <= 0 || abs(y) < 1e-8) return(NA)
-  
   - (x * sqrt(1 - y^2)) / (y * sqrt(1 - x^2))
 }
 
-a3 <- 0; b3 <- 1; y03 <- 0.9  # <- cambiado
+a3 <- 0
+b3 <- 1
+y03 <- 1     
+N <- 1000    
+
 res3 <- euler_modificado(f3, a3, b3, y03, N)
 
 validos <- !is.na(res3$y)
 plot(res3$t[validos], res3$y[validos], type = "l", col = "purple", lwd = 2,
-     main = "Problema 3: Euler Modificado", xlab = "x", ylab = "y(x)")
+     main = "Problema 3: Euler Modificado (condición correcta)",
+     xlab = "x", ylab = "y(x)")
 ```
 
 
@@ -1178,7 +1176,67 @@ Implemente este método en **R** y resuelva las ecuaciones diferenciales del pro
 
 **Solución**
 
-*(Demostración de la consistencia mediante comparación con la expansión de Taylor hasta términos de $O(h^4)$, y verificación del orden 3. Implementación en R y análisis de error global con respecto a métodos de orden inferior.)*
+
+Sea $u(x)$ la solución exacta y denote $f_j:=f(x_j,u_j)$. Definimos el operador
+$$
+D := \frac{\partial}{\partial x} + f_y(x,u)\,\cdot,
+$$
+con lo cual, evaluado en la solución exacta,
+$$
+u' = f,\qquad u'' = Df,\qquad u''' = D^2 f.
+$$
+La expansión de Taylor de $u$ es
+$$
+u(x_j+h)=u_j + h f_j + \frac{h^2}{2}\,D f_j + \frac{h^3}{6}\,D^2 f_j + \mathcal{O}(h^4).
+$$
+- Primera etapa:
+$$
+k_1=f_j.
+$$
+
+- Segunda etapa (Taylor multivariable alrededor de $(x_j,u_j)$):
+$$
+k_2=f\!\left(x_j+\tfrac{h}{2},\,u_j+\tfrac{h}{2}k_1\right)
+   = f_j + \tfrac{h}{2}\,D f_j + \tfrac{h^2}{8}\,D^2 f_j + \mathcal{O}(h^3).
+$$
+
+- Tercera etapa (usando la misma técnica y reteniendo términos hasta $h^2$):
+$$
+k_3=f\!\left(x_j+h,\,u_j-hk_1+2h\,k_2\right)
+   = f_j + h\,D f_j + \tfrac{h^2}{2}\,D^2 f_j + \mathcal{O}(h^3).
+$$
+
+> Observación: estas fórmulas incluyen correctamente los efectos de la dependencia en $u$ vía $f_y$ (capturados por $D$). No es suficiente expandir solo con derivadas respecto a $x$.
+
+El incremento del esquema es
+$$
+\Phi_h(x_j,u_j)
+= \tfrac{1}{6}\,(k_1+4k_2+k_3)
+= f_j + \tfrac{h}{2}\,D f_j + \tfrac{h^2}{6}\,D^2 f_j + \mathcal{O}(h^3).
+$$
+
+Por tanto,
+$$
+u_{j+1}
+= u_j + h\,\Phi_h(x_j,u_j)
+= u_j + h f_j + \tfrac{h^2}{2}\,D f_j + \tfrac{h^3}{6}\,D^2 f_j + \mathcal{O}(h^4),
+$$
+que coincide con la expansión de $u(x_j+h)$ hasta términos $\mathcal{O}(h^3)$.
+
+Desta forma se puede concluir
+
+- Consistencia: $\Phi_h(x_j,u_j)=f_j+\mathcal{O}(h)$.
+- Error local de truncamiento: $\mathcal{O}(h^4)$.
+- Orden global: $3$.
+
+Como verificación alternativa, las **condiciones de orden de Runge–Kutta** para $p=3$ se satisfacen con los coeficientes dados:
+$$
+\sum b_i=1,\quad
+\sum b_i c_i=\tfrac12,\quad
+\sum b_i c_i^2=\tfrac13,\quad
+\sum_{i,j} b_i a_{ij} c_j=\tfrac16,
+$$
+lo cual confirma que el método (Heun de 3er orden) es de **orden tres**.
 
 **Codigo en R**
 ```{r}
@@ -1265,41 +1323,55 @@ Implemente este método en **R** y resuelva las ecuaciones diferenciales del pro
 
 **Solución**
 
-Sea $u(t)$ la solución exacta de la ecuación diferencial. Su expansión de Taylor en torno a $x_j$ es:
-
+- Primera etapa:
 $$
-u(x_{j+1}) = u(x_j) + h u'(x_j) + \frac{h^2}{2} u''(x_j) + \frac{h^3}{6} u^{(3)}(x_j) + O(h^4)
-$$
-
-El primer coeficiente $k_1$ es simplemente:
-
-$$
-k_1 = f(x_j, u_j)
+k_1=f_j.
 $$
 
-Usamos la expansión de Taylor para los siguientes coeficientes:
-
+- Segunda etapa (Taylor multivariable alrededor de $(x_j,u_j)$):
 $$
-k_2 = f\left(x_j + \frac{h}{2}, u_j + \frac{h}{2} k_1 \right) = f(x_j, u_j) + \frac{h}{2} f_x + \frac{h^2}{4} f_{xx} + O(h^3)
-$$
-
-$$
-k_3 = f\left(x_j + h, u_j - h k_1 + 2 h k_2 \right) = f(x_j, u_j) + h f_x + \frac{h^2}{2} f_{xx} + O(h^3)
+k_2=f\!\left(x_j+\tfrac{h}{2},\,u_j+\tfrac{h}{2}k_1\right)
+   = f_j + \tfrac{h}{2}\,D f_j + \tfrac{h^2}{8}\,D^2 f_j + \mathcal{O}(h^3).
 $$
 
-La fórmula de actualización para $u_{j+1}$ es:
-
+- Tercera etapa (usando la misma técnica y reteniendo términos hasta $h^2$):
 $$
-u_{j+1} = u_j + \frac{h}{6} (k_1 + 4 k_2 + k_3)
-$$
-
-Sustituyendo las expansiones de $k_1$, $k_2$ y $k_3$, obtenemos:
-
-$$
-u_{j+1} = u_j + h f(x_j, u_j) + \frac{h^2}{2} f_x + \frac{h^3}{6} f_{xx} + O(h^4)
+k_3=f\!\left(x_j+h,\,u_j-hk_1+2h\,k_2\right)
+   = f_j + h\,D f_j + \tfrac{h^2}{2}\,D^2 f_j + \mathcal{O}(h^3).
 $$
 
-Comparando la expansión obtenida con la expansión de Taylor de la solución exacta, podemos ver que el error truncado es de orden $O(h^3)$, lo que demuestra que el método es **consistente de orden tres**.
+> Observación: estas fórmulas incluyen correctamente los efectos de la dependencia en $u$ vía $f_y$ (capturados por $D$). No es suficiente expandir solo con derivadas respecto a $x$.
+
+
+El incremento del esquema es
+$$
+\Phi_h(x_j,u_j)
+= \tfrac{1}{6}\,(k_1+4k_2+k_3)
+= f_j + \tfrac{h}{2}\,D f_j + \tfrac{h^2}{6}\,D^2 f_j + \mathcal{O}(h^3).
+$$
+
+Por tanto,
+$$
+u_{j+1}
+= u_j + h\,\Phi_h(x_j,u_j)
+= u_j + h f_j + \tfrac{h^2}{2}\,D f_j + \tfrac{h^3}{6}\,D^2 f_j + \mathcal{O}(h^4),
+$$
+que coincide con la expansión de $u(x_j+h)$ hasta términos $\mathcal{O}(h^3)$.
+
+Desta forma se puede concluir
+
+- Consistencia: $\Phi_h(x_j,u_j)=f_j+\mathcal{O}(h)$.
+- Error local de truncamiento: $\mathcal{O}(h^4)$.
+- Orden global: $3$.
+
+Como verificación alternativa, las **condiciones de orden de Runge–Kutta** para $p=3$ se satisfacen con los coeficientes dados:
+$$
+\sum b_i=1,\quad
+\sum b_i c_i=\tfrac12,\quad
+\sum b_i c_i^2=\tfrac13,\quad
+\sum_{i,j} b_i a_{ij} c_j=\tfrac16,
+$$
+lo cual confirma que el método (Heun de 3er orden) es de **orden tres**.
 
 $\blacksquare$
 
@@ -1371,23 +1443,28 @@ plot(res2$t, res2$y, type = "l", col = "darkgreen", lwd = 2,
 Problema 3: Ecuación implícita transformada
 ```{r}
 #| code-fold: true
-
-# Función del problema 3
+# Función del problema 
 f3 <- function(x, y) {
   if (is.na(x) || is.na(y) || is.nan(x) || is.nan(y)) return(NA)
-  if ((1 - x^2) <= 0 || (1 - y^2) <= 0 || abs(y) < 1e-8) return(NA)
+  if ((1 - x^2) < 0 || (1 - y^2) < 0 || abs(y) < 1e-8) return(NA)
   
   - (x * sqrt(1 - y^2)) / (y * sqrt(1 - x^2))
 }
 
 # Parámetros
-a3 <- 0; b3 <- 1; y03 <- 0.9
+a3 <- 0      
+b3 <- 1      
+y03 <- 1     
+N <- 100     
+
+# Resolver con Runge-Kutta de 3er orden
 res3 <- runge_kutta_3(f3, a3, b3, y03, N)
 
-# Graficar, filtrando NA
+# Graficar 
 validos <- !is.na(res3$y)
 plot(res3$t[validos], res3$y[validos], type = "l", col = "purple", lwd = 2,
-     main = "Problema 3: Runge-Kutta de 3er Orden", xlab = "x", ylab = "y(x)")
+     main = "Problema 3: Runge-Kutta de 3er Orden",
+     xlab = "x", ylab = "y(x)")
 ```
 
 
@@ -1564,8 +1641,6 @@ $$
 :::
 
 **Solución**
-
-*(Prueba de la propiedad de conmutatividad para exponentiales de matrices mediante expansión de series de potencias; demostración de la existencia y unicidad de la solución $Y(t) = e^{tA}B$ aplicando el teorema de Picard–Lindelöf; derivación de la forma general de $e^{tA}$ para matrices diagonalizables; implementación en R usando `eigen()` y validación con ejemplos concretos. Finalmente, resolución de los sistemas de ecuaciones diferenciales con $e^{tA}$ y graficación de las trayectorias de las soluciones.)*
 
 a)
 
